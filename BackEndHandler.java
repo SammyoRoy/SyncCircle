@@ -12,19 +12,18 @@ import java.util.Collections;
 class Handler implements URLHandler {
 
     public static void main(String[] args) {
-        GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
 
-        User sammyo = new User(nithinBirthday, "Sammyo");
-        User daniela = new User(nithinBirthday, "Daniela");
     }
     public String handleRequest(URI url) throws IOException {
         GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
 
         User sammyo = new User(nithinBirthday, "Sammyo");
         User daniela = new User(nithinBirthday, "Daniela");
-       if (url.getPath().equals("/")) {
+
+
+        if (url.getPath().equals("/")) {
            return String.format("Default page");
-       } else if (url.getPath().equals("/search")) {
+        } else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
            if (parameters[0].equals("q")) {
                String result = "";
@@ -37,10 +36,10 @@ class Handler implements URLHandler {
                Collections.sort(foundPaths);
                result = String.join("\n", foundPaths);
                return String.format("Found %d paths:\n%s", foundPaths.size(), result);
-           }
+            }
            else {
                return "Couldn't find query parameter q";
-           }
+            }
        }
        else {
            return "Don't know how to handle that path!";
