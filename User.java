@@ -4,13 +4,14 @@ import java.util.ArrayList;
 public class User {
     //Instance variables
     String uniqueID; 
-    ArrayList<String> groupList;
+    //ArrayList<String> groupList;
+    GroupEvent groupID;
     String name;
     int [][] availabilityArray;
 
-    public User(ArrayList<String> groupList, String name) {
+    public User(GroupEvent groupID, String name) {
         uniqueID = UUID.randomUUID().toString();
-        this.groupList = groupList;
+        this.groupID = groupID;
         this.name = name;
         availabilityArray = new int[24][7];
     }
