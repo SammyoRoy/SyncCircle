@@ -10,11 +10,16 @@ import java.util.List;
 import java.util.Collections;
 
 class Handler implements URLHandler {
-    Path base;
-    Handler(String directory) throws IOException {
-      this.base = Paths.get(directory);
+
+    public static void main(String[] args) {
+        GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
+        System.out.println(nithinBirthday.getUniqueId());
+
+        
     }
     public String handleRequest(URI url) throws IOException {
+        
+
        List<File> paths = FileHelpers.getFiles(this.base);
        if (url.getPath().equals("/")) {
            return String.format("There are %d total files to search.", paths.size());
