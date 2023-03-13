@@ -55,6 +55,9 @@ public class User {
             }
         }
     }
+    public void addAvailability(String row, String col){
+        availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
+    }
 
 }
 
