@@ -13,15 +13,17 @@ class Handler implements URLHandler {
 
     public static void main(String[] args) {
         GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
-        System.out.println(nithinBirthday.getUniqueId());
 
         User sammyo = new User(nithinBirthday, "Sammyo");
         User daniela = new User(nithinBirthday, "Daniela");
     }
     public String handleRequest(URI url) throws IOException {
-    
+        GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
+
+        User sammyo = new User(nithinBirthday, "Sammyo");
+        User daniela = new User(nithinBirthday, "Daniela");
        if (url.getPath().equals("/")) {
-           return String.format();
+           return String.format("Default page");
        } else if (url.getPath().equals("/search")) {
            String[] parameters = url.getQuery().split("=");
            if (parameters[0].equals("q")) {
