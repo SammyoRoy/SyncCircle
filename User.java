@@ -47,13 +47,16 @@ public class User {
     public void setAvailabilityArray(int[][] availabilityArray) {
         this.availabilityArray = availabilityArray;
     }
-    public void print(){
+    public String print(){
+        String s = "";
         for (int i = 0; i < availabilityArray.length; i++){
             for (int j = 0; j < availabilityArray[0].length; j++)
             {
-                System.out.println("[" + availabilityArray[i][j] + "]");
+                s += "[" + availabilityArray[i][j] + "]";
             }
+            s += "\n";
         }
+        return s;
     }
     public void addAvailability(String row, String col){
         availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
