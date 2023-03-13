@@ -7,7 +7,7 @@ public class User {
     //ArrayList<String> groupList;
     GroupEvent groupID;
     String name;
-    int [][] availabilityArray;
+    public int [][] availabilityArray;
 
     public User(GroupEvent groupID, String name) {
         uniqueID = UUID.randomUUID().toString();
