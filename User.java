@@ -24,12 +24,12 @@ public class User {
         this.uniqueID = uniqueID;
     }
 
-    public ArrayList<String> getGroupList() {
-        return groupList;
+    public GroupEvent getGroupID(){
+        return groupID;
     }
 
-    public void setGroupList(ArrayList<String> groupList) {
-        this.groupList = groupList;
+    public void setGroupID(GroupEvent groupID) {
+        this.groupID = groupID;
     }
 
     public String getName() {
@@ -46,6 +46,14 @@ public class User {
 
     public void setAvailabilityArray(int[][] availabilityArray) {
         this.availabilityArray = availabilityArray;
+    }
+    public void print(){
+        for (int i = 0; i < availabilityArray.length; i++){
+            for (int j = 0; j < availabilityArray[0].length; j++)
+            {
+                System.out.println("[" + availabilityArray[i][j] + "]");
+            }
+        }
     }
 
 }
