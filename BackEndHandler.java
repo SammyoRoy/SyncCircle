@@ -52,7 +52,10 @@ class Handler implements URLHandler {
            else {
                return "Couldn't find query parameter q";
             }
+       } else if (url.getPath().equals("/displayMaster")){
+        
        }
+
        else {
            return "Don't know how to handle that path!";
        }
