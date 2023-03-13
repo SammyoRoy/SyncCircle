@@ -15,7 +15,8 @@ class Handler implements URLHandler {
         GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
         System.out.println(nithinBirthday.getUniqueId());
 
-        
+        User sammyo = new User(nithinBirthday, "Sammyo");
+        User daniela = new User(nithinBirthday, "Daniela");
     }
     public String handleRequest(URI url) throws IOException {
         

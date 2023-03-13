@@ -39,6 +39,14 @@ public class GroupEvent {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void print(){
+        for (int i = 0; i < masterArray.length; i++){
+            for (int j = 0; j < masterArray[0].length; j++){
+                System.out.println("[" + masterArray[i][j] + "]");
+            }
+        }
+    }
 }
 
 
