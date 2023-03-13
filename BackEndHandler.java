@@ -12,21 +12,30 @@ import java.util.HashMap;
 
 class Handler implements URLHandler {
 
-    public static void main(String[] args) {
+    User sammyo;
+    User daniela;
+    GroupEvent nithinBirthday;
 
-    }
-    public String handleRequest(URI url) throws IOException {
-        GroupEvent nithinBirthday = new GroupEvent("Nithin Birthday");
+    HashMap<String, User> globalUsers;
+    HashMap<String, GroupEvent> globalGroups;
 
-        User sammyo = new User(nithinBirthday, "Sammyo");
-        User daniela = new User(nithinBirthday, "Daniela");
+    public void setup(){
+        sammyo = new User(nithinBirthday, "Sammyo");
+        System.out.println(sammyo.getUniqueID());
 
-        HashMap<String, User> globalUsers = new HashMap<>();
+        daniela = new User(nithinBirthday, "Daniela");
+
+        nithinBirthday = new GroupEvent("Nithin Birthday");
+        globalUsers = new HashMap<>();
+        globalGroups = new HashMap<>();
+
         globalUsers.put(sammyo.getUniqueID(),sammyo);
         globalUsers.put(daniela.getUniqueID(),daniela);
         
-        HashMap<String, GroupEvent> globalGroups = new HashMap<>();
         globalGroups.put(nithinBirthday.getUniqueId(), nithinBirthday);
+    }
+
+    public String handleRequest(URI url) throws IOException {
 
         if (url.getPath().equals("/")) {
            return String.format("Easter Egg");
@@ -34,7 +43,7 @@ class Handler implements URLHandler {
            String[] parameters = url.getQuery().split("=");
            
             if (parameters[0].equals("user")) {
-                globalUsers.get(parameters[1]).addAvailability(parameters[4],parameters[5]);
+                globalUsers.get(parameters[1]).addAvailability(parameters[2],parameters[3]);
             
             return globalUsers.get(parameters[1]).print();
             /* 
@@ -60,11 +69,17 @@ class Handler implements URLHandler {
        else {
            return "Don't know how to handle that path!";
        }
+
+       return "Ooops";
     }
 }
 
 class BackEndHandler {
     public static void main(String[] args) throws IOException {
+        Handler b1 = new Handler();
+        b1.setup();
+        System.out.println("Testing main");
+        
         if(args.length == 0){
             System.out.println("Missing port number! Try any number between 1024 to 49151");
             return;
@@ -72,6 +87,6 @@ class BackEndHandler {
 
         int port = Integer.parseInt(args[0]);
 
-        Server.start(port, new Handler("./written_2/"));
+        Server.start(port, new Handler());
     }
 }
