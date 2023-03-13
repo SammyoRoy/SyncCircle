@@ -34,8 +34,9 @@ class Handler implements URLHandler {
            String[] parameters = url.getQuery().split("=");
            
             if (parameters[0].equals("user")) {
-                globalUsers.get(parameters[1].availabilityArray[parameters[4]][parameters[5]]++);
+                globalUsers.get(parameters[1]).addAvailability(parameters[4],parameters[5]);
             
+            return globalUsers.get(parameters[1]).print();
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();
@@ -53,7 +54,7 @@ class Handler implements URLHandler {
                return "Couldn't find query parameter q";
             }
        } else if (url.getPath().equals("/displayMaster")){
-        
+
        }
 
        else {
