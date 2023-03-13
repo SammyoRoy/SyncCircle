@@ -19,11 +19,9 @@ class Handler implements URLHandler {
         User daniela = new User(nithinBirthday, "Daniela");
     }
     public String handleRequest(URI url) throws IOException {
-        
-
-       List<File> paths = FileHelpers.getFiles(this.base);
+    
        if (url.getPath().equals("/")) {
-           return String.format("There are %d total files to search.", paths.size());
+           return String.format();
        } else if (url.getPath().equals("/search")) {
            String[] parameters = url.getQuery().split("=");
            if (parameters[0].equals("q")) {
