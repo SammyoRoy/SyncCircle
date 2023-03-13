@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.HashMap;
 
 class Handler implements URLHandler {
 
@@ -20,13 +21,23 @@ class Handler implements URLHandler {
         User sammyo = new User(nithinBirthday, "Sammyo");
         User daniela = new User(nithinBirthday, "Daniela");
 
+        HashMap<String, User> globalUsers = new HashMap<>();
+        globalUsers.put(sammyo.getUniqueID(),sammyo);
+        globalUsers.put(daniela.getUniqueID(),daniela);
+        
+        HashMap<String, GroupEvent> globalGroups = new HashMap<>();
+        globalGroups.put(nithinBirthday.getUniqueId(), nithinBirthday);
 
         if (url.getPath().equals("/")) {
-           return String.format("Default page");
+           return String.format("Easter Egg");
         } else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
-           if (parameters[0].equals("q")) {
-               String result = "";
+           
+            if (parameters[0].equals("user")) {
+                globalUsers.get(parameters[1].availabilityArray[parameters[4]][parameters[5]]++);
+            
+            /* 
+            String result = "";
                List<String> foundPaths = new ArrayList<>();
                for(File f: paths) {
                    if(FileHelpers.readFile(f).contains(parameters[1])) {
@@ -35,8 +46,9 @@ class Handler implements URLHandler {
                }
                Collections.sort(foundPaths);
                result = String.join("\n", foundPaths);
-               return String.format("Found %d paths:\n%s", foundPaths.size(), result);
+               return String.format("Found %d paths:\n%s", foundPaths.size(), result);*/
             }
+
            else {
                return "Couldn't find query parameter q";
             }
