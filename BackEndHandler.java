@@ -20,12 +20,12 @@ class Handler implements URLHandler {
     HashMap<String, GroupEvent> globalGroups;
 
     public void setup(){
+        nithinBirthday = new GroupEvent("Nithin Birthday");
         sammyo = new User(nithinBirthday, "Sammyo");
         System.out.println(sammyo.getUniqueID());
-
+        System.out.println(nithinBirthday.getUniqueId());
         daniela = new User(nithinBirthday, "Daniela");
 
-        nithinBirthday = new GroupEvent("Nithin Birthday");
         globalUsers = new HashMap<>();
         globalGroups = new HashMap<>();
 
@@ -39,13 +39,23 @@ class Handler implements URLHandler {
 
         if (url.getPath().equals("/")) {
            return String.format("Easter Egg");
-        } else if (url.getPath().equals("/book")) {
+        } 
+        else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
-           //https://localhost:4000/book=user=userid=row=col 
+           //https://localhost:4000/book?user=userid=row=col 
             if (parameters[0].equals("user")) {
                 globalUsers.get(parameters[1]).addAvailability(parameters[2],parameters[3]);
             
-            return globalUsers.get(parameters[1]).print();
+                return globalUsers.get(parameters[1]).print();
+            }
+        }
+        else if (url.getPath().equals("/display")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/display?group=groupid
+            if (parameters[0].equals("group")){
+                return globalGroups.get(parameters[1]).print();
+            }
+        }
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();
@@ -57,23 +67,9 @@ class Handler implements URLHandler {
                Collections.sort(foundPaths);
                result = String.join("\n", foundPaths);
                return String.format("Found %d paths:\n%s", foundPaths.size(), result);*/
-            }
-
-           else {
-               return "Couldn't find query parameter q";
-            }
-       } else if (url.getPath().equals("/displayMaster")){
-
-       }
-
-       else {
-           return "Don't know how to handle that path!";
-       }
-
-       return "Ooops";
+        return "Couldn't find query parameter q";
     }
 }
-
 class BackEndHandler {
     public static void main(String[] args) throws IOException {
         Handler b1 = new Handler();

@@ -44,18 +44,21 @@ public class GroupEvent {
         this.name = name;
     }
 
-    public void print(){
+    public String print(){
+        String s = "";
         for (int i = 0; i < masterArray.length; i++){
             for (int j = 0; j < masterArray[0].length; j++){
-                System.out.println("[" + masterArray[i][j] + "]");
+                s += "[" + masterArray[i][j] + "]";
             }
+            s += "\n";
         }
+        return s;
     }
 
     public void addGroupAvailability(String row, String col){
-        if (masterArray[Integer.parseInt(row)][Integer.parseInt(col)] < memberList.size()){
+        //if (masterArray[Integer.parseInt(row)][Integer.parseInt(col)] < memberList.size()){
             masterArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
-        }
+        //}
     }
 }
 
