@@ -41,7 +41,7 @@ class Handler implements URLHandler {
            return String.format("Easter Egg");
         } else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
-           
+           //https://localhost:4000/book=user=userid=row=col 
             if (parameters[0].equals("user")) {
                 globalUsers.get(parameters[1]).addAvailability(parameters[2],parameters[3]);
             
