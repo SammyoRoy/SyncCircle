@@ -51,6 +51,12 @@ public class GroupEvent {
             }
         }
     }
+
+    public void addGroupAvailability(String row, String col){
+        if (masterArray[Integer.parseInt(row)][Integer.parseInt(col)] < memberList.size()){
+            masterArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
+        }
+    }
 }
 
 

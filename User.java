@@ -59,7 +59,10 @@ public class User {
         return s;
     }
     public void addAvailability(String row, String col){
-        availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
+        if (availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] == 0){
+            availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
+            groupID.addGroupAvailability(row, col);
+        }
     }
 
 }
