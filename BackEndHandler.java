@@ -20,19 +20,33 @@ class Handler implements URLHandler {
     HashMap<String, GroupEvent> globalGroups;
 
     public void setup(){
+
         nithinBirthday = new GroupEvent("Nithin Birthday");
         sammyo = new User(nithinBirthday, "Sammyo");
         System.out.println(sammyo.getUniqueID());
         System.out.println(nithinBirthday.getUniqueId());
         daniela = new User(nithinBirthday, "Daniela");
 
-        globalUsers = new HashMap<>();
         globalGroups = new HashMap<>();
-
-        globalUsers.put(sammyo.getUniqueID(),sammyo);
-        globalUsers.put(daniela.getUniqueID(),daniela);
+        GroupEvent temp = new GroupEvent("Berlen");
+        globalGroups.put(temp.getUniqueId(), temp);
+        System.out.println(globalGroups.get(temp.getUniqueId()).getName());
+        temp = new GroupEvent("Jesus");
+        globalGroups.put(temp.getUniqueId(),temp);
+        System.out.println(globalGroups.get(temp.getUniqueId()).getName());
+        //globalUsers.put(sammyo.getUniqueID(),sammyo);
+        //globalUsers.put(daniela.getUniqueID(),daniela);
         
-        globalGroups.put(nithinBirthday.getUniqueId(), nithinBirthday);
+        //globalGroups.put(nithinBirthday.getUniqueId(), nithinBirthday);
+    }
+    public void groupCreate(String name){
+        GroupEvent temp = new GroupEvent(name);
+        globalGroups.put(temp.getUniqueId(),temp);
+    }
+    public void userCreate(String groupId, String name){
+        GroupEvent group = globalGroups.get(groupId);
+        User temp = new User(group, name);
+        group.memberList.add(temp);
     }
 
     public String handleRequest(URI url) throws IOException {
