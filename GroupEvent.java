@@ -1,22 +1,24 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.HashMap;
 
 public class GroupEvent {
     //instance variables
     String uniqueId = UUID.randomUUID().toString();
-    List<User> memberList;
+    HashMap<String,User> memberList;
     int [][] masterArray;
     String name;
     //constructor
     public GroupEvent(String name) {
         this.uniqueId = UUID.randomUUID().toString();
-        this.memberList = null;
+        this.memberList = new HashMap<>();
         this.masterArray = new int[24][7];
         this.name = name;
     }
     //add member to list method
     public void addMemberId(User member){
-        memberList.add(member);
+        memberList.put(member.getUniqueID(),member);
     }
     //getter and setters
     public String getUniqueId() {
@@ -25,10 +27,10 @@ public class GroupEvent {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
-    public List<User> getMemberList() {
+    public HashMap getMemberList() {
         return memberList;
     }
-    public void setMemberList(List<User> memberList) {
+    public void setMemberList(HashMap<String,User> memberList) {
         this.memberList = memberList;
     }
     public int[][] getMasterArray() {

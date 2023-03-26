@@ -39,14 +39,16 @@ class Handler implements URLHandler {
         
         //globalGroups.put(nithinBirthday.getUniqueId(), nithinBirthday);
     }
-    public void groupCreate(String name){
+    public String groupCreate(String name){
         GroupEvent temp = new GroupEvent(name);
         globalGroups.put(temp.getUniqueId(),temp);
+        return temp.getUniqueId();
     }
-    public void userCreate(String groupId, String name){
+    public String userCreate(String groupId, String name){
         GroupEvent group = globalGroups.get(groupId);
         User temp = new User(group, name);
-        group.memberList.add(temp);
+        group.memberList.put(temp.getUniqueID(),temp);
+        return temp.getUniqueID();
     }
 
     public String handleRequest(URI url) throws IOException {
@@ -56,12 +58,12 @@ class Handler implements URLHandler {
         } 
         else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
-           //https://localhost:4000/book?user=userid=row=col 
+           //https://localhost:4000/book?user=userid=group=groupId=row=col 
             if (parameters[0].equals("user")) {
-                globalUsers.get(parameters[1]).addAvailability(parameters[2],parameters[3]);
+                ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).addAvailability(parameters[4],parameters[5]);
             
-                return globalUsers.get(parameters[1]).print();
-            }
+                return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
+           }
         }
         else if (url.getPath().equals("/display")){
             String[] parameters = url.getQuery().split("=");
@@ -81,6 +83,17 @@ class Handler implements URLHandler {
                Collections.sort(foundPaths);
                result = String.join("\n", foundPaths);
                return String.format("Found %d paths:\n%s", foundPaths.size(), result);*/
+        else if (url.getPath().equals("/create")){
+            String[] parameters = url.getQuery().split("=");
+            if (parameters[0].equals("group")){
+                String group = groupCreate(parameters[1]);
+                return group;
+            }
+            else if (parameters[0].equals("user")){
+                String user = userCreate(parameters[1],parameters[2]);
+                return user;
+            }
+       }
         return "Couldn't find query parameter q";
     }
 }
