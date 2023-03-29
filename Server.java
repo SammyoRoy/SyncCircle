@@ -18,9 +18,14 @@ interface URLHandler {
 class ServerHttpHandler implements HttpHandler {
     URLHandler handler;
     ServerHttpHandler(URLHandler handler) {
-      this.handler = handler;
+        this.handler = handler;
     }
     public void handle(final HttpExchange exchange) throws IOException {
+        // add CORS headers
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
+
         // form return body after being handled by program
         try {
             String ret = handler.handleRequest(exchange.getRequestURI());
@@ -38,6 +43,7 @@ class ServerHttpHandler implements HttpHandler {
         }
     }
 }
+
 
 public class Server {
     public static void start(int port, URLHandler handler) throws IOException {
