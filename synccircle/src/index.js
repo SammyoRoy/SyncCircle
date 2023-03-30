@@ -52,16 +52,54 @@ function CreateGroup() {
 }
 
 function Group() {
+  const tableStyle = {
+    borderCollapse: 'collapse',
+    border: '1px solid black',
+  };
+
+  const cellStyle = {
+    border: '1px solid black',
+    height: '25px',
+    width: 'calc(25% / 7)',
+    boxSizing: 'border-box',
+  };
+
   return (
     <div>
       <center><h1>Group Page</h1></center>
       <center><p>Welcome to the group page!</p></center>
-      <table>
-
-      </table>
+      <center><table style={tableStyle}>
+        <thead>
+          <tr>
+            <th style={cellStyle}>HOURS AVAILABLE</th>
+            <th style={cellStyle}>Monday</th>
+            <th style={cellStyle}>Tuesday</th>
+            <th style={cellStyle}>Wednesday</th>
+            <th style={cellStyle}>Thursday</th>
+            <th style={cellStyle}>Friday</th>
+            <th style={cellStyle}>Saturday</th>
+            <th style={cellStyle}>Sunday</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(24)].map((_, i) => (
+            <tr key={i}>
+              <td style={cellStyle}>
+                <center>{`${i}:00 - ${i + 1}:00`}</center>
+              </td>
+              {[...Array(7)].map((_, j) => (
+                <td key={j} style={cellStyle}>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table></center>
     </div>
   );
 }
+
+
 
 ReactDOM.render(
   <Router>
