@@ -8,8 +8,11 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+//Defining variables in the Title of the site and name of the group
 const title = <title>SyncCircle</title>;
+let groupName = "";
 
+//Handles the submit button and transforms the inputed group name to a unique group site the user is taken to
 function CreateGroup() {
   const nav = useNavigate();
 
@@ -17,18 +20,18 @@ function CreateGroup() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const group = formData.get('Group Title');
-    axios.post('http://localhost:4000/create?group=' + group)
+    groupName = group;
+    axios.post(`http://localhost:4000/create?group=${group}`)
     .then(response => {
-      console.log(response.data);
       // navigate to /group page
-      nav('/group');
+      nav(`/group/${response.data}`);
     })
     .catch(error => {
-      console.error(error);
       // handle the error
+      console.error(error);
     });
   }
-
+  //HTML for the landing page of the site
   return (
     <html>
       <head>
@@ -37,7 +40,8 @@ function CreateGroup() {
       <body>
         <center><h1>SyncCircle</h1></center>
         <center>
-          <form onSubmit={(event) => handleSubmit(event,nav)}>
+          {/*Sends the submitted entry from the button to handleSubmit function*/}
+          <form onSubmit={handleSubmit}>
             <h2>Enter Your Group</h2>
             <label>
               Group Title:
@@ -50,7 +54,7 @@ function CreateGroup() {
     </html>
   );
 }
-
+//Unique Group site 
 function Group() {
   const tableStyle = {
     borderCollapse: 'collapse',
@@ -63,11 +67,12 @@ function Group() {
     width: 'calc(25% / 7)',
     boxSizing: 'border-box',
   };
-
+  //HTML for the group site
   return (
     <div>
-      <center><h1>Group Page</h1></center>
-      <center><p>Welcome to the group page!</p></center>
+      <center><h1>{groupName.toUpperCase()}</h1></center>
+      <center><p>Share this link to invite your friends! : {window.location.href}</p></center>
+      {/*Table for the group hours*/}
       <center><table style={tableStyle}>
         <thead>
           <tr>
@@ -98,14 +103,12 @@ function Group() {
     </div>
   );
 }
-
-
-
+//Renders the site based on user input
 ReactDOM.render(
   <Router>
     <Routes>
       <Route path="/" element={<CreateGroup />} />
-      <Route path="/group" element={<Group />} />
+      <Route path="/group/:group" element={<Group />} />
     </Routes>
   </Router>,
   document.getElementById('root')
