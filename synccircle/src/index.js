@@ -10,9 +10,22 @@ import {
 
 //Defining variables in the Title of the site and name of the group
 const title = <title>SyncCircle</title>;
-let groupName = "";
-let userName ="";
-
+const groupStores = localStorage.getItem("group");
+const userStores = localStorage.getItem("user");
+let groupName;
+let userName;
+if (groupStores != null){
+  groupName = groupStores;
+}
+else{
+  groupName = "";
+}
+if (userStores != null){
+  userName =userStores;
+}
+else{
+  userName = "";
+}
 //Handles the submit button and transforms the inputed group name to a unique group site the user is taken to
 function CreateGroup() {
   const nav = useNavigate();
@@ -22,6 +35,7 @@ function CreateGroup() {
     const formData = new FormData(event.target);
     const group = formData.get('Group Title');
     groupName = group;
+    localStorage.setItem("group", groupName);
     axios.post(`http://localhost:4000/create?group=${group}`)
     .then(response => {
       // navigate to /group page
@@ -76,6 +90,7 @@ function Group() {
     const formData = new FormData(event.target);
     const user = formData.get('Username');
     userName = user;
+    localStorage.setItem("user", userName);
     axios.post(`http://localhost:4000/create?group=${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}=user=${user}`)
     .then(response => {
       // navigate to /group page
