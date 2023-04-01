@@ -13,7 +13,7 @@ public class User {
         uniqueID = UUID.randomUUID().toString();
         this.groupID = groupID;
         this.name = name;
-        availabilityArray = new int[24][7];
+        availabilityArray = new int[groupID.masterArray.length][groupID.masterArray[0].length];
     }
 
     public String getUniqueID() {

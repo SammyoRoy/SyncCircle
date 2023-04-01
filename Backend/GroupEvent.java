@@ -10,10 +10,10 @@ public class GroupEvent {
     int [][] masterArray;
     String name;
     //constructor
-    public GroupEvent(String name) {
+    public GroupEvent(String name, int hours, int days) {
         this.uniqueId = UUID.randomUUID().toString();
         this.memberList = new HashMap<>();
-        this.masterArray = new int[24][7];
+        this.masterArray = new int[hours][days];
         this.name = name;
     }
     //add member to list method
