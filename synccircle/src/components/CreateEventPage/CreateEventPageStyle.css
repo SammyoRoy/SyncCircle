@@ -1,0 +1,19 @@
+.Title {
+    /* SyncCircle */
+
+    position: absolute;
+    width: 133.36px;
+    height: 29px;
+    left: 27px;
+    top: 56px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 120%;
+    /* identical to box height, or 29px */
+    
+    color: #5AD85F;
+    
+}

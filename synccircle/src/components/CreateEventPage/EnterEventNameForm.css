@@ -1,0 +1,45 @@
+/* Event Name Form */
+
+/* Auto layout */
+.EnterEventNameForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 86px;
+    gap: 10px;
+    
+    position: absolute;
+    width: 322px;
+    height: 42px;
+    left: calc(50% - 322px/2);
+    top: calc(50% - 42px/2 - 289px);
+    
+    background: #D9D9D9;
+    border-radius: 10px;
+    
+    
+    /* Enter event name */
+    
+    width: 150px;
+    height: 24px;
+    
+    font-family: 'Bahnschrift';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.028em;
+    
+    color: #000000;
+    
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
