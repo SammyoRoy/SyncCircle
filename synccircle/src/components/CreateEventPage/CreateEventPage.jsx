@@ -56,7 +56,7 @@ function TimeDropdown({style}) {
 
             <label htmlFor="time-select"></label>
             <select className={style} id="time-select" value={selectedTime} onChange={handleTimeChange}>
-                <option value="">Select a time</option>
+                <option value="">Time</option>
                 {timeOptions.map(time => (
                     <option key={time} value={time}>
                         {time}
