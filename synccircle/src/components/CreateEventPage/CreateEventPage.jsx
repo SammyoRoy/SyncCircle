@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EnterEventNameForm from './EnterEventNameForm.css';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -11,15 +11,81 @@ import {
 
 import './CreateEventPageStyle.css';
 
+
 function Title() {
     return (
         <h2 className="Title"> SyncCircle</h2>
     );
 }
 
+function LightMode() {
+    return (
+        <div className="LightMode"></div>
+    )
+}
+
+function EventNameForm() {
+    return (
+        <form>
+            <input className ="EventNameForm" type="text" placeholder="Enter event name" />
+        </form>
+    )
+}
+
+function TimeDropdown({style}) {
+    const timeOptions = [
+        '9:00 AM',
+        '10:00 AM',
+        '11:00 AM',
+        '12:00 PM',
+        '1:00 PM',
+        '2:00 PM',
+        '3:00 PM',
+        '4:00 PM',
+        '5:00 PM',
+    ];
+    
+    const [selectedTime, setSelectedTime] = useState('');
+    function handleTimeChange(event) {
+        setSelectedTime(event.target.value);
+    }
+
+    return (
+        <div className="TimeSelectionFrame">
+
+
+            <label htmlFor="time-select"></label>
+            <select className={style} id="time-select" value={selectedTime} onChange={handleTimeChange}>
+                <option value="">Select a time</option>
+                {timeOptions.map(time => (
+                    <option key={time} value={time}>
+                        {time}
+                    </option>
+                ))}
+            </select>
+
+        </div>
+    );
+}
+
+      
+
+
+
 export default function CreateEventPage() {
     return (
-        <Title/>
+        <div className="LightMode">
+
+            
+            <Title />
+            <div className="Backdrop">
+                <EventNameForm /> 
+                <TimeDropdown style={"TimeSelectionDropdown"}/>
+                <TimeDropdown style={"TimeSelectionDropdown2"}/>
+
+            </div>
+
+        </div>
     );
 }
 
