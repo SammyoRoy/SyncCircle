@@ -42,8 +42,11 @@ function EventNameForm({OnEventNameChange}) {
       );
 }
 
-function TimeDropdown({style, OnStartTimeChange}) {
+function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
     const timeOptions = [
+        '6:00 AM',
+        '7:00 AM',
+        '8:00 AM',
         '9:00 AM',
         '10:00 AM',
         '11:00 AM',
@@ -53,25 +56,32 @@ function TimeDropdown({style, OnStartTimeChange}) {
         '3:00 PM',
         '4:00 PM',
         '5:00 PM',
+        '6:00 PM',
+        '7:00 PM',
+        '8:00 PM',
+        '9:00 PM',
+        '10:00 PM',
+        '11:00 PM',
+        '12:00 PM',
+        '1:00 AM',
+        '2:00 AM',
+        '3:00 AM',
+        '4:00 AM',
+        '5:00 AM',
     ];
-    
-    const [selectedTime, setSelectedTime] = useState('');
-    function handleTimeChange(event) {
-        setSelectedTime(event.target.value);
-    }
 
     return (
         <>
             <label htmlFor="time-select"></label>
-            <select className={style} id="time-select" value={selectedTime} onChange={handleTimeChange}>
-                <option value="">Time</option>
+            <select className={style} id="time-select" value={selectedTime} 
+            onChange={(e) => OnTimeChange(e.target.value)}>
+                <option value="">{label}</option>
                 {timeOptions.map(time => (
                     <option key={time} value={time}>
                         {time}
                     </option>
                 ))}
             </select>
-
         </>
     );
 }
@@ -121,8 +131,10 @@ export default function CreateEventPage() {
             <div className="Backdrop">
                 <EventNameForm OnEventNameChange={setEventName} /> 
                 <div className="TimeSelectionFrame">
-                    <TimeDropdown style={"TimeSelectionDropdown"}/>
-                    <TimeDropdown style={"TimeSelectionDropdown2"}/>
+                    <TimeDropdown style={"TimeSelectionDropdown"} label="Select start time"
+                    OnTimeChange={setStartTime} selectedTime={startTime}/>
+                    <TimeDropdown style={"TimeSelectionDropdown2"} label="Select end time"
+                    OnTimeChange={setEndTime} selectedTime={endTime}/>
                 </div>
                 <DaySelectionFrame />
             </div>
