@@ -12,7 +12,7 @@ import {
 function Title(){
     return(
         <div className="title">
-            <h1>${EventNameForm}</h1>
+            <h1>${EventNameForm()}</h1>
         </div>
     )
 }
