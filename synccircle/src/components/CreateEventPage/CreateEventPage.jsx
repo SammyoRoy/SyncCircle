@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EnterEventNameForm from './EnterEventNameForm.css';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
@@ -24,15 +23,26 @@ function LightMode() {
     )
 }
 
-function EventNameForm() {
-    return (
-        <form>
-            <input className ="EventNameForm" type="text" placeholder="Enter event name" />
+function EventNameForm({OnEventNameChange}) {
+    
+    const handleSubmit = (e) => {
+        e.preventDefault(); // prevent page refresh
+        OnEventNameChange(e.target.value);
+      };
+    
+      return (
+        <form onSubmit={handleSubmit}>
+          <input
+            className="EventNameForm"
+            type="text"
+            placeholder="Enter event name"
+            onChange={(e) => OnEventNameChange(e.target.value)}
+          />
         </form>
-    )
+      );
 }
 
-function TimeDropdown({style}) {
+function TimeDropdown({style, OnStartTimeChange}) {
     const timeOptions = [
         '9:00 AM',
         '10:00 AM',
@@ -99,17 +109,17 @@ function CreateEventSubmitButton() {
 }
 
       
-
-
-
 export default function CreateEventPage() {
+    const [eventName, setEventName] = useState('');
+    const [startTime, setStartTime] = useState('8:00 A.M');
+    const [endTime, setEndTime] = useState('10:00 P.M');
+    const [days, setDays] = useState('');
+    
     return (
         <div className="LightMode">
-
-            
             <Title />
             <div className="Backdrop">
-                <EventNameForm /> 
+                <EventNameForm OnEventNameChange={setEventName} /> 
                 <div className="TimeSelectionFrame">
                     <TimeDropdown style={"TimeSelectionDropdown"}/>
                     <TimeDropdown style={"TimeSelectionDropdown2"}/>
@@ -117,7 +127,6 @@ export default function CreateEventPage() {
                 <DaySelectionFrame />
             </div>
             <CreateEventSubmitButton />
-
         </div>
     );
 }
