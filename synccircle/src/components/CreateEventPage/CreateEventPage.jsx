@@ -51,9 +51,7 @@ function TimeDropdown({style}) {
     }
 
     return (
-        <div className="TimeSelectionFrame">
-
-
+        <>
             <label htmlFor="time-select"></label>
             <select className={style} id="time-select" value={selectedTime} onChange={handleTimeChange}>
                 <option value="">Select a time</option>
@@ -64,8 +62,40 @@ function TimeDropdown({style}) {
                 ))}
             </select>
 
-        </div>
+        </>
     );
+}
+
+function DayOfTheWeekButton({day}) {
+    return (
+        <button className="DayOfTheWeekButton" >{day}</button>
+    )
+}
+
+function DaySelectionFrame() {
+    return (
+        <div className="DaySelectionFrame">
+            <div className="DaySelectionFrameRow">
+                <DayOfTheWeekButton day={"Sun"} />
+                <DayOfTheWeekButton day={"Mon"} />
+                <DayOfTheWeekButton day={"Tue"} />
+            </div>
+            <div className="DaySelectionFrameRow">
+                <DayOfTheWeekButton day={"Wed"} />
+                <DayOfTheWeekButton day={"Thur"} />
+                <DayOfTheWeekButton day={"Fri"} />
+            </div>
+            <div className="DaySelectionFrameRow">
+                <DayOfTheWeekButton day={"sat"} />
+            </div>
+        </div>
+    )
+}
+
+function CreateEventSubmitButton() {
+    return (
+        <button className="CreateEventSubmitButton">Create Event</button>
+    )
 }
 
       
@@ -80,10 +110,13 @@ export default function CreateEventPage() {
             <Title />
             <div className="Backdrop">
                 <EventNameForm /> 
-                <TimeDropdown style={"TimeSelectionDropdown"}/>
-                <TimeDropdown style={"TimeSelectionDropdown2"}/>
-
+                <div className="TimeSelectionFrame">
+                    <TimeDropdown style={"TimeSelectionDropdown"}/>
+                    <TimeDropdown style={"TimeSelectionDropdown2"}/>
+                </div>
+                <DaySelectionFrame />
             </div>
+            <CreateEventSubmitButton />
 
         </div>
     );

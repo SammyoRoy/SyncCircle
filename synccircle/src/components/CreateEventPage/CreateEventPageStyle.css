@@ -153,7 +153,7 @@ color: #6ABEA7;
     width: 107px;
     height: 43px;
     left: 214px;
-    top: -48px;
+    bottom: 43px;
 
     
 
@@ -172,4 +172,109 @@ text-align: center;
 
 color: #6ABEA7;
 }
+
+.DayOfTheWeekButton{
+    /* Property 1=Default */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 21px;
+    gap: 10px;
+
+    position: relative;
+    width: 83px;
+    height: 80px;
+    left: 20px;
+    top: 20px;
+
+    background: #70D474;
+    border-radius: 15px;
+    border: 0;
+
+
+    /* Sun */
+
+
+    font-family: 'Bahnschrift';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.028em;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    grid-row: 1;
+    grid-column: 1
+}
+
+.DaySelectionFrameRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:1.5em;
+}
+
+.DaySelectionFrame {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 25%;
+    width: 90%;
+    height: 100%;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.CreateEventSubmitButton {
+    /* Create Event Button */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+
+    position: absolute;
+    width: 328px;
+    height: 56px;
+    left: 31px;
+    top: 625px;
+
+    background: #5AD85F;
+    border-radius: 10px;
+
+
+    /* Create Event */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    /* identical to box height, or 24px */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+
+}
+
 
