@@ -163,19 +163,18 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     const handleEventNameChange = (value) => {
       setEventName(value);
     };
+
     return (
       <div className="LightMode">
         <Title />
-        <form onSubmit={(e) => e.preventDefault()}>
           <div className="Backdrop">
             <EventNameForm OnEventNameChange={handleEventNameChange} />
             <div className="TimeSelectionFrame">
-              <TimeDropdown style="StartTimeDropdown" OnTimeChange={setStartTime} selectedTime={startTime} label="Start Time" />
-              <TimeDropdown style="EndTimeDropdown" OnTimeChange={setEndTime} selectedTime={endTime} label="End Time" />
+              <TimeDropdown style="TimeSelectionDropdown" OnTimeChange={setStartTime} selectedTime={startTime} label="Start Time" />
+              <TimeDropdown style="TimeSelectionDropdown2" OnTimeChange={setEndTime} selectedTime={endTime} label="End Time" />
             </div>
             <DaySelectionFrame setDays={setDays} days={days} />
           </div>
-        </form>
         <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
       </div>
     );
