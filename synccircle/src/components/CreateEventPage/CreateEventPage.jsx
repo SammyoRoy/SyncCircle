@@ -7,7 +7,6 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-
 import './CreateEventPageStyle.css';
 
 
@@ -86,78 +85,105 @@ function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
     );
 }
 
-function DayOfTheWeekButton({day, onDayChange}) {
+function DayOfTheWeekButton({ day, setDays, days }) {
     const [isPressed, setPressed] = useState(false);
-    const [style, setStyle] = useState("DayOfTheWeekButton")
-
+    const [style, setStyle] = useState("DayOfTheWeekButton");
+  
     const handlePress = (e) => {
-        if (isPressed) {
-            setPressed(false);
-            setStyle("DayOfTheWeekButton")
-        }
-        else {
-            setPressed(true);
-            setStyle("DayOfTheWeekButtonPressed")
-        }
+      if (isPressed) {
+        setPressed(false);
+        setStyle("DayOfTheWeekButton");
+        setDays(days.filter((d) => d !== day));
+        console.log(days);
+      } else {
+        setPressed(true);
+        setStyle("DayOfTheWeekButtonPressed");
+        setDays([...days, day]);
+        console.log(days);
+      }
+    };
+  
+    return (
+      <button className={style} onClick={handlePress} onTouchStart={handlePress}>{day}</button>
+    );
+  } 
+
+  function DaySelectionFrame({days, setDays}) {
+    if (days === null || days === undefined) {
+      setDays([]);
     }
-    return (
-        <button className={style} onClick={handlePress} onTouchStart={handlePress}>{day}</button>
-    )
-}
-
-function DaySelectionFrame() {
-    return (
-        <div className="DaySelectionFrame">
-            <div className="DaySelectionFrameRow">
-                <DayOfTheWeekButton day={"Sun"} />
-                <DayOfTheWeekButton day={"Mon"} />
-                <DayOfTheWeekButton day={"Tue"} />
-            </div>
-            <div className="DaySelectionFrameRow">
-                <DayOfTheWeekButton day={"Wed"} />
-                <DayOfTheWeekButton day={"Thur"} />
-                <DayOfTheWeekButton day={"Fri"} />
-            </div>
-            <div className="DaySelectionFrameRow">
-                <DayOfTheWeekButton day={"sat"} />
-            </div>
-        </div>
-    )
-}
-
-function CreateEventSubmitButton() {
-    return (
-        <button className="CreateEventSubmitButton">Create Event</button>
-    )
-}
-
-      
-export default function CreateEventPage() {
-    const [eventName, setEventName] = useState('');
-    const [startTime, setStartTime] = useState('8:00 A.M');
-    const [endTime, setEndTime] = useState('10:00 P.M');
-    const [days, setDays] = useState('');
     
     return (
-        <div className="LightMode">
-            <Title />
-            <div className="Backdrop">
-                <EventNameForm OnEventNameChange={setEventName} /> 
-                <div className="TimeSelectionFrame">
-                    <TimeDropdown style={"TimeSelectionDropdown"} label="Select start time"
-                    OnTimeChange={setStartTime} selectedTime={startTime}/>
-                    <TimeDropdown style={"TimeSelectionDropdown2"} label="Select end time"
-                    OnTimeChange={setEndTime} selectedTime={endTime}/>
-                </div>
-                <DaySelectionFrame />
-            </div>
-            <CreateEventSubmitButton />
+      <div className="DaySelectionFrame">
+        <div className="DaySelectionFrameRow">
+          <DayOfTheWeekButton day={"Sun"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Mon"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Tue"} setDays={setDays} days={days} />
         </div>
+        <div className="DaySelectionFrameRow">
+          <DayOfTheWeekButton day={"Wed"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Thur"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Fri"} setDays={setDays} days={days} />
+        </div>
+        <div className="DaySelectionFrameRow">
+          <DayOfTheWeekButton day={"Sat"} setDays={setDays} days={days} />
+        </div>
+      </div>
     );
-}
+  }
 
 
-// const title = <title>SyncCircle</title>;
+  function CreateEventSubmitButton({ eventName, startTime, endTime, days }) {
+    const nav = useNavigate();
+    const eventSubmit = (event) => {
+      event.preventDefault();
+      const dayString = days.join(",");
+      console.log(days);
+      console.log(dayString);
+      axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
+        .then((response) => {
+          // navigate to /group page
+          nav(`/group/${response.data}`);
+        })
+        .catch((error) => {
+          // handle the error
+          console.error(error);
+        });
+    };
+    return (
+      <button type="submit" className="CreateEventSubmitButton" onClick={eventSubmit}>Create Event</button>
+    );
+  }
+  
+  function CreateEventPage() {
+    const [eventName, setEventName] = useState("");
+    const [startTime, setStartTime] = useState("8:00 A.M");
+    const [endTime, setEndTime] = useState("10:00 P.M");
+    const [days, setDays] = useState([]);
+    const handleEventNameChange = (value) => {
+      setEventName(value);
+    };
+    return (
+      <div className="LightMode">
+        <Title />
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="Backdrop">
+            <EventNameForm OnEventNameChange={handleEventNameChange} />
+            <div className="TimeSelectionFrame">
+              <TimeDropdown style="StartTimeDropdown" OnTimeChange={setStartTime} selectedTime={startTime} label="Start Time" />
+              <TimeDropdown style="EndTimeDropdown" OnTimeChange={setEndTime} selectedTime={endTime} label="End Time" />
+            </div>
+            <DaySelectionFrame setDays={setDays} days={days} />
+          </div>
+        </form>
+        <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
+      </div>
+    );
+  }
+  
+export default CreateEventPage;
+
+// const title = titleSyncCircle</title>;
 // const groupStores = localStorage.getItem("group");
 // const userStores = localStorage.getItem("user");
 // let groupName;
