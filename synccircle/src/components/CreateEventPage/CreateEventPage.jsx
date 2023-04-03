@@ -8,6 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import './CreateEventPageStyle.css';
+import User from '../UserPage/UserPage.jsx';
 
 
 function Title() {
@@ -101,8 +102,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
         setDays([...days, day]);
         console.log(days);
       }
-    };
-  
+    }; 
     return (
       <button className={style} onClick={handlePress} onTouchStart={handlePress}>{day}</button>
     );
@@ -144,6 +144,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
         .then((response) => {
           // navigate to /group page
           nav(`/group/${response.data}`);
+          
         })
         .catch((error) => {
           // handle the error
@@ -163,9 +164,9 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     const handleEventNameChange = (value) => {
       setEventName(value);
     };
-
     return (
       <div className="LightMode">
+        
         <Title />
           <div className="Backdrop">
             <EventNameForm OnEventNameChange={handleEventNameChange} />
