@@ -86,9 +86,22 @@ function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
     );
 }
 
-function DayOfTheWeekButton({day}) {
+function DayOfTheWeekButton({day, onDayChange}) {
+    const [isPressed, setPressed] = useState(false);
+    const [style, setStyle] = useState("DayOfTheWeekButton")
+
+    const handlePress = (e) => {
+        if (isPressed) {
+            setPressed(false);
+            setStyle("DayOfTheWeekButton")
+        }
+        else {
+            setPressed(true);
+            setStyle("DayOfTheWeekButtonPressed")
+        }
+    }
     return (
-        <button className="DayOfTheWeekButton" >{day}</button>
+        <button className={style} onClick={handlePress} onTouchStart={handlePress}>{day}</button>
     )
 }
 

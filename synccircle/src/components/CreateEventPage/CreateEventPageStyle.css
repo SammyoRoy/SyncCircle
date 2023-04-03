@@ -219,6 +219,49 @@ color: #6ABEA7;
     grid-column: 1
 }
 
+.DayOfTheWeekButtonPressed {
+    /* Property 1=Pressed */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 21px;
+gap: 10px;
+
+position: relative;
+width: 83px;
+height: 80px;
+left: 20px;
+top: 20px;
+
+background: #37953A;
+border-radius: 15px;
+border: 0;
+
+/* Sun */
+
+font-family: 'Bahnschrift';
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+line-height: 24px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.028em;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+}
+
 .DaySelectionFrameRow {
     display: flex;
     flex-direction: row;
