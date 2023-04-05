@@ -142,7 +142,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
       console.log(dayString);
       axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
         .then((response) => {
-          // navigate to /group page
+          // navigate to /group pages
           nav(`/group/${response.data}`);
           
         })

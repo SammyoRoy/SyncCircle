@@ -100,6 +100,17 @@ class Handler implements URLHandler {
        }
         return "Couldn't find query parameter q";
     }
+
+    public int[][] displayUserArray(String userId, String groupId, URI url){
+        if (url.getPath().equals("/display")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/display?group=groupid
+            if (parameters[0].equals("user")){
+                return ((User)globalGroups.get(groupId).getMemberList().get(userId)).getAvailabilityArray();
+            }
+        } 
+        return null;
+    }
 }
 class BackEndHandler {
     public static void main(String[] args) throws IOException {
