@@ -161,9 +161,11 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     const [startTime, setStartTime] = useState("8:00 A.M");
     const [endTime, setEndTime] = useState("10:00 P.M");
     const [days, setDays] = useState([]);
+    
     const handleEventNameChange = (value) => {
       setEventName(value);
     };
+
     return (
       <div className="LightMode">
         
@@ -183,65 +185,3 @@ function DayOfTheWeekButton({ day, setDays, days }) {
   
 export default CreateEventPage;
 
-// const title = titleSyncCircle</title>;
-// const groupStores = localStorage.getItem("group");
-// const userStores = localStorage.getItem("user");
-// let groupName;
-// let userName;
-// if (groupStores != null) {
-//     groupName = groupStores;
-// }
-// else {
-//     groupName = "";
-// }
-// if (userStores != null) {
-//     userName = userStores;
-// }
-// else {
-//     userName = "";
-// }
-
-// function CreateEventPage() {
-//     const nav = useNavigate();
-
-//     function handleSubmit(event) {
-//         event.preventDefault();
-//         const formData = new FormData(event.target);
-//         const group = formData.get('Group Title');
-//         groupName = group;
-//         localStorage.setItem("group", groupName);
-//         axios.post(`http://localhost:4000/create?group=${group}`)
-//             .then(response => {
-//                 // navigate to /group page
-//                 nav(`/group/${response.data}`);
-//             })
-//             .catch(error => {
-//                 // handle the error
-//                 console.error(error);
-//             });
-//     }
-//     //HTML for the landing page of the site
-//     return (
-//         <html>
-//             <head>
-//                 {title}
-//             </head>
-//             <body>
-//                 <center><h1>SyncCircle</h1></center>
-//                 <center>
-//                     {/*Sends the submitted entry from the button to handleSubmit function*/}
-//                     <form onSubmit={handleSubmit} className={EnterEventNameForm}>
-//                         <h2>Enter Your Group</h2>
-//                         <label>
-//                             Group Title:
-//                             <input type="text" name="Group Title" className={EnterEventNameForm} />
-//                         </label>
-//                         <button type="submit" className={EnterEventNameForm}>Submit</button>
-//                     </form>
-//                 </center>
-//             </body>
-//         </html>
-//     );
-// }
-
-//export default CreateEventPage;
