@@ -9,9 +9,25 @@ import {
 } from "react-router-dom";
 import CreateEventPage from "../CreateEventPage/CreateEventPage.jsx";
 
-function Title() {
+function Title( {groupId}) {
+
+    const [eventName, setEventName] = useState("");
+
+        axios.post(`http://localhost:4000/display?group=${groupId}`)
+        .then((response) => {
+          // navigate to /group pages
+          setEventName(response.data);
+          console.log(eventName);
+          
+        })
+        .catch((error) => {
+          // handle the error
+          console.error(error);
+        });
+    
+    
     return (
-        <h2 className="Title"> EventName </h2> 
+        <h2 className="Title"> {eventName} </h2> 
     )
 }
 
@@ -41,12 +57,17 @@ function GroupPageButton(){
 }
 
 
-
 function UserPage(){
+    const[groupId, setGroupId] = useState("");
+    useEffect(() => {
+        setGroupId(window.location.pathname.split("/").pop());
+        console.log(groupId);
+    }, [groupId]);
+    console.log(groupId);
 
     return(
         <div className="LightMode">
-            <Title />
+            <Title groupId={groupId} />
             <div className="HeaderCard">
                 <UserNameForm />
                 <DaysOfTheWeek />

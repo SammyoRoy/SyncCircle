@@ -11,7 +11,7 @@ import {
 
 
 import CreateEventPage from './components/CreateEventPage/CreateEventPage.jsx';
-import User from './components/UserPage/UserPage.jsx';
+import UserPage from './components/UserPage/UserPage.jsx';
 
 function App() {
     return (
@@ -19,7 +19,7 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<CreateEventPage />} />
-            <Route path="/group/:group" element={<User/>} />
+            <Route path="/group/:group" element={<UserPage/>} />
           </Routes>
   
         </div>

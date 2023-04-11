@@ -67,13 +67,14 @@ class Handler implements URLHandler {
                 return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
            }
         }
+
         else if (url.getPath().equals("/display")){
             String[] parameters = url.getQuery().split("=");
             //https://localhost:4000/display?group=groupid
             if (parameters[0].equals("group")){
-                return globalGroups.get(parameters[1]).print();
+                return (globalGroups.get(parameters[1])).getName();
             }
-        }
+        } 
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();
@@ -111,6 +112,19 @@ class Handler implements URLHandler {
         } 
         return null;
     }
+
+    public String getGroupName(String groupId, URI url){
+        if (url.getPath().equals("/display")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/display?group=groupid
+            if (parameters[0].equals("user")){
+                return globalGroups.get(groupId).getName();
+            }
+        } 
+        return null;
+    }
+
+
 }
 class BackEndHandler {
     public static void main(String[] args) throws IOException {
