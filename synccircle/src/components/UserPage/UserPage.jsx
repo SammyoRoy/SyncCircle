@@ -13,6 +13,7 @@ function Title( {groupId}) {
 
     const [eventName, setEventName] = useState("");
 
+    useEffect(() => {
         axios.post(`http://localhost:4000/display?group=${groupId}`)
         .then((response) => {
           // navigate to /group pages
@@ -24,28 +25,50 @@ function Title( {groupId}) {
           // handle the error
           console.error(error);
         });
-    
+    }, [groupId]);
+
     
     return (
         <h2 className="Title"> {eventName} </h2> 
     )
 }
 
+function DaysOfTheWeekTable({groupId, days}){
 
+    let dayArray = days.split(",");
+    let col =[];
+    for (let j=0; j<12; j++){
+        col.push("<tr>"+"<td>" + (j+1) + "</td>" + ("<td>" + "</td>").repeat(dayArray.length) +"</tr>");
+    }
+    return(
+        <table className="DaysOfTheWeekTable" border="1">
+            <thead>
+              <tr>
+                  <th>Hours</th>
+                  {dayArray.map(day => (
+                    <th dangerouslySetInnerHTML={{ __html: day }}></th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {col.map(row => (
+                <tr dangerouslySetInnerHTML={{ __html: row }}></tr>
+              ))}
+            </tbody>
+        </table>
+    )
+}
+  
 
 function UserNameForm(){
     return(
         <div className="UserNameForm">
             <form>
                 <input type="text" placeholder="Enter your name" />
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" /> 
             </form>
         </div>
     )
-}
-
-function DaysOfTheWeek(){
-
 }
 
 function Calendar(){
@@ -58,22 +81,25 @@ function GroupPageButton(){
 
 
 function UserPage(){
-    const[groupId, setGroupId] = useState("");
+    const [groupId, setGroupId] = useState("");
+    const [days, setDays] = useState("");
+
     useEffect(() => {
         setGroupId(window.location.pathname.split("/").pop());
-        console.log(groupId);
+        axios.post(`http://localhost:4000/days?group=${groupId}`)
+        .then((response) => {
+          setDays(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }, [groupId]);
-    console.log(groupId);
 
     return(
         <div className="LightMode">
             <Title groupId={groupId} />
-            <div className="HeaderCard">
-                <UserNameForm />
-                <DaysOfTheWeek />
-            </div>
-            <Calendar />
-            <GroupPageButton />
+            <UserNameForm/>
+            <DaysOfTheWeekTable groupId={groupId} days={days}/>
         </div>
     )
 }

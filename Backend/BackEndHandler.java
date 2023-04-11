@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 class Handler implements URLHandler {
     HashMap<String, GroupEvent> globalGroups;
+    String calander;
 
     public void setup(){
 
@@ -25,6 +26,7 @@ class Handler implements URLHandler {
         daniela = new User(nithinBirthday, "Daniela");*/
 
         globalGroups = new HashMap<>();
+        calander = "";
         /*GroupEvent temp = new GroupEvent("Berlen");
         globalGroups.put(temp.getUniqueId(), temp);
         System.out.println(globalGroups.get(temp.getUniqueId()).getName());
@@ -41,7 +43,12 @@ class Handler implements URLHandler {
         LocalTime s = LocalTime.parse(startTime, formatter);
         LocalTime e = LocalTime.parse(endTime, formatter);
         int hours = Math.abs(e.getHour() - s.getHour());
-        System.out.println(Arrays.toString(days));
+        for (int i = 0; i < days.length; i++){
+            calander += days[i];
+            if (i != days.length - 1){
+                calander += ",";
+            }
+        }
         GroupEvent temp = new GroupEvent(name, hours, days.length);
         globalGroups.put(temp.getUniqueId(),temp);
         return temp.getUniqueId();
@@ -72,9 +79,16 @@ class Handler implements URLHandler {
             String[] parameters = url.getQuery().split("=");
             //https://localhost:4000/display?group=groupid
             if (parameters[0].equals("group")){
-                return (globalGroups.get(parameters[1])).getName();
+                return ((GroupEvent)globalGroups.get(parameters[1])).getName();
             }
-        } 
+        }
+        else if (url.getPath().equals("/days")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/days?group=groupid
+            if (parameters[0].equals("group")){
+                return calander;
+            }
+        }
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();
@@ -113,7 +127,7 @@ class Handler implements URLHandler {
         return null;
     }
 
-    public String getGroupName(String groupId, URI url){
+    /*public String getGroupName(String groupId, URI url){
         if (url.getPath().equals("/display")){
             String[] parameters = url.getQuery().split("=");
             //https://localhost:4000/display?group=groupid
@@ -122,7 +136,7 @@ class Handler implements URLHandler {
             }
         } 
         return null;
-    }
+    }*/
 
 
 }

@@ -133,10 +133,12 @@ function DayOfTheWeekButton({ day, setDays, days }) {
   }
 
 
-  function CreateEventSubmitButton({ eventName, startTime, endTime, days }) {
+  function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
     const eventSubmit = (event) => {
       event.preventDefault();
+      const orderDays = new Map([["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thur", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
+      days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
       console.log(days);
       console.log(dayString);
@@ -165,7 +167,6 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     const handleEventNameChange = (value) => {
       setEventName(value);
     };
-
     return (
       <div className="LightMode">
         
