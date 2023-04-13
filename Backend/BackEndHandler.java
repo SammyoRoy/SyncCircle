@@ -16,7 +16,8 @@ import java.time.format.DateTimeFormatter;
 class Handler implements URLHandler {
     HashMap<String, GroupEvent> globalGroups;
     String calander;
-
+    LocalTime start;
+    LocalTime end;
     public void setup(){
 
         /*nithinBirthday = new GroupEvent("Nithin Birthday");
@@ -26,7 +27,6 @@ class Handler implements URLHandler {
         daniela = new User(nithinBirthday, "Daniela");*/
 
         globalGroups = new HashMap<>();
-        calander = "";
         /*GroupEvent temp = new GroupEvent("Berlen");
         globalGroups.put(temp.getUniqueId(), temp);
         System.out.println(globalGroups.get(temp.getUniqueId()).getName());
@@ -43,6 +43,9 @@ class Handler implements URLHandler {
         LocalTime s = LocalTime.parse(startTime, formatter);
         LocalTime e = LocalTime.parse(endTime, formatter);
         int hours = Math.abs(e.getHour() - s.getHour());
+        start = s;
+        end = e;
+        calander = "";
         for (int i = 0; i < days.length; i++){
             calander += days[i];
             if (i != days.length - 1){
@@ -87,6 +90,20 @@ class Handler implements URLHandler {
             //https://localhost:4000/days?group=groupid
             if (parameters[0].equals("group")){
                 return calander;
+            }
+        }
+        else if (url.getPath().equals("/shours")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/shours?group=groupid
+            if (parameters[0].equals("group")){
+                return start.toString();
+            }
+        }
+        else if (url.getPath().equals("/ehours")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/ehours?group=groupid
+            if (parameters[0].equals("group")){
+                return end.toString();
             }
         }
             /* 
