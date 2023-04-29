@@ -26,15 +26,16 @@ function Title({ groupId }) {
             // handle the error
             console.error(error);
         });
+      }, [groupId]);
 
 
     return (
         <h2 className="UserpageTitle"> {eventName} </h2>
     )
 }
-function UserPress(){
+/*function UserPress(){
     console.log("User Pressed");
-}
+}*/
 
 function UserTable({groupId, days, start, end}){
   let dayArray = days.split(",");
@@ -51,44 +52,7 @@ function UserTable({groupId, days, start, end}){
       col.push("<tr>"+"<td>" + startD.toLocaleString('en-US', { hour: 'numeric', hour12: true }) + "</td>" + ('<td id="UserPress"' + "</td>").repeat(dayArray.length) +"</tr>");
       startD.setHours(startD.getHours() + 1);
   }
-    window.onload = () => document.getElementById ("UserPress").addEventListener ("click", UserPress, false);
-    return(
-      <div>
-        <table className="UserTable" border="1">
-            <thead>
-              <tr>
-                  <th>Hours</th>
-                  {dayArray.map(day => (
-                    <th dangerouslySetInnerHTML={{ __html: day }}></th>
-                  ))}
-              </tr>
-            </thead>
-            <tbody>
-              {col.map(row => (
-                <tr dangerouslySetInnerHTML={{ __html: row }}></tr>
-              ))}
-            </tbody>
-        </table>
-      </div>
-    )
-}
-
-function UserTable({groupId, days, start, end}){
-  let dayArray = days.split(",");
-  let col =[];
-  const [shours, sminutes] = start.split(":");
-  const startD = new Date();
-  startD.setHours(shours); 
-  startD.setMinutes(sminutes);
-  const [ehours, eminutes] = end.split(":");
-  const endD = new Date();
-  endD.setHours(ehours); 
-  endD.setMinutes(eminutes);
-  while(startD <= endD){
-      col.push("<tr>"+"<td>" + startD.toLocaleString('en-US', { hour: 'numeric', hour12: true }) + "</td>" + ('<td id="UserPress"' + "</td>").repeat(dayArray.length) +"</tr>");
-      startD.setHours(startD.getHours() + 1);
-  }
-    window.onload = () => document.getElementById ("UserPress").addEventListener ("click", UserPress, false);
+    //window.onload = () => document.getElementById ("UserPress").addEventListener ("click", UserPress, false);
     return(
       <div>
         <table className="UserTable" border="1">
@@ -186,6 +150,7 @@ function UserPage() {
         });
     }, [groupId]);
     console.log(groupId);
+  }
 
     return(
         <div className="LightMode">
