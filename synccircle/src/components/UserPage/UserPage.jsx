@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import './UserPage.css';
 import CreateEventPage from "../CreateEventPage/CreateEventPage.jsx";
+import Calendar from "./Calendar.jsx";
 
 function Title({ groupId }) {
 
@@ -37,7 +38,7 @@ function Title({ groupId }) {
     console.log("User Pressed");
 }*/
 
-function UserTable({groupId, days, start, end}){
+/*function UserTable({groupId, days, start, end}){
   let dayArray = days.split(",");
   let col =[];
   const [shours, sminutes] = start.split(":");
@@ -72,7 +73,7 @@ function UserTable({groupId, days, start, end}){
         </table>
       </div>
     )
-}
+}*/
 
 function UserNameForm({ OnUserNameChange }) {
 
@@ -105,10 +106,6 @@ function DaysOfTheWeek(){
 
 }
 
-function Calendar() {
-
-}
-
 function GroupPageButton() {
 
 }
@@ -116,13 +113,13 @@ function GroupPageButton() {
 
 function UserPage(){
     const [groupId, setGroupId] = useState("");
-    const [days, setDays] = useState("");
+    /*const [days, setDays] = useState("");
     const [shours, setShours] = useState("");
-    const [ehours, setEhours] = useState("");
+    const [ehours, setEhours] = useState("");*/
 
 function UserPage() {
     const [groupId, setGroupId] = useState("");
-    useEffect(() => {
+    /*useEffect(() => {
         setGroupId(window.location.pathname.split("/").pop());
         axios.post(`http://localhost:4000/days?group=${groupId}`)
         .then((response) => {
@@ -148,7 +145,7 @@ function UserPage() {
         .catch((error) => {
           console.error(error);
         });
-    }, [groupId]);
+    }, [groupId]);*/
     console.log(groupId);
   }
 
@@ -161,7 +158,7 @@ function UserPage() {
             </div>
             <Calendar />
             <GroupPageButton />
-        </div>
+       </div>
     )
 }
 

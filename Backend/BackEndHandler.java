@@ -85,7 +85,7 @@ class Handler implements URLHandler {
                 return ((GroupEvent)globalGroups.get(parameters[1])).getName();
             }
         }
-        else if (url.getPath().equals("/days")){
+        /*else if (url.getPath().equals("/days")){
             String[] parameters = url.getQuery().split("=");
             //https://localhost:4000/days?group=groupid
             if (parameters[0].equals("group")){
@@ -105,7 +105,7 @@ class Handler implements URLHandler {
             if (parameters[0].equals("group")){
                 return end.toString();
             }
-        }
+        }*/
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();
