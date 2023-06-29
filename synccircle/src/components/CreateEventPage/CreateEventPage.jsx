@@ -62,7 +62,7 @@ function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
         '9:00 PM',
         '10:00 PM',
         '11:00 PM',
-        '12:00 PM',
+        '12:00 AM',
         '1:00 AM',
         '2:00 AM',
         '3:00 AM',

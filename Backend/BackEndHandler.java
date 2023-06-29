@@ -82,7 +82,8 @@ class Handler implements URLHandler {
             String[] parameters = url.getQuery().split("=");
             //https://localhost:4000/display?group=groupid
             if (parameters[0].equals("group")){
-                return ((GroupEvent)globalGroups.get(parameters[1])).getName();
+                //return ((GroupEvent)globalGroups.get(parameters[1])).getName();
+                return globalGroups.get(parameters[1]).print();
             }
         }
         else if (url.getPath().equals("/days")){

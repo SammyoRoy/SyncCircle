@@ -9,6 +9,7 @@ public class GroupEvent {
     HashMap<String,User> memberList;
     int [][] masterArray;
     String name;
+
     //constructor
     public GroupEvent(String name, int hours, int days) {
         this.uniqueId = UUID.randomUUID().toString();
@@ -48,6 +49,7 @@ public class GroupEvent {
 
     public String print(){
         String s = "";
+        s += (name+"\n");
         for (int i = 0; i < masterArray.length; i++){
             for (int j = 0; j < masterArray[0].length; j++){
                 s += "[" + masterArray[i][j] + "]";
