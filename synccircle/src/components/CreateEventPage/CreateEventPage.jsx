@@ -168,7 +168,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
       setEventName(value);
     };
     return (
-      <div className="LightMode">
+      <div className="LightMode"> 
         
         <Title />
           <div className="Backdrop">

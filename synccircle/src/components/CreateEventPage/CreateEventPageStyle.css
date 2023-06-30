@@ -125,16 +125,16 @@
 
     /* 9:00 AM */
 
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 15px;
-line-height: 120%;
-/* identical to box height, or 18px */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 120%;
+    /* identical to box height, or 18px */
 
-text-align: center;
+    text-align: center;
 
-color: #6ABEA7;
+    color: #6ABEA7;
 
 
 }
@@ -164,15 +164,15 @@ color: #6ABEA7;
     margin-right: 55px;
 
     font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 15px;
-line-height: 120%;
-/* identical to box height, or 18px */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 120%;
+    /* identical to box height, or 18px */
 
-text-align: center;
+    text-align: center;
 
-color: #6ABEA7;
+    color: #6ABEA7;
 }
 
 .DayOfTheWeekButton{
@@ -312,7 +312,7 @@ flex-grow: 0;
     /* identical to box height, or 24px */
     text-align: center;
 
-    color: #000000;
+    color: #ffffff;
 
 
     /* Inside auto layout */
