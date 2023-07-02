@@ -141,10 +141,14 @@ function Slot(){
 }
 
 function Calendar(){
+  const totalCells = 8*24;
+
   return (
     <div className="CalendarGrid">
-      <TimeLabel />
-      <Slot />
+      {/* Generate and render grid items */}
+      {Array.from({ length: totalCells }, (_, index) => (
+        (index % 8 === 0) ?  <TimeLabel key={index} /> : <Slot key={index}/>
+      ))}
     </div>
   )
 }
