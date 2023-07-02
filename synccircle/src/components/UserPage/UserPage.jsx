@@ -139,18 +139,71 @@ function Slot(){
     <button type="button" className="Slot"></button>
   )
 }
+async function GetDays() {
+  const URL = window.location.href.split("/");
+  try {
+    const response = await axios.post(`http://localhost:4000/days?group=${URL[URL.length - 1]}`);
+    return response.data.split(",");
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
+async function GetStart() {
+  const URL = window.location.href.split("/");
+  try {
+    const response = await axios.post(`http://localhost:4000/shours?group=${URL[URL.length - 1]}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return "";
+  }
+}
+
+async function GetEnd() {
+  const URL = window.location.href.split("/");
+  try {
+    const response = await axios.post(`http://localhost:4000/ehours?group=${URL[URL.length - 1]}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return "";
+  }
+}
 function Calendar(){
-  const totalCells = 8*24;
+  const [days, setDays] = useState([]);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
 
+  useEffect(() => {
+    async function fetchData() {
+      const daysData = await GetDays();
+      const startData = await GetStart();
+      const endData = await GetEnd();
+
+      setDays(daysData);
+      setStart(startData);
+      setEnd(endData);
+    }
+
+    fetchData();
+  }, []);
+  const startDate = new Date(`January 1, 2021 ${start}:00`);
+  const endDate = new Date(`January 1, 2021 ${end}:00`);
+  const hours = endDate.getHours() - startDate.getHours();
+  const totalCells = (days.length + 1) * hours;
+  // Set CSS variables
+  document.documentElement.style.setProperty('--rows', hours);
+  document.documentElement.style.setProperty('--cols', days.length + 1);
   return (
     <div className="CalendarGrid">
       {/* Generate and render grid items */}
       {Array.from({ length: totalCells }, (_, index) => (
-        (index % 8 === 0) ?  <TimeLabel key={index} /> : <Slot key={index}/>
+        index % (days.length+1) === 0 ? <TimeLabel key={index} /> : <Slot key={index} />
       ))}
     </div>
-  )
+  );
 }
 
 function GroupPageButton() {
