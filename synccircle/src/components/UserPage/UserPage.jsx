@@ -128,9 +128,25 @@ function HeaderCard(){
 //     );
 // }
 
+function TimeLabel(){
+  return (
+    <div className="TimeLabel">6:00 AM</div>
+  )
+}
+
+function Slot(){
+  return (
+    <button type="button" className="Slot"></button>
+  )
+}
 
 function Calendar(){
-
+  return (
+    <div className="CalendarGrid">
+      <TimeLabel />
+      <Slot />
+    </div>
+  )
 }
 
 function GroupPageButton() {

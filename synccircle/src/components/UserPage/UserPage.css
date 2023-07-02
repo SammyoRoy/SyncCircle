@@ -24,6 +24,7 @@
     border-radius: 30px 30px 0px 0px;
     background: #E6E6E6;
     position: relative;
+    z-index: 5;
 }
 
 .UserNameContainer {
@@ -111,6 +112,34 @@ align-items: center;
 justify-content: center;
 }
 
-.ScrollIcon {
-    
+.CalendarGrid {
+    position: relative;
+    top: -10px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(24, 1fr);
+    place-items: center;
+
 }
+
+.Slot {
+    position: relative;
+    width: 45px;
+height: 40px;
+flex-shrink: 0;
+
+border: 0.3px solid #B5B5B5;
+background: #96E199;
+z-index: 3;
+}
+
+.TimeLabel {
+    color: #969696;
+text-align: center;
+font-size: 14px;
+font-family: Poppins;
+font-style: normal;
+font-weight: 400;
+line-height: 120%;
+}
+
