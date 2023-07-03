@@ -31,30 +31,10 @@ function Title() {
 
 
     return (
-        <h2 className="UserPageTitle"> Nithin's Birthday </h2>
+        <h2 className="GroupPageTitle"> Nithin's Birthday </h2>
     )
 }
 
-function UserNameForm(){
-  return (
-    <div className="UserNameContainer">
-      <form>
-        <input
-          className="UserNameForm"
-          type="text"
-          placeholder="Enter username"
-        />
-      </form>
-      <JoinButton />
-    </div>
-  )
-}
-
-function JoinButton(){
-  return (
-    <button type="submit" className="JoinButton">Join</button>
-  )
-}
 
 function DaysOfTheWeek() {
   const [days, setDays] = useState([]);
@@ -77,6 +57,9 @@ function DaysOfTheWeek() {
   );
 }
 
+
+
+
 function ScrollIcon(){
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +80,6 @@ function HeaderCard(){
   return (
       <div>
         <div className= "HeaderCard">
-          <UserNameForm />
         </div>
         <DaysOfTheWeek />
       </div>
@@ -212,25 +194,22 @@ function Calendar(){
   );
 }
 
-function GroupPageButton() {
+function UserPageButton(){
   return (
-      <div>
-          <button type="button">Group Page</button>
-      </div>
+    <button>User Page</button>
   )
 }
 
-
-function UserPage(){
+function GroupPage(){
 
     return(
         <div className="LightMode">
             <Title/>
             <HeaderCard />
             <Calendar />
-            <GroupPageButton />
+            <UserPageButton />
        </div>
     )
 }
 
-export default UserPage;
+export default GroupPage;
