@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
@@ -212,10 +212,14 @@ function Calendar(){
   );
 }
 
-function GroupPageButton() {
+function GroupPageButton(){
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/group/${window.location.href.split("/")[window.location.href.split("/").length - 1]}/ALL`);
+  };
   return (
       <div>
-          <button type="button">Group Page</button>
+          <button type="button" onClick={handleClick}>Group Page</button>
       </div>
   )
 }

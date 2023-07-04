@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
@@ -195,8 +195,14 @@ function Calendar(){
 }
 
 function UserPageButton(){
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/group/" + window.location.href.split("/")[window.location.href.split("/").length - 1]);
+  };
   return (
-    <button>User Page</button>
+      <div>
+          <button type="button" onClick={handleClick}>User Page</button>
+      </div>
   )
 }
 
