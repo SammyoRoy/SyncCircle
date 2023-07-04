@@ -206,7 +206,7 @@ function Calendar(){
     <div className="CalendarGrid">
       {/* Generate and render grid items */}
       {Array.from({ length: totalCells }, (_, index) => (
-        index % (days.length+1) === 0 ? <TimeLabel key={index} /> : <Slot key={index} />
+        index % 8 === 0 ? <TimeLabel key={index} /> : <Slot key={index} />
       ))}
     </div>
   );

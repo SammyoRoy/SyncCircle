@@ -7,7 +7,7 @@ import {
     Route,
     useNavigate,
 } from "react-router-dom";
-import './UserPage.css';
+import './GroupPage.css';
 import CreateEventPage from "../CreateEventPage/CreateEventPage.jsx";
 
 
