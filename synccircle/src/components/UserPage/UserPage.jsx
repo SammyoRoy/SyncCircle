@@ -67,8 +67,10 @@ function DaysOfTheWeek() {
     fetchData();
   }, []);
 
+  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+
   return (
-    <div className="DOTWBar">
+    <div className="DOTWBar" style={{gridTemplateColumns}}>
       <ScrollIcon />
       {days.map((day, index) => (
         <DayLabels key={index} day={day} index={index} length={days.length} />
