@@ -17,9 +17,9 @@ function Title() {
     );
 }
 
-function LightMode() {
+function ScreenMode() {
     return (
-        <div className="LightMode"></div>
+        <div className="ScreenMode"></div>
     )
 }
 
@@ -169,7 +169,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
       setEventName(value);
     };
     return (
-      <div className="LightMode"> 
+      <div className="ScreenMode"> 
         
         <Title />
           <div className="Backdrop">
