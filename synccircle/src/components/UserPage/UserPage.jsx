@@ -67,10 +67,8 @@ function DaysOfTheWeek() {
     fetchData();
   }, []);
 
-  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
-
   return (
-    <div className="DOTWBar" style={{gridTemplateColumns}}>
+    <div className="DOTWBar">
       <ScrollIcon />
       {days.map((day, index) => (
         <DayLabels key={index} day={day} index={index} length={days.length} />
@@ -136,15 +134,48 @@ function HeaderCard(){
 //     );
 // }
 
-function TimeLabel(){
+function TimeLabel({currTimeIndex}){
+  const [currentTime, setCurrentTime] = useState("6:00 AM");
+
+  const timeOptions = [
+    '6:00 AM', //06:00 -> 0
+    '7:00 AM', //07:00 -> 1
+    '8:00 AM', //08:00 -> 2
+    '9:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '12:00 PM', //12:00 -> 6
+    '1:00 PM', // 13:00 -> 7
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM',
+    '7:00 PM',
+    '8:00 PM',
+    '9:00 PM',
+    '10:00 PM',
+    '11:00 PM', //23:00 -> 17
+    '12:00 AM', //00:00 -> 18
+    '1:00 AM',  //01:00 -> 19
+    '2:00 AM',
+    '3:00 AM',
+    '4:00 AM',
+    '5:00 AM', //05:00 -> 23
+  ];
+
+  useEffect (() => {
+    setCurrentTime(timeOptions[currTimeIndex]);
+  }, [currTimeIndex, timeOptions])
+  
   return (
-    <div className="TimeLabel">6:00 AM</div>
+    <div className="TimeLabel">{currentTime}</div>
   )
 }
 
 function Slot(){
   return (
-    <button type="button" className="Slot"></button>
+    <button type="button" className="UnselectedSlot"></button>
   )
 }
 async function GetDays() {
@@ -179,10 +210,28 @@ async function GetEnd() {
     return "";
   }
 }
+
+async function convertTimeToIndex(time) {
+  const [hour] = time.split(':');
+  const parsedHour = parseInt(hour, 10);
+
+  if (parsedHour >= 6){
+    return (parsedHour-6);
+  }
+  else{
+    return (parsedHour+18)
+  }
+}
+
+
 function Calendar(){
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+  const [currTimeIndex, setCurrTimeIndex] = useState(0);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -195,21 +244,44 @@ function Calendar(){
       setEnd(endData);
     }
 
+    async function initializeIndices() {
+      const startTimeIndex = await convertTimeToIndex(start);
+      const endTimeIndex = await convertTimeToIndex(end);
+      const timeIndex = await convertTimeToIndex(start);
+      
+      setStartIndex(startTimeIndex);
+      setCurrTimeIndex(timeIndex);
+      setEndIndex(endTimeIndex);
+    }
+
     fetchData();
-  }, []);
-  const startDate = new Date(`January 1, 2021 ${start}:00`);
-  const endDate = new Date(`January 1, 2021 ${end}:00`);
-  const hours = endDate.getHours() - startDate.getHours();
-  const totalCells = (days.length + 1) * hours;
+    initializeIndices();
+    console.log(startIndex);
+    console.log(endIndex);
+    console.log(currTimeIndex);
+  }, [startIndex, endIndex, currTimeIndex, start, end]);
+
+  const numRows = (endIndex-startIndex);
+  console.log(numRows);
+  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+  const gridTemplateRows = `repeat(${numRows}, 1fr)`;
+  const totalCells = (days.length+1) * (endIndex-startIndex);
+
   // Set CSS variables
-  document.documentElement.style.setProperty('--rows', hours);
-  document.documentElement.style.setProperty('--cols', days.length + 1);
+  
   return (
-    <div className="CalendarGrid">
+    <div className="CalendarGrid" style={{gridTemplateColumns, gridTemplateRows}}>
       {/* Generate and render grid items */}
+
       {Array.from({ length: totalCells }, (_, index) => (
-        index % 8 === 0 ? <TimeLabel key={index} /> : <Slot key={index} />
-      ))}
+        index % (days.length+1) === 0 ? (
+         <TimeLabel 
+          key={index} 
+          currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
+         />
+         ) : (<Slot key={index} />
+         ))
+      )}
     </div>
   );
 }
@@ -234,7 +306,7 @@ function UserPage(){
             <Title/>
             <HeaderCard />
             <Calendar />
-            <GroupPageButton />
+            {/*<GroupPageButton />*/}
        </div>
     )
 }
