@@ -107,6 +107,14 @@ class Handler implements URLHandler {
                 return end.toString();
             }
         }
+
+        else if (url.getPath().equals("/name")){
+            String[] parameters = url.getQuery().split("=");
+            //https://localhost:4000/name?group=groupid
+            if (parameters[0].equals("group")){
+                return globalGroups.get(parameters[1]).getName();
+            }
+        }
             /* 
             String result = "";
                List<String> foundPaths = new ArrayList<>();

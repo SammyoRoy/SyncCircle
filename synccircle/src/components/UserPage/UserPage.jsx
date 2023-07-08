@@ -11,27 +11,26 @@ import './UserPage.css';
 import CreateEventPage from "../CreateEventPage/CreateEventPage.jsx";
 
 
-function Title() {
+function Title({ groupId }) {
+    const [eventName, setEventName] = useState("");
 
-    // const [eventName, setEventName] = useState("");
+    useEffect(() => {
+         axios.post(`http://localhost:4000/name?group=${groupId}`)
+         .then((response) => {
+             // navigate to /group pages
+             setEventName(response.data);
+             console.log(eventName);
 
-    // useEffect(() => {
-    //     axios.post(`http://localhost:4000/display?group=${groupId}`)
-    //     .then((response) => {
-    //         // navigate to /group pages
-    //         setEventName(response.data);
-    //         console.log(eventName);
-
-    //     })
-    //     .catch((error) => {
-    //         // handle the error
-    //         console.error(error);
-    //     });
-    //   }, [groupId]);
+         })
+         .catch((error) => {
+             // handle the error
+             console.error(error);
+         });
+       }, [groupId]);
 
 
     return (
-        <h2 className="UserPageTitle"> Nithin's Birthday </h2>
+        <h2 className="UserPageTitle"> {eventName} </h2>
     )
 }
 
@@ -58,6 +57,8 @@ function JoinButton(){
 
 function DaysOfTheWeek() {
   const [days, setDays] = useState([]);
+  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+
   useEffect(() => {
     async function fetchData() {
       const daysData = await GetDays();
@@ -68,7 +69,7 @@ function DaysOfTheWeek() {
   }, []);
 
   return (
-    <div className="DOTWBar">
+    <div className="DOTWBar" style={{gridTemplateColumns}}>
       <ScrollIcon />
       {days.map((day, index) => (
         <DayLabels key={index} day={day} index={index} length={days.length} />
@@ -301,9 +302,15 @@ function GroupPageButton(){
 
 function UserPage(){
 
+  const [groupId, setGroupId] = useState("");
+
+  useEffect (() => {
+    setGroupId(window.location.pathname.split("/").pop());
+  }, [groupId])
+
     return(
         <div className="LightMode">
-            <Title/>
+            <Title groupId={groupId}/>
             <HeaderCard />
             <Calendar />
             {/*<GroupPageButton />*/}
