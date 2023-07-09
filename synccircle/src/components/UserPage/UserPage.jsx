@@ -34,24 +34,46 @@ function Title({ groupId }) {
     )
 }
 
-function UserNameForm(){
+function UserNameForm({ groupId }){
+  const [userName, setUserName] = useState("");
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const inputValue = e.target.elements.username.value;
+    setUserName(inputValue);
+  };
+
   return (
     <div className="UserNameContainer">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           className="UserNameForm"
           type="text"
+          name="username"
           placeholder="Enter username"
+          onChange={(e) => setUserName(e.target.value)}
         />
       </form>
-      <JoinButton />
+      <JoinButton groupId={groupId} userName={userName}/>
     </div>
   )
 }
 
-function JoinButton(){
+function JoinButton({ groupId, userName }){
+  
+  console.log(groupId);
+  console.log(userName);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+  }
   return (
-    <button type="submit" className="JoinButton">Join</button>
+    <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
   )
 }
 
@@ -72,7 +94,7 @@ function DaysOfTheWeek() {
     <div className="DOTWBar" style={{gridTemplateColumns}}>
       <ScrollIcon />
       {days.map((day, index) => (
-        <DayLabels key={index} day={day} index={index} length={days.length} />
+        <DayLabels key={index} day={day} length={days.length} />
       ))}
     </div>
   );
@@ -87,18 +109,18 @@ function ScrollIcon(){
   )
 }
 
-function DayLabels(){
+function DayLabels({ day }){
   return (
-    <div className="DayLabel"> S</div>
+    <div className="DayLabel"> {day} </div>
   )
 }
 
-function HeaderCard(){
+function HeaderCard({ groupId }){
 
   return (
       <div>
         <div className= "HeaderCard">
-          <UserNameForm />
+          <UserNameForm groupId={groupId}/>
         </div>
         <DaysOfTheWeek />
       </div>
@@ -107,33 +129,6 @@ function HeaderCard(){
 
 }
 
-
-// function UserNameForm({ OnUserNameChange }) {
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault(); // prevent page refresh
-//         OnUserNameChange(e.target.value);
-//         // Create user
-//     };
-
-//     return (
-//         <div className="UserNameContainer">
-//             <form onSubmit={handleSubmit} >
-//                 <input
-//                     className="UserNameForm"
-//                     type="text"
-//                     placeholder="Enter username"
-//                     onChange={(e) => OnUserNameChange(e.target.value)}
-//                 />
-//                 <input 
-//                     className="JoinButton"
-//                     type="submit"
-                    
-//                 />
-//             </form>
-//         </div>
-//     );
-// }
 
 function TimeLabel({currTimeIndex}){
   const [currentTime, setCurrentTime] = useState("6:00 AM");
@@ -311,7 +306,7 @@ function UserPage(){
     return(
         <div className="LightMode">
             <Title groupId={groupId}/>
-            <HeaderCard />
+            <HeaderCard groupId={groupId}/>
             <Calendar />
             {/*<GroupPageButton />*/}
        </div>

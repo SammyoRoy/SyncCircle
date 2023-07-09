@@ -27,7 +27,9 @@ function EventNameForm({OnEventNameChange}) {
     
     const handleSubmit = (e) => {
         e.preventDefault(); // prevent page refresh
-        OnEventNameChange(e.target.value);
+        const inputValue = e.target.elements.eventName.value;
+        OnEventNameChange(inputValue);
+        console.log(inputValue);
       };
     
       return (
@@ -36,6 +38,7 @@ function EventNameForm({OnEventNameChange}) {
             className="EventNameForm"
             type="text"
             placeholder="Enter event name"
+            name ="eventName"
             onChange={(e) => OnEventNameChange(e.target.value)}
           />
         </form>
@@ -116,17 +119,17 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     return (
       <div className="DaySelectionFrame">
         <div className="DaySelectionFrameRow">
-          <DayOfTheWeekButton day={"Sun"} setDays={setDays} days={days} />
-          <DayOfTheWeekButton day={"Mon"} setDays={setDays} days={days} />
-          <DayOfTheWeekButton day={"Tue"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Su"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Mo"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Tu"} setDays={setDays} days={days} />
         </div>
         <div className="DaySelectionFrameRow">
-          <DayOfTheWeekButton day={"Wed"} setDays={setDays} days={days} />
-          <DayOfTheWeekButton day={"Thur"} setDays={setDays} days={days} />
-          <DayOfTheWeekButton day={"Fri"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"We"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Th"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Fr"} setDays={setDays} days={days} />
         </div>
         <div className="DaySelectionFrameRow">
-          <DayOfTheWeekButton day={"Sat"} setDays={setDays} days={days} />
+          <DayOfTheWeekButton day={"Sa"} setDays={setDays} days={days} />
         </div>
       </div>
     );
@@ -137,7 +140,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
     const nav = useNavigate();
     const eventSubmit = (event) => {
       event.preventDefault();
-      const orderDays = new Map([["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thur", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
+      const orderDays = new Map([["Mo", 0], ["Tu", 1], ["We", 2], ["Th", 3], ["Fr", 4], ["Sa", 5], ["Su", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
       console.log(days);
