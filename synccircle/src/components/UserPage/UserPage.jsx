@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useRef} from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
@@ -11,53 +11,77 @@ import './UserPage.css';
 import CreateEventPage from "../CreateEventPage/CreateEventPage.jsx";
 
 
-function Title() {
+function Title({ groupId }) {
+    const [eventName, setEventName] = useState("");
 
-    // const [eventName, setEventName] = useState("");
+    useEffect(() => {
+         axios.post(`http://localhost:4000/name?group=${groupId}`)
+         .then((response) => {
+             // navigate to /group pages
+             setEventName(response.data);
+             console.log(eventName);
 
-    // useEffect(() => {
-    //     axios.post(`http://localhost:4000/display?group=${groupId}`)
-    //     .then((response) => {
-    //         // navigate to /group pages
-    //         setEventName(response.data);
-    //         console.log(eventName);
-
-    //     })
-    //     .catch((error) => {
-    //         // handle the error
-    //         console.error(error);
-    //     });
-    //   }, [groupId]);
+         })
+         .catch((error) => {
+             // handle the error
+             console.error(error);
+         });
+       }, [groupId]);
 
 
     return (
-        <h2 className="UserPageTitle"> Nithin's Birthday </h2>
+        <h2 className="UserPageTitle"> {eventName} </h2>
     )
 }
 
-function UserNameForm(){
+function UserNameForm({ groupId, setUserId }){
+  const [userName, setUserName] = useState("");
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const inputValue = e.target.elements.username.value;
+    setUserName(inputValue);
+  };
+
   return (
     <div className="UserNameContainer">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           className="UserNameForm"
           type="text"
+          name="username"
           placeholder="Enter username"
+          onChange={(e) => setUserName(e.target.value)}
         />
       </form>
-      <JoinButton />
+      <JoinButton groupId={groupId} userName={userName} setUserId={setUserId}/>
     </div>
   )
 }
 
-function JoinButton(){
+function JoinButton({ groupId, userName, setUserId }){
+  
+  console.log(groupId);
+  console.log(userName);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
+      .then((response) => {
+        setUserId(response.data);
+        console.log(response.data);
+      });
+
+  }
   return (
-    <button type="submit" className="JoinButton">Join</button>
+    <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
   )
 }
 
 function DaysOfTheWeek() {
   const [days, setDays] = useState([]);
+  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+
   useEffect(() => {
     async function fetchData() {
       const daysData = await GetDays();
@@ -71,7 +95,7 @@ function DaysOfTheWeek() {
     <div className="DOTWBar">
       <ScrollIcon />
       {days.map((day, index) => (
-        <DayLabels key={index} day={day} index={index} length={days.length} />
+        <DayLabels key={index} day={day} length={days.length} />
       ))}
     </div>
   );
@@ -86,18 +110,18 @@ function ScrollIcon(){
   )
 }
 
-function DayLabels(){
+function DayLabels({ day }){
   return (
-    <div className="DayLabel"> S</div>
+    <div className="DayLabel"> {day} </div>
   )
 }
 
-function HeaderCard(){
+function HeaderCard({ groupId, setUserId }){
 
   return (
       <div>
         <div className= "HeaderCard">
-          <UserNameForm />
+          <UserNameForm groupId={groupId} setUserId={setUserId}/>
         </div>
         <DaysOfTheWeek />
       </div>
@@ -106,33 +130,6 @@ function HeaderCard(){
 
 }
 
-
-// function UserNameForm({ OnUserNameChange }) {
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault(); // prevent page refresh
-//         OnUserNameChange(e.target.value);
-//         // Create user
-//     };
-
-//     return (
-//         <div className="UserNameContainer">
-//             <form onSubmit={handleSubmit} >
-//                 <input
-//                     className="UserNameForm"
-//                     type="text"
-//                     placeholder="Enter username"
-//                     onChange={(e) => OnUserNameChange(e.target.value)}
-//                 />
-//                 <input 
-//                     className="JoinButton"
-//                     type="submit"
-                    
-//                 />
-//             </form>
-//         </div>
-//     );
-// }
 
 function TimeLabel({currTimeIndex}){
   const [currentTime, setCurrentTime] = useState("6:00 AM");
@@ -173,11 +170,37 @@ function TimeLabel({currTimeIndex}){
   )
 }
 
-function Slot(){
+function Slot({ matrixKey, days, groupId, userId }){
+  const [isSelected, setSelected] = useState(false);
+  const [style, setStyle] = useState("UnselectedSlot");
+  const cols = days.length;
+
+  const row = Math.floor(matrixKey/(cols+1));
+  const col = matrixKey - (row *(cols+1)) - 1;
+
+  const handlePress = (e) => {
+
+    if (isSelected) {
+      setSelected(false);
+      setStyle("UnselectedSlot");
+      //Remove booking
+    }
+    else{
+      setSelected(true);
+      setStyle("SelectedSlot");
+
+      axios.post(`https://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`, {
+        timeout: 5000,
+      });
+    }
+  }
+
+
   return (
-    <button type="button" className="UnselectedSlot"></button>
+    <button className={style} onClick={handlePress} type="button" >{matrixKey} ({row},{col}) </button>
   )
 }
+
 async function GetDays() {
   const URL = window.location.href.split("/");
   try {
@@ -224,7 +247,7 @@ async function convertTimeToIndex(time) {
 }
 
 
-function Calendar(){
+function Calendar( {groupId, userId}){
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -279,7 +302,7 @@ function Calendar(){
           key={index} 
           currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
          />
-         ) : (<Slot key={index} />
+         ) : (<Slot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId}/>
          ))
       )}
     </div>
@@ -301,11 +324,18 @@ function GroupPageButton(){
 
 function UserPage(){
 
+  const [groupId, setGroupId] = useState("");
+  const [userId, setUserId] = useState("");
+
+  useEffect (() => {
+    setGroupId(window.location.pathname.split("/").pop());
+  }, [groupId])
+
     return(
         <div className="LightMode">
-            <Title/>
-            <HeaderCard />
-            <Calendar />
+            <Title groupId={groupId}/>
+            <HeaderCard groupId={groupId} setUserId={setUserId}/>
+            <Calendar groupId={groupId} userId={userId}/>
             {/*<GroupPageButton />*/}
        </div>
     )

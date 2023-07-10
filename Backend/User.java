@@ -48,7 +48,7 @@ public class User {
         this.availabilityArray = availabilityArray;
     }
     public String print(){
-        String s = "";
+        String s = name+"\n";
         for (int i = 0; i < availabilityArray.length; i++){
             for (int j = 0; j < availabilityArray[0].length; j++)
             {
