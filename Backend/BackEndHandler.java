@@ -70,7 +70,7 @@ class Handler implements URLHandler {
         } 
         else if (url.getPath().equals("/book")) {
            String[] parameters = url.getQuery().split("=");
-           //https://localhost:4000/book?user=userid=group=groupId=row=col 
+           //http://localhost:4000/book?user=userid=group=groupId=row=col 
             if (parameters[0].equals("user")) {
                 ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).addAvailability(parameters[4],parameters[5]);
                 
@@ -78,20 +78,28 @@ class Handler implements URLHandler {
            }
         }
 
+        else if (url.getPath().equals("/unbook")){
+            String[] parameters = url.getQuery().split("=");
+            //http://localhost:4000/unbook?user=userid=group=groupId=row=col 
+            if (parameters[0].equals("user")) {
+                ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).removeAvailability(parameters[4],parameters[5]);
+                return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
+            }
+        }
         else if (url.getPath().equals("/display")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/display?group=groupid
+            //http://localhost:4000/display?group=groupid
             if (parameters[0].equals("group")){
                 //return ((GroupEvent)globalGroups.get(parameters[1])).getName();
                 return globalGroups.get(parameters[1]).print();
             }
 
-            //https://localhost:4000/display?user=groupId=userId
+            //http://localhost:4000/display?user=groupId=userId
             else if (parameters[0].equals("user")){
                 return ((User) globalGroups.get(parameters[1]).getMemberList().get(parameters[2])).getName();
             }
 
-            //https://localhost:4000/display?memlist=groupId
+            //http://localhost:4000/display?memlist=groupId
             else if (parameters[0].equals("memlist")){
                 return (globalGroups.get(parameters[1]).displayMembers());
             }
@@ -100,21 +108,21 @@ class Handler implements URLHandler {
         }
         else if (url.getPath().equals("/days")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/days?group=groupid
+            //http://localhost:4000/days?group=groupid
             if (parameters[0].equals("group")){
                 return calander;
             }
         }
         else if (url.getPath().equals("/shours")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/shours?group=groupid
+            //http://localhost:4000/shours?group=groupid
             if (parameters[0].equals("group")){
                 return start.toString();
             }
         }
         else if (url.getPath().equals("/ehours")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/ehours?group=groupid
+            //http://localhost:4000/ehours?group=groupid
             if (parameters[0].equals("group")){
                 return end.toString();
             }
@@ -122,7 +130,7 @@ class Handler implements URLHandler {
 
         else if (url.getPath().equals("/name")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/name?group=groupid
+            //http://localhost:4000/name?group=groupid
             if (parameters[0].equals("group")){
                 return globalGroups.get(parameters[1]).getName();
             }
@@ -140,12 +148,12 @@ class Handler implements URLHandler {
                return String.format("Found %d paths:\n%s", foundPaths.size(), result);*/
         else if (url.getPath().equals("/create")){
             String[] parameters = url.getQuery().split("=");
-            //https://localhost:4000/create?group=name=5:00 AM=9:00 PM=Monday,Tuesday,Wednesday,Saturday
+            //http://localhost:4000/create?group=name=5:00 AM=9:00 PM=Monday,Tuesday,Wednesday,Saturday
             if (parameters[0].equals("group")){
                 String group = groupCreate(parameters[1],parameters[2],parameters[3],parameters[4].split(","));
                 return group;
             }
-            //https://localhost:4000/create?user=groupId=Sammyo
+            //http://localhost:4000/create?user=groupId=Sammyo
             else if (parameters[0].equals("user")){
                 String user = userCreate(parameters[1],parameters[2]);
                 return user;

@@ -65,6 +65,13 @@ public class User {
         }
     }
 
+    public void removeAvailability(String row, String col){
+        if (availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] != 0){
+            availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] = 0;
+            groupID.removeGroupAvailability(row, col);
+        }
+    }
+
 }
 
 

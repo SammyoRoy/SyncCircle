@@ -66,6 +66,10 @@ public class GroupEvent {
         //}
     }
 
+    public void removeGroupAvailability(String row, String col){
+        masterArray[Integer.parseInt(row)][Integer.parseInt(col)]--;
+    }
+
     public String displayMembers(){
         String m="";
         for (Map.Entry<String,User> entry : memberList.entrySet()) {
