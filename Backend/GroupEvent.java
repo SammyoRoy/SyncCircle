@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
 
@@ -63,6 +64,18 @@ public class GroupEvent {
         //if (masterArray[Integer.parseInt(row)][Integer.parseInt(col)] < memberList.size()){
             masterArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
         //}
+    }
+
+    public String displayMembers(){
+        String m="";
+        for (Map.Entry<String,User> entry : memberList.entrySet()) {
+            String key = entry.getKey();
+            User value = entry.getValue();
+            String name = value.getName();
+            m += ("Name: " + name + "  " + key);
+        }
+
+        return m;
     }
 }
 

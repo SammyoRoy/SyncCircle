@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useRef} from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
@@ -34,7 +34,7 @@ function Title({ groupId }) {
     )
 }
 
-function UserNameForm({ groupId }){
+function UserNameForm({ groupId, setUserId }){
   const [userName, setUserName] = useState("");
   
   const handleSubmit = (e) => {
@@ -54,12 +54,12 @@ function UserNameForm({ groupId }){
           onChange={(e) => setUserName(e.target.value)}
         />
       </form>
-      <JoinButton groupId={groupId} userName={userName}/>
+      <JoinButton groupId={groupId} userName={userName} setUserId={setUserId}/>
     </div>
   )
 }
 
-function JoinButton({ groupId, userName }){
+function JoinButton({ groupId, userName, setUserId }){
   
   console.log(groupId);
   console.log(userName);
@@ -68,6 +68,7 @@ function JoinButton({ groupId, userName }){
     event.preventDefault();
     axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
       .then((response) => {
+        setUserId(response.data);
         console.log(response.data);
       });
 
@@ -115,12 +116,12 @@ function DayLabels({ day }){
   )
 }
 
-function HeaderCard({ groupId }){
+function HeaderCard({ groupId, setUserId }){
 
   return (
       <div>
         <div className= "HeaderCard">
-          <UserNameForm groupId={groupId}/>
+          <UserNameForm groupId={groupId} setUserId={setUserId}/>
         </div>
         <DaysOfTheWeek />
       </div>
@@ -169,11 +170,37 @@ function TimeLabel({currTimeIndex}){
   )
 }
 
-function Slot(){
+function Slot({ matrixKey, days, groupId, userId }){
+  const [isSelected, setSelected] = useState(false);
+  const [style, setStyle] = useState("UnselectedSlot");
+  const cols = days.length;
+
+  const row = Math.floor(matrixKey/(cols+1));
+  const col = matrixKey - (row *(cols+1)) - 1;
+
+  const handlePress = (e) => {
+
+    if (isSelected) {
+      setSelected(false);
+      setStyle("UnselectedSlot");
+      //Remove booking
+    }
+    else{
+      setSelected(true);
+      setStyle("SelectedSlot");
+
+      axios.post(`https://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`, {
+        timeout: 5000,
+      });
+    }
+  }
+
+
   return (
-    <button type="button" className="UnselectedSlot"></button>
+    <button className={style} onClick={handlePress} type="button" >{matrixKey} ({row},{col}) </button>
   )
 }
+
 async function GetDays() {
   const URL = window.location.href.split("/");
   try {
@@ -220,7 +247,7 @@ async function convertTimeToIndex(time) {
 }
 
 
-function Calendar(){
+function Calendar( {groupId, userId}){
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -275,7 +302,7 @@ function Calendar(){
           key={index} 
           currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
          />
-         ) : (<Slot key={index} />
+         ) : (<Slot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId}/>
          ))
       )}
     </div>
@@ -298,6 +325,7 @@ function GroupPageButton(){
 function UserPage(){
 
   const [groupId, setGroupId] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect (() => {
     setGroupId(window.location.pathname.split("/").pop());
@@ -306,8 +334,8 @@ function UserPage(){
     return(
         <div className="LightMode">
             <Title groupId={groupId}/>
-            <HeaderCard groupId={groupId}/>
-            <Calendar />
+            <HeaderCard groupId={groupId} setUserId={setUserId}/>
+            <Calendar groupId={groupId} userId={userId}/>
             {/*<GroupPageButton />*/}
        </div>
     )

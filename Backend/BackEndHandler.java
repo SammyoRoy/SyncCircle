@@ -73,7 +73,7 @@ class Handler implements URLHandler {
            //https://localhost:4000/book?user=userid=group=groupId=row=col 
             if (parameters[0].equals("user")) {
                 ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).addAvailability(parameters[4],parameters[5]);
-            
+                
                 return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
            }
         }
@@ -86,10 +86,17 @@ class Handler implements URLHandler {
                 return globalGroups.get(parameters[1]).print();
             }
 
-            //https://localhost:4000/display?user=groupId=Sammyo
+            //https://localhost:4000/display?user=groupId=userId
             else if (parameters[0].equals("user")){
                 return ((User) globalGroups.get(parameters[1]).getMemberList().get(parameters[2])).getName();
             }
+
+            //https://localhost:4000/display?memlist=groupId
+            else if (parameters[0].equals("memlist")){
+                return (globalGroups.get(parameters[1]).displayMembers());
+            }
+
+
         }
         else if (url.getPath().equals("/days")){
             String[] parameters = url.getQuery().split("=");
