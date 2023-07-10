@@ -182,7 +182,8 @@ function TimeLabel({currTimeIndex}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      // Remove booking
+      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
