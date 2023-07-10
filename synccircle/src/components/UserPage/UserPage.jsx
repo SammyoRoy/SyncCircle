@@ -170,7 +170,7 @@ function TimeLabel({currTimeIndex}){
   )
 }
 
-function Slot({ matrixKey, days, groupId, userId }){
+ function Slot({ matrixKey, days, groupId, userId }){
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
   const cols = days.length;
@@ -178,22 +178,20 @@ function Slot({ matrixKey, days, groupId, userId }){
   const row = Math.floor(matrixKey/(cols+1));
   const col = matrixKey - (row *(cols+1)) - 1;
 
-  const handlePress = (e) => {
-
+  const handlePress = async (e) => {
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      //Remove booking
-    }
-    else{
+      // Remove booking
+    } else {
       setSelected(true);
       setStyle("SelectedSlot");
-
-      axios.post(`https://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`, {
-        timeout: 5000,
-      });
+  
+      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+      console.log(response);
     }
-  }
+  };
+  
 
 
   return (
