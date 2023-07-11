@@ -16,7 +16,14 @@ function Title() {
         <h2 className="Title"> SyncCircle</h2>
     );
 }
-
+function Footer(){
+    return (
+        <div className="Footer">
+            <small className ="FooterText"><b>Created by:</b></small><br></br>
+            <small className ="FooterText">Nithin and Sammyo</small>
+        </div>
+    )
+}
 function ScreenMode() {
     return (
         <div className="ScreenMode"></div>
@@ -184,6 +191,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
             <DaySelectionFrame setDays={setDays} days={days} />
           </div>
         <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
+        <Footer />
       </div>
     );
   }

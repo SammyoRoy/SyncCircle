@@ -5,11 +5,10 @@
     margin:0;
     position:0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-@media (prefers-color-scheme: dark){
-    .ScreenMode{
-        background: #000000e8;
-    }
+.Footer{
+    display:none;
 }
 .Title {
     /* SyncCircle */
@@ -54,6 +53,7 @@
     
     background: #E6E6E6;
     border-radius: 30px;
+    overflow-x: hidden;
 
 }
 .EventNameForm {
@@ -154,37 +154,41 @@
 
 
 .TimeSelectionDropdown2 {
-    /* Frame 23 */
+   /* Frame 16 */
+   box-sizing: border-box;
 
-    box-sizing: border-box;
+   /* Auto layout */
 
-    /* Auto layout */
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 8px 12px;
+   gap: 10px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+   position: relative;
+   width: 35%;
+   height: 100%;
+   left: 0;
 
-    position: relative;
-    width: 35%;
-    height: 100%;
 
-    background: #F7F7F7;
-    border: 2px solid #6ABEA7;
-    border-radius: 30px;
-    margin-right: 7.5%;  
+   background: #F7F7F7;
+   border: 2px solid #6ABEA7;
+   border-radius: 30px;
 
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 120%;
-    /* identical to box height, or 18px */
+   /* 9:00 AM */
 
-    text-align: center;
+   font-family: 'Poppins';
+   font-style: normal;
+   font-weight: 600;
+   font-size: 15px;
+   line-height: 120%;
+   /* identical to box height, or 18px */
 
-    color: #6ABEA7;
+   text-align: center;
+   margin-right: 7%;
+
+   color: #6ABEA7;
 }
 .DayOfTheWeekButton{
     /* Property 1=Default */
@@ -339,6 +343,68 @@
     flex-grow: 1;
     border: 0;
 
+}
+@media only screen and (min-width: 768px) {
+    .Title{
+        width: 50%;
+        top:2%;
+        font-size: 40px;
+    }
+
+    .Backdrop{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: transparent;
+    }
+    .EventNameForm{
+        width: 45%;
+        height: 5%;
+        left: 50%;
+        top: 2%;
+        text-align: left;
+        border:2px solid #5AD85F;
+    }
+
+    .TimeSelectionFrame{
+        margin-left: 60%;
+        flex-direction: column;
+    }
+    .TimeSelectionDropdown, .TimeSelectionDropdown2{
+        margin: 1% 0;
+    }
+
+    .DaySelectionFrame{
+        width: 50%;
+        height: 50%;
+        margin-top: 0;
+        top: 35%;
+        left: 0;
+    }
+
+    .CreateEventSubmitButton{
+        width: 75%;
+        height: 10%;
+        left: 20%;
+        top: 66%;
+        border: 5px solid #37953A;
+        border-radius: 30px;
+    }
+    .Footer{
+        display: block;
+        position: absolute;
+        bottom: 0;
+        align-items: right;
+        width:100%;
+        background: #37953A;
+    }
+    .FooterText{
+        font-size: 10px;
+        color: #000000;
+        margin-left:85%;
+        color: #F7F7F7;
+    }
 }
 
 
