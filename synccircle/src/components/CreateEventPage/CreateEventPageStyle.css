@@ -344,7 +344,7 @@
     border: 0;
 
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 2000px) {
     .Title{
         width: 50%;
         top:2%;

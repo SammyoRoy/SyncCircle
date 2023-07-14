@@ -1,18 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
-
-
-
 import CreateEventPage from './components/CreateEventPage/CreateEventPage.jsx';
-import UserPage from './components/UserPage/UserPage.jsx';
-import GroupPage from './components/GroupPage/GroupPage.jsx';
+import UserPage from './components/Group-UserPage/UserPage.jsx';
+import GroupPage from './components/Group-UserPage/GroupPage.jsx';
 
 function App() {
     return (
@@ -23,7 +17,6 @@ function App() {
             <Route path="/group/:group" element={<UserPage/>} />
             <Route path="/group/:group/ALL" element={<GroupPage/>} />
           </Routes>
-  
         </div>
       </Router>
     );

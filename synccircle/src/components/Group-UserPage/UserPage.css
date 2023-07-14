@@ -1,26 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-:root {
-    --rows: 24;
-    --cols: 7;
-  }
-.UserPageTitle {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.9375rem;
-    margin: 2rem;
 
-    color: #000;
-    font-size: 1.5rem;
-    font-family: Poppins;
+.UserPageTitle {
+    z-index: 1;
+    width: 100%;
+    height: 1.81rem;
+    top: 5%; 
+    text-align: center;
+    justify-content: center;
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
+    font-size: 1.5rem;
     line-height: 120%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.LightMode{
+    width: 100%;
+    height: 100vh;  
 }
 
 .HeaderCard {
-    width: 390px;
-    height: 99px;
+    width: 80%;
+    height: 10%;
+    margin: 0 auto;
     flex-shrink: 0;
     top: -10px;
 
@@ -30,22 +34,17 @@
     z-index: 5;
 }
 
-.UserNameContainer {
-    display: inline-flex;
-    padding: 8px 10px 8px 21.5px;
-    align-items: center;
-    gap: 119px;
-    width: 80%;
-    height: 40%;
-    
-    border-radius: 30px;
-    border: 1px solid #E4E4E4;
-    background: #F7F7F7;
+.UserNameContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5%;
+}
 
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.content{
+    height: 80%;
+    margin-top: 5%;
+
 }
 
 .UserNameForm {
@@ -66,26 +65,28 @@
 
 .JoinButton {
     display: flex;
-width: 90px;
-height: 38px;
+width: 25%;
+height: 100%;
 padding: 8px 12px;
 justify-content: center;
 align-items: center;
 gap: 10px;
 
-border-radius: 30px;
+border-top-right-radius: 30px;
+border-bottom-right-radius: 30px;
 background: #5AD85F;
 outline: none;
 border-color: transparent;
+cursor: pointer;
 }
 
 .DOTWBar {
-    position: relative;
     top: -10px;
-    width: 390px;
-    height: 50px;
+    width: 80%;
+    height: 10%;
+    padding-bottom: 1%;
     flex-shrink: 0;
-
+    margin-left: 10%;
     background: #E6E6E6;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
@@ -108,7 +109,7 @@ text-align: center;
 font-size: 14px;
 font-family: Poppins;
 font-style: normal;
-font-weight: 700;
+font-weight: 600;
 line-height: 120%;
 
 display: flex;
@@ -117,25 +118,43 @@ justify-content: center;
 }
 
 .CalendarGrid {
-    position: relative;
-    top: -10px;
+    margin-left: 10%;
     display: grid;
-    grid-template-columns: 1.6fr repeat(var(--cols), 1fr);
-    grid-template-rows: repeat(var(--rows), 1fr);
+    grid-template-columns: 1.6fr repeat(7, 1fr);
+    grid-template-rows: repeat(24, 1fr);
     place-items: center;
 
+    height: 90%;
+    width: 80%;
 }
 
-.Slot {
+.UnselectedSlot {
     position: relative;
-    width: 45px;
-height: 40px;
-flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
 
-border: 0.3px solid #B5B5B5;
-border-top: none;
-background: #F7F7F7;
-z-index: 3;
+    border: 0.3px solid #B5B5B5;
+    border-top: none;
+    border-right: none;
+    background: #F7F7F7;
+    z-index: 3;
+}
+
+.SelectedSlot {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+
+    border: 0.3px solid #B5B5B5;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    background: #5AD85F;
+    z-index: 3;
 }
 
 .TimeLabel {
@@ -147,5 +166,14 @@ font-family: Poppins;
 font-style: normal;
 font-weight: 400;
 line-height: 120%;
+
 }
 
+.form-control{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.divider{
+    height: 75%;
+}
