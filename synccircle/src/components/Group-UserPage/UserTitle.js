@@ -3,8 +3,13 @@ import axios from "axios";
 
 function UserTitle({ groupId }) {
     const [eventName, setEventName] = useState("");
+    const [className, setClassName] = useState("UserPageTitle");
+
 
     useEffect(() => {
+        if (eventName.length > 10) {
+            setClassName("UserPageTitleSmall");
+        }
          axios.post(`http://localhost:4000/name?group=${groupId}`)
          .then((response) => {
              // navigate to /group pages
@@ -20,7 +25,7 @@ function UserTitle({ groupId }) {
 
 
     return (
-        <h2 className="UserPageTitle"> {eventName} </h2>
+        <h2 className={className}> {eventName} </h2>
     )
 }
 

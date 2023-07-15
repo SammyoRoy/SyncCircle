@@ -18,7 +18,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
       }
     }; 
     return (
-      <button className={style} onClick={handlePress} onTouchStart={handlePress}>{day}</button>
+      <button className={style} onClick={handlePress}>{day}</button>
     );
   } 
 

@@ -16,6 +16,22 @@
     margin-top: 2%;
 }
 
+.UserPageTitleSmall{
+    z-index: 1;
+    width: 100%;
+    height: 1.81rem;
+    top: 5%; 
+    text-align: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 120%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
 .LightMode{
     width: 100%;
     height: 100vh;  
@@ -65,7 +81,7 @@
 
 .JoinButton {
     display: flex;
-width: 25%;
+width: 100%;
 height: 100%;
 padding: 8px 12px;
 justify-content: center;
@@ -176,4 +192,14 @@ line-height: 120%;
 
 .divider{
     height: 75%;
+}
+
+@media only screen and (max-width: 600px) {
+    .UserPageTitle {
+        font-size: 1.2rem;
+    }
+
+    .UserPageTitleSmall{
+        font-size: 0.8rem;
+    }
 }

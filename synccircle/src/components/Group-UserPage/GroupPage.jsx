@@ -1,7 +1,7 @@
 import React from "react";
 import UserTitle from "./UserTitle";
 import HeaderCard from "./HeaderCard";
-import Calendar from "./Calander";
+import GroupCalendar from "./GroupCalander";
 
 
 
@@ -11,7 +11,7 @@ function GroupPage(){
         <div className="LightMode">
             <UserTitle/>
             <HeaderCard />
-            <Calendar />
+            <GroupCalendar />
        </div>
     )
 }

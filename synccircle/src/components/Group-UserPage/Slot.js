@@ -4,7 +4,7 @@ import axios from 'axios';
 function Slot({ matrixKey, days, groupId, userId }) {
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
-  const [showAlert, setShowAlert] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const cols = days.length;
 
   const row = Math.floor(matrixKey / (cols + 1));

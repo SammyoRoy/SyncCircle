@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import './UserPage.css';
-import UserTitle from "./UserTitle";
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 

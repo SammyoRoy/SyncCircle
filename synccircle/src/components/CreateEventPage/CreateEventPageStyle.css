@@ -42,6 +42,7 @@
 }
 
 .Backdrop {
+    overflow: hidden;
     display:flex;
     flex-direction: column;
     text-align: center;
@@ -214,9 +215,9 @@
     /* Sun */
 
 
-    font-family: 'Bahnschrift';
+    font-family: 'Poppins';
     font-style: normal;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 20px;
     line-height: 24px;
     /* identical to box height */
@@ -261,9 +262,9 @@
     /* Sun */
 
 
-    font-family: 'Bahnschrift';
+    font-family: 'Poppins';
     font-style: normal;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 20px;
     line-height: 24px;
     /* identical to box height */
@@ -344,7 +345,7 @@
     border: 0;
 
 }
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 5000px) {
     .Title{
         width: 50%;
         top:2%;
@@ -405,6 +406,13 @@
         margin-left:85%;
         color: #F7F7F7;
     }
+}
+
+@media only screen and (max-width: 500px) {
+    .CreateEventSubmitButton{
+        top: 80%;
+    }
+
 }
 
 
