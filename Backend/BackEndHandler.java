@@ -104,8 +104,22 @@ class Handler implements URLHandler {
                 return (globalGroups.get(parameters[1]).displayMembers());
             }
 
-
         }
+
+        else if (url.getPath().equals("/slot")){
+            String[] parameters = url.getQuery().split("=");
+            //http://localhost:4000/slot?group=groupid=row=col
+            int avail = globalGroups.get(parameters[1]).getMasterArray()[Integer.parseInt(parameters[2])][Integer.parseInt(parameters[3])];
+            return String.valueOf(avail);
+        }
+
+        else if (url.getPath().equals("/numMem")){
+            String[] parameters = url.getQuery().split("=");
+            //http://localhost:4000/numMem?group=groupid
+            int totalMembers = globalGroups.get(parameters[1]).getMemberList().size();
+            return String.valueOf(totalMembers);
+        }
+
         else if (url.getPath().equals("/days")){
             String[] parameters = url.getQuery().split("=");
             //http://localhost:4000/days?group=groupid

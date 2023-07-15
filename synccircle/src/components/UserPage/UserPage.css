@@ -186,5 +186,25 @@ border-radius: 30px;
 background: #9747FF;
 outline: none;
 border-color: transparent;
+
+/* GroupViewButton */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 12px;
+gap: 10px;
+
+position: absolute;
+width: 60px;
+height: 30px;
+left: 190px;
+top: 25px;
+
+background: #9747FF;
+border-radius: 30px;
+
 }
 

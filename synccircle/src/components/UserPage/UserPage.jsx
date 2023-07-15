@@ -60,7 +60,7 @@ function UserNameForm({ groupId, setUserId }){
 }
 
 function JoinButton({ groupId, userName, setUserId }){
-  const [showGroup, setShowGroup] = useState(false);
+  const [show, setShow] = useState(true);
 
   console.log(groupId);
   console.log(userName);
@@ -72,16 +72,14 @@ function JoinButton({ groupId, userName, setUserId }){
         setUserId(response.data);
         console.log(response.data);
       });
-    setShowGroup(true);
+    setShow(false);
 
   }
   return (
     <div>
-    {showGroup ? (
-      <GroupPageButton />
-    ) :(
+    {show ? (
       <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
-    )}
+    ): (null)}
     </div>
   );
 }
@@ -344,10 +342,13 @@ function UserPage(){
 
     return(
         <div className="LightMode">
+          <div>
             <Title groupId={groupId}/>
+            <GroupPageButton />
+          </div>
+
             <HeaderCard groupId={groupId} setUserId={setUserId}/>
             <Calendar groupId={groupId} userId={userId}/>
-            {/*<GroupPageButton />*/}
        </div>
     )
 }

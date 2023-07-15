@@ -35,32 +35,6 @@ function Title({ groupId }) {
 }
 
 
-function JoinButton({ groupId, userName, setUserId }){
-const [showGroup, setShowGroup] = useState(false);
-
-console.log(groupId);
-console.log(userName);
-
-const onSubmit = (event) => {
-  event.preventDefault();
-  axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
-    .then((response) => {
-      setUserId(response.data);
-      console.log(response.data);
-    });
-  setShowGroup(true);
-
-}
-return (
-  <div>
-  {showGroup ? (
-    <GroupPageButton />
-  ) :(
-    <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
-  )}
-  </div>
-);
-}
 
 function DaysOfTheWeek() {
 const [days, setDays] = useState([]);
@@ -155,32 +129,79 @@ return (
 }
 
 function Slot({ matrixKey, days, groupId, userId }){
-const [isSelected, setSelected] = useState(false);
-const [style, setStyle] = useState("UnselectedSlot");
+const [color, setColor] = useState("F7F7F7");
+const [numAvail, setNumAvail] = useState(0);
+const [totalMembers, setTotalMembers] = useState(0)
 const cols = days.length;
 
 const row = Math.floor(matrixKey/(cols+1));
 const col = matrixKey - (row *(cols+1)) - 1;
 
-const handlePress = async (e) => {
-  if (isSelected) {
-    setSelected(false);
-    setStyle("UnselectedSlot");
-    const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
 
-  } else {
-    setSelected(true);
-    setStyle("SelectedSlot");
+  useEffect(() => {
+    
+    async function initialize(){
+      await axios.post(`http://localhost:4000/slot?group=${groupId}=${row}=${col}`)
+      .then((response) => {
+          // navigate to /group pages
+          setNumAvail(parseInt(response.data));
+      })
+      .catch((error) => {
+          // handle the error
+          console.error(error);
+      });
+  
+      await axios.post(`http://localhost:4000/numMem?group=${groupId}`)
+        .then((response) => {
+          setTotalMembers(parseInt(response.data));
+        })
+    }
 
-    const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
-    console.log(response);
-  }
-};
+
+    function setColor() {
+      const ratio = numAvail/totalMembers;
+      console.log("Hello");
+      
+      if (ratio == 1){
+        setColor("058ED9");
+      }
+      else if (ratio >= .9){
+        setColor("17881C");
+      }
+      else if (ratio >= .8){
+        setColor("3FB444");
+      }
+      else if (ratio >= .7){
+        setColor("81DE84");
+      }
+      else if (ratio >= .6){
+        setColor("A39E3D");
+      }
+      else if (ratio >= .5){
+        setColor("D2CD67");
+      }
+
+      else if (ratio >= .4){
+        setColor("E5E296");
+      }
+      else if (ratio >= .3){
+        setColor("984A45");
+      }
+      else if (ratio >= .2){
+        setColor("C65E58");
+      }
+      else if (ratio >= .1){
+        setColor("F4A19C");
+      }
+    }
+    initialize();
+    setColor();
+  }, [numAvail, totalMembers, color]);
 
 
 
 return (
-  <button className={style} onClick={handlePress} type="button" ></button>
+  <button className="Slot" style={{backgroundColor: color}} type="button" >{numAvail}</button>
 )
 }
 
@@ -262,13 +283,9 @@ useEffect(() => {
 
   fetchData();
   initializeIndices();
-  console.log(startIndex);
-  console.log(endIndex);
-  console.log(currTimeIndex);
 }, [startIndex, endIndex, currTimeIndex, start, end]);
 
 const numRows = (endIndex-startIndex);
-console.log(numRows);
 const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
 const gridTemplateRows = `repeat(${numRows}, 1fr)`;
 const totalCells = (days.length+1) * (endIndex-startIndex);
@@ -292,14 +309,14 @@ return (
 );
 }
 
-function GroupPageButton() {
+function UserPageButton() {
 const navigate = useNavigate();
 const handleClick = () => {
-  navigate(`/group/${window.location.href.split("/")[window.location.href.split("/").length - 1]}/ALL`);
+  navigate(`/group/${window.location.href.split("/")[window.location.href.split("/").length - 2]}`);
 };
 return (
   <div>
-    <button className="GroupPageButton" type="button" onClick={handleClick}>
+    <button className="UserPageButton" type="button" onClick={handleClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
         <path d="M8.36273 13.75C10.7002 13.75 12.4877 11.9625 12.4877 9.625C12.4877 7.2875 10.7002 5.5 8.36273 5.5C6.02523 5.5 4.23773 7.2875 4.23773 9.625C4.23773 11.9625 6.02523 13.75 8.36273 13.75ZM12.4877 15.8125H4.23773C1.90023 15.8125 0.112732 17.6 0.112732 19.9375V22H16.6127V19.9375C16.6127 17.6 14.8252 15.8125 12.4877 15.8125ZM13.7252 8.25H13.8627C16.2002 8.25 17.9877 6.4625 17.9877 4.125C17.9877 1.7875 16.2002 0 13.8627 0C11.5252 0 9.73773 1.7875 9.73773 4.125V4.2625C11.6627 4.8125 13.1752 6.325 13.7252 8.25ZM17.9877 10.3125H13.8627C13.5877 12.1 12.6252 13.6125 11.1127 14.4375H12.4877C14.2752 14.4375 15.7877 15.2625 16.7502 16.5H22.1127V14.4375C22.1127 12.1 20.3252 10.3125 17.9877 10.3125Z" fill="white" />
       </svg>
@@ -322,10 +339,10 @@ useEffect (() => {
 
   return(
       <div className="LightMode">
-          <Title groupId={groupId}/>
+            <Title groupId={groupId}/>
+            <UserPageButton />
           <HeaderCard groupId={groupId} setUserId={setUserId}/>
           <Calendar groupId={groupId} userId={userId}/>
-          {/*<GroupPageButton />*/}
      </div>
   )
 }
