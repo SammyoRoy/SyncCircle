@@ -136,8 +136,15 @@ justify-content: center;
     border: 0.3px solid #B5B5B5;
     border-top: none;
     border-right: none;
-    background: #F7F7F7;
     z-index: 3;
+
+    color: #FFF;
+text-align: center;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%; /* 24px */
 }
 
 .TimeLabel {
