@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './UserPage.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
+import GroupPageButton from "./GroupPageButton";
 
 function UserPage() {
 
@@ -20,7 +21,7 @@ function UserPage() {
         <Calendar groupId={groupId} userId={userId} />
         </div>
       </div>
-      {/*<GroupPageButton />*/}
+      <GroupPageButton />
     </div>
   )
 }
