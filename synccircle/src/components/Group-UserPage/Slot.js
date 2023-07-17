@@ -14,6 +14,7 @@ function Slot({ matrixKey, days, groupId, userId }){
       setSelected(false);
       setStyle("UnselectedSlot");
       const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+      console.log(response);
 
     } else {
       setSelected(true);

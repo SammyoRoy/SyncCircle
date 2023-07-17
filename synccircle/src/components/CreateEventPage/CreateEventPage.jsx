@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import './CreateEventPageStyle.css';
 import Title from "./Title";
 import EventNameForm from "./EventNameForm";

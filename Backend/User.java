@@ -58,17 +58,17 @@ public class User {
         }
         return s;
     }
-    public void addAvailability(String row, String col){
+    public void addAvailability(String row, String col, String name){
         if (availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] == 0){
             availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)]++;
-            groupID.addGroupAvailability(row, col);
+            groupID.addGroupAvailability(row, col, name);
         }
     }
 
-    public void removeAvailability(String row, String col){
+    public void removeAvailability(String row, String col, String name){
         if (availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] != 0){
             availabilityArray[Integer.parseInt(row)][Integer.parseInt(col)] = 0;
-            groupID.removeGroupAvailability(row, col);
+            groupID.removeGroupAvailability(row, col, name);
         }
     }
 

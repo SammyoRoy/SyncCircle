@@ -61,10 +61,15 @@ function GroupSlot({ matrixKey, days, groupId, userId }){
       setColor(`#F4A19C`);
     }
   }
+
+  const handleOver = async () => {
+    const response = await axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`);
+    console.log(response.data);
+  };
   
   
   return (
-    <button className="Slot" style={{backgroundColor: color}} type="button" >{numAvail}</button>
+    <button className="Slot" style={{backgroundColor: color}} type="button" onMouseOver={handleOver}>{numAvail}</button>
   )
   }
   

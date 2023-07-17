@@ -72,9 +72,10 @@ class Handler implements URLHandler {
            String[] parameters = url.getQuery().split("=");
            //http://localhost:4000/book?user=userid=group=groupId=row=col 
             if (parameters[0].equals("user")) {
-                ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).addAvailability(parameters[4],parameters[5]);
+                Object temp = globalGroups.get(parameters[3]).getMemberList().get(parameters[1]);
+                ((User) temp).addAvailability(parameters[4],parameters[5], ((User)temp).getName());
                 
-                return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
+                return ((User)temp).print();
            }
         }
 
@@ -82,8 +83,9 @@ class Handler implements URLHandler {
             String[] parameters = url.getQuery().split("=");
             //http://localhost:4000/unbook?user=userid=group=groupId=row=col 
             if (parameters[0].equals("user")) {
-                ((User) globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).removeAvailability(parameters[4],parameters[5]);
-                return ((User)globalGroups.get(parameters[3]).getMemberList().get(parameters[1])).print();
+                Object temp = globalGroups.get(parameters[3]).getMemberList().get(parameters[1]);
+                ((User) temp).removeAvailability(parameters[4],parameters[5], ((User)temp).getName());
+                return ((User)temp).print();
             }
         }
         else if (url.getPath().equals("/display")){
@@ -103,14 +105,19 @@ class Handler implements URLHandler {
             else if (parameters[0].equals("memlist")){
                 return (globalGroups.get(parameters[1]).displayMembers());
             }
+            //http://localhost:4000/display?slot=group=groupid=row=col
+            else if (parameters[0].equals("slot")){
+                ArrayList<String> avail = globalGroups.get(parameters[2]).getMasterArray()[Integer.parseInt(parameters[3])][Integer.parseInt(parameters[4])];
+                return avail.toString();
+            }
 
         }
 
         else if (url.getPath().equals("/slot")){
             String[] parameters = url.getQuery().split("=");
             //http://localhost:4000/slot?group=groupid=row=col
-            int avail = globalGroups.get(parameters[1]).getMasterArray()[Integer.parseInt(parameters[2])][Integer.parseInt(parameters[3])];
-            return String.valueOf(avail);
+            ArrayList<String> avail = globalGroups.get(parameters[1]).getMasterArray()[Integer.parseInt(parameters[2])][Integer.parseInt(parameters[3])];
+            return String.valueOf(avail.size());
         }
 
         else if (url.getPath().equals("/numMem")){
