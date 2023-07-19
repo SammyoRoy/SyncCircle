@@ -2,18 +2,21 @@ html,
 body {
     height: 100%;
     margin: 0;
-    
+
 }
+
+
 
 .ScreenBackground {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: #F7F7F7; 
-    justify-content: flex-start ;
+    background: #F7F7F7;
+    justify-content: flex-start;
     align-items: center;
     gap: 4%
 }
+
 
 .Title {
     /* SyncCircle */
@@ -24,17 +27,16 @@ body {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 120%;
     /* identical to box height, or 29px */
     color: #5AD85F;
-    margin-right: 35%;
-    margin-bottom: 0;
+    margin-bottom: -3%;
     margin-top: 15%;
 }
 
 .Backdrop {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: 90%;
     background: #E6E6E6;
@@ -50,10 +52,14 @@ body {
     width: 90%;
     height: 12%;
     background: #F7F7F7;
-    border: 2px solid #5AD85F;
+    border: 2px solid #297045;
     border-radius: 30px;
 
     color: #5AD85F;
+}
+
+.EventNameForm:hover {
+    border: 2px solid #5AD85F;
 }
 
 .EventNameInput {
@@ -63,12 +69,12 @@ body {
     font-size: 16px;
     line-height: 150%;
     /* identical to box height, or 24px */
-    text-align: left;
+    text-align: center;
+    width: 100%;
 
-    color: #5AD85F;
+    color: #297045;
     background: none;
     border: none;
-    margin-left: 10%;
     outline: none;
 }
 
@@ -86,24 +92,31 @@ body {
     height: 0;
     padding: 0;
     margin: 0;
-  }
+}
 
 .TimeSelectionDropdown {
     background: #F7F7F7;
-    border: 2px solid #5AD85F;
+    border: 2px solid #297045;
     border-radius: 30px;
     display: flex;
-    
-    font-family: 'Poppins';
-   font-style: normal;
-   font-weight: 600;
-   font-size: 15px;
-   line-height: 120%;
-   text-align: center;
-   width: 42%;
 
-   color: #5AD85F;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 120%;
+    text-align: center;
+    width: 42%;
+
+    color: #297045;
+    outline: none;
 }
+
+.TimeSelectionDropdown:hover {
+    border: 2px solid #5AD85F;
+}
+
+
 
 .DaySelectionFrame {
     display: flex;
@@ -125,7 +138,7 @@ body {
 .DayOfTheWeekButton {
     background: #70D474;
     border-radius: 15px;
-    border: 0;
+    border: none;
 
     letter-spacing: -0.028em;
     font-family: 'Poppins';
@@ -138,8 +151,9 @@ body {
     flex-basis: 30%;
 }
 
+
 .DayOfTheWeekButtonPressed {
-    background: #37953A;
+    background: #297045;
     border-radius: 15px;
     border: 0;
 
@@ -154,11 +168,12 @@ body {
     flex-basis: 30%;
 }
 
+
 .CreateEventSubmitButton {
     width: 80%;
     height: 6%;
 
-    
+
     background: #5AD85F;
     border-radius: 10px;
     border: none;
@@ -174,12 +189,143 @@ body {
     color: #f7f7f7;
 }
 
+.CreateEventSubmitButton:hover {
+    background: #297045;
+}
 
 
+@media (575.98px <=width <=1200px) {
 
+    .ScreenBackground {
+        width: 40%;
+        background-color: transparent;
+    }
 
+    .Title {
+        margin-right: 0;
+        margin-top: 10%;
+        margin-bottom: 3%;
+        color: #F7F7F7;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 48px */
+    }
 
+    .Base {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background-image: url('GreenCircleBG.png');
+        background-size:cover;
+    }
 
+    .Backdrop {
+        height: 65%;
+    }
 
+    .DayOfTheWeekButton {
+        font-size: large;
+    }
 
+    .DayOfTheWeekButtonPressed {
+        font-size: large;
+    }
 
+    .EventNameForm {
+        border: 2px solid #297045;
+    }
+
+    .EventNameInput {
+        font-size: 115%
+    }
+
+    .DayOfTheWeekButton:hover {
+        border: 2px solid #297045;
+    }
+
+    .CreateEventSubmitButton{
+        background-color: #297045;
+        color: #ffffff;
+        
+    }
+
+    .CreateEventSubmitButton:hover {
+        color: #F7F7F7;
+        background-color: #391463;
+    }
+
+}
+
+@media (width >  1200px) {
+    .ScreenBackground {
+        width: 30%;
+        background-color: transparent;
+
+    }
+
+    .Title {
+        margin-right: 0;
+        margin-top: 10%;
+        margin-bottom: 3%;
+        color: #F7F7F7;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 48px */
+    }
+
+    .Base {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background-image: url('GreenCircleBG.png');
+        background-size:cover;
+    }
+
+    .Backdrop {
+        height: 65%;
+    }
+
+    .DayOfTheWeekButton {
+        font-size: large;
+    }
+
+    .DayOfTheWeekButtonPressed {
+        font-size: large;
+    }
+
+    .EventNameForm {
+        border: 2px solid #297045;
+    }
+
+    .EventNameInput {
+        font-size: 115%
+    }
+
+    .DayOfTheWeekButton:hover {
+        border: 2px solid #297045;
+    }
+
+    .CreateEventSubmitButton{
+        background-color: #297045;
+        color: #ffffff;
+        
+    }
+
+    .CreateEventSubmitButton:hover {
+        color: #F7F7F7;
+        background-color: #391463;
+    }
+
+}

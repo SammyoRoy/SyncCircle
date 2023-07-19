@@ -40,7 +40,7 @@ function GroupSlot({ matrixKey, days, groupId, userId }){
     console.log(ratio);
   
     if (ratio == 1) {
-      setColor(`#058ED9`);
+      setColor(`#858ae3`);
     } else if (ratio >= 0.9) {
       setColor(`#17881C`);
     } else if (ratio >= 0.8) {

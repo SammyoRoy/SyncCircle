@@ -18,21 +18,24 @@ function CreateEventPage() {
     setEventName(value);
   };
   return (
-    <div className="ScreenBackground">
-      <Title />
-      <div className="Backdrop">
-        <EventNameForm OnEventNameChange={handleEventNameChange} />
-        <div className="TimeSelectionFrame">
-          <TimeDropdown style="TimeSelectionDropdown" OnTimeChange={setStartTime} selectedTime={startTime} label="Start Time" />
-          <svg className="Bar" width="53" height="5" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="53" height="5" fill="#5AD85F" />
-          </svg>
-          <TimeDropdown style="TimeSelectionDropdown" OnTimeChange={setEndTime} selectedTime={endTime} label="End Time" />
+    <div className="Base">
+      <div className="ScreenBackground">
+        <Title />
+        <div className="Backdrop">
+          <EventNameForm OnEventNameChange={handleEventNameChange} />
+          <div className="TimeSelectionFrame">
+            <TimeDropdown style="TimeSelectionDropdown" OnTimeChange={setStartTime} selectedTime={startTime} label="Start Time" />
+            <svg className="Bar" width="53" height="5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="53" height="5" fill="#297045" />
+            </svg>
+            <TimeDropdown style="TimeSelectionDropdown" OnTimeChange={setEndTime} selectedTime={endTime} label="End Time" />
+          </div>
+          <DaySelectionFrame setDays={setDays} days={days} />
         </div>
-        <DaySelectionFrame setDays={setDays} days={days} />
+        <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
       </div>
-      <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
     </div>
+
   );
 }
 
