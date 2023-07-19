@@ -41,9 +41,9 @@ function GroupSlot({ matrixKey, days }) {
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
     console.log(ratio);
-
-    if (ratio === 1) {
-      setColor(`#058ED9`);
+  
+    if (ratio == 1) {
+      setColor(`#858ae3`);
     } else if (ratio >= 0.9) {
       setColor(`#17881C`);
     } else if (ratio >= 0.8) {

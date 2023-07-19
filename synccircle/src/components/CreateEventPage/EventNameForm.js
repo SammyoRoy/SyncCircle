@@ -10,9 +10,9 @@ function EventNameForm({OnEventNameChange}) {
       };
     
       return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="EventNameForm">
           <input
-            className="EventNameForm"
+            className="EventNameInput"
             type="text"
             placeholder="Enter event name"
             name ="eventName"
