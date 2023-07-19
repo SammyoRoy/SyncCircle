@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
+import { AppContext } from "./AppContext";
 
-function GroupCalendar( {groupId, userId}){
+function GroupCalendar(){
+  const {groupId, userId} = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");

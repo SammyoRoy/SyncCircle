@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserNameForm from './UserNameForm';
 import DaysOfTheWeek from './DaysOfTheWeek';
+import GroupPageButton from './GroupPageButton';
+import { AppContext } from './AppContext';
 
-function HeaderCard({ groupId, setUserId }){
+function HeaderCard(){
 
     return (
         <div>
           <div className= "HeaderCard">
-            <UserNameForm groupId={groupId} setUserId={setUserId}/>
+            <UserNameForm/>
           </div>
           <DaysOfTheWeek />
         </div>

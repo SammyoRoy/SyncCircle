@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AppContext } from "./AppContext";
 import './UserPage2.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
@@ -8,6 +9,7 @@ function UserPage() {
 
   const [groupId, setGroupId] = useState("");
   const [userId, setUserId] = useState("");
+  const [userSlot, setUserSlot] = useState(null);
 
   useEffect(() => {
     setGroupId(window.location.pathname.split("/").pop());
@@ -15,13 +17,14 @@ function UserPage() {
 
   return (
     <div className="LightMode">
+      <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot }}>
       <div className="content">
-        <HeaderCard groupId={groupId} setUserId={setUserId} />
+        <HeaderCard/>
         <div className="divider">
-        <Calendar groupId={groupId} userId={userId} />
+        <Calendar />
         </div>
       </div>
-      <GroupPageButton groupId={groupId} userId={userId} />
+      </AppContext.Provider>
     </div>
   )
 }

@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import { AppContext } from './AppContext';
 import axios from 'axios';
+import GroupPageButton from './GroupPageButton';
 
-function JoinButton({ groupId, userName, setUserId }){
+function JoinButton({ userName}){
+  const {groupId, setUserId, userId} = useContext(AppContext);
   const [show, setShow] = useState(true);
 
   console.log(groupId);
@@ -21,7 +24,7 @@ function JoinButton({ groupId, userName, setUserId }){
     <div>
     {show ? (
       <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
-    ): (null)}
+    ): <GroupPageButton groupId={groupId} userId={userId} />}
     </div>
   );
 }

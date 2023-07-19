@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AppContext } from "./AppContext";
 
-function UserTitle({ groupId }) {
+function UserTitle() {
+    const { groupId } = useContext(AppContext);
     const [eventName, setEventName] = useState("");
     const [className, setClassName] = useState("UserPageTitle");
 
