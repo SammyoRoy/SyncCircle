@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './UserPage.css';
+import './UserPage2.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
@@ -21,7 +21,7 @@ function UserPage() {
         <Calendar groupId={groupId} userId={userId} />
         </div>
       </div>
-      <GroupPageButton />
+      <GroupPageButton groupId={groupId} userId={userId} />
     </div>
   )
 }

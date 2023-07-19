@@ -15,7 +15,6 @@ function App() {
           <Routes>
             <Route path="/" element={<CreateEventPage />} />
             <Route path="/group/:group" element={<UserPage/>} />
-            <Route path="/group/:group/ALL" element={<GroupPage/>} />
           </Routes>
         </div>
       </Router>
