@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import { AppContext } from "./AppContext";
 import UserTitle from "./UserTitle";
-import HeaderCard from "./HeaderCard";
 import GroupCalendar from "./GroupCalender";
+import GroupHeader from "./GroupHeader";
 
 
 
@@ -16,7 +16,7 @@ function GroupPage(){
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 <div className="offcanvas-header"><UserTitle /></div>
                 <div class="offcanvas-body">
-
+                    <GroupHeader />
                     <GroupCalendar />
                 </div>
             </div>
