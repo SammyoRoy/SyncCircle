@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './WUTCreateEventStyleOverhaul.css';
+import './CreateEventStyleOverhaul.css';
 import Title from "./Title";
 import EventNameForm from "./EventNameForm";
 import TimeDropdown from "./TimeDropdown";
