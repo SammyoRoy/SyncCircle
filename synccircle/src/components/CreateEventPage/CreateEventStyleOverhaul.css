@@ -71,9 +71,10 @@ body {
     /* identical to box height, or 24px */
     text-align: center;
     width: 100%;
+    border-radius: 30px;
 
     color: #297045;
-    background: none;
+    background: transparent;
     border: none;
     outline: none;
 }
@@ -199,6 +200,7 @@ body {
     .ScreenBackground {
         width: 40%;
         background-color: transparent;
+        min-width: 450px;
     }
 
     .Title {
@@ -242,7 +244,8 @@ body {
     }
 
     .EventNameInput {
-        font-size: 115%
+        font-size: 115%;
+        background: transparent;
     }
 
     .DayOfTheWeekButton:hover {
@@ -328,4 +331,28 @@ body {
         background-color: #391463;
     }
 
+}
+
+@media only screen and (max-height: 500px){
+    .ScreenBackground, .Base{
+        background: #F7F7F7;
+    }
+
+    .Title{
+        margin: 0;
+        top: 5%;
+        position:absolute;
+        color: #5AD85F;
+    }
+
+    .Backdrop{
+        position: absolute;
+        top: 20%;
+    }
+
+    .CreateEventSubmitButton{
+        position: absolute;
+        bottom: 2%;
+        height:10%;
+    }
 }

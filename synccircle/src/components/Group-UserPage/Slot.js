@@ -13,6 +13,10 @@ function Slot({ matrixKey, days}){
   const col = matrixKey - (row *(cols+1)) - 1;
 
   const handlePress = async (e) => {
+    if (userId === "") {
+      alert("Please log in to book a slot");
+      return;
+    }
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");

@@ -1,14 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import isMobile from "is-mobile"
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
     const eventSubmit = (event) => {
-      if (!isMobile()){
-        event.preventDefault();
-      }
+      event.preventDefault();
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
@@ -27,7 +24,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
         });
     };
     return (
-      <button type="submit" className="CreateEventSubmitButton" onClick={eventSubmit} onTouchStart={eventSubmit}>Create Event</button>
+      <button type="submit" className="CreateEventSubmitButton" onClick={eventSubmit}>Create Event</button>
     );
   }
 

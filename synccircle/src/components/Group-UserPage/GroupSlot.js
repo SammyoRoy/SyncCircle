@@ -7,7 +7,9 @@ function GroupSlot({ matrixKey, days }) {
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
   const [numAvail, setNumAvail] = useState(0);
-  const [totalMembers, setTotalMembers] = useState(0)
+  const [totalMembers, setTotalMembers] = useState(0);
+  const [showMembers, setShowMembers] = useState(false);
+  const [content, setContent] = useState("");
   const cols = days.length;
 
   const row = Math.floor(matrixKey / (cols + 1));
@@ -36,7 +38,7 @@ function GroupSlot({ matrixKey, days }) {
 
   useEffect(() => {
     setColorByRatio();
-  }, [numAvail, totalMembers, userSlot]);
+  }, [numAvail, totalMembers]);
 
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
@@ -67,12 +69,18 @@ function GroupSlot({ matrixKey, days }) {
 
   const handleOver = async () => {
     const response = await axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`);
-    console.log(response.data);
+    if (response.data.length != 0){
+      setShowMembers(!showMembers);
+    }
+    return(
+      setContent(response.data.toString().slice(1,-1))
+    )
   };
 
 
   return (
-    <button className="Slot" style={{ backgroundColor: color }} type="button" onClick={handleOver}>{numAvail}</button>
+
+    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail+"/"+totalMembers}</button>
     
   )
 }
