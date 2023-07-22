@@ -257,6 +257,23 @@
     width: 65% !important;
 }
 
+.share-link{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.share-link img{
+    width: 33.75px;
+    height: 33.75px;
+}
+
+.offcanvas-header{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
     .offcanvas {
         width: 100% !important;

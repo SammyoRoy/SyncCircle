@@ -17,6 +17,7 @@ function EventNameForm({OnEventNameChange}) {
             placeholder="Enter event name"
             name ="eventName"
             onChange={(e) => OnEventNameChange(e.target.value)}
+            required
           />
         </form>
       );

@@ -2,9 +2,11 @@ import React, {useContext, useState} from 'react';
 import { AppContext } from './AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
+import Cookies from 'universal-cookie';
 
 function JoinButton({ userName}){
-  const {groupId, setUserId, userId} = useContext(AppContext);
+
+  const {groupId, setUserId, userId, setJoinPressed} = useContext(AppContext);  
   const [show, setShow] = useState(true);
 
   console.log(groupId);
@@ -15,6 +17,7 @@ function JoinButton({ userName}){
     axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
       .then((response) => {
         setUserId(response.data);
+        setJoinPressed(true);
         console.log(response.data);
       });
     setShow(false);

@@ -10,6 +10,7 @@ function UserPage() {
   const [groupId, setGroupId] = useState("");
   const [userId, setUserId] = useState("");
   const [userSlot, setUserSlot] = useState(null);
+  const [joinPressed, setJoinPressed] = useState(false);
 
   useEffect(() => {
     setGroupId(window.location.pathname.split("/").pop());
@@ -17,7 +18,7 @@ function UserPage() {
 
   return (
     <div className="LightMode">
-      <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot }}>
+      <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, joinPressed, setJoinPressed }}>
       <div className="content">
         <HeaderCard/>
         <div className="divider">
