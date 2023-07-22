@@ -1,0 +1,192 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.UserScreenBackground {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #f7f7f7;
+    justify-content: flex-start;
+}
+
+.UserTitle {
+    /* SyncCircle */
+    width: 100%;
+    height: 1.81rem;
+    text-align: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 120%;
+    /* identical to box height, or 29px */
+    color: #000000;
+
+    margin-top: 10%;
+}
+
+.HeaderCard {
+    display: flex;
+    flex-direction: column;
+    background: #e6e6e6;
+    border-radius: 30px 30px 0px 0px;
+    align-items: center;
+    height: 20%;
+    justify-content: space-between;
+    margin-top: 3%;
+}
+
+.UserNameContainer {
+    display: flex;
+    width: 90%;
+    height: 40%;
+    justify-content: center;
+    background: #F7F7F7;
+    border-radius: 30px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 7%;
+
+}
+
+.UserNameForm {
+    color: #000000;
+    text-align: left;
+    font-size: 14px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    border: 0px;  
+    background: none;
+    outline: none;
+    margin-left: 10%;
+}
+
+
+
+.JoinButton {
+    border-radius: 30px;
+    flex-basis: 25%;
+    height: 80%;
+background: #5AD85F;
+outline: none;
+border-color: transparent;
+
+color: #000;
+text-align: center;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%;
+margin-right: 2%;
+}
+
+.DOTWBar {
+    display: grid;
+    width: 100%;
+    height: 30%;
+    place-items: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    z-index: 5;
+    padding-bottom: 1%;
+}
+
+.DayLabel {
+    width: 33%;
+    height: 85%;
+    border-radius: 50%;
+    background: #297045;
+    color: #FFF;
+text-align: center;
+font-size: 14px;
+font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+line-height: 120%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.CalendarGrid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.6fr repeat(7, 1fr);
+    grid-template-rows: repeat(24, 1fr);
+    flex-grow: 1;
+    place-items: center;
+    overflow-y: auto;
+}
+
+.UnselectedSlot {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+
+    border: 0.3px solid #B5B5B5;
+    border-top: none;
+    border-right: none;
+    background: #F7F7F7;
+    z-index: 3;
+    min-height: 100px;
+}
+
+.SelectedSlot {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+
+    border: 0.3px solid #B5B5B5;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    background: #004953;
+    background: #8D6A9F;
+    z-index: 3;
+}
+
+.TimeLabel {
+    color: #969696;
+text-align: center;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 120%; /* 16.8px */
+
+border: 0.3px solid #B5B5B5;
+border-top: none;
+border-right: none;
+border-left: none;
+border-bottom: none;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

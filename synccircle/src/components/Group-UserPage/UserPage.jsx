@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { AppContext } from "./AppContext";
-import './UserPage2.css';
+import './UserPageOverhaul.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
+import UserTitle from "./UserTitle";
 
 function UserPage() {
 
@@ -16,14 +17,11 @@ function UserPage() {
   }, [groupId])
 
   return (
-    <div className="LightMode">
+    <div className="UserScreenBackground">
       <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot }}>
-      <div className="content">
+        <UserTitle />
         <HeaderCard/>
-        <div className="divider">
         <Calendar />
-        </div>
-      </div>
       </AppContext.Provider>
     </div>
   )

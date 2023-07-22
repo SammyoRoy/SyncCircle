@@ -21,11 +21,7 @@ function JoinButton({ userName}){
 
   }
   return (
-    <div>
-    {show ? (
-      <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
-    ): <GroupPageButton groupId={groupId} userId={userId} />}
-    </div>
+    <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
   );
 }
 

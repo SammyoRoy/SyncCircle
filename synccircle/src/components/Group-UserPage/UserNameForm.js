@@ -7,11 +7,8 @@ function UserNameForm() {
 
   return (
     <div className="UserNameContainer">
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="addon-wrapping"><UserTitle /></span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" onChange={(e) => setUserName(e.target.value)}>
+        <input type="text" className="UserNameForm" placeholder="Enter username"  onChange={(e) => setUserName(e.target.value)}>
         </input>
-      </div>
       <JoinButton userName={userName} />
     </div>
   )

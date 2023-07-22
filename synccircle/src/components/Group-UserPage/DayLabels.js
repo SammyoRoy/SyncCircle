@@ -1,8 +1,10 @@
 import React from 'react';
 
 function DayLabels({ day }){
+    const firstChar = day.charAt(0);
+
     return (
-      <div className="DayLabel"> {day} </div>
+      <div className="DayLabel"> {firstChar} </div>
     )
   }
 
