@@ -3,7 +3,7 @@ import { AppContext } from './AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 
-function JoinButton({ userName}){
+function JoinButton({ userName, updateJoined}){
   const {groupId, setUserId, userId} = useContext(AppContext);
   const [show, setShow] = useState(true);
 
@@ -18,10 +18,15 @@ function JoinButton({ userName}){
         console.log(response.data);
       });
     setShow(false);
+    updateJoined(true);
 
   }
   return (
-    <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
+    <div className="UserButtonContainer">
+    {show ? (
+      <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
+    ): <GroupPageButton groupId={groupId} userId={userId} />}
+    </div>
   );
 }
 

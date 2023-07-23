@@ -17,13 +17,16 @@ function UserPage() {
   }, [groupId])
 
   return (
-    <div className="UserScreenBackground">
-      <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot }}>
-        <UserTitle />
-        <HeaderCard/>
-        <Calendar />
-      </AppContext.Provider>
+    <div className="UserBase">
+      <div className="UserScreenBackground">
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot }}>
+          <UserTitle />
+          <HeaderCard/>
+          <Calendar />
+        </AppContext.Provider>
+      </div>
     </div>
+
   )
 }
 
