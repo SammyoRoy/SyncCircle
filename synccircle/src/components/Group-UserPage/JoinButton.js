@@ -4,7 +4,7 @@ import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import Cookies from 'universal-cookie';
 
-function JoinButton({ userName, updateJoined}){
+function JoinButton({ userName, updateJoined, updateSubmitted}){
   const {groupId, setUserId, userId} = useContext(AppContext);
   const [show, setShow] = useState(true);
 
@@ -16,11 +16,10 @@ function JoinButton({ userName, updateJoined}){
     axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
       .then((response) => {
         setUserId(response.data);
-        setJoinPressed(true);
-        console.log(response.data);
       });
     setShow(false);
     updateJoined(true);
+    updateSubmitted(true);
 
   }
   return (

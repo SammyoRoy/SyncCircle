@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 html,
 body {
     height: 100%;
@@ -103,6 +105,9 @@ body {
     line-height: 150%;
     margin-right: 2%;
 }
+.JoinButton:hover {
+    background-color: #19ac1e;
+}
 
 .Groups {
     width: 100%;
@@ -116,6 +121,10 @@ body {
     background-color: #7D83FF;
     outline: none;
     border: none;
+}
+
+.GroupPageButton:hover {
+    background-color: #464eda;
 }
 
 .GPCircleContainer {
@@ -133,6 +142,9 @@ border: 3px solid #F7F7F7;
 background: #7D83FF;
 width: 53px;
 height: 53px;
+}
+.GroupPageButtonCircle:hover {
+    background-color: #464eda;
 }
 
 .DOTWBar {
@@ -191,6 +203,9 @@ height: 53px;
     z-index: 3;
     min-height: 60px;
 }
+.UnselectedSlot:hover {
+    background-color: #eeeeee;
+}
 
 .SelectedSlot {
     position: relative;
@@ -203,8 +218,7 @@ height: 53px;
     border-top: none;
     border-bottom: none;
     border-right: none;
-    background: #004953;
-    background: #8D6A9F;
+    background: #498c8a;
     z-index: 3;
     min-height: 60px;
 }
@@ -281,6 +295,11 @@ height: 53px;
     .SelectedSlot {
         min-height: 45px;
     }
+
+    .CalendarGrid{
+        margin-bottom: 3%;
+        border-radius: 0px 0px 30px 30px;
+    }
 }
 
 
@@ -327,7 +346,9 @@ height: 53px;
     }
 
     .CalendarGrid {
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        margin-bottom: 3%;
+        border-radius: 0px 0px 30px 30px;
     }
 
     .UnselectedSlot {
