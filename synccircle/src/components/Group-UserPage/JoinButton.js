@@ -4,9 +4,8 @@ import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import Cookies from 'universal-cookie';
 
-function JoinButton({ userName}){
-
-  const {groupId, setUserId, userId, setJoinPressed} = useContext(AppContext);  
+function JoinButton({ userName, updateJoined}){
+  const {groupId, setUserId, userId} = useContext(AppContext);
   const [show, setShow] = useState(true);
 
   console.log(groupId);
@@ -21,10 +20,11 @@ function JoinButton({ userName}){
         console.log(response.data);
       });
     setShow(false);
+    updateJoined(true);
 
   }
   return (
-    <div>
+    <div className="UserButtonContainer">
     {show ? (
       <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
     ): <GroupPageButton groupId={groupId} userId={userId} />}

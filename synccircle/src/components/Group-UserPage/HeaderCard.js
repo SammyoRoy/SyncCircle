@@ -7,10 +7,8 @@ import { AppContext } from './AppContext';
 function HeaderCard(){
 
     return (
-        <div>
-          <div className= "HeaderCard">
-            <UserNameForm/>
-          </div>
+        <div className="HeaderCard">
+          <UserNameForm/>
           <DaysOfTheWeek />
         </div>
     )
