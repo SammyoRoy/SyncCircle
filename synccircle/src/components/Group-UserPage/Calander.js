@@ -46,7 +46,7 @@ function Calendar(){
     console.log(numRows);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex-startIndex);
+    const totalCells = (days.length+1) * (endIndex+1-startIndex);
   
     // Set CSS variables
     
@@ -60,7 +60,7 @@ function Calendar(){
             key={index} 
             currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
            />
-           ) : (<Slot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId}/>
+           ) : (<Slot key={index} matrixKey={index} days={days}/>
            ))
         )}
       </div>

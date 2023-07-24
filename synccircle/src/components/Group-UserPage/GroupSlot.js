@@ -64,6 +64,8 @@ function GroupSlot({ matrixKey, days }) {
       setColor(`#C65E58`);
     } else if (ratio >= 0.1) {
       setColor(`#F4A19C`);
+    } else if (ratio >= 0) {
+      setColor(`#F7F7F7`);
     } 
   }
 

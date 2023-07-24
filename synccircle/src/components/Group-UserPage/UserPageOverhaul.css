@@ -186,7 +186,8 @@ height: 53px;
     grid-template-rows: repeat(24, 1fr);
     flex-grow: 1;
     place-items: center;
-    overflow-y: auto;
+    min-height: 0;
+    overflow-y: scroll;
 }
 
 .UnselectedSlot {

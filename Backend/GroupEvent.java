@@ -15,8 +15,8 @@ public class GroupEvent {
     public GroupEvent(String name, int hours, int days) {
         this.name = name;
         this.memberList = new HashMap<>();
-        this.masterArray = new ArrayList[hours][days];
-        for (int i = 0; i < hours; i++) {
+        this.masterArray = new ArrayList[hours+1][days];
+        for (int i = 0; i < hours+1; i++) {
             for (int j = 0; j < days; j++) {
                 this.masterArray[i][j] = new ArrayList<String>();
             }

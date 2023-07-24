@@ -43,6 +43,9 @@ class Handler implements URLHandler {
         LocalTime s = LocalTime.parse(startTime, formatter);
         LocalTime e = LocalTime.parse(endTime, formatter);
         int hours = Math.abs(e.getHour() - s.getHour());
+        if (e.getHour() < s.getHour()){
+            hours = 24 - hours;
+        }
         start = s;
         end = e;
         calander = "";
