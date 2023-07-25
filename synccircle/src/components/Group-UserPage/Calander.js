@@ -42,7 +42,7 @@ function Calendar(){
       console.log(currTimeIndex);
     }, [startIndex, endIndex, currTimeIndex, start, end]);
   
-    const numRows = (endIndex-startIndex);
+    const numRows = (endIndex-startIndex)+1;
     console.log(numRows);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
