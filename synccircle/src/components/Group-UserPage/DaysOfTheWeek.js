@@ -3,7 +3,7 @@ import axios from "axios";
 import ScrollIcon from "./ScrollIcon";
 import DayLabels from "./DayLabels";
 
-function DaysOfTheWeek() {
+function DaysOfTheWeek({styling}) {
     const [days, setDays] = useState([]);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   
@@ -17,7 +17,7 @@ function DaysOfTheWeek() {
     }, []);
   
     return (
-      <div className="DOTWBar" style={{gridTemplateColumns}}>
+      <div className={styling} style={{gridTemplateColumns}}>
         <ScrollIcon />
         {days.map((day, index) => (
           <DayLabels key={index} day={day} length={days.length} />

@@ -45,7 +45,7 @@ function GroupSlot({ matrixKey, days }) {
     console.log(ratio);
   
     if (ratio == 1) {
-      setColor(`#858ae3`);
+      setColor(`#3943f7`);
     } else if (ratio >= 0.9) {
       setColor(`#17881C`);
     } else if (ratio >= 0.8) {
@@ -82,7 +82,7 @@ function GroupSlot({ matrixKey, days }) {
 
   return (
 
-    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail+"/"+totalMembers}</button>
+    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail}</button>
     
   )
 }
