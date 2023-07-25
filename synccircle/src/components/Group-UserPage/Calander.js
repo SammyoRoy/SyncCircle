@@ -12,7 +12,33 @@ function Calendar(){
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(0);
     const [currTimeIndex, setCurrTimeIndex] = useState(0);
+
+    //Dragging
+    const [isDragging, setIsDragging] = useState(false);
+    const [isSwiping, setIsSwiping] = useState(false);
+
+    const handleMouseDown = () => {
+      setIsDragging(true);
+    };
   
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    const handleTouchStart = () => {
+      setIsSwiping(true);
+      console.log("AM swiping")
+    };
+  
+    const handleTouchEnd = () => {
+      setIsSwiping(false);
+      console.log("Not swiping")
+    };
+
+
+
+
+
   
     useEffect(() => {
       async function fetchData() {
@@ -51,7 +77,7 @@ function Calendar(){
     // Set CSS variables
     
     return (
-      <div className="CalendarGrid" style={{gridTemplateColumns, gridTemplateRows}}>
+      <div className="CalendarGrid" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onMouseLeave={handleMouseUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{gridTemplateColumns, gridTemplateRows}}>
         {/* Generate and render grid items */}
   
         {Array.from({ length: totalCells }, (_, index) => (
@@ -60,12 +86,17 @@ function Calendar(){
             key={index} 
             currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
            />
-           ) : (<Slot key={index} matrixKey={index} days={days}/>
+           ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping}/>
            ))
         )}
       </div>
     );
   }
+
+
+
+
+
     async function GetDays() {
         const URL = window.location.href.split("/");
         try {

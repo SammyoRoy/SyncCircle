@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AppContext } from './AppContext';
 
-function Slot({ matrixKey, days}){
+function Slot({ matrixKey, days, dragging, swiping}){
   const { setUserSlot } = useContext(AppContext);
   const {groupId, userId} = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
@@ -12,11 +12,15 @@ function Slot({ matrixKey, days}){
   const row = Math.floor(matrixKey/(cols+1));
   const col = matrixKey - (row *(cols+1)) - 1;
 
-  const handlePress = async (e) => {
+  const handleEnter = async (e) => {
+    if (dragging === false && swiping === false ){
+      return;
+    }
     if (userId === "") {
       alert("Please log in to book a slot");
       return;
     }
+
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
@@ -33,10 +37,38 @@ function Slot({ matrixKey, days}){
       setUserSlot(Math.random());
     }
   };
-  
 
+  const handlePress = async(e) => {
+    if (userId === "") {
+      alert("Please log in to book a slot");
+      return;
+    }
+
+    if (isSelected) {
+      setSelected(false);
+      setStyle("UnselectedSlot");
+      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+      console.log(response);
+      setUserSlot(Math.random());
+
+    } else {
+      setSelected(true);
+      setStyle("SelectedSlot");
+  
+      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+      console.log(response);
+      setUserSlot(Math.random());
+    }
+  };
+
+  
   return (
-    <button className={style} onClick={handlePress} type="button" ></button>
+    <button 
+      className={style} 
+      onMouseDown={handlePress} 
+      onMouseEnter={handleEnter}
+      type="button" 
+    ></button>
   )
 }
   
