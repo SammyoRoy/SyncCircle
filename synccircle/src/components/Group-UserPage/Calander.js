@@ -16,6 +16,7 @@ function Calendar(){
     //Dragging
     const [isDragging, setIsDragging] = useState(false);
     const [isSwiping, setIsSwiping] = useState(false);
+    const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
 
     const handleMouseDown = () => {
       setIsDragging(true);
@@ -35,11 +36,13 @@ function Calendar(){
       console.log("Not swiping")
     };
 
+    const handleTouchMove = (e) => {
+      // Get the touch position from the event
+      const touch = e.changedTouches[0];
+      setTouchPosition({ x: touch.clientX, y: touch.clientY });
+    };
 
 
-
-
-  
     useEffect(() => {
       async function fetchData() {
         const daysData = await GetDays();
@@ -63,21 +66,25 @@ function Calendar(){
   
       fetchData();
       initializeIndices();
-      console.log(startIndex);
-      console.log(endIndex);
-      console.log(currTimeIndex);
     }, [startIndex, endIndex, currTimeIndex, start, end]);
   
-    const numRows = (endIndex-startIndex)+1;
-    console.log(numRows);
+    const numRows = (endIndex-startIndex);
+
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex+1-startIndex);
+    const totalCells = (days.length+1) * (endIndex-startIndex);
   
     // Set CSS variables
     
     return (
-      <div className="CalendarGrid" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onMouseLeave={handleMouseUp} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} style={{gridTemplateColumns, gridTemplateRows}}>
+      <div className="CalendarGrid" 
+            onTouchMove={handleTouchMove} 
+            onTouchStart={handleTouchStart} 
+            onTouchEnd={handleTouchEnd} 
+            onMouseLeave={handleMouseUp} 
+            onMouseDown={handleMouseDown} 
+            onMouseUp={handleMouseUp} 
+            style={{gridTemplateColumns, gridTemplateRows}}>
         {/* Generate and render grid items */}
   
         {Array.from({ length: totalCells }, (_, index) => (
@@ -86,7 +93,7 @@ function Calendar(){
             key={index} 
             currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
            />
-           ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping}/>
+           ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition}/>
            ))
         )}
       </div>

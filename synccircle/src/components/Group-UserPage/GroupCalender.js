@@ -12,8 +12,7 @@ function GroupCalendar(){
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(0);
     const [currTimeIndex, setCurrTimeIndex] = useState(0);
-  
-  
+    
     useEffect(() => {
       async function fetchData() {
         const daysData = await GetDays();
@@ -42,11 +41,11 @@ function GroupCalendar(){
       console.log(currTimeIndex);
     }, [startIndex, endIndex, currTimeIndex, start, end]);
   
-    const numRows = (endIndex-startIndex)+1;
+    const numRows = (endIndex-startIndex);
     console.log(numRows);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex+1-startIndex);
+    const totalCells = (days.length+1) * (endIndex-startIndex);
   
     // Set CSS variables
     
