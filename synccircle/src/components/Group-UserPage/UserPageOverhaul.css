@@ -15,6 +15,10 @@ body {
     
 }
 
+.offcanvas {
+    width: 60% !important;
+}
+
 .UserTitle {
     /* SyncCircle */
     width: 100%;

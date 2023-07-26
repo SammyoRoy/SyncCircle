@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { AppContext } from './AppContext';
+import { AppContext } from '../../context/AppContext';
 
 function GroupSlot({ matrixKey, days }) {
   const {userSlot} = useContext(AppContext);
@@ -82,7 +82,7 @@ function GroupSlot({ matrixKey, days }) {
 
   return (
 
-    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail}</button>
+    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail+"/"+totalMembers}</button>
     
   )
 }

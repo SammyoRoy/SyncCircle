@@ -22,6 +22,10 @@ h6, h5 {
     margin-top: 0%;
 }
 
+.offcanvas{
+    width: 60%;
+}
+
 .offcanvas-body {
     display: flex;
     flex-direction: column;

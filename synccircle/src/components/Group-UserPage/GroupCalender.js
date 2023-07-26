@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 
 function GroupCalendar(){
   const {groupId, userId} = useContext(AppContext);
@@ -45,7 +45,7 @@ function GroupCalendar(){
     console.log(numRows);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex-startIndex);
+    const totalCells = (days.length+1) * (endIndex+1-startIndex);
   
     // Set CSS variables
     

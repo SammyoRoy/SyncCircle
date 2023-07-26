@@ -1,10 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../../context/AppContext";
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
+    const { setEventTrigger, setDayTrigger } = useContext(AppContext);
+    console.log(endTime)
     const eventSubmit = (event) => {
+      if (eventName === "" || days.length === 0)
+      {
+        if (eventName === "")
+        {
+          setEventTrigger(true);
+        }
+        if (days.length === 0)
+        {
+          setDayTrigger(true);
+        }
+        return;
+      }
       event.preventDefault();
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));

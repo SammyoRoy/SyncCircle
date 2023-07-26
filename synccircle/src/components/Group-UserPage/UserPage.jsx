@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 import './UserPageOverhaul.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";

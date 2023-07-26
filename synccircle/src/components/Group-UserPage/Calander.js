@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Slot from "./Slot";
 import TimeLabel from "./TimeLabel";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 
 function Calendar(){
   const {groupId, userId} = useContext(AppContext);
@@ -72,7 +72,7 @@ function Calendar(){
 
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex-startIndex);
+    const totalCells = (days.length+1) * (endIndex+1-startIndex);
   
     // Set CSS variables
     

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 import UserTitle from "./UserTitle";
 import GroupCalendar from "./GroupCalender";
 import GroupHeader from "./GroupHeader";

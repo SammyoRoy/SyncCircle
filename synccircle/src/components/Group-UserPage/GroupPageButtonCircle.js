@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import GroupPage from "./GroupPage";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 
 function GroupPageButtonCircle({joined}) {
   const { groupId, userId}= useContext(AppContext);

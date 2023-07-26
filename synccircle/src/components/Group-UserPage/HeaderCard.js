@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import UserNameForm from './UserNameForm';
 import DaysOfTheWeek from './DaysOfTheWeek';
 import GroupPageButton from './GroupPageButton';
-import { AppContext } from './AppContext';
+import { AppContext } from '../../context/AppContext';
 
 function HeaderCard(){
 

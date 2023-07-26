@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 
 function UserTitle() {
     const { groupId } = useContext(AppContext);

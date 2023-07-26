@@ -1,6 +1,7 @@
-import React from 'react';
-
-function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
+import React, {useContext} from 'react';
+import { AppContext } from '../../context/AppContext';
+function TimeDropdown({ OnTimeChange, label}) {
+    const {startTrigger} = useContext(AppContext);
     const timeOptions = [
         '6:00 AM',
         '7:00 AM',
@@ -27,11 +28,11 @@ function TimeDropdown({style, OnTimeChange, selectedTime, label}) {
         '4:00 AM',
         '5:00 AM',
     ];
-
+    console.log(startTrigger);
     return (
         <>
             <label htmlFor="time-select"></label>
-            <select className={style} id="time-select" value={selectedTime} 
+            <select className="TimeSelectionDropdown" id="time-select" 
             onChange={(e) => OnTimeChange(e.target.value)}>
                 <option value="">{label}</option>
                 {timeOptions.map(time => (

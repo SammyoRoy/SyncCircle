@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { AppContext } from './AppContext';
+import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import Cookies from 'universal-cookie';

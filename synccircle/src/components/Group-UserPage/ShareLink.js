@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../../context/AppContext";
 
 function ShareLink() {
     const [isCopied, setIsCopied] = useState(false);
