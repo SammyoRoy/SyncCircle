@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ matrixKey, days }) {
+function GroupSlot({ matrixKey, days, setPopupMatrixKey }) {
   const {userSlot} = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -78,14 +78,27 @@ function GroupSlot({ matrixKey, days }) {
       setContent(response.data.toString().slice(1,-1))
     )
   };
+  
+
+  const popup = document.querySelector('#popup');
+ 
+  const showPopup = () => {
+    setPopupMatrixKey(matrixKey);
+    popup.showModal();
+  };
 
 
   return (
+    <>
+        <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={showPopup}>
+           {numAvail}
+        </button>
+    </>
 
-    <button className="Slot" style={{ backgroundColor: color}} type="button" onClick={handleOver}>{showMembers? content: numAvail+"/"+totalMembers}</button>
     
   )
 }
 
-
 export default GroupSlot;
+
+

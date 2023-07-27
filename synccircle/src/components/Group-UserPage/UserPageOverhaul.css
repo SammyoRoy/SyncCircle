@@ -15,9 +15,6 @@ body {
     
 }
 
-.offcanvas {
-    width: 60% !important;
-}
 
 .UserTitle {
     /* SyncCircle */
@@ -167,13 +164,13 @@ height: 53px;
 }
 
 .DayLabel {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background: #297045;
     color: #FFF;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;

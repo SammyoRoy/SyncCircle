@@ -4,6 +4,7 @@ import './UserPageOverhaul.css';
 import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
+
 import UserTitle from "./UserTitle";
 
 function UserPage() {

@@ -6,9 +6,11 @@ import GroupHeader from "./GroupHeader";
 import Copy from "./copy.png";
 import GroupTitle from "./GroupTitle"
 import './GroupPageStyle.css';
+import GroupSlotPopup from './GroupSlotPopup';
 
 function GroupPage() {
   const { groupId, userId } = useContext(AppContext);
+  const [popupMatrixKey, setPopupMatrixKey] = useState(0);
 
   return (
     <div className="LightMode">
@@ -29,7 +31,8 @@ function GroupPage() {
         </div>
         <div className="offcanvas-body">
           <GroupHeader />
-          <GroupCalendar />
+          <GroupCalendar setPopupMatrixKey={setPopupMatrixKey}/>
+          <GroupSlotPopup matrixKey={popupMatrixKey}/>
         </div>
       </div>
     </div>

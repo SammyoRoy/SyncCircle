@@ -28,6 +28,12 @@ h6, h5 {
     margin-top: -7%;
 }
 
+@media (width <= 575.98px){
+    .offcanvas-body {
+        padding: 0 !important;
+    }
+}
+
 .GroupHeaderCard {
     display: flex;
     flex-direction: column;
@@ -116,7 +122,6 @@ h6, h5 {
     color: #FFF;
 text-align: center;
 font-family: Poppins;
-font-size: 125%;
 font-style: normal;
 font-weight: 600;
 line-height: 150%; /* 24px */
@@ -144,3 +149,12 @@ line-height: 150%; /* 24px */
     justify-content: center;
     background-color: #F7F7F7;
 }
+
+.Popup{
+    max-width: 50ch;
+    border-radius: 20px;
+}
+
+.Popup::backdrop {
+    background: rgb(0 0 0 / 0.4);
+  }

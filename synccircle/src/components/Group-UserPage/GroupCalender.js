@@ -4,8 +4,8 @@ import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 
-function GroupCalendar(){
-  const {groupId, userId} = useContext(AppContext);
+function GroupCalendar({setPopupMatrixKey}){
+    const {groupId, userId} = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");
@@ -59,7 +59,7 @@ function GroupCalendar(){
             key={index} 
             currTimeIndex={startIndex + Math.floor(index / (days.length + 1))} 
            />
-           ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId}/>
+           ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey}/>
            ))
         )}
       </div>
