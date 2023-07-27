@@ -7,16 +7,28 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
     const { setEventTrigger, setDayTrigger } = useContext(AppContext);
     console.log(endTime)
+    const handleEventTrigger = () => {
+      setEventTrigger(true);
+      setTimeout(() => {
+        setEventTrigger(false);
+      }, 2000);
+    };
+    const handleDayTrigger = () => {
+      setDayTrigger(true);
+      setTimeout(() => {
+        setDayTrigger(false);
+      }, 2000);
+    };
     const eventSubmit = (event) => {
       if (eventName === "" || days.length === 0)
       {
         if (eventName === "")
         {
-          setEventTrigger(true);
+          handleEventTrigger();
         }
         if (days.length === 0)
         {
-          setDayTrigger(true);
+          handleDayTrigger();
         }
         return;
       }
