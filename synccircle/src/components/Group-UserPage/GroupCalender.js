@@ -41,11 +41,10 @@ function GroupCalendar({setPopupMatrixKey}){
       console.log(currTimeIndex);
     }, [startIndex, endIndex, currTimeIndex, start, end]);
   
-    const numRows = (endIndex-startIndex);
-    console.log(numRows);
+    const numRows = (endIndex+1-startIndex);
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-    const totalCells = (days.length+1) * (endIndex+1-startIndex);
+    const totalCells = (days.length+1) * (numRows);
   
     // Set CSS variables
     
