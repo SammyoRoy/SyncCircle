@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -128,6 +128,18 @@ class Handler implements URLHandler {
             //http://localhost:4000/numMem?group=groupid
             int totalMembers = globalGroups.get(parameters[1]).getMemberList().size();
             return String.valueOf(totalMembers);
+        }
+
+        else if (url.getPath().equals("/allMem")){
+            //http://localhost:4000/allMem?group=groupid
+            String[] parameters = url.getQuery().split("=");
+            HashMap<String, User> memList = globalGroups.get(parameters[1]).getMemberList();
+            Set<String> keySet = memList.keySet();
+            ArrayList<String> allMembers = new ArrayList<>();
+            for (String key: keySet){
+                allMembers.add(memList.get(key).getName());
+            }
+            return allMembers.toString();
         }
 
         else if (url.getPath().equals("/days")){
