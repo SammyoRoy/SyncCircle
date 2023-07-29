@@ -107,6 +107,7 @@ h6, h5 {
     flex-grow: 1;
     align-items: center;
     justify-items: center;
+    padding-right: 10px;
 }
 
 @media (height > 700px){
