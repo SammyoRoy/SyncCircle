@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
 function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
-  const { setUserSlot } = useContext(AppContext);
+  const { setUserSlot, setSlotTried } = useContext(AppContext);
   const {groupId, userId} = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
@@ -73,9 +73,10 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       return;
     }
     if (userId === "") {
-      alert("Please log in to book a slot");
+      setSlotTried(true);
       return;
     }
+    setSlotTried(false);
 
     if (isSelected) {
       setSelected(false);
@@ -96,10 +97,10 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
 
   const handlePress = async(e) => {
     if (userId === "") {
-      alert("Please log in to book a slot");
+      setSlotTried(true);
       return;
     }
-
+    setSlotTried(false);
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");

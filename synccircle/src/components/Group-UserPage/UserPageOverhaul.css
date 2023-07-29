@@ -88,6 +88,10 @@ body {
     align-items: center;
 }
 
+.is-invalid::placeholder {
+    color: #b32121;
+}
+    
 
 .JoinButton {
     width: 90%;
