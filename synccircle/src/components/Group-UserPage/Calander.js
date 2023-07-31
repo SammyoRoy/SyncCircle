@@ -27,8 +27,13 @@ function Calendar(){
     };
 
     const handleTouchStart = () => {
-      setIsSwiping(true);
-      console.log("AM swiping")
+      if (userId !== ""){
+        setIsSwiping(true);
+        console.log("AM swiping")
+      }
+      else{
+        console.log("Failed Swipe")
+      }
     };
   
     const handleTouchEnd = () => {

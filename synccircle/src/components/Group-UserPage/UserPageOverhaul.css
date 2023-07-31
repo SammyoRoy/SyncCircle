@@ -88,6 +88,32 @@ body {
     align-items: center;
 }
 
+.is-invalid::placeholder {
+    color: #b32121;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #F7F7F7;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+    
 
 .JoinButton {
     width: 90%;
@@ -254,7 +280,7 @@ height: 53px;
 
 
 
-@media (575.98px < width <= 1300px) {
+@media (425.98px < width <= 1300px) {
     .UserBase {
         display: flex;
         flex-direction: column;
@@ -288,6 +314,7 @@ height: 53px;
         height: 15%;
         padding-top: 1%;
         padding-bottom: 3%;
+        padding-right: 10px;
     }
 
     .UserNameForm {
@@ -384,9 +411,18 @@ height: 53px;
     }
 
 }
+@media only screen and (max-width: 850px){
+    .UserScreenBackground{
+        width: 75% !important;
+    }
+}
 
 @media only screen and (max-width: 600px){
     .offcanvas{
         width: 100% !important;
     }
+    .UserScreenBackground{
+        width: 100% !important;
+    }
+    
 }
