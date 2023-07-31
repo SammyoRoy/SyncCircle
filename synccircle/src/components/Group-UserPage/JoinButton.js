@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
@@ -8,8 +8,6 @@ function JoinButton({ userName, updateJoined, updateSubmitted, onJoin}){
   const {groupId, setUserId, userId} = useContext(AppContext);
   const [show, setShow] = useState(true);
 
-  console.log(groupId);
-  console.log(userName);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -19,18 +17,32 @@ function JoinButton({ userName, updateJoined, updateSubmitted, onJoin}){
     }
     axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
       .then((response) => {
-        setUserId(response.data);
+        if (response.data === "False") {
+          console.log("Make new User")
+          //Make new User
+          axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
+            .then((response2) => {
+              setUserId(response2.data);
+            });
+          setShow(false);
+          updateJoined(true);
+          updateSubmitted(true);
+        }
+        else {
+          console.log("Found user")
+          setUserId(response.data);
+          setShow(false);
+          updateJoined(true);
+          updateSubmitted(true);
+        }
       });
-    setShow(false);
-    updateJoined(true);
-    updateSubmitted(true);
 
   }
   return (
     <div className="UserButtonContainer">
-    {show ? (
-      <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
-    ): <GroupPageButton groupId={groupId} userId={userId} />}
+      {show ? (
+        <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
+      ) : <GroupPageButton groupId={groupId} userId={userId} />}
     </div>
   );
 }
