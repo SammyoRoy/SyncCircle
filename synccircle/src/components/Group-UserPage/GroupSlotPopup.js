@@ -17,41 +17,38 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
 
     const [availableMembers, setAvailableMembers] = useState("");
     const [allMembers, setAllMembers] = useState("");
+    const [unavailableMembers, setUnavailableMembers] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
     async function fetchData() {
         const daysData = await GetDays();
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
-        setCols(daysData.length);
-        setRow(Math.floor(matrixKey / (cols + 1)));
-        setCol((matrixKey % (cols + 1)) - 1);
+        const colsTemp = sortedDaysData.length;
+        setCols(colsTemp);
 
-        const startData = await getStart();
-        setStartTime(startData);
+        const startTimeData = await getStart();
+        setStartTime(startTimeData);
+        const startTimeIndexData = await convertTimeToIndex(startTimeData);
+        setStartTimeIndex(startTimeIndexData);
 
-        const startIndex = await convertTimeToIndex(startTime);
-        setStartTimeIndex(startIndex);
+
+        setRow(Math.floor(matrixKey / (colsTemp + 1)));
+        setCol((matrixKey % (colsTemp + 1)) - 1);
     }
     const getMembers = () => {
 
         axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`).then((response) => {
             setAvailableMembers(response.data.toString().slice(1, -1));
-            console.log(row);
-            console.log(col);
         }).catch((error) => {
             console.error(error);
         });
         axios.get(`http://localhost:4000/allMem?group=${groupId}`).then((response) => {
             setAllMembers(response.data.toString().slice(1, -1));
-            console.log(row);
-            console.log(col);
         }).catch((error) => {
             console.error(error);
         });
-
     }
-
     useEffect(() => {
         fetchData();
         setIsLoading(false);
@@ -64,14 +61,12 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
 
     useEffect(() => {
         const availableMembersArray = availableMembers.split(',');
-        console.log(availableMembersArray);
         const allMembersArray = allMembers.split(',')
-        console.log(allMembersArray);
         const difference = allMembersArray.map(x => x.trim()).filter((x) => !availableMembersArray.map(x => x.trim()).includes(x));
-        console.log(difference);
-        setAllMembers(difference.join(", "));
+        setUnavailableMembers(difference.join(', '));
         setMembersLoading(false);
     }, [availableMembers, allMembers]);
+
 
 
     const timeOptions = [
@@ -111,7 +106,7 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
                 </div>
                 <div className="modal-body">
                     <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
-                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Unavailable Members: {membersLoading ? "Loading..." : allMembers}</h5>
+                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Unavailable Members: {membersLoading ? "Loading..." : unavailableMembers}</h5>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setShowPopup(false)}>Close</button>
