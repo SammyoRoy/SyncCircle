@@ -162,6 +162,7 @@ line-height: 150%; /* 24px */
     left: 25% !important;
     top: 25% !important;
     width: 50% !important;
+    height: auto !important;
 }
 
 .close{

@@ -4,7 +4,7 @@ import { AppContext } from '../../context/AppContext';
 
 function GroupSlotPopup({ matrixKey, popupColor }) {
     const { groupId } = useContext(AppContext);
-
+    console.log(matrixKey);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0); // Use useState to set cols
     const [row, setRow] = useState(0); // Use useState to set row
@@ -23,16 +23,20 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
         const daysData = await GetDays();
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
-        setCols(daysData.length);
-        setRow(Math.floor(matrixKey / (cols + 1)));
-        setCol((matrixKey % (cols + 1)) - 1);
-
-        const startData = await getStart();
-        setStartTime(startData);
-
-        const startIndex = await convertTimeToIndex(startTime);
-        setStartTimeIndex(startIndex);
+    
+        const colsTemp = sortedDaysData.length;
+        setCols(colsTemp);
+        
+        const startTimeData = await getStart();
+        setStartTime(startTimeData);
+        const startTimeIndexData = await convertTimeToIndex(startTimeData);
+        setStartTimeIndex(startTimeIndexData);
+    
+        
+        setRow(Math.floor(matrixKey / (colsTemp + 1)));
+        setCol((matrixKey % (colsTemp + 1)) - 1);
     }
+    
     const getMembers = () => {
 
         axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`).then((response) => {
