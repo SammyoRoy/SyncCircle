@@ -7,7 +7,8 @@ import java.util.HashMap;
 public class GroupEvent {
     // instance variables
     String uniqueId = UUID.randomUUID().toString();
-    HashMap<String, User> memberList;
+    HashMap<String, User> memberList; //UserID, User
+    HashMap<String, String> userNameList; //Username, UserID
     ArrayList<String>[][] masterArray;
     String name;
 
@@ -15,6 +16,7 @@ public class GroupEvent {
     public GroupEvent(String name, int hours, int days) {
         this.name = name;
         this.memberList = new HashMap<>();
+        this.userNameList = new HashMap<>();
         this.masterArray = new ArrayList[hours+1][days];
         for (int i = 0; i < hours+1; i++) {
             for (int j = 0; j < days; j++) {
@@ -25,6 +27,7 @@ public class GroupEvent {
     // add member to list method
     public void addMemberId(User member) {
         memberList.put(member.getUniqueID(), member);
+        userNameList.put(member.getName(), member.getUniqueID());
     }
 
     // getter and setters
@@ -38,6 +41,10 @@ public class GroupEvent {
 
     public HashMap getMemberList() {
         return memberList;
+    }
+
+    public HashMap getUserNameList() {
+        return userNameList;
     }
 
     public void setMemberList(HashMap<String, User> memberList) {

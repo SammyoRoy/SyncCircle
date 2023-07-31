@@ -25,7 +25,7 @@ function GroupSlotPopup({ matrixKey }) {
         setDays(sortedDaysData);
         setCols(daysData.length);
         setRow(Math.floor(matrixKey / (cols + 1)));
-        setCol((matrixKey % (cols + 1)) - 1);
+        setCol(matrixKey - (row * (cols + 1)) - 1);
 
         const startData = await getStart();
         setStartTime(startData);

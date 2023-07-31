@@ -12,7 +12,28 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
 
   const row = Math.floor(matrixKey/(cols+1));
   const col = matrixKey - (row *(cols+1)) - 1;
+  
 
+  //Initialize
+    useEffect(() => {
+      console.log("User ID: "+userId);
+      if (userId != ""){
+              console.log("Only now");
+              axios.post(`http://localhost:4000/initializeSlot?group=${groupId}=${userId}=${row}=${col}`)
+              .then((response) => {
+                if (response.data == "0"){
+                  console.log("Initial unselec");
+                  setStyle("UnselectedSlot");
+                  setSelected(false);
+                }
+                else if (response.data == "1"){
+                  console.log("Select Init");
+                  setStyle("SelectedSlot");
+                  setSelected(true);
+                }
+              })
+      }
+    }, [userId]);
 
   // The useEffect hook with touchPosition as a dependency
   useEffect(() => {
@@ -89,7 +110,6 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       setStyle("SelectedSlot");
   
       const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
-      console.log(response);
       setUserSlot(Math.random());
     }
   };
