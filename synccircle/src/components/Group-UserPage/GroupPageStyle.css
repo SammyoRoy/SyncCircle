@@ -158,11 +158,25 @@ line-height: 150%; /* 24px */
     background-color: #F7F7F7;
 }
 
-.Popup{
-    max-width: 50ch;
-    border-radius: 20px;
+.modal{
+    left: 25% !important;
+    top: 25% !important;
+    width: 50% !important;
 }
 
-.Popup::backdrop {
-    background: rgb(0 0 0 / 0.4);
-  }
+.close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 2%;
+    margin-right: 2%;
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 750px) {
+    .modal{
+        left: 12.5% !important;
+        width: 75% !important;
+    }
+}
+  

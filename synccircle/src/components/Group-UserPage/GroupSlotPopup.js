@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios, { all } from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlotPopup({ matrixKey }) {
+function GroupSlotPopup({ matrixKey, popupColor }) {
     const { groupId } = useContext(AppContext);
-    const popup = document.getElementById("popup");
 
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0); // Use useState to set cols
@@ -18,6 +17,7 @@ function GroupSlotPopup({ matrixKey }) {
 
     const [availableMembers, setAvailableMembers] = useState("");
     const [allMembers, setAllMembers] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
 
     async function fetchData() {
         const daysData = await GetDays();
@@ -55,6 +55,7 @@ function GroupSlotPopup({ matrixKey }) {
     useEffect(() => {
         fetchData();
         setIsLoading(false);
+        setShowPopup(true);
     }, [matrixKey]);
 
     useEffect(() => {
@@ -66,7 +67,7 @@ function GroupSlotPopup({ matrixKey }) {
         console.log(availableMembersArray);
         const allMembersArray = allMembers.split(',')
         console.log(allMembersArray);
-        const difference = allMembersArray.map(x => x.trim()).filter((x) => !availableMembersArray.map(x =>x.trim()).includes(x));
+        const difference = allMembersArray.map(x => x.trim()).filter((x) => !availableMembersArray.map(x => x.trim()).includes(x));
         console.log(difference);
         setAllMembers(difference.join(", "));
         setMembersLoading(false);
@@ -101,19 +102,23 @@ function GroupSlotPopup({ matrixKey }) {
         '6:00 AM'
     ];
 
-    const closePopup = () => {
-        popup.close();
-    };
-
 
     return (
-        <dialog class="popup" id="popup" className="Popup">
-            {!isLoading && <h2>{days[col]}, {timeOptions[startTimeIndex + row]} – {timeOptions[startTimeIndex + row + 1]}</h2>}
-            {isLoading && <h2>Loading...</h2>}
-            <p>Available: {membersLoading? "Loading": availableMembers}</p>
-            <p>Not Available: {membersLoading? "Loading": allMembers}</p>
-            <button class="btn btn-danger" onClick={closePopup}>close</button>
-        </dialog>
+        <div className="modal" id="groupModal" style={showPopup ? { display: "block" } : null}>
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h4 className="modal-title">{isLoading ? "Loading..." : days[col] + ", " + timeOptions[startTimeIndex + row] + "-" + timeOptions[startTimeIndex + row + 1]}</h4>
+                </div>
+                <div className="modal-body">
+                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
+                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Unavailable Members: {membersLoading ? "Loading..." : allMembers}</h5>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setShowPopup(false)}>Close</button>
+                </div>
+            </div>
+        </div>
+
     )
 }
 
