@@ -4,7 +4,7 @@ This project contains the files necessary to execute synccircle.net. The front-e
 
 # Application Function
 
-SyncCircle is built to provide group scheduling between a group of friends being our target audience. The application is meant to be lightweight by design and therefore there is no string attached such as a user or group login. The UI offers a aesthetically pleasing and responsive design that complements the user experience when compared to competitiors.
+SyncCircle is built to provide group scheduling with a group of friends being our target audience. The application is meant to be lightweight by design and therefore there is no string attached such as a user or group login. The UI offers an aesthetically pleasing and responsive design that complements the user experience when compared to competitiors.
 
 ## Available Scripts
 
