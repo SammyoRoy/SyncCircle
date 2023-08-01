@@ -113,7 +113,7 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
       <button className="Slot" style={{ backgroundColor: color }} type="button" onClick={() => {
         setPopupMatrixKey(matrixKey)
         setPopupColor(color)}} data-toggle="modal" data-target="#groupModal">
-        {numAvail + "/" + totalMembers}
+        {numAvail}
       </button>
     </>
 

@@ -28,12 +28,7 @@ h6, h5 {
     display: flex;
     flex-direction: column;
     margin-top: -7%;
-}
-
-@media (width <= 575.98px){
-    .offcanvas-body {
-        padding: 0 !important;
-    }
+    flex-shrink: 1;
 }
 
 .GroupHeaderCard {
@@ -42,7 +37,7 @@ h6, h5 {
     background: #e6e6e6;
     border-radius: 30px 30px 0px 0px;
     align-items: center;
-    height: 20%;
+    height: 150px;
     justify-content: space-between;
     margin-top: 3%;
 }
@@ -102,19 +97,12 @@ h6, h5 {
     box-shadow: 0px 6px 4px -2px rgba(0, 0, 0, 0.25);
     z-index: 5;
     background-color: #e6e6e6;
-    padding-bottom: 10%;
-    padding-top: 3%;
+    padding-bottom: 10% !important;
+    padding-top: 3% !important;
     flex-grow: 1;
     align-items: center;
     justify-items: center;
     padding-right: 10px;
-}
-
-@media (height > 700px){
-    .GroupDOTWBar {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
 }
 
 .Slot {
@@ -178,6 +166,19 @@ line-height: 150%; /* 24px */
     .modal{
         left: 12.5% !important;
         width: 75% !important;
+    }
+}
+
+@media (width <= 575.98px){
+    .offcanvas-body {
+        padding: 0 !important;
+    }
+}
+
+@media (height > 700px){
+    .GroupDOTWBar {
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
   
