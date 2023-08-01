@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# synccircle.net
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project contains the files necessary to execute synccircle.net. The front-end is built using the React framework for JavaScript and can be found in the synccircle folder. The backend is built using plain java and can be found in the Backend folder.
+
+# Application Function
+
+SyncCircle is built to provide group scheduling between a group of friends being our target audience. The application is meant to be lightweight by design and therefore there is no string attached such as a user or group login. The UI offers a aesthetically pleasing and responsive design that complements the user experience when compared to competitiors.
 
 ## Available Scripts
 
