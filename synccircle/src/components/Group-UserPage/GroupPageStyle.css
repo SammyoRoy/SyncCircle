@@ -159,9 +159,9 @@ line-height: 150%; /* 24px */
 }
 
 .modal{
-    left: 25% !important;
+    left: 40% !important;
     top: 25% !important;
-    width: 50% !important;
+    width: 40% !important;
     height: auto !important;
 }
 

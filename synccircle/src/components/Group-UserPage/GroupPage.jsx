@@ -33,7 +33,7 @@ function GroupPage() {
         <div className="offcanvas-body">
           <GroupHeader />
           <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor}/>
-          {popupMatrixKey > 0 ? <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor}/>: null}
+          {popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor}/>}
         </div>
       </div>
     </div>
