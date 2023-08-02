@@ -80,7 +80,6 @@ body {
     background: none;
     border: none;
     outline: none;
-    caret-color: transparent;
 }
 
 .EventNameInputRed::placeholder {

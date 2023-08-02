@@ -40,6 +40,7 @@ h6, h5 {
     height: 150px;
     justify-content: space-between;
     margin-top: 3%;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .CopyIcon {
@@ -94,7 +95,7 @@ h6, h5 {
     display: grid;
     width: 100%;
     height: 30%;
-    box-shadow: 0px 6px 4px -2px rgba(0, 0, 0, 0.25);
+    border-bottom: 2px solid #B5B5B5;
     z-index: 5;
     background-color: #e6e6e6;
     padding-bottom: 10% !important;

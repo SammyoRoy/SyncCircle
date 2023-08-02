@@ -179,7 +179,7 @@ height: 53px;
     display: grid;
     width: 100%;
     height: 30%;
-    box-shadow: 0px 6px 4px -2px rgba(0, 0, 0, 0.25);
+    border-bottom: 2px solid #B5B5B5;
     z-index: 5;
     background-color: #e6e6e6;
     padding-bottom: 10%;
@@ -302,6 +302,7 @@ height: 53px;
         margin-top: 2%;
         height: 18%;
         flex-grow: 0;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
     }
 
     .UserNameContainer {
@@ -369,6 +370,7 @@ height: 53px;
         margin-top: 2%;
         height: 18%;
         flex-grow: 0;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
     }
 
     .UserNameContainer {
@@ -423,6 +425,20 @@ height: 53px;
     }
     .UserScreenBackground{
         width: 100% !important;
+    }
+    .GroupPageButtonCircle{
+        width: 38px;
+        height: 38px;
+    }
+    .GroupPageButtonCircle svg{
+        width: 23px !important;
+        height: 22px !important;
+        right: 1px;
+        top: -3px !important;
+    }
+
+    .GroupPageButton svg{
+        top: -3px !important;
     }
     
 }
