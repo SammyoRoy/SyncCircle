@@ -81,6 +81,38 @@ router.get('/nummem/:groupId', (req, res) => {
     });
 });
 
+router.get('/slot/:groupId', (req, res) => {
+    const db = getDb();
+    const groupId = req.params.groupId;
+    const row = req.body.row;
+    const col = req.body.col;
+    db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
+        if (group) {
+            res.status(200).json(group.master_array[row][col]);
+        } else {
+            res.status(404).json({ error: 'Group not found' });
+        }
+    }).catch((err) => {
+        res.status(500).json({ error: err });
+    });
+});
+
+router.get('/slot/size/:groupId', (req, res) => {
+    const db = getDb();
+    const groupId = req.params.groupId;
+    const row = req.body.row;
+    const col = req.body.col;
+    db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
+        if (group) {
+            res.status(200).json(group.master_array[row][col].length);
+        } else {
+            res.status(404).json({ error: 'Group not found' });
+        }
+    }).catch((err) => {
+        res.status(500).json({ error: err });
+    });
+});
+
 
 
 module.exports = router;

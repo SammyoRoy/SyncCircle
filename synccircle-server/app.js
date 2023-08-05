@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/groups', groupRoutes);
+app.use('/users', userRoutes);
 
 connectToDb((err) => {
     if (err) {
