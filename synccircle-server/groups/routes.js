@@ -30,14 +30,15 @@ router.post('/', (req, res) => {
         hours = 24 - hours;
     }
 
-    let master_array = Array(days.length).fill().map(() => Array(hours + 1).fill(0));
+    let master_array = Array(days.length).fill().map(() => Array(hours + 1).fill([]));
 
-    db.collection('Groups').insertOne({ group_id: groupId, group_name: name,start_time: start._i, end_time: end._i, days: days, user_ids: [], master_array: master_array }).then((result) => {
+    db.collection('Groups').insertOne({ group_id: groupId, group_name: name,start_time: start._i, end_time: end._i, days: days, users: [], master_array: master_array }).then((result) => {
         res.status(200).json({ success: true });
     }).catch((err) => {
         res.status(500).json({ error: err });
     });
 });
+
 
 router.get('/:groupId', (req, res) => {
     const db = getDb();
@@ -48,6 +49,16 @@ router.get('/:groupId', (req, res) => {
         } else {
             res.status(404).json({ error: 'Group not found' });
         }
+    }).catch((err) => {
+        res.status(500).json({ error: err });
+    });
+});
+
+router.delete('/:groupId', (req, res) => {
+    const db = getDb();
+    const groupId = req.params.groupId;
+    db.collection('Groups').deleteOne({ group_id: groupId }).then((result) => {
+        res.status(200).json({ success: true });
     }).catch((err) => {
         res.status(500).json({ error: err });
     });

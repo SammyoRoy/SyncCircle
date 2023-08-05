@@ -56,13 +56,15 @@ router.get('/:groupid/:userid', (req, res) => {
     const db = getDb();
     const groupId = req.params.groupid;
     const userId = req.params.userid;
+
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
-            group.users.forEach((user) => {
-                if (user.user_id === userId) {
-                    res.status(200).json(user);
-                }
-            });
+            const user = group.users.find(user => user.user_id === userId);
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ error: 'User not found in group' });
+            }
         } else {
             res.status(404).json({ error: 'Group not found' });
         }
@@ -75,19 +77,25 @@ router.post('/book/:groupid/:userid', (req, res) => {
     const db = getDb();
     const groupId = req.params.groupid;
     const userId = req.params.userid;
-    const name = req.body.name;
     const row = req.body.row;
     const col = req.body.col;
 
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
+            let userFound = false;
             group.users.forEach((user) => {
                 if (user.user_id === userId) {
                     user.availability_array[row][col] = 1;
-                    group.master_array[row][col] += user.user_name;
+                    group.master_array[row][col].push(user.user_name);
+                    userFound = true;
                 }
             });
-            db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } });
+            if(userFound){
+                db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } });
+                res.status(200).json({ message: 'Booking successful.' });
+            } else {
+                res.status(404).json({ error: 'User not found in group' });
+            }
         } else {
             res.status(404).json({ error: 'Group not found' });
         }
@@ -95,6 +103,7 @@ router.post('/book/:groupid/:userid', (req, res) => {
         res.status(500).json({ error: err });
     });
 });
+
 
 router.post('/unbook/:groupid/:userid', (req, res) => {
     const db = getDb();
@@ -106,13 +115,27 @@ router.post('/unbook/:groupid/:userid', (req, res) => {
 
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
+            let userExists = false;
+
             group.users.forEach((user) => {
                 if (user.user_id === userId) {
+                    userExists = true;
                     user.availability_array[row][col] = 0;
-                    group.master_array[row][col] = group.master_array[row][col].replace(user.user_name, '');
+                    group.master_array[row][col] = group.master_array[row][col].filter(userName => userName !== user.user_name);
                 }
             });
-            db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } });
+
+            if (userExists) {
+                db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } })
+                .then(() => {
+                    res.status(200).json({ success: true });
+                })
+                .catch((err) => {
+                    res.status(500).json({ error: err });
+                });
+            } else {
+                res.status(404).json({ error: 'User not found in group' });
+            }
         } else {
             res.status(404).json({ error: 'Group not found' });
         }
@@ -120,6 +143,7 @@ router.post('/unbook/:groupid/:userid', (req, res) => {
         res.status(500).json({ error: err });
     });
 });
+
 
 
 
