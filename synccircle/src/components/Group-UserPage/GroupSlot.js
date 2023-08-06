@@ -46,13 +46,16 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response1 = await axios.post(
-          `http://localhost:4000/slot?group=${groupId}=${row}=${col}`
+        const response1 = await axios.get(
+          `http://localhost:4000/groups/slot/size/${groupId}`, {
+          row: row,
+          col: col
+        }
         );
         setNumAvail(parseInt(response1.data));
 
-        const response2 = await axios.post(
-          `http://localhost:4000/numMem?group=${groupId}`
+        const response2 = await axios.get(
+          `http://localhost:4000/groups/numMem/${groupId}`
         );
         setTotalMembers(parseInt(response2.data));
       } catch (error) {
@@ -98,7 +101,10 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
   }
 
   const handleOver = async () => {
-    const response = await axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`);
+    const response = await axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {
+      row: row,
+      col: col
+      }});
     if (response.data.length != 0) {
       setShowMembers(!showMembers);
     }

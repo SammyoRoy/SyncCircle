@@ -19,14 +19,14 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       console.log("User ID: "+userId);
       if (userId != ""){
               console.log("Only now");
-              axios.post(`http://localhost:4000/initializeSlot?group=${groupId}=${userId}=${row}=${col}`)
+              axios.get(`http://localhost:4000/users/${groupId}/${userId}`)
               .then((response) => {
-                if (response.data == "0"){
+                if (response.data.availability_array[row][col] == 0){
                   console.log("Initial unselec");
                   setStyle("UnselectedSlot");
                   setSelected(false);
                 }
-                else if (response.data == "1"){
+                else if (response.data.availability_array[row][col] == 1){
                   console.log("Select Init");
                   setStyle("SelectedSlot");
                   setSelected(true);
@@ -71,13 +71,13 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
         if (isSelected) {
           setSelected(false);
           setStyle("UnselectedSlot");
-          const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+          const response = await axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, {row: row, col: col});
           setUserSlot(Math.random());
           setIsModified(true);
         } else {
           setSelected(true);
           setStyle("SelectedSlot");
-          const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+          const response = await axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, {row: row, col: col});
           setUserSlot(Math.random());
           setIsModified(true);
         }
@@ -102,7 +102,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, {row: row, col: col});
       console.log(response);
       setUserSlot(Math.random());
 
@@ -110,7 +110,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       setSelected(true);
       setStyle("SelectedSlot");
   
-      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, {row: row, col: col});
       setUserSlot(Math.random());
     }
   };
@@ -124,15 +124,17 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
-      setUserSlot(Math.random());
+      axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, {row: row, col: col}).then((response) => {
+        setUserSlot(Math.random());
+      });
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
   
-      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
-      setUserSlot(Math.random());
+      axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, {row: row, col: col}).then((response) => {
+        setUserSlot(Math.random());
+      });
     }
   };
 

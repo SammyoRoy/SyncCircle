@@ -1,10 +1,12 @@
 const express = require('express');
 const { connectToDb} = require('./db');
+const cors = require('cors');
 
 const groupRoutes = require('./groups/routes');
 const userRoutes = require('./users/routes');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

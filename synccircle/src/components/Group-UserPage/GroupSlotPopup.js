@@ -39,12 +39,12 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
     
     const getMembers = () => {
 
-        axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`).then((response) => {
+        axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
             setAvailableMembers(response.data.toString().slice(1, -1));
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`http://localhost:4000/allMem?group=${groupId}`).then((response) => {
+        axios.get(`http://localhost:4000/groups/allmem/${groupId}`).then((response) => {
             setAllMembers(response.data.toString().slice(1, -1));
         }).catch((error) => {
             console.error(error);
@@ -126,8 +126,8 @@ export default GroupSlotPopup;
 async function GetDays() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.post(`http://localhost:4000/days?group=${URL[URL.length - 1]}`);
-        return response.data.split(",");
+        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        return response.data.days;
     } catch (error) {
         console.error(error);
         return [];
@@ -143,8 +143,8 @@ function sortDays(daysData) {
 async function getStart() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.post(`http://localhost:4000/shours?group=${URL[URL.length - 1]}`);
-        return response.data;
+        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        return response.data.start_time;
     } catch (error) {
         console.error(error);
         return "";
@@ -160,16 +160,5 @@ async function convertTimeToIndex(time) {
     }
     else {
         return (parsedHour + 18)
-    }
-}
-
-async function getAllMembers() {
-    const URL = window.location.href.split("/");
-    try {
-        const response = await axios.post(`http://localhost:4000/allMem?group=${URL[URL.length - 1]}`);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return "";
     }
 }

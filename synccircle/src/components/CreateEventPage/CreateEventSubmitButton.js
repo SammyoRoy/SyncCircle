@@ -38,11 +38,16 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const dayString = days.join(",");
       console.log(days);
       console.log(dayString);
-      axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
+      axios.post(`http://localhost:4000/groups/`, {
+          name: eventName,
+          startTime: startTime,
+          endTime: endTime,
+          days: dayString,
+          })
         .then((response) => {
-          // navigate to /group pages
-
-          nav(`/group/${response.data}`);
+          const groupId = response.data.group_id;
+          console.log(groupId);
+          nav(`/group/${groupId}`);
           
         })
         .catch((error) => {

@@ -11,7 +11,7 @@ router.get('/:groupid', (req, res) => {
     const groupId = req.params.groupid;
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
-            res.status(200).json(group.user_ids);
+            res.status(200).json(group.users);
         } else {
             res.status(404).json({ error: 'Group not found' });
         }
@@ -26,7 +26,7 @@ router.post('/:groupid', (req, res) => {
     let startTime = req.body.startTime;
     let endTime = req.body.endTime;
     let days = req.body.days;
-    days = days.split(',');
+    days = days.split(",");
 
     const groupId = req.params.groupid;
 
@@ -40,12 +40,12 @@ router.post('/:groupid', (req, res) => {
 
     let availability_array = Array(days.length).fill().map(() => Array(hours + 1).fill(0));
 
-    db.collection('Users').insertOne({ user_id: userId, user_name: name, availability_array: availability_array })
+    db.collection('Users').insertOne({ users: {user_id: userId, user_name: name, availability_array: availability_array }})
         .then(() => {
-            return db.collection('Groups').updateOne({ group_id: groupId }, { $push: { users: {user_id: userId, user_name: name, availability_array: availability_array} } })
+            db.collection('Groups').updateOne({ group_id: groupId }, { $push: { users: {user_id: userId, user_name: name, availability_array: availability_array} } })
         })
         .then(() => {
-            res.status(200).json({ success: true });
+            res.status(200).json({ success: true, user_id: userId });
         })
         .catch((err) => {
             res.status(500).json({ error: err });
@@ -109,7 +109,6 @@ router.post('/unbook/:groupid/:userid', (req, res) => {
     const db = getDb();
     const groupId = req.params.groupid;
     const userId = req.params.userid;
-    const name = req.body.name;
     const row = req.body.row;
     const col = req.body.col;
 

@@ -8,10 +8,10 @@ function UserTitle() {
 
 
     useEffect(() => {
-         axios.post(`http://localhost:4000/name?group=${groupId}`)
+         axios.get(`http://localhost:4000/groups/${groupId}`)
          .then((response) => {
              // navigate to /group pages
-             setEventName(response.data);
+             setEventName(response.data.group_name);
              console.log(eventName);
 
          })
