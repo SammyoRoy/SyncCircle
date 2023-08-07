@@ -6,9 +6,9 @@ const moment = require('moment');
 
 const router = express.Router();
 
-router.get('/:groupid', (req, res) => {
+router.get('/:groupId', (req, res) => {
     const db = getDb();
-    const groupId = req.params.groupid;
+    const groupId = req.params.groupId;
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
             res.status(200).json(group.users);
@@ -20,15 +20,17 @@ router.get('/:groupid', (req, res) => {
     });
 });
 
-router.post('/:groupid', (req, res) => {
+router.post('/:groupId', (req, res) => {
     const db = getDb();
     let name = req.body.name;
     let startTime = req.body.startTime;
     let endTime = req.body.endTime;
     let days = req.body.days;
-    days = days.split(",");
+    if (typeof days === 'string'){
+        days = days.split(",");
+    }
 
-    const groupId = req.params.groupid;
+    const groupId = req.params.groupId;
 
     const userId = uuidv4();
     let start = moment(startTime, 'h:mm a');

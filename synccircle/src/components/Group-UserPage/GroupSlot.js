@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
+function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -41,30 +41,35 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
     '4:00 AM',
     '5:00 AM', //05:00 -> 23
     '6:00 AM'
-];
+  ];
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const response1 = await axios.get(
-          `http://localhost:4000/groups/slot/size/${groupId}`, {
-          row: row,
-          col: col
-        }
-        );
-        setNumAvail(parseInt(response1.data));
+      if (groupId !== "") {
+        try {
+          const response1 = await axios.get(
+            `http://localhost:4000/groups/slot/size/${groupId}`,
+            { params: { row: row, col: col } }
+          );
+          const numAvailable = parseInt(response1.data);
+          setNumAvail(numAvailable);
+          console.log("Num Avail: " + numAvailable);
 
-        const response2 = await axios.get(
-          `http://localhost:4000/groups/numMem/${groupId}`
-        );
-        setTotalMembers(parseInt(response2.data));
-      } catch (error) {
-        console.error(error);
+          const response2 = await axios.get(
+            `http://localhost:4000/groups/nummem/${groupId}`
+          );
+          const totalMembersValue = parseInt(response2.data);
+          setTotalMembers(totalMembersValue);
+          console.log("Total Members: " + totalMembersValue);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
 
     fetchData();
-  }, [userSlot]);
+  }, [userSlot, groupId, row, col]);
+
 
 
   useEffect(() => {
@@ -101,10 +106,12 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
   }
 
   const handleOver = async () => {
-    const response = await axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {
-      row: row,
-      col: col
-      }});
+    const response = await axios.get(`http://localhost:4000/groups/slot/${groupId}`, {
+      params: {
+        row: row,
+        col: col
+      }
+    });
     if (response.data.length != 0) {
       setShowMembers(!showMembers);
     }
@@ -118,7 +125,8 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
     <>
       <button className="Slot" style={{ backgroundColor: color }} type="button" onClick={() => {
         setPopupMatrixKey(matrixKey)
-        setPopupColor(color)}} data-toggle="modal" data-target="#groupModal">
+        setPopupColor(color)
+      }} data-toggle="modal" data-target="#groupModal">
         {numAvail}
       </button>
     </>

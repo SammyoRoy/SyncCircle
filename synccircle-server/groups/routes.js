@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 
     let master_array = Array(days.length).fill().map(() => Array(hours + 1).fill([]));
 
-    db.collection('Groups').insertOne({ group_id: groupId, group_name: name,start_time: start._i, end_time: end._i, days: days, users: [], master_array: master_array }).then((result) => {
+    db.collection('Groups').insertOne({ group_id: groupId, group_name: name, start_time: start._i, end_time: end._i, days: days, users: [], master_array: master_array }).then((result) => {
         res.status(200).json({ success: true, group_id: groupId });
     }).catch((err) => {
         res.status(500).json({ error: err });
@@ -97,7 +97,7 @@ router.get('/allmem/:groupId', (req, res) => {
     const groupId = req.params.groupId;
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
-            const userNames = group.users.map(user => user.name);
+            const userNames = group.users.map(user => user.user_name);
             console.log(userNames);
             res.status(200).json(userNames);
         } else {
@@ -116,7 +116,7 @@ router.get('/findmem/:groupId', (req, res) => {
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
             const user = group.users.find((user) => {
-                return user.name === userName;
+                return user.user_name === userName;
             });
             if (user !== undefined) {
                 res.status(200).json(user.user_id);
@@ -135,11 +135,11 @@ router.get('/findmem/:groupId', (req, res) => {
 router.get('/slot/:groupId', (req, res) => {
     const db = getDb();
     const groupId = req.params.groupId;
-    const row = req.query.row;
-    const col = req.query.col;
+    const row = parseInt(req.query.row, 10);
+    const col = parseInt(req.query.col, 10);
+
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
-            console.log(group.master_array);
             res.status(200).json(group.master_array[row][col]);
         } else {
             res.status(404).json({ error: 'Group not found' });
@@ -152,8 +152,8 @@ router.get('/slot/:groupId', (req, res) => {
 router.get('/slot/size/:groupId', (req, res) => {
     const db = getDb();
     const groupId = req.params.groupId;
-    const row = req.body.row;
-    const col = req.body.col;
+    const row = req.query.row;
+    const col = req.query.col;
     db.collection('Groups').findOne({ group_id: groupId }).then((group) => {
         if (group) {
             res.status(200).json(group.master_array[row][col].length);

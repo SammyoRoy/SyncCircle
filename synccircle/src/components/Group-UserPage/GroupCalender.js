@@ -14,32 +14,40 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
 
   useEffect(() => {
+    // Combine fetching of days, start, and end into a single function
     async function fetchData() {
-      const daysData = await GetDays();
-      const startData = await GetStart();
-      const endData = await GetEnd();
-
-      setDays(daysData);
-      setStart(startData);
-      setEnd(endData);
-    }
-
-    async function initializeIndices() {
-      const startTimeIndex = await convertTimeToIndex(start);
-      const endTimeIndex = await convertTimeToIndex(end);
-      const timeIndex = await convertTimeToIndex(start);
-
-      setStartIndex(startTimeIndex);
-      setCurrTimeIndex(timeIndex);
-      setEndIndex(endTimeIndex);
+      const URL = window.location.href.split("/");
+      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+      setDays(response.data.days);
+      setStart(response.data.start_time);
+      setEnd(response.data.end_time);
     }
 
     fetchData();
-    initializeIndices();
-    console.log(startIndex);
-    console.log(endIndex);
-    console.log(currTimeIndex);
-  }, [startIndex, endIndex, currTimeIndex, start, end]);
+  }, []);
+  
+  useEffect(() => {
+    // Function to convert time to index, not asynchronous
+    function convertTimeToIndex(time) {
+      const [hour] = time.split(':');
+      const parsedHour = parseInt(hour, 10);
+
+      if (parsedHour >= 6) {
+        return (parsedHour - 6);
+      }
+      else {
+        return (parsedHour + 18);
+      }
+    }
+
+    const startTimeIndex = convertTimeToIndex(start);
+    const endTimeIndex = convertTimeToIndex(end);
+    const timeIndex = convertTimeToIndex(start);
+
+    setStartIndex(startTimeIndex);
+    setCurrTimeIndex(timeIndex);
+    setEndIndex(endTimeIndex);
+  }, [start, end]);
 
   const numRows = (endIndex + 1 - startIndex);
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
@@ -63,50 +71,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
       )}
     </div>
   );
-}
-async function GetDays() {
-  const URL = window.location.href.split("/");
-  try {
-    const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
-    return response.data.days;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
-
-async function GetStart() {
-  const URL = window.location.href.split("/");
-  try {
-    const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
-    return response.data.start_time;
-  } catch (error) {
-    console.error(error);
-    return "";
-  }
-}
-
-async function GetEnd() {
-  const URL = window.location.href.split("/");
-  try {
-    const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
-    return response.data.end_time;
-  } catch (error) {
-    console.error(error);
-    return "";
-  }
-}
-
-async function convertTimeToIndex(time) {
-  const [hour] = time.split(':');
-  const parsedHour = parseInt(hour, 10);
-
-  if (parsedHour >= 6) {
-    return (parsedHour - 6);
-  }
-  else {
-    return (parsedHour + 18)
-  }
 }
 
 export default GroupCalendar;

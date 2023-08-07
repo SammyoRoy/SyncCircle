@@ -11,13 +11,15 @@ function JoinButton({ userName, updateJoined, updateSubmitted }) {
   const [endTime, setEndTime] = useState("6:00 AM");
   const [days, setDays] = useState([]);
 
+
   useEffect(() => {
+    console.log(groupId);
     axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
       setStartTime(response.data.start_time);
       setEndTime(response.data.end_time);
       setDays(response.data.days);
     });
-    }, []);
+    }, [groupId]);
 
 
   const onSubmit = (event) => {
@@ -27,6 +29,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted }) {
         if (response.data === "False") {
           console.log("Make new User")
           //Make new User
+          console.log(days);
           axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
             .then((response2) => {
               setUserId(response2.data.user_id);
@@ -35,7 +38,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted }) {
           updateJoined(true);
           updateSubmitted(true);
         }
-        else {
+        else{
           console.log("Found user")
           setUserId(response.data);
           setShow(false);

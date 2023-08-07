@@ -40,12 +40,13 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
     const getMembers = () => {
 
         axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
-            setAvailableMembers(response.data.toString().slice(1, -1));
+            setAvailableMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
         });
         axios.get(`http://localhost:4000/groups/allmem/${groupId}`).then((response) => {
-            setAllMembers(response.data.toString().slice(1, -1));
+            console.log("All Members: " + response.data.toString());
+            setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
         });
