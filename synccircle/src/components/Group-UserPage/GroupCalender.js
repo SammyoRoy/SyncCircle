@@ -67,7 +67,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
 async function GetDays() {
   const URL = window.location.href.split("/");
   try {
-    const response = await axios.post(`http://localhost:4000/days?group=${URL[URL.length - 1]}`);
+    const response = await axios.post(`https://backend.synccircle.net:4000/days?group=${URL[URL.length - 1]}`);
     return response.data.split(",");
   } catch (error) {
     console.error(error);
@@ -78,7 +78,7 @@ async function GetDays() {
 async function GetStart() {
   const URL = window.location.href.split("/");
   try {
-    const response = await axios.post(`http://localhost:4000/shours?group=${URL[URL.length - 1]}`);
+    const response = await axios.post(`https://backend.synccircle.net:4000/shours?group=${URL[URL.length - 1]}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -89,7 +89,7 @@ async function GetStart() {
 async function GetEnd() {
   const URL = window.location.href.split("/");
   try {
-    const response = await axios.post(`http://localhost:4000/ehours?group=${URL[URL.length - 1]}`);
+    const response = await axios.post(`https://backend.synccircle.net:4000/ehours?group=${URL[URL.length - 1]}`);
     return response.data;
   } catch (error) {
     console.error(error);

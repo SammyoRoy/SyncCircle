@@ -8,7 +8,7 @@ function UserTitle() {
 
 
     useEffect(() => {
-         axios.post(`http://localhost:4000/name?group=${groupId}`)
+         axios.post(`https://backend.synccircle.net:4000/name?group=${groupId}`)
          .then((response) => {
              // navigate to /group pages
              setEventName(response.data);
