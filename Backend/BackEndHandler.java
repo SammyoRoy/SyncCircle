@@ -19,6 +19,10 @@ class Handler implements URLHandler {
     LocalTime start;
     LocalTime end;
 
+    public Handler(){
+        globalGroups = new HashMap<>();
+    }
+
     public void setup() {
 
         /*
