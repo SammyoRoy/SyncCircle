@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor }) {
+function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -46,29 +46,26 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor }) {
   useEffect(() => {
     async function fetchData() {
       if (groupId !== "") {
-        try {
-          const response1 = await axios.get(
-            `http://localhost:4000/groups/slot/size/${groupId}`,
-            { params: { row: row, col: col } }
-          );
-          const numAvailable = parseInt(response1.data);
-          setNumAvail(numAvailable);
-          console.log("Num Avail: " + numAvailable);
-
-          const response2 = await axios.get(
-            `http://localhost:4000/groups/nummem/${groupId}`
-          );
-          const totalMembersValue = parseInt(response2.data);
-          setTotalMembers(totalMembersValue);
-          console.log("Total Members: " + totalMembersValue);
-        } catch (error) {
-          console.error(error);
-        }
+        setNumAvail(cellValue.length);
       }
     }
 
     fetchData();
   }, [userSlot, groupId, row, col]);
+
+  useEffect(() => {
+    if (groupId !== "") {
+      async function fetchData() {
+        const response = await axios.get(
+          `http://localhost:4000/groups/nummem/${groupId}`
+        );
+        const totalMembersValue = parseInt(response.data);
+        setTotalMembers(totalMembersValue);
+      }
+      fetchData();
+    }
+
+  }, [groupId]);
 
 
 
@@ -104,21 +101,6 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor }) {
       setColor(`#F7F7F7`);
     }
   }
-
-  const handleOver = async () => {
-    const response = await axios.get(`http://localhost:4000/groups/slot/${groupId}`, {
-      params: {
-        row: row,
-        col: col
-      }
-    });
-    if (response.data.length != 0) {
-      setShowMembers(!showMembers);
-    }
-    return (
-      setContent(response.data.toString().slice(1, -1))
-    )
-  };
 
 
   return (

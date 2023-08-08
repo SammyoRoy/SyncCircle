@@ -12,6 +12,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
+  const [masterArray, setMasterArray] = useState(null);
 
   useEffect(() => {
     // Combine fetching of days, start, and end into a single function
@@ -21,11 +22,12 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
+      setMasterArray(response.data.master_array);
     }
 
     fetchData();
   }, []);
-  
+
   useEffect(() => {
     // Function to convert time to index, not asynchronous
     function convertTimeToIndex(time) {
@@ -60,15 +62,23 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     <div className="CalendarGrid" style={{ gridTemplateColumns, gridTemplateRows }}>
       {/* Generate and render grid items */}
 
-      {Array.from({ length: totalCells }, (_, index) => (
-        index % (days.length + 1) === 0 ? (
+      {Array.from({ length: totalCells }, (_, index) => {
+        const row = Math.floor(index / (days.length + 1));
+        const col = index % (days.length + 1) - 1;
+
+        const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
+          ? masterArray[row][col]
+          : 0;
+
+        return index % (days.length + 1) === 0 ? (
           <TimeLabel
             key={index}
-            currTimeIndex={startIndex + Math.floor(index / (days.length + 1))}
+            currTimeIndex={startIndex + row}
           />
-        ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} />
-        ))
-      )}
+        ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} cellValue={cellValue} />
+        );
+      })}
+
     </div>
   );
 }

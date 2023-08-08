@@ -8,7 +8,8 @@ function GroupTitle() {
 
 
     useEffect(() => {
-         axios.get(`http://localhost:4000/groups/${groupId}`)
+        const URL = window.location.href.split("/");
+         axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`)
          .then((response) => {
              // navigate to /group pages
              setEventName(response.data.group_name);

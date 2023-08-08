@@ -12,6 +12,7 @@ function Calendar() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
+  const [availabilityArray, setAvailabilityArray] = useState(null);
 
   //Dragging
   const [isDragging, setIsDragging] = useState(false);
@@ -56,10 +57,17 @@ function Calendar() {
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
     }
+    async function fetchUser() {
+      const URL = window.location.href.split("/");
+      const response = await axios.get(`http://localhost:4000/users/${URL[URL.length - 1]}/${userId}`);
+      setAvailabilityArray(response.data.availability);
+    }
 
     fetchData();
+    fetchUser();
+    console.log(availabilityArray);
   }, []);
-  
+
   useEffect(() => {
     function convertTimeToIndex(time) {
       const [hour] = time.split(':');
@@ -101,15 +109,20 @@ function Calendar() {
       style={{ gridTemplateColumns, gridTemplateRows }}>
       {/* Generate and render grid items */}
 
-      {Array.from({ length: totalCells }, (_, index) => (
-        index % (days.length + 1) === 0 ? (
+      {Array.from({ length: totalCells }, (_, index) => {
+        const row = Math.floor(index / (days.length + 1));
+        const col = index % (days.length + 1) - 1;
+        const cellValue = availabilityArray && col >= 0 ? availabilityArray[row][col] : 0;
+
+        return index % (days.length + 1) === 0 ? (
           <TimeLabel
             key={index}
-            currTimeIndex={startIndex + Math.floor(index / (days.length + 1))}
+            currTimeIndex={startIndex + row}
           />
-        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} />
-        ))
-      )}
+        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} />
+        );
+      })}
+
     </div>
   );
 }
