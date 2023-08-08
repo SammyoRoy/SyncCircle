@@ -11,12 +11,12 @@ function JoinButton({ userName, updateJoined, updateSubmitted }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    axios.post(`http://localhost:4000/findMem?group=${groupId}=${userName}`)
+    axios.post(`https://backend.synccircle.net:4000/findMem?group=${groupId}=${userName}`)
       .then((response) => {
         if (response.data === "False") {
           console.log("Make new User")
           //Make new User
-          axios.post(`http://localhost:4000/create?user=${groupId}=${userName}`)
+          axios.post(`https://backend.synccircle.net:4000/create?user=${groupId}=${userName}`)
             .then((response2) => {
               setUserId(response2.data);
             });

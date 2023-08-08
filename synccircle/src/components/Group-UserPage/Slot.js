@@ -19,7 +19,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       console.log("User ID: "+userId);
       if (userId != ""){
               console.log("Only now");
-              axios.post(`http://localhost:4000/initializeSlot?group=${groupId}=${userId}=${row}=${col}`)
+              axios.post(`https://backend.synccircle.net:4000/initializeSlot?group=${groupId}=${userId}=${row}=${col}`)
               .then((response) => {
                 if (response.data == "0"){
                   console.log("Initial unselec");
@@ -71,13 +71,13 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
         if (isSelected) {
           setSelected(false);
           setStyle("UnselectedSlot");
-          const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+          const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
           setUserSlot(Math.random());
           setIsModified(true);
         } else {
           setSelected(true);
           setStyle("SelectedSlot");
-          const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+          const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
           setUserSlot(Math.random());
           setIsModified(true);
         }
@@ -102,7 +102,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
       console.log(response);
       setUserSlot(Math.random());
 
@@ -110,7 +110,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
       setSelected(true);
       setStyle("SelectedSlot");
   
-      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
       setUserSlot(Math.random());
     }
   };
@@ -124,14 +124,14 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`http://localhost:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
       setUserSlot(Math.random());
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
   
-      const response = await axios.post(`http://localhost:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+      const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
       setUserSlot(Math.random());
     }
   };

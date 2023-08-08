@@ -47,12 +47,12 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
     async function fetchData() {
       try {
         const response1 = await axios.post(
-          `http://localhost:4000/slot?group=${groupId}=${row}=${col}`
+          `https://backend.synccircle.net:4000/slot?group=${groupId}=${row}=${col}`
         );
         setNumAvail(parseInt(response1.data));
 
         const response2 = await axios.post(
-          `http://localhost:4000/numMem?group=${groupId}`
+          `https://backend.synccircle.net/numMem?group=${groupId}`
         );
         setTotalMembers(parseInt(response2.data));
       } catch (error) {
@@ -98,7 +98,7 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
   }
 
   const handleOver = async () => {
-    const response = await axios.get(`http://localhost:4000/display?slot=group=${groupId}=${row}=${col}`);
+    const response = await axios.get(`https://backend.synccircle.net:4000/display?slot=group=${groupId}=${row}=${col}`);
     if (response.data.length != 0) {
       setShowMembers(!showMembers);
     }

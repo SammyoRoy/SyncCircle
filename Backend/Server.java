@@ -1,15 +1,23 @@
-// A simple web server using Java's built-in HttpServer
-
-// Examples from https://dzone.com/articles/simple-http-server-in-java were useful references
-
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.security.KeyStore;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpsConfigurator;
+import com.sun.net.httpserver.HttpsParameters;
+import com.sun.net.httpserver.HttpsServer;
 
 interface URLHandler {
     String handleRequest(URI url) throws IOException;
@@ -44,16 +52,54 @@ class ServerHttpHandler implements HttpHandler {
     }
 }
 
-
 public class Server {
-    public static void start(int port, URLHandler handler) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+    public static void start(int port, URLHandler handler, String keystorePath, String keystorePassword) throws Exception {
+        // Load the keystore
+        char[] password = keystorePassword.toCharArray();
+        KeyStore ks = KeyStore.getInstance("JKS");
+        FileInputStream fis = new FileInputStream(keystorePath);
+        ks.load(fis, password);
 
-        //create request entrypoint
+        // Initialize KeyManagerFactory
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+        kmf.init(ks, password);
+
+        // Initialize TrustManagerFactory
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+        tmf.init(ks);
+
+        // Initialize SSL context
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+        sslContext.init(keyManagers, trustManagers, null);
+
+        HttpsServer server = HttpsServer.create(new InetSocketAddress(port), 0);
+
+        // Configure HTTPS parameters
+        server.setHttpsConfigurator(new HttpsConfigurator(sslContext) {
+            public void configure(HttpsParameters params) {
+                SSLContext context = getSSLContext();
+                SSLParameters sslParameters = context.getDefaultSSLParameters();
+                params.setSSLParameters(sslParameters);
+                params.setWantClientAuth(false);
+            }
+        });
+
+        // Create request entrypoint
         server.createContext("/", new ServerHttpHandler(handler));
 
-        //start the server
+        // Start the server
         server.start();
-        System.out.println("Server Started! Visit http://localhost:" + port + " to visit.");
+        System.out.println("Server Started! Visit https://localhost:" + port + " to visit.");
+    }
+
+    public static void main(String[] args) throws Exception {
+        int port = 4000; // Change to your desired port
+        URLHandler handler = new Handler(); // Replace with your URLHandler implementation
+        String keystorePath = "/etc/letsencrypt/live/backend.synccircle.net/keystore.jks"; // Path to your keystore file
+        String keystorePassword = "SC>When2Not69Meet"; // Keystore password
+
+        Server.start(port, handler, keystorePath, keystorePassword);
     }
 }

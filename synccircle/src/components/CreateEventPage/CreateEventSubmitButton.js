@@ -38,7 +38,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const dayString = days.join(",");
       console.log(days);
       console.log(dayString);
-      axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
+      axios.post(`https://backend.synccircle.net:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
         .then((response) => {
           // navigate to /group pages
 
@@ -56,3 +56,4 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
   }
 
 export default CreateEventSubmitButton;
+

@@ -255,7 +255,7 @@ class Handler implements URLHandler {
 
 }
 
-class BackEndHandler {
+/*class BackEndHandler {
     public static void main(String[] args) throws IOException {
         Handler b1 = new Handler();
         b1.setup();
@@ -270,4 +270,4 @@ class BackEndHandler {
 
         Server.start(port, b1);
     }
-}
+}*/
