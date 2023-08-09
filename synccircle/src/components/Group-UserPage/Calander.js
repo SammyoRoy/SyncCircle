@@ -78,6 +78,7 @@ function Calendar(){
     const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
     const gridTemplateRows = `repeat(${numRows}, 1fr)`;
     const totalCells = (days.length+1) * (numRows);
+    console.log(totalCells);
   
     // Set CSS variables
     
@@ -91,7 +92,7 @@ function Calendar(){
             onMouseUp={handleMouseUp} 
             style={{gridTemplateColumns, gridTemplateRows}}>
         {/* Generate and render grid items */}
-  
+      
         {Array.from({ length: totalCells }, (_, index) => (
           index % (days.length+1) === 0 ? (
            <TimeLabel 
@@ -123,7 +124,7 @@ function Calendar(){
   async function GetStart() {
     const URL = window.location.href.split("/");
     try {
-      const response = await axios.post(`https://backend.synccircle.net/shours?group=${URL[URL.length - 1]}`);
+      const response = await axios.post(`https://backend.synccircle.net:4000/shours?group=${URL[URL.length - 1]}`);
       return response.data;
     } catch (error) {
       console.error(error);

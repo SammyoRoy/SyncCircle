@@ -52,7 +52,7 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
         setNumAvail(parseInt(response1.data));
 
         const response2 = await axios.post(
-          `https://backend.synccircle.net/numMem?group=${groupId}`
+          `https://backend.synccircle.net:4000/numMem?group=${groupId}`
         );
         setTotalMembers(parseInt(response2.data));
       } catch (error) {
