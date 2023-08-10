@@ -60,13 +60,13 @@ function Calendar() {
     async function fetchUser() {
       const URL = window.location.href.split("/");
       const response = await axios.get(`http://localhost:4000/users/${URL[URL.length - 1]}/${userId}`);
-      setAvailabilityArray(response.data.availability);
+      setAvailabilityArray(response.data.availability_array);
     }
 
     fetchData();
     fetchUser();
     console.log(availabilityArray);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     function convertTimeToIndex(time) {

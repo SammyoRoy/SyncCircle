@@ -136,6 +136,13 @@ body {
     background-color: #19ac1e;
 }
 
+.disabled{
+    background-color: #b5b5b5 !important;
+}
+.disabled:hover{
+    background-color: #b5b5b5 !important;
+}
+
 .Groups {
     width: 100%;
     height: 100%;

@@ -3,33 +3,36 @@ import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 
-function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput}) {
+function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
   const { groupId, setUserId, userId } = useContext(AppContext);
   const [show, setShow] = useState(true);
-  const [startTime, setStartTime] = useState("12:00 AM");
-  const [endTime, setEndTime] = useState("6:00 AM");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [days, setDays] = useState([]);
 
 
   useEffect(() => {
     console.log(groupId);
-    axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
-      setStartTime(response.data.start_time);
-      setEndTime(response.data.end_time);
-      setDays(response.data.days);
-    });
+    if (groupId !== "") {
+      axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
+        setStartTime(response.data.start_time);
+        setEndTime(response.data.end_time);
+        setDays(response.data.days);
+      });
+    }
   }, [groupId]);
 
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (userName !== "") {
+    if (userName !== "" && groupId !== "") {
       axios.get(`http://localhost:4000/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {
             console.log("Make new User")
             //Make new User
             console.log(days);
+            console.log(startTime);
             axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
                 setUserId(response2.data.user_id);
@@ -46,7 +49,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput}) {
             updateSubmitted(true);
           }
         });
-    }else{
+    } else {
       setEmptyInput(true);
     }
 
@@ -54,7 +57,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput}) {
   return (
     <div className="UserButtonContainer">
       {show ? (
-        <button type="submit" className="JoinButton" onClick={onSubmit}>Join</button>
+        <button type="submit" className={groupId !== ""? "JoinButton": "JoinButton disabled"} onClick={onSubmit} disabled={groupId===""}>Join</button>
       ) : <GroupPageButton groupId={groupId} userId={userId} />}
     </div>
   );

@@ -5,7 +5,7 @@ import { AppContext } from "../../context/AppContext";
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
-    const { setEventTrigger, setDayTrigger } = useContext(AppContext);
+    const { setEventTrigger, setDayTrigger, setGroupId } = useContext(AppContext);
     console.log(endTime)
     const handleEventTrigger = () => {
       setEventTrigger(true);
@@ -46,7 +46,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
           })
         .then((response) => {
           const groupId = response.data.group_id;
-          console.log(groupId);
+          setGroupId(groupId);
           nav(`/group/${groupId}`);
           
         })

@@ -16,8 +16,12 @@ function UserPage() {
   const [slotTried, setSlotTried] = useState(false);
 
   useEffect(() => {
-    setGroupId(window.location.pathname.split("/").pop());
-  }, [groupId])
+    const groupIdFromUrl = window.location.pathname.split("/").pop();
+    if (groupIdFromUrl !== ""){
+      setGroupId(groupIdFromUrl);
+    }
+  }, []); // Empty dependency array to run only once
+  
 
   return (
     <div className="UserBase">
