@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import JoinButton from "./JoinButton";
 import UserTitle from "./UserTitle";
 import GroupPageButtonCircle from "./GroupPageButtonCircle";
@@ -11,18 +11,18 @@ function UserNameForm() {
   const [isSubmitted, setSubmitted] = useState(false);
   const [isEmptyInput, setEmptyInput] = useState(false);
 
-  const handleJoinButtonClick = () => {
-    if (!userName.trim()) {
-      setEmptyInput(true);
-    } else {
-      setEmptyInput(false);
-      setJoined(true);
-      setSubmitted(true);
+  useEffect(() => {
+    if (slotTried) {
+      setTimeout(() => {
+        setSlotTried(false);
+      }, 2000);
     }
-    setTimeout(() => {
-      setEmptyInput(false);
-    }, 2000);
-  };
+    if (isEmptyInput) {
+      setTimeout(() => {
+        setEmptyInput(false);
+      }, 2000);
+    }
+  }, [slotTried, isEmptyInput]);
 
   return (
     <div className="UserNameContainer">
@@ -39,7 +39,7 @@ function UserNameForm() {
         userName={userName}
         updateJoined={setJoined}
         updateSubmitted={setSubmitted}
-        onJoin={handleJoinButtonClick}
+        setEmptyInput={setEmptyInput}
       />
     </div>
   );

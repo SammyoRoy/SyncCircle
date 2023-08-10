@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
-import Cookies from 'universal-cookie';
 
-function JoinButton({ userName, updateJoined, updateSubmitted }) {
+function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput}) {
   const { groupId, setUserId, userId } = useContext(AppContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("12:00 AM");
@@ -19,33 +18,37 @@ function JoinButton({ userName, updateJoined, updateSubmitted }) {
       setEndTime(response.data.end_time);
       setDays(response.data.days);
     });
-    }, [groupId]);
+  }, [groupId]);
 
 
   const onSubmit = (event) => {
     event.preventDefault();
-    axios.get(`http://localhost:4000/groups/findmem/${groupId}`, {params: {userName: userName}} )
-      .then((response) => {
-        if (response.data === "False") {
-          console.log("Make new User")
-          //Make new User
-          console.log(days);
-          axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
-            .then((response2) => {
-              setUserId(response2.data.user_id);
-            });
-          setShow(false);
-          updateJoined(true);
-          updateSubmitted(true);
-        }
-        else{
-          console.log("Found user")
-          setUserId(response.data);
-          setShow(false);
-          updateJoined(true);
-          updateSubmitted(true);
-        }
-      });
+    if (userName !== "") {
+      axios.get(`http://localhost:4000/groups/findmem/${groupId}`, { params: { userName: userName } })
+        .then((response) => {
+          if (response.data === "False") {
+            console.log("Make new User")
+            //Make new User
+            console.log(days);
+            axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
+              .then((response2) => {
+                setUserId(response2.data.user_id);
+              });
+            setShow(false);
+            updateJoined(true);
+            updateSubmitted(true);
+          }
+          else {
+            console.log("Found user")
+            setUserId(response.data);
+            setShow(false);
+            updateJoined(true);
+            updateSubmitted(true);
+          }
+        });
+    }else{
+      setEmptyInput(true);
+    }
 
   }
   return (
