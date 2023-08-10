@@ -1,9 +1,11 @@
 const express = require('express');
-const { connectToDb} = require('./db');
+const connectToDb = require('./db');
 const cors = require('cors');
 
-const groupRoutes = require('./groups/routes');
-const userRoutes = require('./users/routes');
+const groupRoutes = require('./routes/groupRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+connectToDb();
 
 const app = express();
 app.use(cors());
@@ -13,19 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
-connectToDb((err) => {
-    if (err) {
-        console.log('Unable to connect to database');
-        process.exit(1);
-    } else {
-        app.listen(4000, () => {
-            console.log('Connected to database, listening on port 4000');
-        });
-
-    }
-});
 
 app.get('/', (req, res) => {
     res.send('Easter Egg');
+});
+
+app.listen(4000, () => {
+    console.log('Listening on port 4000');
 });
 
