@@ -112,7 +112,9 @@ function Calendar() {
       {Array.from({ length: totalCells }, (_, index) => {
         const row = Math.floor(index / (days.length + 1));
         const col = index % (days.length + 1) - 1;
-        const cellValue = availabilityArray && col >= 0 ? availabilityArray[row][col] : 0;
+        const cellValue = availabilityArray && row >= 0 && row < availabilityArray.length && col >= 0 && col < availabilityArray[row].length
+        ? availabilityArray[row][col]
+        : 0;
 
         return index % (days.length + 1) === 0 ? (
           <TimeLabel

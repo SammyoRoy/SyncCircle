@@ -5,7 +5,7 @@ import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
-  const { groupId, userId } = useContext(AppContext);
+  const { groupId, userId, userSlot } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -26,7 +26,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     }
 
     fetchData();
-  }, []);
+  }, [userSlot]);
 
   useEffect(() => {
     // Function to convert time to index, not asynchronous

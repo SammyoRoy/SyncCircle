@@ -51,7 +51,7 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValu
     }
 
     fetchData();
-  }, [userSlot, groupId, row, col]);
+  }, [userSlot, groupId, row, col]  );
 
   useEffect(() => {
     if (groupId !== "") {
@@ -65,7 +65,7 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValu
       fetchData();
     }
 
-  }, [groupId]);
+  }, [userSlot]);
 
 
 

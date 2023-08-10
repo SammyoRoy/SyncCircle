@@ -26,7 +26,7 @@ router.post('/:groupId', (req, res) => {
     let startTime = req.body.startTime;
     let endTime = req.body.endTime;
     let days = req.body.days;
-    if (typeof days === 'string'){
+    if (typeof days === 'string') {
         days = days.split(",");
     }
 
@@ -41,11 +41,7 @@ router.post('/:groupId', (req, res) => {
     }
 
     let availability_array = Array(days.length).fill().map(() => Array(hours + 1).fill(0));
-
-    db.collection('Users').insertOne({ users: {user_id: userId, user_name: name, availability_array: availability_array }})
-        .then(() => {
-            db.collection('Groups').updateOne({ group_id: groupId }, { $push: { users: {user_id: userId, user_name: name, availability_array: availability_array} } })
-        })
+    db.collection('Groups').updateOne({ group_id: groupId }, { $push: { users: { user_id: userId, user_name: name, availability_array: availability_array } } })
         .then(() => {
             res.status(200).json({ success: true, user_id: userId });
         })
@@ -92,7 +88,7 @@ router.post('/book/:groupid/:userid', (req, res) => {
                     userFound = true;
                 }
             });
-            if(userFound){
+            if (userFound) {
                 db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } });
                 res.status(200).json({ message: 'Booking successful.' });
             } else {
@@ -128,12 +124,12 @@ router.post('/unbook/:groupid/:userid', (req, res) => {
 
             if (userExists) {
                 db.collection('Groups').updateOne({ group_id: groupId }, { $set: { users: group.users, master_array: group.master_array } })
-                .then(() => {
-                    res.status(200).json({ success: true });
-                })
-                .catch((err) => {
-                    res.status(500).json({ error: err });
-                });
+                    .then(() => {
+                        res.status(200).json({ success: true });
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ error: err });
+                    });
             } else {
                 res.status(404).json({ error: 'User not found in group' });
             }
