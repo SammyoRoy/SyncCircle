@@ -31,16 +31,21 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   useEffect(() => {
     // Function to convert time to index, not asynchronous
     function convertTimeToIndex(time) {
-      const [hour] = time.split(':');
-      const parsedHour = parseInt(hour, 10);
-
-      if (parsedHour >= 6) {
-        return (parsedHour - 6);
+      const [hourMinute, period] = time.split(' ');
+      const [hour] = hourMinute.split(':');
+      let parsedHour = parseInt(hour, 10);
+    
+      if (period === "PM" && parsedHour < 12) {
+        parsedHour += 12;
       }
-      else {
-        return (parsedHour + 18);
+    
+      if (period === "AM" && parsedHour === 12) {
+        parsedHour = 0;
       }
+    
+      return (parsedHour - 6);
     }
+    
 
     const startTimeIndex = convertTimeToIndex(start);
     const endTimeIndex = convertTimeToIndex(end);
