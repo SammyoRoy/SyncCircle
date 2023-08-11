@@ -5,14 +5,13 @@ import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 
 function Calendar() {
-  const { userId } = useContext(AppContext);
+  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
-  const [availabilityArray, setAvailabilityArray] = useState(null);
 
   //Dragging
   const [isDragging, setIsDragging] = useState(false);
@@ -61,12 +60,12 @@ function Calendar() {
     async function fetchUser() {
       const URL = window.location.href.split("/");
       const response = await axios.get(`http://localhost:4000/users/${URL[URL.length - 1]}/${userId}`);
-      setAvailabilityArray(response.data.availability_array);
+      setUserArray(response.data.availability_array);
     }
 
     fetchData();
     fetchUser();
-    console.log(availabilityArray);
+    console.log(userArray);
   }, [userId]);
 
   useEffect(() => {
@@ -74,18 +73,18 @@ function Calendar() {
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
       let parsedHour = parseInt(hour, 10);
-    
+
       if (period === "PM" && parsedHour < 12) {
         parsedHour += 12;
       }
-    
+
       if (period === "AM" && parsedHour === 12) {
         parsedHour = 0;
       }
-    
+
       return (parsedHour - 6);
     }
-    
+
 
     const startTimeIndex = convertTimeToIndex(start);
     const endTimeIndex = convertTimeToIndex(end);
@@ -95,6 +94,20 @@ function Calendar() {
     setCurrTimeIndex(timeIndex);
     setEndIndex(endTimeIndex);
   }, [start, end]);
+
+  useEffect(() => {
+    console.log(userSlot);
+    if (isDragging === false || isSwiping === false  && stopped == true && userArray !== null && userId !== "" && !userSlot.startsWith("Press")) {
+      const sendSlots = async () => {
+        const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        setUserSlot(Math.random());
+      }
+      sendSlots();
+    }
+    else if (typeof userSlot === 'string' && userSlot.startsWith("Press")) {
+      setUserSlot(Math.random());
+    }
+  }, [isDragging, isSwiping]);
 
   const numRows = (endIndex + 1 - startIndex);
 
@@ -118,9 +131,9 @@ function Calendar() {
       {Array.from({ length: totalCells }, (_, index) => {
         const row = Math.floor(index / (days.length + 1));
         const col = index % (days.length + 1) - 1;
-        const cellValue = availabilityArray && row >= 0 && row < availabilityArray.length && col >= 0 && col < availabilityArray[row].length
-        ? availabilityArray[row][col]
-        : 0;
+        const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
+          ? userArray[row][col]
+          : 0;
 
         return index % (days.length + 1) === 0 ? (
           <TimeLabel

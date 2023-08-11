@@ -161,4 +161,67 @@ const unbookSlot = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot };
+// @desc   Mass book slots for a user
+// @route  POST /users/massbook/:groupid/:userid
+// @access Public
+const massChangeSlot = asyncHandler(async (req, res) => {
+    const groupId = req.params.groupid;
+    const userId = req.params.userid;
+    const user_array = req.body.user_array;
+
+    if (!user_array) {
+        res.status(400);
+        throw new Error('User array not found');
+    }
+
+    const group = await Group.findOne({ group_id: groupId });
+
+    if (group) {
+        const user = group.users.find(user => user.user_id === userId);
+        if (user) {
+            user.availability_array = user_array;
+            updateMasterArray(group, user);
+            group.markModified('users');
+            group.markModified('master_array');
+            await group.save();
+            res.status(200).json({ message: 'Mass booking successful.' });
+        }
+        else {
+            res.status(404);
+            throw new Error('User not found in group');
+        }
+    }
+    else {
+        res.status(404);
+        throw new Error('Group not found');
+    }
+});
+
+const updateMasterArray = (group, user) => {
+    if (!group.master_array || !user.availability_array) {
+      console.error('master_array or availability_array is undefined');
+      return;
+    }
+  
+    for (let row = 0; row < user.availability_array.length; row++) {
+      if (!user.availability_array[row] || !group.master_array[row]) {
+        console.error(`Row ${row} is undefined`);
+        continue;
+      }
+  
+      for (let col = 0; col < user.availability_array[row].length; col++) {
+        if (user.availability_array[row][col] === 1) {
+          // Book the slot if it's 1 in the availability_array
+          if (!group.master_array[row][col].includes(user.user_name)) {
+            group.master_array[row][col].push(user.user_name);
+          }
+        } else {
+          // Unbook the slot if it's 0 in the availability_array
+          group.master_array[row][col] = group.master_array[row][col].filter(name => name !== user.user_name);
+        }
+      }
+    }
+  };
+  
+
+module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot };
