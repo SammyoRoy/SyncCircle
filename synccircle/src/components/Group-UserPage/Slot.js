@@ -68,14 +68,12 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
           if (isSelected) {
             setSelected(false);
             setStyle("UnselectedSlot");
-            console.log("row: " + row + " col: " + col);
             const response = await axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col });
             setUserSlot(Math.random());
             setIsModified(true);
           } else {
             setSelected(true);
             setStyle("SelectedSlot");
-            console.log("row: " + row + " col: " + col);
             const response = await axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col });
             setUserSlot(Math.random());
             setIsModified(true);
@@ -107,6 +105,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
       } else {
         setSelected(true);
         setStyle("SelectedSlot");
+
         const response = await axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col });
         setUserSlot(Math.random());
       }
@@ -121,7 +120,6 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
       if (isSelected) {
         setSelected(false);
         setStyle("UnselectedSlot");
-        console.log("row: " + row + " col: " + col);
         axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
           setUserSlot(Math.random());
         });
@@ -129,7 +127,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
       } else {
         setSelected(true);
         setStyle("SelectedSlot");
-        console.log("row: " + row + " col: " + col);
+
         axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
           setUserSlot(Math.random());
         });
