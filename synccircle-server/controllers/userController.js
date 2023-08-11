@@ -32,7 +32,7 @@ const addUser = asyncHandler(async (req, res) => {
     if (end.isBefore(start)) {
         hours = 24 - hours;
     }
-    const availability_array = Array(days.length).fill().map(() => Array(hours + 1).fill(0));
+    const availability_array = Array(hours+1).fill().map(() => Array(days.length).fill(0));
     const user = {
         user_id: userId,
         user_name: name,
