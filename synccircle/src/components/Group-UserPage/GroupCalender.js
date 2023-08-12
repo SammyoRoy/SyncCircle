@@ -3,6 +3,7 @@ import axios from "axios";
 import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
+import io from 'socket.io-client';
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const { groupId, userId, userSlot } = useContext(AppContext);
@@ -13,6 +14,25 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
+
+  const [groupSocket, setGroupSocket] = useState(null);
+
+  useEffect( () => {
+    const socket = io('http://localhost:4000', { transports : ['websocket'] });
+    setGroupSocket(socket);
+  }, []);
+
+  useEffect(() => {
+    if (groupSocket) { // Check if groupSocket is not null
+      groupSocket.on('unbooked', (row, col) => {
+        console.log("Unbooked" + row + " " + col);
+      });
+  
+      groupSocket.on('booked', (row, col) => {
+        console.log("booked" + row + " " + col);
+      });
+    }
+  }, [groupSocket]); // Add groupSocket as a dependency
 
   useEffect(() => {
     // Combine fetching of days, start, and end into a single function
@@ -61,6 +81,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
   const totalCells = (days.length + 1) * (numRows);
 
+
+
   // Set CSS variables
 
   return (
@@ -80,7 +102,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
             key={index}
             currTimeIndex={startIndex + row}
           />
-        ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} cellValue={cellValue} />
+        ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} cellValue={cellValue} socket={groupSocket}/>
         );
       })}
 

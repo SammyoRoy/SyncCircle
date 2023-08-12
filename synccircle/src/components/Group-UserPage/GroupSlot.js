@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
+function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue, socket }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");

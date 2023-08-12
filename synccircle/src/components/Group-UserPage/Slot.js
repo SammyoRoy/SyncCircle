@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) {
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
   const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
@@ -125,17 +125,21 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
+      /*axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
         setUserSlot("Press"+Math.random());
-      });
+      });*/
+      axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col });
+      socket.emit('unbooked', row, col);
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
 
-      axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
+      /* axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
         setUserSlot("Press"+Math.random());
-      });
+      }); */
+      axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col });
+      socket.emit('booked', row, col);
     }
   };
 

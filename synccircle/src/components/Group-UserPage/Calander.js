@@ -3,6 +3,8 @@ import axios from "axios";
 import Slot from "./Slot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
+import io from 'socket.io-client';
+import { Socket } from "engine.io-client";
 
 function Calendar() {
   const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot } = useContext(AppContext);
@@ -12,6 +14,14 @@ function Calendar() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
+
+  const [calSocket, setCalSocket] = useState(null);
+
+  useEffect( () => {
+      const socket = io('http://localhost:4000', { transports : ['websocket'] });
+      setCalSocket(socket);
+  }, []);
+
 
   //Dragging
   const [isDragging, setIsDragging] = useState(false);
@@ -55,7 +65,7 @@ function Calendar() {
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
-      console.log(response.data)
+      console.log(response.data);
     }
     async function fetchUser() {
       const URL = window.location.href.split("/");
@@ -97,7 +107,7 @@ function Calendar() {
 
   useEffect(() => {
     console.log(userSlot);
-    if (isDragging === false || isSwiping === false  && stopped == true && userArray !== null && userId !== "" && !userSlot.startsWith("Press")) {
+    if (isDragging === false || isSwiping === false  && stopped == true && userArray !== null && userId !== "" ) {
       const sendSlots = async () => {
         const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
@@ -140,7 +150,7 @@ function Calendar() {
             key={index}
             currTimeIndex={startIndex + row}
           />
-        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} />
+        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket}/>
         );
       })}
 
