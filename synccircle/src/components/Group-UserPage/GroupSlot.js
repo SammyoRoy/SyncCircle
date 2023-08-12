@@ -75,7 +75,6 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor, cellValu
 
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
-    console.log(ratio);
 
     if (ratio == 1) {
       setColor(`#3943f7`);

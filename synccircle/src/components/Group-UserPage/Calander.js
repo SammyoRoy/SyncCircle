@@ -29,16 +29,11 @@ function Calendar() {
   const handleTouchStart = () => {
     if (userId !== "") {
       setIsSwiping(true);
-      console.log("AM swiping")
-    }
-    else {
-      console.log("Failed Swipe")
     }
   };
 
   const handleTouchEnd = () => {
     setIsSwiping(false);
-    console.log("Not swiping")
   };
 
   const handleTouchMove = (e) => {
@@ -55,7 +50,6 @@ function Calendar() {
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
-      console.log(response.data)
     }
     async function fetchUser() {
       const URL = window.location.href.split("/");
@@ -65,7 +59,6 @@ function Calendar() {
 
     fetchData();
     fetchUser();
-    console.log(userArray);
   }, [userId]);
 
   useEffect(() => {
@@ -96,12 +89,10 @@ function Calendar() {
   }, [start, end]);
 
   useEffect(() => {
-    console.log(isDragging, isSwiping, stopped, userArray, userId)
     if (isDragging === false  && isSwiping === false && userArray !== undefined && userId !== "")
     {
       const sendSlots = async () => {
         const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
-        console.log(response.data);
         setUserSlot(Math.random());
       }
       sendSlots();

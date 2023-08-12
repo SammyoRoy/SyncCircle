@@ -12,7 +12,6 @@ function UserTitle() {
          axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`)
          .then((response) => {
              setEventName(response.data.group_name);
-             console.log(eventName);
 
          })
          .catch((error) => {

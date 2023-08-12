@@ -31,16 +31,12 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
 
   //Initialize
   useEffect(() => {
-    console.log("User ID: " + userId);
     if (userId != "") {
-      console.log("Only now");
       if (cellValue == 0) {
-        console.log("Initial unselec");
         setStyle("UnselectedSlot");
         setSelected(false);
       }
       else if (cellValue == 1) {
-        console.log("Select Init");
         setStyle("SelectedSlot");
         setSelected(true);
       }

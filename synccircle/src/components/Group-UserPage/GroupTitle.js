@@ -13,7 +13,6 @@ function GroupTitle() {
          .then((response) => {
              // navigate to /group pages
              setEventName(response.data.group_name);
-             console.log(eventName);
 
          })
          .catch((error) => {
