@@ -174,28 +174,48 @@ const massChangeSlot = asyncHandler(async (req, res) => {
         throw new Error('User array not found');
     }
 
+    // Fetch the group
     const group = await Group.findOne({ group_id: groupId });
 
-    if (group) {
-        const user = group.users.find(user => user.user_id === userId);
-        if (user) {
-            user.availability_array = user_array;
-            updateMasterArray(group, user);
-            group.markModified('users');
-            group.markModified('master_array');
-            await group.save();
-            res.status(200).json({ message: 'Mass booking successful.' });
-        }
-        else {
-            res.status(404);
-            throw new Error('User not found in group');
-        }
-    }
-    else {
+    if (!group) {
         res.status(404);
         throw new Error('Group not found');
     }
+
+    // Get the user
+    const user = group.users.find(u => u.user_id === userId);
+
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found in group');
+    }
+
+    // Update the user's availability array
+    user.availability_array = user_array;
+    updateMasterArray(group, user);
+
+    const filter = {
+        "group_id": groupId,
+        'users.user_id': userId
+    };
+
+    const update = {
+        $set: {
+            'users.$[user].availability_array': user_array,
+            'master_array': group.master_array
+        }
+    };
+
+    const updatedGroup = await Group.findOneAndUpdate(filter, update, { arrayFilters: [{ 'user.user_id': userId }], new: true });
+
+    if (updatedGroup) {
+        res.status(200).json({ message: 'Mass booking successful.' });
+    } else {
+        res.status(500);
+        throw new Error('Update failed');
+    }
 });
+
 
 const updateMasterArray = (group, user) => {
     if (!group.master_array || !user.availability_array) {

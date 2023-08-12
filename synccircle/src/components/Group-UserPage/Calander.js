@@ -96,16 +96,15 @@ function Calendar() {
   }, [start, end]);
 
   useEffect(() => {
-    console.log(userSlot);
-    if (isDragging === false || isSwiping === false  && stopped == true && userArray !== null && userId !== "" && !userSlot.startsWith("Press")) {
+    console.log(isDragging, isSwiping, stopped, userArray, userId)
+    if (isDragging === false  && isSwiping === false && userArray !== undefined && userId !== "")
+    {
       const sendSlots = async () => {
         const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        console.log(response.data);
         setUserSlot(Math.random());
       }
       sendSlots();
-    }
-    else if (typeof userSlot === 'string' && userSlot.startsWith("Press")) {
-      setUserSlot(Math.random());
     }
   }, [isDragging, isSwiping]);
 

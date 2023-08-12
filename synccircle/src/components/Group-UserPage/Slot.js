@@ -125,17 +125,14 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
-        setUserSlot("Press"+Math.random());
-      });
+      replaceValueAt(row, col, 0);
+      setUserSlot(Math.random());
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
-
-      axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
-        setUserSlot("Press"+Math.random());
-      });
+      replaceValueAt(row, col, 1);
+      setUserSlot(Math.random());
     }
   };
 
