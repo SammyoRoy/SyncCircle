@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
+import io from 'socket.io-client';
 
 function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
   const { groupId, setUserId, userId } = useContext(AppContext);
@@ -10,9 +11,16 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const [endTime, setEndTime] = useState("");
   const [days, setDays] = useState([]);
 
+  const [joinSocket, setJoinSocket] = useState(null);
+
+  useEffect( () => {
+      const socket = io('http://localhost:4000', { transports : ['websocket'] });
+      setJoinSocket(socket);
+  }, []);
+
 
   useEffect(() => {
-    console.log(groupId);
+    //console.log(groupId);
     if (groupId !== "") {
       axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
         setStartTime(response.data.start_time);
@@ -33,6 +41,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             //Make new User
             console.log(days);
             console.log(startTime);
+
             axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
                 setUserId(response2.data.user_id);
@@ -40,6 +49,8 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             setShow(false);
             updateJoined(true);
             updateSubmitted(true);
+            joinSocket.emit('new user');
+            console.log("New user sent");
           }
           else {
             console.log("Found user")

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
@@ -14,25 +14,19 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
+  const [numAvailArr, setNumAvailArr] = useState(null);
+  
 
   const [groupSocket, setGroupSocket] = useState(null);
+  const [modifiedKey, setModifiedKey] = useState(0);
+  const [isBooked, setIsBooked] = useState(false);
+  const [totalMembers, setTotalMembers] = useState(0);
+  const [addedNewMember, setAddedNewMember] = useState(true);
 
   useEffect( () => {
     const socket = io('http://localhost:4000', { transports : ['websocket'] });
     setGroupSocket(socket);
   }, []);
-
-  useEffect(() => {
-    if (groupSocket) { // Check if groupSocket is not null
-      groupSocket.on('unbooked', (row, col) => {
-        console.log("Unbooked" + row + " " + col);
-      });
-  
-      groupSocket.on('booked', (row, col) => {
-        console.log("booked" + row + " " + col);
-      });
-    }
-  }, [groupSocket]); // Add groupSocket as a dependency
 
   useEffect(() => {
     // Combine fetching of days, start, and end into a single function
@@ -43,10 +37,38 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
       setMasterArray(response.data.master_array);
+      setAddedNewMember(false);
     }
 
     fetchData();
-  }, [userSlot]);
+  }, []);
+
+  useEffect(() => {
+    if (masterArray){
+      const lengthsArray = masterArray.map(innerArray => 
+        // Map through each sub-array in the inner array
+        innerArray.map(subArray => subArray.length)
+      );
+  
+        setNumAvailArr(lengthsArray);
+        console.log("Num avail :" +numAvailArr);
+    }
+  }, [masterArray]);
+
+  useEffect(() => {
+    if (groupId !== "") {
+      async function fetchData() {
+        const response = await axios.get(
+          `http://localhost:4000/groups/nummem/${groupId}`
+        );
+        const totalMembersValue = parseInt(response.data);
+        setTotalMembers(totalMembersValue);
+        setAddedNewMember(true);
+      }
+      fetchData();
+      console.log("Getting total mems");
+    }
+  }, [addedNewMember]);
 
   useEffect(() => {
     // Function to convert time to index, not asynchronous
@@ -66,7 +88,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
       return (parsedHour - 6);
     }
     
-
     const startTimeIndex = convertTimeToIndex(start);
     const endTimeIndex = convertTimeToIndex(end);
     const timeIndex = convertTimeToIndex(start);
@@ -76,14 +97,36 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     setEndIndex(endTimeIndex);
   }, [start, end]);
 
+  useEffect(() => {
+    if (groupSocket) { // Check if groupSocket is not null
+      
+      groupSocket.on('new user', () => {
+         setAddedNewMember(false);
+      });
+
+      groupSocket.on('unbooked', matrixKey => {
+        console.log("Unbooked" + matrixKey);
+        setModifiedKey(matrixKey);
+        setIsBooked(false);
+      });
+  
+      groupSocket.on('booked', matrixKey => {
+        console.log("booked " + matrixKey);
+        setModifiedKey(matrixKey);
+        setIsBooked(true);
+      });
+    }
+  }, [groupSocket]); // Add groupSocket as a dependency
+
+  function getNumAvail(row, col){
+    const num = numAvailArr[row][col];
+    return num;
+  }
+
   const numRows = (endIndex + 1 - startIndex);
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
   const totalCells = (days.length + 1) * (numRows);
-
-
-
-  // Set CSS variables
 
   return (
     <div className="CalendarGrid" style={{ gridTemplateColumns, gridTemplateRows }}>
@@ -92,18 +135,39 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
       {Array.from({ length: totalCells }, (_, index) => {
         const row = Math.floor(index / (days.length + 1));
         const col = index % (days.length + 1) - 1;
+        let cellValue = 0;
 
-        const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
+        /*const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
           ? masterArray[row][col]
-          : 0;
+          : 0;*/
+        
+        
+        if (index % (days.length + 1) != 0){
+          //const slotIndex = row*(days.length) + col;
+          cellValue = getNumAvail(row, col);
+        }
+
+
 
         return index % (days.length + 1) === 0 ? (
           <TimeLabel
             key={index}
             currTimeIndex={startIndex + row}
           />
-        ) : (<GroupSlot key={index} matrixKey={index} days={days} groupId={groupId} userId={userId} setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} cellValue={cellValue} socket={groupSocket}/>
-        );
+        ) : (<GroupSlot 
+                key={index} 
+                matrixKey={index} 
+                days={days} 
+                groupId={groupId} 
+                userId={userId} 
+                setPopupMatrixKey={setPopupMatrixKey} 
+                setPopupColor={setPopupColor} 
+                cellValue={cellValue} 
+                totalMembers={totalMembers}
+                modifiedKey={modifiedKey}
+                isBooked={isBooked}
+              />
+            );
       })}
 
     </div>

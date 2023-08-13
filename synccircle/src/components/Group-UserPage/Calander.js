@@ -75,7 +75,7 @@ function Calendar() {
 
     fetchData();
     fetchUser();
-    console.log(userArray);
+    //console.log(userArray);
   }, [userId]);
 
   useEffect(() => {
@@ -105,8 +105,8 @@ function Calendar() {
     setEndIndex(endTimeIndex);
   }, [start, end]);
 
-  useEffect(() => {
-    console.log(userSlot);
+  /*useEffect(() => {
+    //console.log(userSlot);
     if (isDragging === false || isSwiping === false  && stopped == true && userArray !== null && userId !== "" ) {
       const sendSlots = async () => {
         const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
@@ -117,7 +117,7 @@ function Calendar() {
     else if (typeof userSlot === 'string' && userSlot.startsWith("Press")) {
       setUserSlot(Math.random());
     }
-  }, [isDragging, isSwiping]);
+  }, [isDragging, isSwiping]); */
 
   const numRows = (endIndex + 1 - startIndex);
 

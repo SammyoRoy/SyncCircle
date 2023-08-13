@@ -31,16 +31,12 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
 
   //Initialize
   useEffect(() => {
-    console.log("User ID: " + userId);
     if (userId != "") {
-      console.log("Only now");
       if (cellValue == 0) {
-        console.log("Initial unselec");
         setStyle("UnselectedSlot");
         setSelected(false);
       }
       else if (cellValue == 1) {
-        console.log("Select Init");
         setStyle("SelectedSlot");
         setSelected(true);
       }
@@ -129,7 +125,8 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         setUserSlot("Press"+Math.random());
       });*/
       axios.post(`http://localhost:4000/users/unbook/${groupId}/${userId}`, { row: row, col: col });
-      socket.emit('unbooked', row, col);
+      console.log(matrixKey);
+      socket.emit('unbooked', matrixKey);
 
     } else {
       setSelected(true);
@@ -138,8 +135,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       /* axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col }).then((response) => {
         setUserSlot("Press"+Math.random());
       }); */
+      socket.emit('booked', matrixKey);
       axios.post(`http://localhost:4000/users/book/${groupId}/${userId}`, { row: row, col: col });
-      socket.emit('booked', row, col);
+      console.log(matrixKey);
     }
   };
 

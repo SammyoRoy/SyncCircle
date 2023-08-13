@@ -24,12 +24,16 @@ const io = new Server(server);
 io.on('connection', (socket) => {
     console.log('A user connected');
     
-    socket.on('unbooked', (row, col) => {
-        io.emit('unbooked', row, col);
+    socket.on('unbooked', matrixKey => {
+        io.emit('unbooked', matrixKey);
     } )
 
-    socket.on('booked', (row, col) => {
-        io.emit('booked', row, col);
+    socket.on('booked', matrixKey => {
+        io.emit('booked', matrixKey);
+    })
+
+    socket.on('new user', () => {
+        io.emit('new user');
     })
 
     socket.on('disconnect', () => {
