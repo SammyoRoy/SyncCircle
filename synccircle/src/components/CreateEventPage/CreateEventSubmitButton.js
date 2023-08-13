@@ -6,7 +6,6 @@ import { AppContext } from "../../context/AppContext";
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
     const { setEventTrigger, setDayTrigger} = useContext(AppContext);
-    console.log(endTime)
     const handleEventTrigger = () => {
       setEventTrigger(true);
       setTimeout(() => {
@@ -36,8 +35,6 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
-      console.log(days);
-      console.log(dayString);
       axios.post(`http://localhost:4000/groups/`, {
           name: eventName,
           startTime: startTime,

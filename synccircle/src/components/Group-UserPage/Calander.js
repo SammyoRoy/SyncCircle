@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import Slot from "./Slot";
 import TimeLabel from "./TimeLabel";
@@ -12,6 +12,7 @@ function Calendar() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [currTimeIndex, setCurrTimeIndex] = useState(0);
+  const touchRef = useRef(null);
 
   //Dragging
   const [isDragging, setIsDragging] = useState(false);
@@ -32,15 +33,20 @@ function Calendar() {
     }
   };
 
+  const handleTouchMove = (e) => {
+    if (userId !== "") {
+      setIsSwiping(true);
+      // Get the touch position from the event
+      const touch = e.touches[0];
+      setTouchPosition({ x: touch.clientX, y: touch.clientY });
+    }
+  };
+  
   const handleTouchEnd = () => {
     setIsSwiping(false);
+    setTouchPosition(null);
   };
 
-  const handleTouchMove = (e) => {
-    // Get the touch position from the event
-    const touch = e.changedTouches[0];
-    setTouchPosition({ x: touch.clientX, y: touch.clientY });
-  };
 
 
   useEffect(() => {

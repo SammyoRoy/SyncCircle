@@ -8,6 +8,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
   const [isModifed, setIsModified] = useState(false);
+  const buttonRef = useRef(null);
   const cols = days.length;
 
   const row = Math.floor(matrixKey / (cols + 1));
@@ -43,51 +44,66 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
     }
   }, [userId, cellValue]);
 
-  // The useEffect hook with touchPosition as a dependency
   useEffect(() => {
-    handleSwipe();
-  }, [touchPosition]);
+    if (swiping && touchPosition) {
+      handleSwipe();
+    }
+  }, [touchPosition, swiping]);
 
   useEffect(() => {
-    if (swiping === false) {
+    if (!swiping) {
       setIsModified(false);
     }
   }, [swiping]);
 
-  const buttonRef = useRef(null);
   const handleSwipe = async () => {
-
     if (swiping === true && buttonRef.current && !isModifed) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      const touchX = touchPosition.x;
-      const touchY = touchPosition.y;
-      replaceValueAt(row, col, isSelected ? 0 : 1);
+      if (
+        touchPosition.x >= buttonRect.left &&
+        touchPosition.x <= buttonRect.right &&
+        touchPosition.y >= buttonRect.top &&
+        touchPosition.y <= buttonRect.bottom
+      ) {
+        setIsModified(true); // Mark this slot as modified
+        setSelected(!isSelected);
+        setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
+        replaceValueAt(row, col, isSelected ? 0 : 1);
+      }
+    }
+  };
 
+  const handleTouch = (e) => {
+    // If swiping is active and this slot has not been modified during this swipe
+    if (swiping && !isModifed) {
+      const touch = e.touches[0] || e.changedTouches[0];
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+
+      // Check if the touch is within this slot's boundaries
       if (
         touchX >= buttonRect.left &&
         touchX <= buttonRect.right &&
         touchY >= buttonRect.top &&
         touchY <= buttonRect.bottom
       ) {
-        if (isSelected) {
-          setSelected(false);
-          setStyle("UnselectedSlot");
-          replaceValueAt(row, col, 0);
-          setIsModified(true);
-        } else {
-          setSelected(true);
-          setStyle("SelectedSlot");
-          replaceValueAt(row, col, 1);
-          setIsModified(true);
-        }
+        // Toggle the slot's state
+        setSelected(!isSelected);
+        setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
+        replaceValueAt(row, col, isSelected ? 0 : 1);
+        setIsModified(true);
       }
     }
   };
+
+
 
   const handleTouchEnd = async (e) => {
     setIsModified(false);
     setStopped(true);
   }
+
 
   const handleEnter = async (e) => {
     if (dragging === false && swiping === false) {
@@ -139,6 +155,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
       className={style}
       onMouseDown={handlePress}
       onMouseEnter={handleEnter}
+      onTouchMove={handleTouch}
       onTouchEnd={handleTouchEnd}
       type="button"
     ></button>
