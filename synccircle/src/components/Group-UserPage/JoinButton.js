@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
+import io from 'socket.io-client';
 
 function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
   const { groupId, setUserId, userId } = useContext(AppContext);
@@ -9,6 +10,13 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [days, setDays] = useState([]);
+
+  const [joinSocket, setJoinSocket] = useState(null);
+
+  useEffect( () => {
+      const socket = io('http://localhost:4000', { transports : ['websocket'] });
+      setJoinSocket(socket);
+  }, []);
 
 
   useEffect(() => {
@@ -36,6 +44,8 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             setShow(false);
             updateJoined(true);
             updateSubmitted(true);
+            joinSocket.emit('new user');
+            console.log("New user sent");
           }
           else {
             setUserId(response.data);

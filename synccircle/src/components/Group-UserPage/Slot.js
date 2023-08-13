@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) {
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
   const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
@@ -137,12 +137,17 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue }) 
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
+
+      socket.emit('unbooked', matrixKey);
       replaceValueAt(row, col, 0);
       setUserSlot(Math.random());
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
+
+      socket.emit('booked', matrixKey);
+      console.log(matrixKey);
       replaceValueAt(row, col, 1);
       setUserSlot(Math.random());
     }
