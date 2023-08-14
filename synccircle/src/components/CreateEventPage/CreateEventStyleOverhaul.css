@@ -206,76 +206,7 @@ body {
     background: #297045;
 }
 
-
-@media (575.98px <=width <=1200px) {
-
-    .ScreenBackground {
-        width: 40%;
-        background-color: transparent;
-    }
-
-    .Title {
-        margin-right: 0;
-        margin-top: 10%;
-        margin-bottom: 3%;
-        color: #F7F7F7;
-        text-align: center;
-        font-family: Poppins;
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 120%;
-        /* 48px */
-    }
-
-    .Base {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        background-image: url('GreenCircleBG.png');
-        background-size:cover;
-    }
-
-    .Backdrop {
-        height: 65%;
-    }
-
-    .DayOfTheWeekButton {
-        font-size: large;
-    }
-
-    .DayOfTheWeekButtonPressed {
-        font-size: large;
-    }
-
-    .EventNameForm {
-        border: 2px solid #297045;
-    }
-
-    .EventNameInput {
-        font-size: 115%
-    }
-
-    .DayOfTheWeekButton:hover {
-        border: 2px solid #297045;
-    }
-
-    .CreateEventSubmitButton{
-        background-color: #297045;
-        color: #ffffff;
-        
-    }
-
-    .CreateEventSubmitButton:hover {
-        color: #F7F7F7;
-        background-color: #391463;
-    }
-
-}
-
-@media (width >  1200px) {
+@media only screen and (min-width: 1200px) {
     .ScreenBackground {
         width: 30%;
         background-color: transparent;
@@ -343,27 +274,165 @@ body {
 
 }
 
+
+@media only screen and (max-width: 1200px) {
+
+    .ScreenBackground {
+        width: 40%;
+        background-color: transparent;
+    }
+
+    .Title {
+        margin-right: 0;
+        margin-top: 10%;
+        margin-bottom: 3%;
+        color: #F7F7F7;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        /* 48px */
+    }
+
+    .Base {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background-image: url('GreenCircleBG.png');
+        background-size:cover;
+    }
+
+    .Backdrop {
+        height: 65%;
+    }
+
+    .DayOfTheWeekButton {
+        font-size: large;
+    }
+
+    .DayOfTheWeekButtonPressed {
+        font-size: large;
+    }
+
+    .EventNameForm {
+        border: 2px solid #297045;
+    }
+
+    .EventNameInput {
+        font-size: 115%
+    }
+
+    .DayOfTheWeekButton:hover {
+        border: 2px solid #297045;
+    }
+
+    .CreateEventSubmitButton{
+        background-color: #297045;
+        color: #ffffff;
+        
+    }
+
+    .CreateEventSubmitButton:hover {
+        color: #F7F7F7;
+        background-color: #391463;
+    }
+
+}
+
+@media only screen and (min-height: 501px) and (min-width: 551px) and (max-width: 1000px){
+
+    .Title{
+        font-size: 50px;
+    }
+    .EventNameForm{
+        font-size: 20px;
+    }
+
+    .ScreenBackground{
+        width: 80%;
+    }
+    .Backdrop{
+        height: 50%;
+    }
+    .DayOfTheWeekButton{
+        font-size: 20px;
+    }
+    .DayOfTheWeekButtonPressed{
+        font-size: 20px;
+    }
+    .CreateEventSubmitButton{
+        font-size: 20px;
+    }
+
+}
+
+@media only screen and (max-width: 550px){
+    .ScreenBackground{
+        width: 100%;
+    }
+
+    .Title{
+    }
+
+    .Backdrop{
+        height: 50%;
+    
+    }
+
+    .EventNameForm{
+        height: 15%;
+    }
+
+    .CreateEventSubmitButton{
+    }
+}
+
 @media only screen and (max-height: 500px){
     .Base{
-       background: #F7F7F7;
+       background-image: url(GreenCircleBG.png);
        overflow: hidden;
    }
 
    .Title{
        margin: 0;
-       top: 5%;
+       font-size: 35px;
+       top: 10px;
        position:absolute;
-       color: #5AD85F;
    }
 
    .Backdrop{
        position: absolute;
-       top: 20%;
+       top: 17.5%;
+         height: 65%;
+   }
+   .EventNameForm{
+       height: 15%;
    }
 
    .CreateEventSubmitButton{
        position: absolute;
-       bottom: 2%;
+       bottom: 5%;
        height:10%;
    }
 }
+
+@media only screen and (max-height: 365px){
+    .Title{
+        top: 5px;
+    }
+    .EventNameForm{
+        height: 15%;
+    }
+    .Backdrop{
+        height: 70%;
+    }
+
+    .CreateEventSubmitButton{
+        bottom: 0;
+    }
+}
+
