@@ -1,8 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue , socket}) {
   const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
@@ -15,16 +14,10 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   const col = matrixKey - (row * (cols + 1)) - 1;
 
   const replaceValueAt = (row, col, value) => {
-    // Make a shallow copy of the userArray
     const newArray = [...userArray];
-
-    // Make a shallow copy of the specific row you're modifying
     newArray[row] = [...newArray[row]];
-
-    // Replace the value at the specified row and column
     newArray[row][col] = value;
 
-    // Call the setter function to update the state
     setUserArray(newArray);
   };
 
@@ -56,6 +49,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     }
   }, [swiping]);
 
+
   const handleSwipe = async () => {
     if (swiping === true && buttonRef.current && !isModifed) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
@@ -81,24 +75,27 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   };
 
   const handleTouch = (e) => {
-    // If swiping is active and this slot has not been modified during this swipe
     if (swiping && !isModifed) {
       const touch = e.touches[0] || e.changedTouches[0];
       const touchX = touch.clientX;
       const touchY = touch.clientY;
       const buttonRect = buttonRef.current.getBoundingClientRect();
 
-      // Check if the touch is within this slot's boundaries
       if (
         touchX >= buttonRect.left &&
         touchX <= buttonRect.right &&
         touchY >= buttonRect.top &&
         touchY <= buttonRect.bottom
       ) {
-        // Toggle the slot's state
         setSelected(!isSelected);
         setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
         replaceValueAt(row, col, isSelected ? 0 : 1);
+        if (isSelected) {
+          socket.emit('unbooked', matrixKey);
+        }
+        else{
+          socket.emit('booked', matrixKey);
+        }
         setIsModified(true);
 
         if (isSelected){
@@ -110,6 +107,21 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       }
     }
   };
+
+  useEffect(() => {
+    const button = buttonRef.current;
+
+    const handleTouchMove = (e) => {
+      handleTouch(e);
+      e.preventDefault();
+    };
+
+    button.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      button.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [handleTouch]);
 
 
 
@@ -176,7 +188,6 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       className={style}
       onMouseDown={handlePress}
       onMouseEnter={handleEnter}
-      onTouchMove={handleTouch}
       onTouchEnd={handleTouchEnd}
       type="button"
     ></button>
