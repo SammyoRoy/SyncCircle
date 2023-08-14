@@ -69,6 +69,13 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         setSelected(!isSelected);
         setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
         replaceValueAt(row, col, isSelected ? 0 : 1);
+        
+        if (isSelected){
+          socket.emit('unbooked', matrixKey, groupId);
+        }
+        else{
+          socket.emit('booked', matrixKey, groupId);
+        }
       }
     }
   };
@@ -93,6 +100,13 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
         replaceValueAt(row, col, isSelected ? 0 : 1);
         setIsModified(true);
+
+        if (isSelected){
+          socket.emit('unbooked', matrixKey, groupId);
+        }
+        else{
+          socket.emit('booked', matrixKey, groupId);
+        }
       }
     }
   };
@@ -119,12 +133,14 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       setSelected(false);
       setStyle("UnselectedSlot");
       replaceValueAt(row, col, 0);
+      socket.emit('unbooked', matrixKey, groupId);
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
 
       replaceValueAt(row, col, 1);
+      socket.emit('booked', matrixKey, groupId);
     }
   };
 
@@ -138,7 +154,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       setSelected(false);
       setStyle("UnselectedSlot");
 
-      socket.emit('unbooked', matrixKey);
+      socket.emit('unbooked', matrixKey, groupId);
       replaceValueAt(row, col, 0);
       setUserSlot(Math.random());
 
@@ -146,7 +162,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       setSelected(true);
       setStyle("SelectedSlot");
 
-      socket.emit('booked', matrixKey);
+      socket.emit('booked', matrixKey, groupId);
       console.log(matrixKey);
       replaceValueAt(row, col, 1);
       setUserSlot(Math.random());

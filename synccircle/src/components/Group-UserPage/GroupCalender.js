@@ -100,20 +100,24 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   useEffect(() => {
     if (groupSocket) { // Check if groupSocket is not null
       
-      groupSocket.on('new user', () => {
-         setAddedNewMember(false);
+      groupSocket.on('new user', (signalGroupId) => {
+        if (groupId == signalGroupId){
+          setAddedNewMember(false);
+        } 
       });
 
-      groupSocket.on('unbooked', matrixKey => {
-        console.log("Unbooked" + matrixKey);
-        setModifiedKey(matrixKey);
-        setIsBooked(false);
+      groupSocket.on('unbooked', (matrixKey, signalGroupId) => {
+        if (groupId == signalGroupId){
+          setModifiedKey(matrixKey);
+          setIsBooked(false);
+        }
       });
   
-      groupSocket.on('booked', matrixKey => {
-        console.log("booked " + matrixKey);
-        setModifiedKey(matrixKey);
-        setIsBooked(true);
+      groupSocket.on('booked', (matrixKey, signalGroupId) => {
+        if (groupId == signalGroupId){
+          setModifiedKey(matrixKey);
+          setIsBooked(true);
+        }
       });
     }
   }, [groupSocket]); // Add groupSocket as a dependency

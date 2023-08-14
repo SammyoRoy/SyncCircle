@@ -44,7 +44,7 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             setShow(false);
             updateJoined(true);
             updateSubmitted(true);
-            joinSocket.emit('new user');
+            joinSocket.emit('new user', groupId);
             console.log("New user sent");
           }
           else {

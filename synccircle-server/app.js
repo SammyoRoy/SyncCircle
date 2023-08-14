@@ -18,22 +18,23 @@ app.use('/users', userRoutes);
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const { group } = require('console');
 //const { Socket } = require('dgram');
 const io = new Server(server);
 
 io.on('connection', (socket) => {
     console.log('A user connected');
     
-    socket.on('unbooked', matrixKey => {
-        io.emit('unbooked', matrixKey);
+    socket.on('unbooked', (matrixKey, groupId) => {
+        io.emit('unbooked', matrixKey, groupId);
     } )
 
-    socket.on('booked', matrixKey => {
-        io.emit('booked', matrixKey);
+    socket.on('booked', (matrixKey, groupId) => {
+        io.emit('booked', matrixKey, groupId);
     })
 
-    socket.on('new user', () => {
-        io.emit('new user');
+    socket.on('new user', (groupId) => {
+        io.emit('new user', groupId);
     })
 
     socket.on('disconnect', () => {
