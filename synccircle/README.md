@@ -1,6 +1,6 @@
 # synccircle.net
 
-This project contains the files necessary to execute synccircle.net. The front-end is built using the React framework for JavaScript and can be found in the synccircle folder. The backend is built using plain java and can be found in the Backend folder.
+This project contains the files necessary to execute synccircle.net. The front-end is built using the React framework for JavaScript and can be found in the synccircle folder. The backend is built using Node.js with Express as the serverside code with MongoDB being our chosen database. The files containing our serverside code can be found in the synccircle-server folder.
 
 # Application Function
 
