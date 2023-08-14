@@ -15,16 +15,10 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   const col = matrixKey - (row * (cols + 1)) - 1;
 
   const replaceValueAt = (row, col, value) => {
-    // Make a shallow copy of the userArray
     const newArray = [...userArray];
-
-    // Make a shallow copy of the specific row you're modifying
     newArray[row] = [...newArray[row]];
-
-    // Replace the value at the specified row and column
     newArray[row][col] = value;
 
-    // Call the setter function to update the state
     setUserArray(newArray);
   };
 
@@ -117,6 +111,21 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     setIsModified(false);
     setStopped(true);
   }
+
+  useEffect(() => {
+    const button = buttonRef.current;
+
+    const handleTouchMove = (e) => {
+      handleTouch(e);
+      e.preventDefault();
+    };
+
+    button.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      button.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [handleTouch]);
 
 
   const handleEnter = async (e) => {
