@@ -13,7 +13,7 @@ function Calendar() {
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
-  const [currTimeIndex, setCurrTimeIndex] = useState(0);
+  //const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const touchRef = useRef(null);
 
   const [calSocket, setCalSocket] = useState(null);
@@ -79,7 +79,7 @@ function Calendar() {
   }, [userId]);
 
   useEffect(() => {
-    function convertTimeToIndex(time) {
+    /*function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
       let parsedHour = parseInt(hour, 10);
@@ -93,6 +93,32 @@ function Calendar() {
       }
 
       return (parsedHour - 6);
+    }*/
+
+    function convertTimeToIndex(time) {
+      const [hourMinute, period] = time.split(' ');
+      const [hour] = hourMinute.split(':');
+      let parsedHour = parseInt(hour, 10);
+    
+      if (period === "PM" && parsedHour < 12) {
+        parsedHour += 12;
+      }
+    
+      if (period === "AM" && parsedHour === 12) {
+        parsedHour = 0;
+      }
+    
+      const timeOptions = [
+        '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+        '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+        '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
+        '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM'
+      ];
+    
+      // Find the index of the parsed time in the timeOptions array
+      const index = timeOptions.findIndex(option => option === time);
+    
+      return index;
     }
 
 
@@ -101,9 +127,8 @@ function Calendar() {
     const timeIndex = convertTimeToIndex(start);
 
     setStartIndex(startTimeIndex);
-    setCurrTimeIndex(timeIndex);
     setEndIndex(endTimeIndex);
-  }, [start, end]);
+  }, [start, end]); 
 
   useEffect(() => {
     if (isDragging === false  && isSwiping === false && userArray !== undefined && userId !== "")
