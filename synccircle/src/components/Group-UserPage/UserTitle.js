@@ -22,7 +22,7 @@ function UserTitle() {
 
 
     return (
-        <h2 className="UserTitle"> {eventName} </h2>
+        <h2 className={eventName.length > 20? "UserTitle UserTitleSmall": "UserTitle"}> {eventName} </h2>
     )
 }
 

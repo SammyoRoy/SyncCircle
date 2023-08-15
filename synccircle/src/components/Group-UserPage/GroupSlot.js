@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
+function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -77,24 +77,24 @@ function GroupSlot({totalMembers, modifiedKey, isBooked, matrixKey, days, setPop
   }
 
   useEffect(() => {
-    if (modifiedKey === matrixKey){
+    if (modifiedKey === matrixKey) {
       setNumAvail((prevNumAvail) => {
         if (isBooked) {
-          console.log("Row "+row +" Col " + col+ "Num avail "+ numAvail);
+          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
           return prevNumAvail + 1;
         } else {
-          console.log("Row "+row +" Col " + col+ "Num avail "+ numAvail);
+          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
           return prevNumAvail - 1;
         }
       });
 
-      console.log("Total members: " +totalMembers);
+      console.log("Total members: " + totalMembers);
     }
   }, [modifiedKey, isBooked]);
 
   useEffect(() => {
     setColorByRatio();
-  },[numAvail, totalMembers]);
+  }, [numAvail, totalMembers]);
 
   return (
     <>
@@ -102,7 +102,9 @@ function GroupSlot({totalMembers, modifiedKey, isBooked, matrixKey, days, setPop
         setPopupMatrixKey(matrixKey)
         setPopupColor(color)
       }} data-toggle="modal" data-target="#groupModal">
-        {numAvail} / {totalMembers}
+        <div className={days.length >= 6? "SmallerContent": null}>
+          {numAvail !== 0? numAvail+"/"+totalMembers: null}
+        </div>
       </button>
     </>
   )

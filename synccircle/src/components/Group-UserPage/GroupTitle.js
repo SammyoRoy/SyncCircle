@@ -23,7 +23,7 @@ function GroupTitle() {
 
 
     return (
-        <h2 className="GroupTitle"> {eventName} </h2>
+        <h2 className={eventName.length > 20? "GroupTitle GroupTitleSmall": "GroupTitle"}> {eventName} </h2>
     )
 }
 

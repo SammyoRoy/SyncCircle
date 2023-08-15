@@ -353,7 +353,7 @@ body {
     }
 
     .ScreenBackground{
-        width: 80%;
+        width: 70%;
     }
     .Backdrop{
         height: 50%;
@@ -385,9 +385,6 @@ body {
 
     .EventNameForm{
         height: 15%;
-    }
-
-    .CreateEventSubmitButton{
     }
 }
 
