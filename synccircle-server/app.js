@@ -2,7 +2,6 @@ const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
 const connectToDb = require('./db');
-const connectToDb = require('./db');
 const cors = require('cors');
 
 const groupRoutes = require('./routes/groupRoutes');
