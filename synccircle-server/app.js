@@ -19,8 +19,8 @@ app.use('/users', userRoutes);
 
 // Read the SSL certificate and key files
 const sslOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/your_domain.com/privkey.pem'), // Update the path to your private key
-    cert: fs.readFileSync('/etc/letsencrypt/live/your_domain.com/fullchain.pem') // Update the path to your full chain certificate
+    key: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/privkey.pem'), // Update the path to your private key
+    cert: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/fullchain.pem') // Update the path to your full chain certificate
 };
 
 const server = https.createServer(sslOptions, app); // Create an HTTPS server
