@@ -2,75 +2,54 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
+function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
   const [numAvail, setNumAvail] = useState(0);
-  const [totalMembers, setTotalMembers] = useState(0);
   const [showMembers, setShowMembers] = useState(false);
   const [content, setContent] = useState("");
   const cols = days.length;
+  //const [totalMembers, setTotalMembers] = useState(0);
 
   const row = Math.floor(matrixKey / (cols + 1));
   const col = matrixKey - (row * (cols + 1)) - 1;
 
-  const timeOptions = [
-    '6:00 AM', //06:00 -> 0
-    '7:00 AM', //07:00 -> 1
-    '8:00 AM', //08:00 -> 2
-    '9:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '12:00 PM', //12:00 -> 6
-    '1:00 PM', // 13:00 -> 7
-    '2:00 PM',
-    '3:00 PM',
-    '4:00 PM',
-    '5:00 PM',
-    '6:00 PM',
-    '7:00 PM',
-    '8:00 PM',
-    '9:00 PM',
-    '10:00 PM',
-    '11:00 PM', //23:00 -> 17
-    '12:00 AM', //00:00 -> 18
-    '1:00 AM',  //01:00 -> 19
-    '2:00 AM',
-    '3:00 AM',
-    '4:00 AM',
-    '5:00 AM', //05:00 -> 23
-    '6:00 AM'
-];
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchData() {
-      try {
-        const response1 = await axios.post(
-          `https://backend.synccircle.net:4000/slot?group=${groupId}=${row}=${col}`
-        );
-        setNumAvail(parseInt(response1.data));
-
-        const response2 = await axios.post(
-          `https://backend.synccircle.net:4000/numMem?group=${groupId}`
-        );
-        setTotalMembers(parseInt(response2.data));
-      } catch (error) {
-        console.error(error);
+      if (groupId !== "") {
+        setNumAvail(cellValue.length);
       }
     }
 
     fetchData();
-  }, [userSlot]);
+  }, [userSlot, groupId, row, col]  ); */
 
+  /*useEffect(() => {
+    if (groupId !== "") {
+      async function fetchData() {
+        const response = await axios.get(
+          `http://localhost:4000/groups/nummem/${groupId}`
+        );
+        const totalMembersValue = parseInt(response.data);
+        setTotalMembers(totalMembersValue);
+      }
+      fetchData();
+    
+      console.log("Getting total mems");
+    }
 
+  }, [userSlot]);*/
+
+  //Initialize the Slot
   useEffect(() => {
-    setColorByRatio();
-  }, [numAvail, totalMembers]);
+    setNumAvail(cellValue);
+  }, [cellValue])
+
 
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
-    console.log(ratio);
 
     if (ratio == 1) {
       setColor(`#3943f7`);
@@ -97,30 +76,38 @@ function GroupSlot({ matrixKey, days, setPopupMatrixKey, setPopupColor}) {
     }
   }
 
-  const handleOver = async () => {
-    const response = await axios.get(`https://backend.synccircle.net:4000/display?slot=group=${groupId}=${row}=${col}`);
-    if (response.data.length != 0) {
-      setShowMembers(!showMembers);
-    }
-    return (
-      setContent(response.data.toString().slice(1, -1))
-    )
-  };
+  useEffect(() => {
+    if (modifiedKey === matrixKey) {
+      setNumAvail((prevNumAvail) => {
+        if (isBooked) {
+          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
+          return prevNumAvail + 1;
+        } else {
+          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
+          return prevNumAvail - 1;
+        }
+      });
 
+      console.log("Total members: " + totalMembers);
+    }
+  }, [modifiedKey, isBooked]);
+
+  useEffect(() => {
+    setColorByRatio();
+  }, [numAvail, totalMembers]);
 
   return (
     <>
       <button className="Slot" style={{ backgroundColor: color }} type="button" onClick={() => {
         setPopupMatrixKey(matrixKey)
-        setPopupColor(color)}} data-toggle="modal" data-target="#groupModal">
-        {numAvail}
+        setPopupColor(color)
+      }} data-toggle="modal" data-target="#groupModal">
+        <div className={days.length >= 6? "SmallerContent": null}>
+          {numAvail !== 0? numAvail+"/"+totalMembers: null}
+        </div>
       </button>
     </>
-
-
   )
 }
 
 export default GroupSlot;
-
-

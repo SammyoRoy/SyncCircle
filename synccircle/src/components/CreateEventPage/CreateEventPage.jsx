@@ -5,7 +5,6 @@ import EventNameForm from "./EventNameForm";
 import TimeDropdown from "./TimeDropdown";
 import DaySelectionFrame from "./DaySelectionFrame";
 import CreateEventSubmitButton from "./CreateEventSubmitButton";
-import Footer from "./Footer";
 import { AppContext } from "../../context/AppContext";
 
 

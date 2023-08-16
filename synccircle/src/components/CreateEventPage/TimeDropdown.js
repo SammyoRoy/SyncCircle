@@ -28,7 +28,6 @@ function TimeDropdown({ OnTimeChange, label}) {
         '4:00 AM',
         '5:00 AM',
     ];
-    console.log(startTrigger);
     return (
         <>
             <label htmlFor="time-select"></label>

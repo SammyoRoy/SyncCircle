@@ -36,10 +36,10 @@ function DaysOfTheWeek({ styling }) {
 async function GetDays() {
   const URL = window.location.href.split("/");
   try {
-    const response = await axios.post(
-      `https://backend.synccircle.net:4000/days?group=${URL[URL.length - 1]}`
+    const response = await axios.get(
+      `http://localhost:4000/groups/${URL[URL.length - 1]}`
     );
-    return response.data.split(",");
+    return response.data.days;
   } catch (error) {
     console.error(error);
     return [];

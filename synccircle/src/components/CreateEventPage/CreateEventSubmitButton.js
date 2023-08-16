@@ -5,8 +5,7 @@ import { AppContext } from "../../context/AppContext";
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
-    const { setEventTrigger, setDayTrigger } = useContext(AppContext);
-    console.log(endTime)
+    const { setEventTrigger, setDayTrigger} = useContext(AppContext);
     const handleEventTrigger = () => {
       setEventTrigger(true);
       setTimeout(() => {
@@ -38,11 +37,10 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const dayString = days.join(",");
       console.log(days);
       console.log(dayString);
-      axios.post(`https://backend.synccircle.net:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
+      axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
         .then((response) => {
-          // navigate to /group pages
-
-          nav(`/group/${response.data}`);
+          const groupId = response.data.group_id;
+          nav(`/group/${groupId}`);
           
         })
         .catch((error) => {

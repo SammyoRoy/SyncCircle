@@ -6,13 +6,23 @@ body {
     margin: 0;
 }
 
+.UserBase {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+
 .UserScreenBackground {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    width: 50%;
     background: #f7f7f7;
     justify-content: flex-start;
-    
+
 }
 
 
@@ -30,7 +40,12 @@ body {
     /* identical to box height, or 29px */
     color: #000000;
 
-    margin-top: 10%;
+    margin-top: 2%;
+}
+
+.UserTitleSmall {
+    font-size: 1.5rem;
+    margin-top: 5%;
 }
 
 .HeaderCard {
@@ -39,10 +54,12 @@ body {
     background: #e6e6e6;
     border-radius: 30px 30px 0px 0px;
     align-items: center;
-    height: 15%;
     justify-content: space-between;
-    margin-top: 3%;
-    
+    margin-top: 2%;
+    height: auto;
+    flex-grow: 0;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
 }
 
 .UserNameContainer {
@@ -54,17 +71,17 @@ body {
     border-radius: 30px;
     justify-content: space-between;
     align-items: center;
-    margin-top: 7%;
     gap: 10px;
     position: relative;
+    background-color: #f7f7f7;
+    margin-top: 3%;
 
 }
 
 .UserNameForm {
     color: #000000;
     text-align: left;
-    font-size: 14px;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -73,6 +90,7 @@ body {
     outline: none;
     margin-left: 10%;
     width: 90%;
+    font-size: 1.3rem;
 }
 
 .UserButtonContainer {
@@ -96,24 +114,24 @@ body {
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #F7F7F7;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 5px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
-    
+}
+
 
 .JoinButton {
     width: 90%;
@@ -122,18 +140,27 @@ body {
     background: #5AD85F;
     outline: none;
     border-color: transparent;
+    font-size: 1.1rem;
 
     color: #000;
     text-align: center;
-    font-family: Poppins;
-    font-size: 14px;
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
     margin-right: 2%;
 }
+
 .JoinButton:hover {
     background-color: #19ac1e;
+}
+
+.disabled {
+    background-color: #b5b5b5 !important;
+}
+
+.disabled:hover {
+    background-color: #b5b5b5 !important;
 }
 
 .Groups {
@@ -146,8 +173,10 @@ body {
     height: 90%;
     border-radius: 30px;
     background-color: #7D83FF;
+    color: #ffffff;
     outline: none;
     border: none;
+    align-items: center;
 }
 
 .GroupPageButton:hover {
@@ -161,32 +190,40 @@ body {
 
 .GroupPageButtonCircle {
     position: relative;
-    right: 25%;
     bottom: 20px;
 
-    border-radius: 30px;
-border: 3px solid #F7F7F7;
-background: #7D83FF;
-width: 53px;
-height: 53px;
+    border-radius: 50px;
+    border: 3px solid #F7F7F7;
+    color: #ffffff;
+    background: #7D83FF;
+    height: 53px;
+    width: 100%;
+    right: 35%;
 }
+
 .GroupPageButtonCircle:hover {
     background-color: #5f65d4;
+}
+
+.GroupPageButtonCircleIcon .GroupPageButtonIcon {
+    color: white;
 }
 
 .DOTWBar {
 
     display: grid;
     width: 100%;
-    height: 30%;
     border-bottom: 2px solid #B5B5B5;
     z-index: 5;
     background-color: #e6e6e6;
-    padding-bottom: 10%;
-    padding-top: 3%;
     flex-grow: 1;
     align-items: center;
     justify-items: center;
+    height: 15%;
+    padding-top: 1%;
+    padding-right: 10px;
+    padding-bottom: 3%;
+    
 }
 
 .DayLabel {
@@ -197,7 +234,7 @@ height: 53px;
     color: #FFF;
     text-align: center;
     font-size: 13px;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 600;
     line-height: 120%;
@@ -215,6 +252,9 @@ height: 53px;
     place-items: center;
     overflow-y: auto;
     min-height: 0px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 3%;
+    border-radius: 0px 0px 30px 30px;
 }
 
 .UnselectedSlot {
@@ -223,6 +263,7 @@ height: 53px;
     width: 100%;
     height: 100%;
     flex-shrink: 0;
+    min-height: 45px;
 
     border: 0.3px solid #B5B5B5;
     border-top: none;
@@ -231,11 +272,13 @@ height: 53px;
     z-index: 3;
     min-height: 60px;
 }
+
 .UnselectedSlot:hover {
     background-color: #eeeeee;
 }
 
 .SelectedSlot {
+    min-height: 45px;
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -276,169 +319,93 @@ height: 53px;
     justify-content: center;
 }
 
-
-
-
-
-@media (425.98px < width <= 1300px) {
-    .UserBase {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        background-color: #f7f7f7;
+@media only screen and (max-width: 1350px){
+    .UserTitleSmall{
+        font-size: 1.2rem;
     }
-
-    .UserScreenBackground {
-        width: 50%;
+    .GroupPageButtonCircle{
+        height: 90%;
+        width: 90%;
     }
-
-    .UserTitle {
-        margin-top: 2%;
-    }
-
-    .HeaderCard {
-        margin-top: 2%;
-        height: 18%;
-        flex-grow: 0;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-    }
-
-    .UserNameContainer {
-        height: 40%;
-        background-color: #f7f7f7;
-        margin-top: 3%;
-    }
-
-    .DOTWBar {
-        height: 15%;
-        padding-top: 1%;
-        padding-bottom: 3%;
-        padding-right: 10px;
-    }
-
-    .UserNameForm {
-        font-size: 1.3rem;
-    }
-
-    .JoinButton {
-        font-size: 1.1rem;
-    }
-
-    .CalendarGrid {
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        margin-bottom: 3%;
-        border-radius: 0px 0px 30px 30px;
-    }
-
-    .UnselectedSlot {
-        min-height: 45px;
-    }
-
-    .SelectedSlot {
-        min-height: 45px;
-    }
-
-    .GroupPageButtonCircle {
-        width: 130%;
-        margin-top: 30%;   
-        right: 35%;
+    .GroupPageButtonCircleIcon{
+        width: 90% !important;
     }
 }
-
-
-@media (width > 1300px) {
-    .UserBase {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        background-color: #f7f7f7;
-    }
-
-    .UserScreenBackground {
-        width: 50%;
-    }
-
-    .UserTitle {
-        margin-top: 2%;
-    }
-
-    .HeaderCard {
-        margin-top: 2%;
-        height: 18%;
-        flex-grow: 0;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-    }
-
-    .UserNameContainer {
-        height: 40%;
-        background-color: #f7f7f7;
-        margin-top: 3%;
-    }
-
-    .DOTWBar {
-        height: 15%;
-        padding-top: 1%;
-        padding-bottom: 3%;
-    }
-
-    .UserNameForm {
-        font-size: 1.3rem;
-    }
-
-    .JoinButton {
-        font-size: 1.1rem;
-    }
-
-    .CalendarGrid {
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        margin-bottom: 3%;
-        border-radius: 0px 0px 30px 30px;
-    }
-
-    .UnselectedSlot {
-        min-height: 45px;
-    }
-
-    .SelectedSlot {
-        min-height: 45px;
-    }
-
-    .GroupPageButtonCircle {
-        width: 150%; 
-        right: 35%;
-    }
-
-}
-@media only screen and (max-width: 850px){
+@media only screen and (max-width: 1000px){
     .UserScreenBackground{
-        width: 75% !important;
+        width: 80%;
     }
+    .UserTitleSmall{
+        font-size: 1.2rem;
+    }
+    
+
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 768px){
+    .HeaderCard{
+        padding-top: 1%;
+    }
+    .UserScreenBackground{
+        width: 90%;
+    }
     .offcanvas{
         width: 100% !important;
     }
+}
+
+@media only screen and (max-width: 550px){
+    .HeaderCard{
+        padding-top: 2%;
+    }
     .UserScreenBackground{
-        width: 100% !important;
+        width: 100%;
     }
     .GroupPageButtonCircle{
-        width: 38px;
-        height: 38px;
-    }
-    .GroupPageButtonCircle svg{
-        width: 23px !important;
-        height: 22px !important;
-        right: 1px;
-        top: -3px !important;
+        height: 78%;
+        width: 78%;
     }
 
-    .GroupPageButton svg{
-        top: -3px !important;
+
+    .UserTitleSmall{
+        font-size: 1rem;
     }
+   
+}
+
+@media only screen and (max-width: 400px){
+    .HeaderCard{
+        padding-top: 5%;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .CalendarGrid{
+        border-radius: 0;
+        margin-bottom: 0;
+    }
+    .UserTitleSmall{
+        font-size: 0.8rem;
+    }
+    .DayLabel{
+        width: 28px;
+        height: 28px;
+    }
+    .UserNameContainer{
+        margin-top: 0;
+        height: 50%;
+    }
+}
+
+@media only screen and (max-height: 500px){
+    .UserNameContainer{
+        height: 40%;
+    }
+    .DOTWBar{
+        padding-bottom: 2%;
+    }
+    
+}
+
+@media only screen and (max-height: 365px){
     
 }

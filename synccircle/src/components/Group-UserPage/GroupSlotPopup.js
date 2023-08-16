@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios, { all } from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlotPopup({ matrixKey, popupColor }) {
+function GroupSlotPopup({ matrixKey, popupColor}) {
     const { groupId } = useContext(AppContext);
-    console.log(matrixKey);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0); // Use useState to set cols
     const [row, setRow] = useState(0); // Use useState to set row
@@ -39,13 +38,13 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
     
     const getMembers = () => {
 
-        axios.get(`https://backend.synccircle.net:4000/display?slot=group=${groupId}=${row}=${col}`).then((response) => {
-            setAvailableMembers(response.data.toString().slice(1, -1));
+        axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
+            setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`https://backend.synccircle.net:4000/allMem?group=${groupId}`).then((response) => {
-            setAllMembers(response.data.toString().slice(1, -1));
+        axios.get(`http://localhost:4000/groups/allmem/${groupId}`).then((response) => {
+            setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
         });
@@ -101,16 +100,16 @@ function GroupSlotPopup({ matrixKey, popupColor }) {
 
     return (
         <div className="modal" id="groupModal" style={showPopup ? { display: "block" } : null}>
-            <div className="modal-content">
+            <div className="modal-content" style={popupColor !== "F7F7F7"? {border: `3px solid ${popupColor}`}: null}>
                 <div className="modal-header">
                     <h4 className="modal-title">{isLoading ? "Loading..." : days[col] + ", " + timeOptions[startTimeIndex + row] + "-" + timeOptions[startTimeIndex + row + 1]}</h4>
                 </div>
-                <div className="modal-body">
-                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
-                    <h5 style={popupColor !== "#F7F7F7" ? { color: popupColor } : null}>Unavailable Members: {membersLoading ? "Loading..." : unavailableMembers}</h5>
+                <div className="modal-body" style={popupColor !== "F7F7F7"? {borderBottom: `2px dashed ${popupColor}` , borderTop: `2px dashed ${popupColor}`}: null}>
+                    <h5>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
+                    <h5>Unavailable Members: {membersLoading ? "Loading..." : unavailableMembers}</h5>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => setShowPopup(false)}>Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => {setShowPopup(false)}}>Close</button>
                 </div>
             </div>
         </div>
@@ -126,8 +125,8 @@ export default GroupSlotPopup;
 async function GetDays() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.post(`https://backend.synccircle.net:4000/days?group=${URL[URL.length - 1]}`);
-        return response.data.split(",");
+        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        return response.data.days;
     } catch (error) {
         console.error(error);
         return [];
@@ -143,8 +142,8 @@ function sortDays(daysData) {
 async function getStart() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.post(`https://backend.synccircle.net:4000/shours?group=${URL[URL.length - 1]}`);
-        return response.data;
+        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        return response.data.start_time;
     } catch (error) {
         console.error(error);
         return "";
@@ -160,16 +159,5 @@ async function convertTimeToIndex(time) {
     }
     else {
         return (parsedHour + 18)
-    }
-}
-
-async function getAllMembers() {
-    const URL = window.location.href.split("/");
-    try {
-        const response = await axios.post(`https://backend.synccircle.net:4000/allMem?group=${URL[URL.length - 1]}`);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return "";
     }
 }

@@ -7,7 +7,6 @@ function EventNameForm({OnEventNameChange}) {
         e.preventDefault(); // prevent page refresh
         const inputValue = e.target.elements.eventName.value;
         OnEventNameChange(inputValue);
-        console.log(inputValue);
       };
     
       return (

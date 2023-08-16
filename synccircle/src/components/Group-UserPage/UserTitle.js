@@ -8,11 +8,10 @@ function UserTitle() {
 
 
     useEffect(() => {
-         axios.post(`https://backend.synccircle.net:4000/name?group=${groupId}`)
+        const URL = window.location.href.split("/");
+         axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`)
          .then((response) => {
-             // navigate to /group pages
-             setEventName(response.data);
-             console.log(eventName);
+             setEventName(response.data.group_name);
 
          })
          .catch((error) => {
@@ -23,7 +22,7 @@ function UserTitle() {
 
 
     return (
-        <h2 className="UserTitle"> {eventName} </h2>
+        <h2 className={eventName.length > 20? "UserTitle UserTitleSmall": "UserTitle"}> {eventName} </h2>
     )
 }
 

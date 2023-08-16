@@ -11,18 +11,24 @@ function UserPage() {
 
   const [groupId, setGroupId] = useState("");
   const [userId, setUserId] = useState("");
-  const [userSlot, setUserSlot] = useState(null);
+  const [userSlot, setUserSlot] = useState("");
   const [joinPressed, setJoinPressed] = useState(false);
   const [slotTried, setSlotTried] = useState(false);
+  const [userArray, setUserArray] = useState([]);
+  const [stopped, setStopped] = useState(false);
 
   useEffect(() => {
-    setGroupId(window.location.pathname.split("/").pop());
-  }, [groupId])
+    const groupIdFromUrl = window.location.pathname.split("/").pop();
+    if (groupIdFromUrl !== ""){
+      setGroupId(groupIdFromUrl);
+    }
+  }, []); // Empty dependency array to run only once
+  
 
   return (
     <div className="UserBase">
       <div className="UserScreenBackground">
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried }}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped }}>
           <UserTitle />
           <HeaderCard/>
           <Calendar />

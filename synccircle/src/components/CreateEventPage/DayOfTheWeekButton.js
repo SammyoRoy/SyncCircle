@@ -11,13 +11,11 @@ function DayOfTheWeekButton({ day, setDays, days }) {
         setPressed(false);
         setStyle("DayOfTheWeekButton");
         setDays(days.filter((d) => d !== day));
-        console.log(days);
       } else {
         setDayTrigger(false);
         setPressed(true);
         setStyle("DayOfTheWeekButtonPressed");
         setDays([...days, day]);
-        console.log(days);
       }
     }; 
     return (

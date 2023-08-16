@@ -2,95 +2,134 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
-  const { setUserSlot, setSlotTried } = useContext(AppContext);
-  const {groupId, userId} = useContext(AppContext);
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
+  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped } = useContext(AppContext);
+  const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
   const [isModifed, setIsModified] = useState(false);
+  const buttonRef = useRef(null);
   const cols = days.length;
 
-  const row = Math.floor(matrixKey/(cols+1));
-  const col = matrixKey - (row *(cols+1)) - 1;
-  
+  const row = Math.floor(matrixKey / (cols + 1));
+  const col = matrixKey - (row * (cols + 1)) - 1;
+
+  const replaceValueAt = (row, col, value) => {
+    const newArray = [...userArray];
+    newArray[row] = [...newArray[row]];
+    newArray[row][col] = value;
+
+    setUserArray(newArray);
+  };
+
+
 
   //Initialize
-    useEffect(() => {
-      console.log("User ID: "+userId);
-      if (userId != ""){
-              console.log("Only now");
-              axios.post(`https://backend.synccircle.net:4000/initializeSlot?group=${groupId}=${userId}=${row}=${col}`)
-              .then((response) => {
-                if (response.data == "0"){
-                  console.log("Initial unselec");
-                  setStyle("UnselectedSlot");
-                  setSelected(false);
-                }
-                else if (response.data == "1"){
-                  console.log("Select Init");
-                  setStyle("SelectedSlot");
-                  setSelected(true);
-                }
-              })
+  useEffect(() => {
+    if (userId != "") {
+      if (cellValue == 0) {
+        setStyle("UnselectedSlot");
+        setSelected(false);
       }
-    }, [userId]);
+      else if (cellValue == 1) {
+        setStyle("SelectedSlot");
+        setSelected(true);
+      }
+    }
+  }, [userId, cellValue]);
 
-  // The useEffect hook with touchPosition as a dependency
   useEffect(() => {
-    handleSwipe();
-  }, [touchPosition]);
+    if (swiping && touchPosition) {
+      handleSwipe();
+    }
+  }, [touchPosition, swiping]);
 
   useEffect(() => {
-    if (swiping === false){
+    if (!swiping) {
       setIsModified(false);
     }
   }, [swiping]);
 
-  const buttonRef = useRef(null);
   const handleSwipe = async () => {
-
-    if (swiping === true && buttonRef.current && !isModifed) { 
+    if (swiping === true && buttonRef.current && !isModifed) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      const touchX = touchPosition.x;
-      const touchY = touchPosition.y;
-      console.log("X-coord " + touchX);
-      console.log("Y-coord " + touchY);
+      if (
+        touchPosition.x >= buttonRect.left &&
+        touchPosition.x <= buttonRect.right &&
+        touchPosition.y >= buttonRect.top &&
+        touchPosition.y <= buttonRect.bottom
+      ) {
+        setIsModified(true); // Mark this slot as modified
+        setSelected(!isSelected);
+        setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
+        replaceValueAt(row, col, isSelected ? 0 : 1);
+        
+        if (isSelected){
+          socket.emit('unbooked', matrixKey, groupId);
+        }
+        else{
+          socket.emit('booked', matrixKey, groupId);
+        }
+      }
+    }
+  };
 
-      console.log("button LEFT: "+buttonRect.left);
-      console.log("button RIGHT: "+buttonRect.right);
-      console.log("button TOP: "+buttonRect.top);
-      console.log("button BUTTON: "+buttonRect.bottom);
-  
+  const handleTouch = (e) => {
+    // If swiping is active and this slot has not been modified during this swipe
+    if (swiping && !isModifed) {
+      const touch = e.touches[0] || e.changedTouches[0];
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+
+      // Check if the touch is within this slot's boundaries
       if (
         touchX >= buttonRect.left &&
         touchX <= buttonRect.right &&
         touchY >= buttonRect.top &&
         touchY <= buttonRect.bottom
       ) {
-        console.log("Im inside the Matrix");
-        if (isSelected) {
-          setSelected(false);
-          setStyle("UnselectedSlot");
-          const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
-          setUserSlot(Math.random());
-          setIsModified(true);
-        } else {
-          setSelected(true);
-          setStyle("SelectedSlot");
-          const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
-          setUserSlot(Math.random());
-          setIsModified(true);
+        // Toggle the slot's state
+        setSelected(!isSelected);
+        setStyle(isSelected ? "UnselectedSlot" : "SelectedSlot");
+        replaceValueAt(row, col, isSelected ? 0 : 1);
+        setIsModified(true);
+
+        if (isSelected){
+          socket.emit('unbooked', matrixKey, groupId);
+        }
+        else{
+          socket.emit('booked', matrixKey, groupId);
         }
       }
     }
   };
-  
+
+
+
   const handleTouchEnd = async (e) => {
     setIsModified(false);
+    setStopped(true);
   }
 
+  useEffect(() => {
+    const button = buttonRef.current;
+
+    const handleTouchMove = (e) => {
+      handleTouch(e);
+      e.preventDefault();
+    };
+
+    button.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      button.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [handleTouch]);
+
+
   const handleEnter = async (e) => {
-    if (dragging === false && swiping === false ){
+    if (dragging === false && swiping === false) {
       return;
     }
     if (userId === "") {
@@ -102,20 +141,19 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
-      console.log(response);
-      setUserSlot(Math.random());
+      replaceValueAt(row, col, 0);
+      socket.emit('unbooked', matrixKey, groupId);
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
-  
-      const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
-      setUserSlot(Math.random());
+
+      replaceValueAt(row, col, 1);
+      socket.emit('booked', matrixKey, groupId);
     }
   };
 
-  const handlePress = async(e) => {
+  const handlePress = async (e) => {
     if (userId === "") {
       setSlotTried(true);
       return;
@@ -124,29 +162,34 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition}){
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      const response = await axios.post(`https://backend.synccircle.net:4000/unbook?user=${userId}=group=${groupId}=${row}=${col}`);
+
+      socket.emit('unbooked', matrixKey, groupId);
+      replaceValueAt(row, col, 0);
       setUserSlot(Math.random());
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
-  
-      const response = await axios.post(`https://backend.synccircle.net:4000/book?user=${userId}=group=${groupId}=${row}=${col}`);
+
+      socket.emit('booked', matrixKey, groupId);
+      console.log(matrixKey);
+      replaceValueAt(row, col, 1);
       setUserSlot(Math.random());
     }
   };
 
 
   return (
-    <button 
-    ref={buttonRef}  
-    className={style} 
-      onMouseDown={handlePress} 
+    <button
+      ref={buttonRef}
+      className={style}
+      onMouseDown={handlePress}
       onMouseEnter={handleEnter}
+      onTouchMove={handleTouch}
       onTouchEnd={handleTouchEnd}
-      type="button" 
+      type="button"
     ></button>
   )
 }
-  
+
 export default Slot;
