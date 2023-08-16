@@ -35,9 +35,12 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
-      console.log(days);
-      console.log(dayString);
-      axios.post(`http://localhost:4000/create?group=${eventName}=${startTime}=${endTime}=${dayString}`)
+      axios.post(`http://localhost:4000/groups/`, {
+          name: eventName,
+          startTime: startTime,
+          endTime: endTime,
+          days: dayString,
+          })
         .then((response) => {
           const groupId = response.data.group_id;
           nav(`/group/${groupId}`);

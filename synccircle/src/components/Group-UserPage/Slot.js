@@ -1,5 +1,4 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
 function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {

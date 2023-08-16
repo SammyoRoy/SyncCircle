@@ -1,5 +1,4 @@
 import React, { useState} from "react";
-import axios from "axios";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 function ShareLink() {
@@ -10,7 +9,7 @@ function ShareLink() {
         setIsCopied(true);
         setTimeout(() => {
             setIsCopied(false);
-        }, 2000); // 2000 milliseconds (2 seconds) delay before hiding the "copied" text
+        }, 2000);
     };
 
     return (
