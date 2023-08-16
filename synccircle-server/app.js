@@ -1,4 +1,7 @@
 const express = require('express');
+const https = require('https'); // Import the 'https' module
+const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
+const connectToDb = require('./db');
 const connectToDb = require('./db');
 const cors = require('cors');
 
@@ -15,11 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
-const http = require('http');
-const server = http.createServer(app);
+// Read the SSL certificate and key files
+const sslOptions = {
+    key: fs.readFileSync('/etc/letsencrypt/live/your_domain.com/privkey.pem'), // Update the path to your private key
+    cert: fs.readFileSync('/etc/letsencrypt/live/your_domain.com/fullchain.pem') // Update the path to your full chain certificate
+};
+
+const server = https.createServer(sslOptions, app); // Create an HTTPS server
+
 const { Server } = require("socket.io");
-const { group } = require('console');
-//const { Socket } = require('dgram');
 const io = new Server(server);
 
 io.on('connection', (socket) => {
@@ -46,6 +53,6 @@ app.get('/', (req, res) => {
     res.send('Easter Egg');
 });
 
-server.listen(4000, () => {
-    console.log('Listening on port 4000');
+server.listen(443, () => { // Start the server on port 443 (HTTPS)
+    console.log('Listening on port 443');
 });
