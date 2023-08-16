@@ -35,7 +35,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
       days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       const dayString = days.join(",");
-      axios.post(`http://localhost:4000/groups/`, {
+      axios.post(`https://backend.synccircle.net/groups/`, {
           name: eventName,
           startTime: startTime,
           endTime: endTime,

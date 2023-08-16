@@ -19,7 +19,7 @@ function Calendar() {
   const [calSocket, setCalSocket] = useState(null);
 
   useEffect( () => {
-      const socket = io('http://localhost:4000', { transports : ['websocket'] });
+      const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
       setCalSocket(socket);
   }, []);
 
@@ -62,7 +62,7 @@ function Calendar() {
   useEffect(() => {
     async function fetchData() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
@@ -70,7 +70,7 @@ function Calendar() {
     }
     async function fetchUser() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`http://localhost:4000/users/${URL[URL.length - 1]}/${userId}`);
+      const response = await axios.get(`https://backend.synccircle.net/users/${URL[URL.length - 1]}/${userId}`);
       setUserArray(response.data.availability_array);
     }
 
@@ -134,7 +134,7 @@ function Calendar() {
     if (isDragging === false  && isSwiping === false && userArray !== undefined && userId !== "")
     {
       const sendSlots = async () => {
-        const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        const response = await axios.post(`https://backend.synccircle.net/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
       }
       sendSlots();
@@ -187,7 +187,7 @@ function Calendar() {
     async function GetDays() {
         const URL = window.location.href.split("/");
         try {
-        const response = await axios.post(`http://localhost:4000/days?group=${URL[URL.length - 1]}`);
+        const response = await axios.post(`https://backend.synccircle.net/days?group=${URL[URL.length - 1]}`);
         return response.data.split(",");
         } catch (error) {
         console.error(error);
@@ -198,7 +198,7 @@ function Calendar() {
   async function GetStart() {
     const URL = window.location.href.split("/");
     try {
-      const response = await axios.post(`http://localhost:4000/shours?group=${URL[URL.length - 1]}`);
+      const response = await axios.post(`https://backend.synccircle.net/shours?group=${URL[URL.length - 1]}`);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -209,7 +209,7 @@ function Calendar() {
   async function GetEnd() {
     const URL = window.location.href.split("/");
     try {
-      const response = await axios.post(`http://localhost:4000/ehours?group=${URL[URL.length - 1]}`);
+      const response = await axios.post(`https://backend.synccircle.net/ehours?group=${URL[URL.length - 1]}`);
       return response.data;
     } catch (error) {
       console.error(error);

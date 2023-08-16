@@ -37,7 +37,7 @@ async function GetDays() {
   const URL = window.location.href.split("/");
   try {
     const response = await axios.get(
-      `http://localhost:4000/groups/${URL[URL.length - 1]}`
+      `https://backend.synccircle.net/groups/${URL[URL.length - 1]}`
     );
     return response.data.days;
   } catch (error) {

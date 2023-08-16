@@ -14,14 +14,14 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const [joinSocket, setJoinSocket] = useState(null);
 
   useEffect( () => {
-      const socket = io('http://localhost:4000', { transports : ['websocket'] });
+      const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
       setJoinSocket(socket);
   }, []);
 
 
   useEffect(() => {
     if (groupId !== "") {
-      axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
+      axios.get(`https://backend.synccircle.net/groups/${groupId}`).then((response) => {
         setStartTime(response.data.start_time);
         setEndTime(response.data.end_time);
         setDays(response.data.days);
@@ -33,11 +33,11 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const onSubmit = (event) => {
     event.preventDefault();
     if (userName !== "" && groupId !== "" && days !== [] && startTime !== "" && endTime !== "") {
-      axios.get(`http://localhost:4000/groups/findmem/${groupId}`, { params: { userName: userName } })
+      axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {
             //Make new User
-            axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
+            axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
                 setUserId(response2.data.user_id);
               });

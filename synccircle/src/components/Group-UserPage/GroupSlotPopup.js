@@ -38,12 +38,12 @@ function GroupSlotPopup({ matrixKey, popupColor}) {
     
     const getMembers = () => {
 
-        axios.get(`http://localhost:4000/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
             setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`http://localhost:4000/groups/allmem/${groupId}`).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/allmem/${groupId}`).then((response) => {
             setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
@@ -125,7 +125,7 @@ export default GroupSlotPopup;
 async function GetDays() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
         return response.data.days;
     } catch (error) {
         console.error(error);
@@ -142,7 +142,7 @@ function sortDays(daysData) {
 async function getStart() {
     const URL = window.location.href.split("/");
     try {
-        const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+        const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
         return response.data.start_time;
     } catch (error) {
         console.error(error);

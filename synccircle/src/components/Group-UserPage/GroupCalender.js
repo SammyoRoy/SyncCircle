@@ -24,7 +24,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [addedNewMember, setAddedNewMember] = useState(true);
 
   useEffect( () => {
-    const socket = io('http://localhost:4000', { transports : ['websocket'] });
+    const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
     setGroupSocket(socket);
   }, []);
 
@@ -32,7 +32,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     // Combine fetching of days, start, and end into a single function
     async function fetchData() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
@@ -59,7 +59,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     if (groupId !== "") {
       async function fetchData() {
         const response = await axios.get(
-          `http://localhost:4000/groups/nummem/${groupId}`
+          `https://backend.synccircle.net/groups/nummem/${groupId}`
         );
         const totalMembersValue = parseInt(response.data);
         setTotalMembers(totalMembersValue);
