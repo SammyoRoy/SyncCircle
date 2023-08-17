@@ -103,7 +103,7 @@ function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPo
         setPopupColor(color)
       }} data-toggle="modal" data-target="#groupModal">
         <div className={days.length >= 6? "SmallerContent": null}>
-          {numAvail !== 0? numAvail+"/"+totalMembers: null}
+          {numAvail !== 0? numAvail: null}
         </div>
       </button>
     </>
