@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
-import { Helmet } from 'react-helmet';
 
 function UserTitle() {
     const { groupId } = useContext(AppContext);
@@ -23,13 +22,7 @@ function UserTitle() {
 
 
     return (
-      <div>
-        <Helmet>
-          <title>{eventName}</title>
-        </Helmet>
         <h2 className={eventName.length > 20? "UserTitle UserTitleSmall": "UserTitle"}> {eventName} </h2>
-      </div>
-        
     )
 }
 
