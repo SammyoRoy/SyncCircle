@@ -17,7 +17,8 @@ function ShareLink() {
             <h5 className="InviteFriends">Invite Your Friends!</h5>
             <div className="LinkContainer">
                 <button className="CopyButton" onClick={handleCopyClick}>
-                    <ContentCopyIcon className="CopyIcon" fontSize="medium"/>
+                    {!isCopied && <ContentCopyIcon className="CopyIcon" fontSize="medium"/>}
+                    {isCopied && <div style={{marginLeft: "25%"}}>Copied</div>}
                 </button>
             </div>
         </div>
