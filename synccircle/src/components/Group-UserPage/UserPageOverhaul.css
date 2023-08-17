@@ -185,19 +185,27 @@ body {
 
 .GPCircleContainer {
     position: absolute;
-    margin-top: 1%
+    margin-top: 1%;
+    width: 8%;
+    height: 0;
+    padding-bottom: 8%;
 }
 
 .GroupPageButtonCircle {
     position: relative;
     bottom: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
 
     border-radius: 50px;
     border: 3px solid #F7F7F7;
     color: #ffffff;
     background: #7D83FF;
-    height: 53px;
     width: 100%;
+    height: 0;
+    padding-bottom: 86%; 
+    
     right: 35%;
 }
 
@@ -207,6 +215,11 @@ body {
 
 .GroupPageButtonCircleIcon .GroupPageButtonIcon {
     color: white;
+}
+.GroupPageButtonCircleIcon{
+    margin-top: 15% !important;
+    width: 32px !important;
+    height: 32px !important;
 }
 
 .DOTWBar {
@@ -319,16 +332,17 @@ body {
     justify-content: center;
 }
 
-@media only screen and (max-width: 1350px){
+@media only screen and (max-width: 1300px){
     .UserTitleSmall{
         font-size: 1.2rem;
     }
-    .GroupPageButtonCircle{
-        height: 90%;
-        width: 90%;
-    }
     .GroupPageButtonCircleIcon{
-        width: 90% !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+    .GPCircleContainer{
+        width: 10%;
+        padding-bottom: 10%;
     }
 }
 @media only screen and (max-width: 1000px){
@@ -337,6 +351,14 @@ body {
     }
     .UserTitleSmall{
         font-size: 1.2rem;
+    }
+    .GroupPageButtonCircleIcon{
+        width: 30px !important;
+        height: 30px !important;
+    }
+    .GPCircleContainer{
+        width: 8%;
+        padding-bottom: 8%;
     }
     
 
@@ -352,6 +374,14 @@ body {
     .offcanvas{
         width: 100% !important;
     }
+    .GroupPageButtonCircleIcon{
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .GPCircleContainer{
+        width: 9%;
+        padding-bottom: 9%;
+    }
 }
 
 @media only screen and (max-width: 550px){
@@ -361,9 +391,14 @@ body {
     .UserScreenBackground{
         width: 100%;
     }
-    .GroupPageButtonCircle{
-        height: 78%;
-        width: 78%;
+    .GroupPageButtonCircleIcon{
+        margin-top: 50% !important;
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .GPCircleContainer{
+        width: 12%;
+        padding-bottom: 12%;
     }
 
 
@@ -394,6 +429,14 @@ body {
         margin-top: 0;
         height: 50%;
     }
+    .GroupPageButtonCircleIcon{
+        width: 26px !important;
+        height: 26px !important;
+    }
+    .GPCircleContainer{
+        width: 15%;
+        padding-bottom: 15%;
+    }
 }
 
 @media only screen and (max-height: 500px){
@@ -403,9 +446,5 @@ body {
     .DOTWBar{
         padding-bottom: 2%;
     }
-    
-}
-
-@media only screen and (max-height: 365px){
     
 }

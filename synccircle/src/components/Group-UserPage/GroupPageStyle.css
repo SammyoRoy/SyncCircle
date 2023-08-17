@@ -101,6 +101,12 @@ h6, h5 {
     color: #297045;
 }
 
+.LightMode .btn-close{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
 .GroupDOTWBar {
     display: grid;
     width: 100%;
@@ -185,6 +191,12 @@ line-height: 150%; /* 24px */
     .offcanvas-body{
         padding-right: 0px !important;
         padding-left: 0px !important;
+    }
+    .modal{
+        left: 0% !important;
+        top: 20% !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 }
 
