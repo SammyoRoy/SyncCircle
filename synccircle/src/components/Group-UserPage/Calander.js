@@ -141,7 +141,10 @@ function Calendar() {
     }
   }, [isDragging, isSwiping]);
 
-  const numRows = (endIndex + 1 - startIndex);
+  const numRows = endIndex >= startIndex
+  ? endIndex - startIndex + 1
+  : endIndex + 24 - startIndex + 1;
+
 
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
@@ -170,7 +173,7 @@ function Calendar() {
         return index % (days.length + 1) === 0 ? (
           <TimeLabel
             key={index}
-            currTimeIndex={startIndex + row}
+            currTimeIndex = {(startIndex + row) % 24}
           />
         ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket}/>
         );

@@ -300,14 +300,10 @@ body {
 
     border: 0.3px solid #B5B5B5;
     border-top: none;
-    border-bottom: none;
     border-right: none;
     background: #498c8a;
     z-index: 3;
     min-height: 60px;
-    border: 0.3px solid #B5B5B5;
-    border-top: none;
-    border-right: none;
 }
 
 .TimeLabel {
