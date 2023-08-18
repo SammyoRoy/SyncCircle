@@ -12,7 +12,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
-  const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
   
@@ -103,7 +102,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     const timeIndex = convertTimeToIndex(start);
 
     setStartIndex(startTimeIndex);
-    setCurrTimeIndex(timeIndex);
     setEndIndex(endTimeIndex);
   }, [start, end]);
 
@@ -140,7 +138,10 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
     return num;
   }
 
-  const numRows = (endIndex + 1 - startIndex);
+  const numRows = endIndex >= startIndex
+  ? endIndex - startIndex + 1
+  : endIndex + 24 - startIndex + 1;
+
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
   const totalCells = (days.length + 1) * (numRows);
@@ -169,7 +170,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
         return index % (days.length + 1) === 0 ? (
           <TimeLabel
             key={index}
-            currTimeIndex={startIndex + row}
+            currTimeIndex= {(startIndex + row) % 24}
           />
         ) : (<GroupSlot 
                 key={index} 
