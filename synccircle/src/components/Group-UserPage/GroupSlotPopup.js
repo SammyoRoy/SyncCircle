@@ -102,7 +102,7 @@ function GroupSlotPopup({ matrixKey, popupColor}) {
         <div className="modal" id="groupModal" style={showPopup ? { display: "block" } : null}>
             <div className="modal-content" style={popupColor !== "F7F7F7"? {border: `3px solid ${popupColor}`}: null}>
                 <div className="modal-header">
-                    <h4 className="modal-title">{isLoading ? "Loading..." : days[col] + ", " + timeOptions[startTimeIndex + row] + "-" + timeOptions[startTimeIndex + row + 1]}</h4>
+                    <h4 className="modal-title">{isLoading ? "Loading..." : days[col] + ", " + timeOptions[(startTimeIndex + row) %24] + "-" + timeOptions[(startTimeIndex + row + 1)%24]}</h4>
                 </div>
                 <div className="modal-body">
                     <h5>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
