@@ -10,6 +10,7 @@ function GroupSlotPopup({ matrixKey, popupColor}) {
     const [col, setCol] = useState(0); // Use useState to set col
     const [isLoading, setIsLoading] = useState(true);
     const [membersLoading, setMembersLoading] = useState(true);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const [startTime, setStartTime] = useState("");
     const [startTimeIndex, setStartTimeIndex] = useState(0);
@@ -38,12 +39,12 @@ function GroupSlotPopup({ matrixKey, popupColor}) {
     
     const getMembers = () => {
 
-        axios.get(`https://backend.synccircle.net/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
+        axios.get(`${API_URL}/groups/slot/${groupId}`, {params: {row: row, col: col}}).then((response) => {
             setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`https://backend.synccircle.net/groups/allmem/${groupId}`).then((response) => {
+        axios.get(`${API_URL}/groups/allmem/${groupId}`).then((response) => {
             setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
@@ -124,8 +125,9 @@ export default GroupSlotPopup;
 
 async function GetDays() {
     const URL = window.location.href.split("/");
+    const API_URL = process.env.REACT_APP_API_URL;
     try {
-        const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
+        const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
         return response.data.days;
     } catch (error) {
         console.error(error);
@@ -141,8 +143,9 @@ function sortDays(daysData) {
 
 async function getStart() {
     const URL = window.location.href.split("/");
+    const API_URL = process.env.REACT_APP_API_URL;
     try {
-        const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
+        const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
         return response.data.start_time;
     } catch (error) {
         console.error(error);

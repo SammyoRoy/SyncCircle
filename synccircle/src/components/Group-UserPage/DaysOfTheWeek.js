@@ -35,9 +35,10 @@ function DaysOfTheWeek({ styling }) {
 
 async function GetDays() {
   const URL = window.location.href.split("/");
+  const API_URL = process.env.REACT_APP_API_URL;
   try {
     const response = await axios.get(
-      `https://backend.synccircle.net/groups/${URL[URL.length - 1]}`
+      `${API_URL}/groups/${URL[URL.length - 1]}`
     );
     return response.data.days;
   } catch (error) {
