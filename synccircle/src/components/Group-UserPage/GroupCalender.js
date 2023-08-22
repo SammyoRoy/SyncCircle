@@ -5,7 +5,7 @@ import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 
-function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
+function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
   const { groupId, userId, userSlot } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
@@ -179,7 +179,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor }) {
                 groupId={groupId} 
                 userId={userId} 
                 setPopupMatrixKey={setPopupMatrixKey} 
-                setPopupColor={setPopupColor} 
+                setPopupColor={setPopupColor}
+                setGroupSlotClicked={setGroupSlotClicked}
                 cellValue={cellValue} 
                 totalMembers={totalMembers}
                 modifiedKey={modifiedKey}

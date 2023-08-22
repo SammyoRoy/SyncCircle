@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios, { all } from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlotPopup({ matrixKey, popupColor}) {
+function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     const { groupId } = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0); // Use useState to set cols
@@ -53,7 +53,7 @@ function GroupSlotPopup({ matrixKey, popupColor}) {
         fetchData();
         setIsLoading(false);
         setShowPopup(true);
-    }, [matrixKey]);
+    }, [matrixKey, groupSlotClicked]);
 
     useEffect(() => {
         getMembers();
