@@ -5,7 +5,7 @@ import GroupPageButton from './GroupPageButton';
 import io from 'socket.io-client';
 
 function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
-  const { groupId, setUserId, userId } = useContext(AppContext);
+  const { groupId, setUserId, userId, setFirst, setUsers, users } = useContext(AppContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -40,7 +40,11 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             //Make new User
             axios.post(`${API_URL}/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
+                console.log(response2.data)
                 setUserId(response2.data.user_id);
+                if(response2.data.users[0].user_id === response2.data.user_id){
+                  setFirst(true);
+                }
               });
             setShow(false);
             updateJoined(true);
@@ -49,7 +53,10 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
             console.log("New user sent");
           }
           else {
-            setUserId(response.data);
+            setUserId(response.data.user_id);
+            if(response.data.users[0].user_id === response.data.user_id){
+              setFirst(true);
+            }
             setShow(false);
             updateJoined(true);
             updateSubmitted(true);

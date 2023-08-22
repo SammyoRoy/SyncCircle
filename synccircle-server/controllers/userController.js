@@ -44,7 +44,7 @@ const addUser = asyncHandler(async (req, res) => {
         { new: true }
     );
     if (updatedGroup) {
-        res.status(200).json({ success: true, user_id: userId });
+        res.status(200).json({ success: true, user_id: userId, users: updatedGroup.users });
     }
     else {
         res.status(404);

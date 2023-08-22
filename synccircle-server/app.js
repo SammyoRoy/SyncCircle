@@ -1,5 +1,5 @@
 const express = require('express');
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const connectToDb = require('./db');
 const cors = require('cors');
@@ -19,13 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
-const sslOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/fullchain.pem')
-};
+// const sslOptions = {
+//     key: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/privkey.pem'),
+//     cert: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/fullchain.pem')
+// };
 
 const PORT = process.env.PORT
-const server = https.createServer(sslOptions, app);
+const server = http.createServer(app);
 
 const { Server } = require("socket.io");
 const io = new Server(server);

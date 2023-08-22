@@ -121,7 +121,7 @@ const findMember = asyncHandler(async (req, res) => {
     if (group) {
         const user = group.users.find(user => user.user_name === userName);
         if (user) {
-            res.json(user.user_id);
+            res.status(200).json({user_id: user.user_id, users: group.users });
         }
         else {
             res.json("False");
