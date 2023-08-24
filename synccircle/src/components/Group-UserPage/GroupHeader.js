@@ -9,9 +9,8 @@ function GroupHeader(){
     console.log("first",first);
     return (
         <div className="GroupHeaderCard">
-          <ShareLink />
-          {first && <button className="btn btn-danger" style={{marginLeft: "10px"}} onClick={() => setGroupAdminClicked(!groupAdminClicked)}>Group Admin Controls</button>}
-          <DaysOfTheWeek styling={"GroupDOTWBar"} />
+          {!groupAdminClicked? <><ShareLink /> 
+          <DaysOfTheWeek styling={"GroupDOTWBar"} /></>: <div className='AdminControlsHeader'><h3>Admin Controls</h3></div>}
         </div>
     )
   
