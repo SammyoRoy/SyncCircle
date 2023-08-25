@@ -29,11 +29,7 @@ function GroupTitle() {
 
     return (
         <div className="groupTitleContainer">
-            {first && (!groupAdminClicked ? <IconButton className="editButton" sx={{
-                backgroundColor: "#FF9999", color: "#fff", '&:hover': {
-                    backgroundColor: "#fa8072"
-                }
-            }} onClick={() => setGroupAdminClicked(!groupAdminClicked)}><EditOutlinedIcon fontSize="small" /></IconButton>
+            {first && (!groupAdminClicked ? <IconButton className="editButton" color="#FF9999" onClick={() => setGroupAdminClicked(!groupAdminClicked)}><EditOutlinedIcon fontSize="small" /></IconButton>
                 : <IconButton className="editButton" sx={{
                     backgroundColor: "#7D83FF", color: "#fff", '&:hover': {
                         backgroundColor: "#5f65d4"

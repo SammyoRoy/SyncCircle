@@ -58,19 +58,41 @@ const addUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     const groupId = req.params.groupid;
     const userId = req.params.userid;
-    const updatedGroup = await Group.findOneAndUpdate(
-        { group_id: groupId },
-        { $pull: { users: { user_id: userId } } },
-        { new: true }
-    );
-    if (updatedGroup) {
-        res.status(200).json({ success: true });
-    }
-    else {
+
+    const group = await Group.findOne({ group_id: groupId });
+
+    if (!group) {
         res.status(404);
         throw new Error('Group not found');
+        return;
     }
+
+    const user = group.users.find(user => user.user_id === userId);
+
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found in the group');
+        return;
+    }
+
+    const usernameToDelete = user.user_name;
+
+    const newMasterArray = group.master_array.map(row => 
+        row.map(col => col.filter(name => name !== usernameToDelete))
+    );
+
+    const updatedGroup = await Group.findOneAndUpdate(
+        { group_id: groupId },
+        {
+            $pull: { users: { user_id: userId } },
+            $set: { master_array: newMasterArray }
+        },
+        { new: true }
+    );
+
+    res.status(200).json({ success: true, users: updatedGroup.users });
 });
+
 
 // @desc   Fetch a user from a group
 // @route  GET /users/:groupid/:userid

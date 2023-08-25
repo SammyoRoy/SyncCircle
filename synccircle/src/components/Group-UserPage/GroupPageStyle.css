@@ -49,8 +49,8 @@ h6, h5 {
 
 .editButton{
     position: absolute;
-    right: -45%;
-    bottom: -20px;
+    right: -30px;
+    bottom: -10px;
     font-size: 1.5rem;
     max-height: 28px;
     max-width: 28px;

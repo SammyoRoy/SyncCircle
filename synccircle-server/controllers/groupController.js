@@ -167,6 +167,24 @@ const slotSize = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc   Update Name of Group
+// @route  POST /groups/:groupid
+// @access Public
+const updateName = asyncHandler(async (req, res) => {
+    const {name} = req.body;
+
+    const group = await Group.findOne({ group_id: req.params.groupId });
+    if (group) {
+        group.group_name = name;
+        const updatedGroup = await group.save();
+        res.status(200).json(updatedGroup);
+    }
+    else {
+        res.status(404);
+        throw new Error('Group not found');
+    }
+});
+
 module.exports = {
     getGroups,
     getGroupById,
@@ -177,6 +195,7 @@ module.exports = {
     allMembers,
     findMember,
     slot,
-    slotSize
+    slotSize,
+    updateName
 }
 
