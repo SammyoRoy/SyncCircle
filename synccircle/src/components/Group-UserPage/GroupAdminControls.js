@@ -7,7 +7,7 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { useNavigate } from 'react-router-dom';
 
 const GroupAdminControls = () => {
-    const { userId } = useContext(AppContext);
+    const { userId, groupId } = useContext(AppContext);
     const [users, setUsers] = useState([]);
     const [changedName, setChangedName] = useState('');
     const API_URL = process.env.REACT_APP_API_URL;
@@ -15,7 +15,7 @@ const GroupAdminControls = () => {
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-        axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`)
+        axios.get(`${API_URL}/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
             })
@@ -26,10 +26,9 @@ const GroupAdminControls = () => {
 
     const handleRemove = (userId) => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/users/${URL[URL.length - 1]}/${userId}`)
+        axios.delete(`${API_URL}/users/${groupId}/${userId}`)
             .then((response) => {
                 setUsers(response.data.users);
-                console.log(users);
             })
             .catch((error) => {
                 // handle the error
@@ -39,7 +38,7 @@ const GroupAdminControls = () => {
 
     const handleNameChange = () => {
         const URL = window.location.href.split("/");
-        axios.put(`${API_URL}/groups/${URL[URL.length - 1]}`, { name: changedName })
+        axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 setChangedName('');
                 
@@ -52,7 +51,7 @@ const GroupAdminControls = () => {
 
     const handleDelete = () => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/groups/${URL[URL.length - 1]}`)
+        axios.delete(`${API_URL}/groups/${groupId}`)
             .then((response) => {
                 navigate('/');
             })

@@ -173,11 +173,10 @@ const slotSize = asyncHandler(async (req, res) => {
 const updateName = asyncHandler(async (req, res) => {
     const {name} = req.body;
 
-    const group = await Group.findOne({ group_id: req.params.groupId });
+    const group = await Group.findOneAndUpdate({ group_id: req.params.groupId }, { group_name: name }, { new: true });
+
     if (group) {
-        group.group_name = name;
-        const updatedGroup = await group.save();
-        res.status(200).json(updatedGroup);
+        res.status(200).json({ success: true, group: group });
     }
     else {
         res.status(404);

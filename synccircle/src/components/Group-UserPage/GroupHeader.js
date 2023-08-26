@@ -6,7 +6,6 @@ import {AppContext} from '../../context/AppContext';
 
 function GroupHeader(){
     const { first, setGroupAdminClicked, groupAdminClicked} = useContext(AppContext);
-    console.log("first",first);
     return (
         <div className="GroupHeaderCard">
           {!groupAdminClicked? <><ShareLink /> 
