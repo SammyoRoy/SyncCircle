@@ -11,15 +11,16 @@ const {
     massChangeSlot
 } = require('../controllers/userController');
 
-router.route('/:groupid').get(getUsers).post(addUser);
+router.route('/book/:groupid/:userid').post(bookSlot);
+router.route('/unbook/:groupid/:userid').post(unbookSlot);
+router.route('/massbook/:groupid/:userid').post(massChangeSlot);
 
 router.route('/:groupid/:userid').get(getUser).delete(deleteUser);
 
-router.route('/book/:groupid/:userid').post(bookSlot);
+router.route('/:groupid').get(getUsers).post(addUser);
 
-router.route('/unbook/:groupid/:userid').post(unbookSlot);
+module.exports = router;
 
-router.route('/massbook/:groupid/:userid').post(massChangeSlot);
 
 
 

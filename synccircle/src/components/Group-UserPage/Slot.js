@@ -15,6 +15,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
 
   const replaceValueAt = (row, col, value) => {
     const newArray = [...userArray];
+    console.log(newArray);
     newArray[row] = [...newArray[row]];
     newArray[row][col] = value;
 
