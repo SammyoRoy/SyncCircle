@@ -7,9 +7,9 @@ import {AppContext} from '../../context/AppContext';
 function GroupHeader(){
     const { first, setGroupAdminClicked, groupAdminClicked} = useContext(AppContext);
     return (
-        <div className="GroupHeaderCard">
+        <div className={!groupAdminClicked? "GroupHeaderCard": "GroupHeaderCard AdminControlsHead"}>
           {!groupAdminClicked? <><ShareLink /> 
-          <DaysOfTheWeek styling={"GroupDOTWBar"} /></>: <div className='AdminControlsHeader'><h3>Admin Controls</h3></div>}
+          <DaysOfTheWeek styling={"GroupDOTWBar"} /></>: <div className='AdminControlsHeader' ><h3>Admin Controls</h3></div>}
         </div>
     )
   
