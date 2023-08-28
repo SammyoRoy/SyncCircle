@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue }) {
+function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, cellValue }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -101,7 +101,6 @@ function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPo
       <button className="Slot" style={{ backgroundColor: color }} type="button" onClick={() => {
         setPopupMatrixKey(matrixKey)
         setPopupColor(color)
-        setGroupSlotClicked(Math.random)
       }} data-toggle="modal" data-target="#groupModal">
         <div className={days.length >= 6? "SmallerContent": null}>
           {numAvail !== 0? numAvail: null}
