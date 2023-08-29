@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
+
 
 let dbConnect;
 
-const password = "SC>When2Not69Meet";
-const uri = `mongodb+srv://synccircleapp:${password}@synccircle.2zaulit.mongodb.net/SyncCircle?retryWrites=true&w=majority`
-
+const uri = process.env.MONGO_URI;
 const connectToDb = async () => {
     if (dbConnect) {
         return dbConnect;

@@ -12,10 +12,11 @@ function UserPage() {
   const [groupId, setGroupId] = useState("");
   const [userId, setUserId] = useState("");
   const [userSlot, setUserSlot] = useState("");
-  const [joinPressed, setJoinPressed] = useState(false);
   const [slotTried, setSlotTried] = useState(false);
   const [userArray, setUserArray] = useState([]);
   const [stopped, setStopped] = useState(false);
+  const [first, setFirst] = useState(false);
+  const [groupAdminClicked, setGroupAdminClicked] = useState(false);
 
   useEffect(() => {
     const groupIdFromUrl = window.location.pathname.split("/").pop();
@@ -28,7 +29,7 @@ function UserPage() {
   return (
     <div className="UserBase">
       <div className="UserScreenBackground">
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped }}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked}}>
           <UserTitle />
           <HeaderCard/>
           <Calendar />
