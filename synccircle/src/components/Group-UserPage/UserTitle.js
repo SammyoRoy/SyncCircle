@@ -5,12 +5,11 @@ import { AppContext } from "../../context/AppContext";
 function UserTitle() {
     const { groupId } = useContext(AppContext);
     const [eventName, setEventName] = useState("");
-    const API_URL = process.env.REACT_APP_API_URL;
 
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-         axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`)
+         axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`)
          .then((response) => {
              setEventName(response.data.group_name);
 

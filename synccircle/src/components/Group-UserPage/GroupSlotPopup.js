@@ -52,7 +52,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`${API_URL}/groups/allmem/${groupId}`).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/allmem/${groupId}`).then((response) => {
             setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);

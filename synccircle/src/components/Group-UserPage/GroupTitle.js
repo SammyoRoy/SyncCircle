@@ -9,7 +9,6 @@ import GroupIcon from '@mui/icons-material/Group'
 function GroupTitle() {
     const { groupId, first, groupAdminClicked, setGroupAdminClicked } = useContext(AppContext);
     const [eventName, setEventName] = useState("");
-    const API_URL = process.env.REACT_APP_API_URL;
 
 
     useEffect(() => {

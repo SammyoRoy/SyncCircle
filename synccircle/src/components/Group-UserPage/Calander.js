@@ -12,7 +12,6 @@ function Calendar() {
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
-  const API_URL = process.env.REACT_APP_API_URL;
   //const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const touchRef = useRef(null);
 
@@ -135,7 +134,7 @@ function Calendar() {
   useEffect(() => {
     if (isDragging === false && isSwiping === false && userArray !== undefined && userId !== "") {
       const sendSlots = async () => {
-        const response = await axios.post(`${API_URL}/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        const response = await axios.post(`https://backend.synccircle.net/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
       }
       sendSlots();
