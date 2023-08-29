@@ -32,7 +32,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             setShowPopup(true);
         }
         fetchData();
-    }, [matrixKey, API_URL, groupId]);
+    }, [matrixKey, API_URL, groupId, groupSlotClicked]);
 
     useEffect(() => {
         getMembers();
@@ -58,16 +58,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             console.error(error);
         });
     }
-    useEffect(() => {
-        fetchData();
-        setIsLoading(false);
-        setShowPopup(true);
-    }, [matrixKey, groupSlotClicked]);
-
-    useEffect(() => {
-        getMembers();
-    }, [row, col]);
-
+    
     useEffect(() => {
         const availableMembersArray = availableMembers.split(',');
         const allMembersArray = allMembers.split(',')
