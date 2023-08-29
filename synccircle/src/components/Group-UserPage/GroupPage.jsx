@@ -7,9 +7,10 @@ import Copy from "./copy.png";
 import GroupTitle from "./GroupTitle"
 import './GroupPageStyle.css';
 import GroupSlotPopup from './GroupSlotPopup';
+import GroupAdminControls from "./GroupAdminControls";
 
 function GroupPage() {
-  const { groupId, userId } = useContext(AppContext);
+  const { groupId, userId, groupAdminClicked } = useContext(AppContext);
   const [popupMatrixKey, setPopupMatrixKey] = useState(0);
   const [popupColor, setPopupColor] = useState("white");
   const [groupSlotClicked, setGroupSlotClicked] = useState(0);
@@ -33,7 +34,7 @@ function GroupPage() {
         </div>
         <div className="offcanvas-body">
           <GroupHeader />
-          <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} setGroupSlotClicked={setGroupSlotClicked}/>
+          {!groupAdminClicked? <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} setGroupSlotClicked={setGroupSlotClicked}/>: <GroupAdminControls />}
           {popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked}/>}
         </div>
       </div>

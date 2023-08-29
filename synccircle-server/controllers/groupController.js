@@ -121,7 +121,7 @@ const findMember = asyncHandler(async (req, res) => {
     if (group) {
         const user = group.users.find(user => user.user_name === userName);
         if (user) {
-            res.json(user.user_id);
+            res.status(200).json({user_id: user.user_id, users: group.users });
         }
         else {
             res.json("False");
@@ -167,6 +167,23 @@ const slotSize = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc   Update Name of Group
+// @route  POST /groups/:groupid
+// @access Public
+const updateName = asyncHandler(async (req, res) => {
+    const {name} = req.body;
+
+    const group = await Group.findOneAndUpdate({ group_id: req.params.groupId }, { group_name: name }, { new: true });
+
+    if (group) {
+        res.status(200).json({ success: true, group: group });
+    }
+    else {
+        res.status(404);
+        throw new Error('Group not found');
+    }
+});
+
 module.exports = {
     getGroups,
     getGroupById,
@@ -177,6 +194,7 @@ module.exports = {
     allMembers,
     findMember,
     slot,
-    slotSize
+    slotSize,
+    updateName
 }
 

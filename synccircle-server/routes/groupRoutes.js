@@ -11,12 +11,13 @@ const {
     allMembers,
     findMember,
     slot,
-    slotSize
+    slotSize,
+    updateName
 } = require('../controllers/groupController');
 
 router.route('/').get(getGroups).post(createGroup);
 
-router.route('/:groupId').get(getGroupById).delete(deleteGroup);
+router.route('/:groupId').get(getGroupById).delete(deleteGroup).put(updateName);
  
 
 router.route('/display/:groupId').get(displayGroup);
