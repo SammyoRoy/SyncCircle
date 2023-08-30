@@ -61,12 +61,12 @@ function Calendar() {
 
   useEffect(() => {
     async function fetchData() {
-        const URL = window.location.href.split("/");
-        const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
-        setDays(response.data.days);
-        setStart(response.data.start_time);
-        setEnd(response.data.end_time);
-        console.log(response.data);
+      const URL = window.location.href.split("/");
+      const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
+      setDays(response.data.days);
+      setStart(response.data.start_time);
+      setEnd(response.data.end_time);
+      console.log(response.data);
     }
     async function fetchUser() {
       if (groupId) {
@@ -154,32 +154,33 @@ function Calendar() {
   // Set CSS variables
 
   return (
-    <div className="CalendarGrid"
-      onTouchMove={handleTouchMove}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onMouseLeave={handleMouseUp}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      style={{ gridTemplateColumns, gridTemplateRows }}>
-      {/* Generate and render grid items */}
+    <div className="CalenderContainer">
+      <div className="CalendarGrid"
+        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onMouseLeave={handleMouseUp}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        style={{ gridTemplateColumns, gridTemplateRows }}>
+        {/* Generate and render grid items */}
 
-      {Array.from({ length: totalCells }, (_, index) => {
-        const row = Math.floor(index / (days.length + 1));
-        const col = index % (days.length + 1) - 1;
-        const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
-          ? userArray[row][col]
-          : 0;
+        {Array.from({ length: totalCells }, (_, index) => {
+          const row = Math.floor(index / (days.length + 1));
+          const col = index % (days.length + 1) - 1;
+          const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
+            ? userArray[row][col]
+            : 0;
 
-        return index % (days.length + 1) === 0 ? (
-          <TimeLabel
-            key={index}
-            currTimeIndex={(startIndex + row) % 24}
-          />
-        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} />
-        );
-      })}
-
+          return index % (days.length + 1) === 0 ? (
+            <TimeLabel
+              key={index}
+              currTimeIndex={(startIndex + row) % 24}
+            />
+          ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} />
+          );
+        })}
+      </div>
     </div>
   );
 }
