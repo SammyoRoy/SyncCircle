@@ -7,6 +7,7 @@ import SpecificDaysToggle from "./SpecificDaysToggle";
 import DaySelectionFrame from "./DaySelectionFrame";
 import CreateEventSubmitButton from "./CreateEventSubmitButton";
 import { AppContext } from "../../context/AppContext";
+import CalendarSelectionFrame from "./CalendarSelectionFrame";
 
 
 function CreateEventPage() {
@@ -19,6 +20,7 @@ function CreateEventPage() {
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
   const [isDaysOftheWeek, setIsDaysOftheWeek] = useState(false);
+  const [isCalendar, setIsCalendar] = useState(true);
 
   const handleEventNameChange = (value) => {
     setEventTrigger(false);
@@ -38,8 +40,9 @@ function CreateEventPage() {
             </svg>
             <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
           </div>
-          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek}/>
+          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek} setIsCalendar={setIsCalendar} isDaysOfTheWeek={isDaysOftheWeek}/>
           {isDaysOftheWeek && <DaySelectionFrame setDays={setDays} days={days} />}
+          {isCalendar && <CalendarSelectionFrame/>} 
         </div>
         <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
         </AppContext.Provider>

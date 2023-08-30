@@ -14,6 +14,7 @@ firebaseConfig.js
 
 # misc
 .env
+.env.development
 .DS_Store
 .env.local
 .env.development.local
