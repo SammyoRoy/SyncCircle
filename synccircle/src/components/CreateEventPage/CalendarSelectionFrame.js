@@ -11,7 +11,14 @@ const CalendarSelectionFrame = () => {
     console.log(date);
   return (
     <div className="DaySelectionFrame">
-        <Calender onChange={onChange} value={date} selectRange={true} tileClassName={"react-calendar-button"}/>
+        <Calender 
+          minDetail={"month"}
+          next2Label={null}
+          prev2Label={null}
+          onChange={onChange} 
+          value={date} 
+          selectRange={false} 
+          tileClassName={"react-calendar-button"}/>
     </div>
   )
 }
