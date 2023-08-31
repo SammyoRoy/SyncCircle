@@ -20,7 +20,6 @@ function CreateEventPage() {
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
   const [isDaysOftheWeek, setIsDaysOftheWeek] = useState(false);
-  const [isCalendar, setIsCalendar] = useState(true);
 
   const handleEventNameChange = (value) => {
     setEventTrigger(false);
@@ -40,9 +39,9 @@ function CreateEventPage() {
             </svg>
             <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
           </div>
-          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek} setIsCalendar={setIsCalendar} isDaysOfTheWeek={isDaysOftheWeek}/>
+          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek}/>
           {isDaysOftheWeek && <DaySelectionFrame setDays={setDays} days={days} />}
-          {isCalendar && <CalendarSelectionFrame/>} 
+          {!isDaysOftheWeek && <CalendarSelectionFrame/>} 
         </div>
         <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
         </AppContext.Provider>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 
-function SpecificDaysToggle({ setIsDaysOftheWeek, setIsCalendar, isDaysOfTheWeek }) {
+function SpecificDaysToggle({ setIsDaysOftheWeek, isDaysOfTheWeek }) {
     const [isToggled, setIsToggled] = useState(false);
     console.log(isToggled);
 
@@ -13,14 +13,10 @@ function SpecificDaysToggle({ setIsDaysOftheWeek, setIsCalendar, isDaysOfTheWeek
         if (isToggled) {
             setIsToggled(false);
             setIsDaysOftheWeek(false);
-            setIsCalendar(true);
-
-
         }
         else {
             setIsToggled(true)
             setIsDaysOftheWeek(true);
-            setIsCalendar(false);
         }
     };
 
@@ -32,8 +28,7 @@ function SpecificDaysToggle({ setIsDaysOftheWeek, setIsCalendar, isDaysOfTheWeek
                     defaultChecked={isToggled}
                     icons={false}
                     onChange={handleToggle} />
-                {!isDaysOfTheWeek && <span>Days of the Week</span>}
-                {isDaysOfTheWeek && <span>Calendar</span>}
+                <span>Days of the Week</span>
             </label>
         </div>
     )
