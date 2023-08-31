@@ -12,14 +12,13 @@ function Calendar() {
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
-  const API_URL = process.env.REACT_APP_API_URL;
   //const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const touchRef = useRef(null);
 
   const [calSocket, setCalSocket] = useState(null);
 
   useEffect(() => {
-    const socket = io(`${API_URL}`, { transports: ['websocket'] });
+    const socket = io(`https://backend.synccircle.net`, { transports: ['websocket'] });
     setCalSocket(socket);
   }, []);
 
@@ -62,7 +61,7 @@ function Calendar() {
   useEffect(() => {
     async function fetchData() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
@@ -71,7 +70,7 @@ function Calendar() {
     async function fetchUser() {
       if (groupId) {
         const URL = window.location.href.split("/");
-        const response = await axios.get(`${API_URL}/users/${groupId}/${userId}`);
+        const response = await axios.get(`https://backend.synccircle.net/users/${groupId}/${userId}`);
         setUserArray(response.data.availability_array);
       }
     }
@@ -135,7 +134,7 @@ function Calendar() {
   useEffect(() => {
     if (isDragging === false && isSwiping === false && userArray !== undefined && userId !== "") {
       const sendSlots = async () => {
-        const response = await axios.post(`${API_URL}/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        const response = await axios.post(`https://backend.synccircle.net/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
       }
       sendSlots();

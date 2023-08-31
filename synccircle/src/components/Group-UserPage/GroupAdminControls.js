@@ -10,12 +10,11 @@ const GroupAdminControls = () => {
     const { userId, groupId } = useContext(AppContext);
     const [users, setUsers] = useState([]);
     const [changedName, setChangedName] = useState('');
-    const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-        axios.get(`${API_URL}/groups/${groupId}`)
+        axios.get(`https://backend.synccircle.net/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
             })
@@ -26,7 +25,7 @@ const GroupAdminControls = () => {
 
     const handleRemove = (userId) => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/users/${groupId}/${userId}`)
+        axios.delete(`https://backend.synccircle.net/users/${groupId}/${userId}`)
             .then((response) => {
                 setUsers(response.data.users);
             })
@@ -38,7 +37,7 @@ const GroupAdminControls = () => {
 
     const handleNameChange = () => {
         const URL = window.location.href.split("/");
-        axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
+        axios.put(`https://backend.synccircle.net/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 setChangedName('');
                 
@@ -51,7 +50,7 @@ const GroupAdminControls = () => {
 
     const handleDelete = () => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/groups/${groupId}`)
+        axios.delete(`https://backend.synccircle.net/groups/${groupId}`)
             .then((response) => {
                 navigate('/');
             })

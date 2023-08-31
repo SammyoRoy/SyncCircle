@@ -16,11 +16,10 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     const [allMembers, setAllMembers] = useState("");
     const [unavailableMembers, setUnavailableMembers] = useState("");
     const [showPopup, setShowPopup] = useState(false);
-    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get(`${API_URL}/groups/${groupId}`);
+            const response = await axios.get(`https://backend.synccircle.net/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
             setDays(daysData);
             setStartTime(response.data.start_time);
@@ -32,11 +31,11 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             setShowPopup(true);
         }
         fetchData();
-    }, [matrixKey, API_URL, groupId, groupSlotClicked]);
+    }, [matrixKey, groupId, groupSlotClicked]);
 
     useEffect(() => {
         getMembers();
-    }, [row, col, API_URL, groupId]);
+    }, [row, col, groupId]);
 
     useEffect(() => {
         const availableMembersArray = availableMembers.split(',').map(x => x.trim());
@@ -47,12 +46,12 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     }, [availableMembers, allMembers]);
 
     const getMembers = () => {
-        axios.get(`${API_URL}/groups/slot/${groupId}`, { params: { row: row, col: col } }).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/slot/${groupId}`, { params: { row: row, col: col } }).then((response) => {
             setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
             console.error(error);
         });
-        axios.get(`${API_URL}/groups/allmem/${groupId}`).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/allmem/${groupId}`).then((response) => {
             setAllMembers(response.data.toString());
         }).catch((error) => {
             console.error(error);
