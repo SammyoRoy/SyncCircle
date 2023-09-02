@@ -17,7 +17,9 @@ const CalendarSelectionFrame = () => {
           prev2Label={null}
           onChange={onChange} 
           value={date} 
-          selectRange={false} 
+          selectRange={true} 
+          minDate={new Date()}
+          
           tileClassName={"react-calendar-button"}/>
     </div>
   )

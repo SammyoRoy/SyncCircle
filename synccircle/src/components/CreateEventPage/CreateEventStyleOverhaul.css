@@ -186,6 +186,11 @@ body {
     color: white !important;
 }
 
+.react-calendar__tile:disabled{
+    background-color: transparent !important;
+    color: #DC143C !important;;
+}
+
 
 
 
