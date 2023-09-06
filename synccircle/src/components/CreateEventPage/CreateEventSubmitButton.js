@@ -6,9 +6,10 @@ import { AppContext } from "../../context/AppContext";
 function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
     const nav = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
-    const { setEventTrigger, setDayTrigger} = useContext(AppContext);
+    const { setEventTrigger, setDayTrigger, setEventName} = useContext(AppContext);
     const handleEventTrigger = () => {
       setEventTrigger(true);
+      setEventName("");
       setTimeout(() => {
         setEventTrigger(false);
       }, 2000);
@@ -30,6 +31,10 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
         {
           handleDayTrigger();
         }
+        return;
+      }
+      if (eventName.length > 30){
+        handleEventTrigger();
         return;
       }
       event.preventDefault();

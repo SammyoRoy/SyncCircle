@@ -12,6 +12,7 @@ function Calendar() {
   const [end, setEnd] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
+  const [initialCellValue, setInitialCellValue] = useState(0);
   const API_URL = process.env.REACT_APP_API_URL;
   //const [currTimeIndex, setCurrTimeIndex] = useState(0);
   const touchRef = useRef(null);
@@ -137,9 +138,12 @@ function Calendar() {
       const sendSlots = async () => {
         const response = await axios.post(`${API_URL}/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
+
       }
       sendSlots();
+      setInitialCellValue(0);
     }
+    setInitialCellValue(1);
   }, [isDragging, isSwiping]);
 
   const numRows = endIndex >= startIndex
@@ -177,7 +181,7 @@ function Calendar() {
               key={index}
               currTimeIndex={(startIndex + row) % 24}
             />
-          ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} />
+          ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} initialCellValue={initialCellValue}/>
           );
         })}
       </div>

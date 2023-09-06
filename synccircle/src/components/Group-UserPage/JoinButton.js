@@ -34,6 +34,10 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const onSubmit = (event) => {
     event.preventDefault();
     if (userName !== "" && groupId !== "" && days !== [] && startTime !== "" && endTime !== "") {
+      if (userName.length > 20) {
+        setEmptyInput(true);
+        return;
+      }
       axios.get(`${API_URL}/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {

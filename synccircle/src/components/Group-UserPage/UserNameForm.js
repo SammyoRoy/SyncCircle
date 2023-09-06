@@ -30,8 +30,8 @@ function UserNameForm() {
       <input
         type="text"
         className={`UserNameForm ${isEmptyInput || slotTried ? "is-invalid" : ""}`}
-        placeholder={isEmptyInput || slotTried ? "Enter a Valid Username" : "Username"}
-        value={userName}
+        placeholder={isEmptyInput || slotTried ? "Enter a Valid Username (20 Char Max)" : "Username"}
+        value={isEmptyInput && userName? "" : userName}
         onChange={(e) => setUserName(e.target.value)}
         disabled={isSubmitted}
       />
