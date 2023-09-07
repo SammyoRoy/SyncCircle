@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { Button } from '@mui/material';
+import { Calendar } from "react-multi-date-picker"
 
 const CalendarSelectionFrame = () => {
-  const [dateRanges, setDateRanges] = useState([]);
+  /*const [dateRanges, setDateRanges] = useState([]);
 
   const onChange = (date) => {
     if (dateRanges.includes(date)) {
@@ -30,22 +29,15 @@ const CalendarSelectionFrame = () => {
     return view === 'month' && isDateInRanges(date) ? <div className='calendar-range' /> : null;
   };
 
-  console.log(dateRanges);
+  console.log(dateRanges); */
 
   return (
     <div className="DaySelectionFrame">
       <Calendar
-        minDetail={"month"}
-        next2Label={null}
-        prev2Label={null}
-        onChange={onChange}
-        value={dateRanges.flat()} 
-        selectRange={true}
-        minDate={new Date()}
-        tileClassName={"react-calendar-button"}
-        tileContent={tileContent}
+        range
+        multiple
       />
-      <Button onClick={onClear}>Clear</Button>
+      
     </div>
   );
 };
