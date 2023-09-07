@@ -137,63 +137,57 @@ body {
     gap: 5%;
 }
 
-.react-calendar {
-    font-family: 'Poppins', sans-serif;
-    border-radius: 15px;
+.rmdp-wrapper {
+    border-radius: 30px !important;
     border: 2px solid #297045 !important;
-    width: 100%;
-    max-height: 100%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    background: #F7F7F7 !important;
-    overflow-y: auto;
+    font-family: 'Poppins', sans-serif !important;
 }
 
-.react-calendar__tile {
-    transition: background-color 0.2s;
-    border-radius: 50%; 
-    height: 40px; 
-    width: 40px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important; 
-    box-sizing: border-box; 
-}
-.react-calendar__tile--now {
-    background: lightblue !important;
+.rmdp-header{
+    font-weight: 600;
 }
 
+.rmdp-arrow{
+    border: solid #297045 !important;
+    border-width: 0 2px 2px 0 !important;
+}
 
-.react-calendar__month-view__days__day--weekend{
+.rmdp-arrow-container:hover{
+    background-color: #5AD85F !important;
+
+}
+
+.rmdp-week-day{
+    font-weight: 400;
     color: #297045 !important;
 }
 
-.react-calendar__month-view__days__day--neighboringMonth{
-    color: #757575 !important;
+.rmdp-day span:hover {
+    background-color: #5AD85F!important;
+    color: #fff !important;
 }
 
-.react-calendar__tile:hover {
-    background-color: #e9e9e9;
+.rmdp-day.rmdp-today span {
+    background-color: #a1a1a1 !important;
+    color: #fff !important;
 }
 
-.react-calendar-button{
-    font-family: 'Poppins', sans-serif;
-    color:#297045;
+.rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: #5AD85F !important;
 }
 
-.react-calendar__tile--active {
-    background-color: #297045 !important;
-    color: white !important;
+.rmdp-range{
+    background-color: #5AD85F !important;
 }
 
-.react-calendar__tile:disabled{
-    background-color: transparent !important;
-    color: #DC143C !important;;
-}
+.CalendarSelectionFrame {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 65%;
+    gap: 10px;
+    align-items: center;
 
-.calendar-range{
-    background-color: #297045 !important;
-    color: white !important;
 }
 
 
