@@ -39,9 +39,9 @@ function CreateEventPage() {
             </svg>
             <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
           </div>
-          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek}/>
+          <SpecificDaysToggle isDaysOftheWeek={isDaysOftheWeek} setIsDaysOftheWeek={setIsDaysOftheWeek} setDays={setDays}/>
           {isDaysOftheWeek && <DaySelectionFrame setDays={setDays} days={days} />}
-          {!isDaysOftheWeek && <CalendarSelectionFrame/>} 
+          {!isDaysOftheWeek && <CalendarSelectionFrame days={days} setDays={setDays}/>} 
         </div>
         <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
         </AppContext.Provider>

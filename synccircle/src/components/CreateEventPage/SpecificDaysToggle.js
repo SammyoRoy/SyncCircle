@@ -5,17 +5,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 
-function SpecificDaysToggle({ setIsDaysOftheWeek, isDaysOfTheWeek }) {
+function SpecificDaysToggle({ setIsDaysOftheWeek, isDaysOfTheWeek, setDays }) {
     const [isToggled, setIsToggled] = useState(false);
     console.log(isToggled);
 
     const handleToggle = () => {
         if (isToggled) {
             setIsToggled(false);
+            setDays([]);
             setIsDaysOftheWeek(false);
         }
         else {
             setIsToggled(true)
+            setDays([]);
             setIsDaysOftheWeek(true);
         }
     };
