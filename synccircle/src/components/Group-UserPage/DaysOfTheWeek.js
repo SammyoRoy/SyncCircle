@@ -10,8 +10,19 @@ function DaysOfTheWeek({ styling }) {
   useEffect(() => {
     async function fetchData() {
       const daysData = await GetDays();
-      const sortedDaysData = sortDays(daysData);
-      setDays(sortedDaysData);
+      console.log(daysData);
+      if (daysData[0] == "isDaysOftheWeek"){
+        daysData.shift(); //remove isDaysOftheWeek from the array
+        const sortedDaysData = sortDays(daysData);
+        setDays(sortedDaysData);
+      }
+      else{
+        const extractedDays = [];
+        for (let i = 1; i < daysData.length; i+=2) {
+          extractedDays.push(daysData[i]);
+        }
+        setDays(extractedDays); // Set the state with the extracted days
+      }
     }
 
     fetchData();

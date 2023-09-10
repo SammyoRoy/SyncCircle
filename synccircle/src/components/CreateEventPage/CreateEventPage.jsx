@@ -43,7 +43,7 @@ function CreateEventPage() {
           {isDaysOftheWeek && <DaySelectionFrame setDays={setDays} days={days} />}
           {!isDaysOftheWeek && <CalendarSelectionFrame days={days} setDays={setDays}/>} 
         </div>
-        <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
+        <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} isDaysOftheWeek={isDaysOftheWeek} />
         </AppContext.Provider>
       </div>
     </div>

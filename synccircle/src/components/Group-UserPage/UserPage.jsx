@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import './UserPageOverhaul.css';
 import HeaderCard from "./HeaderCard";
-import Calendar from "./Calander";
+import Calendar from "./Calender";
 import GroupPageButton from "./GroupPageButton";
 
 import UserTitle from "./UserTitle";

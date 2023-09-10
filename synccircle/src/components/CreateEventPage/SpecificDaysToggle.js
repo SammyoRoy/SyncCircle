@@ -7,7 +7,6 @@ import { AppContext } from "../../context/AppContext";
 
 function SpecificDaysToggle({ setIsDaysOftheWeek, isDaysOfTheWeek, setDays }) {
     const [isToggled, setIsToggled] = useState(false);
-    console.log(isToggled);
 
     const handleToggle = () => {
         if (isToggled) {
@@ -17,7 +16,7 @@ function SpecificDaysToggle({ setIsDaysOftheWeek, isDaysOfTheWeek, setDays }) {
         }
         else {
             setIsToggled(true)
-            setDays([]);
+            setDays(["isDaysOftheWeek"]);
             setIsDaysOftheWeek(true);
         }
     };
