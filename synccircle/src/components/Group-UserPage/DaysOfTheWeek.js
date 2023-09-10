@@ -5,6 +5,8 @@ import DayLabels from "./DayLabels";
 
 function DaysOfTheWeek({ styling }) {
   const [days, setDays] = useState([]);
+  const [dates, setDates] = useState([]);
+  const [DaysOfTheWeek, setDaysOfTheWeek] = useState(false);
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
 
   useEffect(() => {
@@ -13,14 +15,20 @@ function DaysOfTheWeek({ styling }) {
       console.log(daysData);
       if (daysData[0] == "isDaysOftheWeek"){
         daysData.shift(); //remove isDaysOftheWeek from the array
+        setDaysOfTheWeek(true);
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
       }
       else{
         const extractedDays = [];
+        const extractedDates = [];
         for (let i = 1; i < daysData.length; i+=2) {
           extractedDays.push(daysData[i]);
         }
+        for (let i = 0; i < daysData.length; i+=2) {
+          extractedDates.push(convertDateString(daysData[i]));
+        }
+        setDates(extractedDates); // Set the state with the extracted dates
         setDays(extractedDays); // Set the state with the extracted days
       }
     }
@@ -38,7 +46,10 @@ function DaysOfTheWeek({ styling }) {
     <div className={styling} style={{ gridTemplateColumns }}>
       <ScrollIcon />
       {days.map((day, index) => (
+        <div>
         <DayLabels key={index} day={day} length={days.length} />
+        {!DaysOfTheWeek && <div className="dateLabel">{dates[index]}</div>}
+        </div>
       ))}
     </div>
   );
@@ -55,6 +66,27 @@ async function GetDays() {
     console.error(error);
     return [];
   }
+}
+
+function convertDateString(dateStr) {
+  const months = {
+    Jan: 1,
+    Feb: 2,
+    Mar: 3,
+    Apr: 4,
+    May: 5,
+    Jun: 6,
+    Jul: 7,
+    Aug: 8,
+    Sep: 9,
+    Oct: 10,
+    Nov: 11,
+    Dec: 12
+  };
+
+  const [monthStr, day] = dateStr.split(" ");
+  const month = months[monthStr];
+  return `${month}/${day}`;
 }
 
 export default DaysOfTheWeek;

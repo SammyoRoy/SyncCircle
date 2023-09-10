@@ -1,10 +1,10 @@
 import React from 'react';
 
 function DayLabels({ day }){
-    const twoChar = day.substring(0, 2);
+    const threeChar = day.substring(0, 3);
 
     return (
-      <div className="DayLabel"> {twoChar} </div>
+      <div className="DayLabel"> {threeChar} </div>
     )
   }
 
