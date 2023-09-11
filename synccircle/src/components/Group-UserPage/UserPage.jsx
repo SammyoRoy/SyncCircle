@@ -16,6 +16,7 @@ function UserPage() {
   const [slotTried, setSlotTried] = useState(false);
   const [userArray, setUserArray] = useState([]);
   const [stopped, setStopped] = useState(false);
+  const [isDaysOfTheWeek, setIsDaysOfTheWeek] = useState(false);
 
   useEffect(() => {
     const groupIdFromUrl = window.location.pathname.split("/").pop();
@@ -28,7 +29,7 @@ function UserPage() {
   return (
     <div className="UserBase">
       <div className="UserScreenBackground">
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped }}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, isDaysOfTheWeek, setIsDaysOfTheWeek }}>
           <UserTitle />
           <HeaderCard/>
           <Calendar />

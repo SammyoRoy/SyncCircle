@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ScrollIcon from "./ScrollIcon";
 import DayLabels from "./DayLabels";
+import { AppContext } from "../../context/AppContext";
 
 function DaysOfTheWeek({ styling }) {
+  const {isDaysOfTheWeek, setIsDaysOfTheWeek} = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [dates, setDates] = useState([]);
-  const [DaysOfTheWeek, setDaysOfTheWeek] = useState(false);
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
 
   useEffect(() => {
@@ -15,7 +16,7 @@ function DaysOfTheWeek({ styling }) {
       console.log(daysData);
       if (daysData[0] == "isDaysOftheWeek"){
         daysData.shift(); //remove isDaysOftheWeek from the array
-        setDaysOfTheWeek(true);
+        setIsDaysOfTheWeek(true);
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
       }
@@ -48,7 +49,7 @@ function DaysOfTheWeek({ styling }) {
       {days.map((day, index) => (
         <div>
         <DayLabels key={index} day={day} length={days.length} />
-        {!DaysOfTheWeek && <div className="dateLabel">{dates[index]}</div>}
+        {!isDaysOfTheWeek && <div className="dateLabel">{dates[index]}</div>}
         </div>
       ))}
     </div>

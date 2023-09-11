@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import { Socket } from "engine.io-client";
 
 function Calendar() {
-  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot } = useContext(AppContext);
+  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot, isDaysOfTheWeek, setIsDaysOfTheWeek } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -64,6 +64,16 @@ function Calendar() {
       const URL = window.location.href.split("/");
       const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
+      if (response.data.days[0] === "isDaysOftheWeek") {
+        setDays(response.data.days.slice(1)); 
+      }
+      else{
+        const extractedDays = [];
+        for (let i = 1; i < response.data.days.length; i+=2) {
+          extractedDays.push(response.data.days[i]);
+        }
+        setDays(extractedDays);
+      }
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
       console.log(response.data);
@@ -79,21 +89,6 @@ function Calendar() {
   }, [userId]);
 
   useEffect(() => {
-    /*function convertTimeToIndex(time) {
-      const [hourMinute, period] = time.split(' ');
-      const [hour] = hourMinute.split(':');
-      let parsedHour = parseInt(hour, 10);
-
-      if (period === "PM" && parsedHour < 12) {
-        parsedHour += 12;
-      }
-
-      if (period === "AM" && parsedHour === 12) {
-        parsedHour = 0;
-      }
-
-      return (parsedHour - 6);
-    }*/
 
     function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');
@@ -115,7 +110,6 @@ function Calendar() {
         '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM'
       ];
     
-      // Find the index of the parsed time in the timeOptions array
       const index = timeOptions.findIndex(option => option === time);
     
       return index;
@@ -148,7 +142,7 @@ function Calendar() {
 
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-  const totalCells = (days.length +1) * (numRows);
+  const totalCells = (days.length+1) * (numRows);
 
   // Set CSS variables
 
