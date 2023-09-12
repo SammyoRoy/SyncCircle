@@ -4,10 +4,9 @@ import Slot from "./Slot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
-import { Socket } from "engine.io-client";
 
 function Calendar() {
-  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot, isDaysOfTheWeek, setIsDaysOfTheWeek } = useContext(AppContext);
+  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -18,9 +17,9 @@ function Calendar() {
 
   const [calSocket, setCalSocket] = useState(null);
 
-  useEffect( () => {
-      const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
-      setCalSocket(socket);
+  useEffect(() => {
+    const socket = io('https://backend.synccircle.net', { transports: ['websocket'] });
+    setCalSocket(socket);
   }, []);
 
 
@@ -51,7 +50,7 @@ function Calendar() {
       setTouchPosition({ x: touch.clientX, y: touch.clientY });
     }
   };
-  
+
   const handleTouchEnd = () => {
     setIsSwiping(false);
     setTouchPosition(null);
@@ -65,11 +64,11 @@ function Calendar() {
       const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       if (response.data.days[0] === "isDaysOftheWeek") {
-        setDays(response.data.days.slice(1)); 
+        setDays(response.data.days.slice(1));
       }
-      else{
+      else {
         const extractedDays = [];
-        for (let i = 1; i < response.data.days.length; i+=2) {
+        for (let i = 1; i < response.data.days.length; i += 2) {
           extractedDays.push(response.data.days[i]);
         }
         setDays(extractedDays);
@@ -94,24 +93,24 @@ function Calendar() {
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
       let parsedHour = parseInt(hour, 10);
-    
+
       if (period === "PM" && parsedHour < 12) {
         parsedHour += 12;
       }
-    
+
       if (period === "AM" && parsedHour === 12) {
         parsedHour = 0;
       }
-    
+
       const timeOptions = [
         '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
         '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
         '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
         '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM'
       ];
-    
+
       const index = timeOptions.findIndex(option => option === time);
-    
+
       return index;
     }
 
@@ -122,11 +121,10 @@ function Calendar() {
 
     setStartIndex(startTimeIndex);
     setEndIndex(endTimeIndex);
-  }, [start, end]); 
+  }, [start, end]);
 
   useEffect(() => {
-    if (isDragging === false  && isSwiping === false && userArray !== undefined && userId !== "")
-    {
+    if (isDragging === false && isSwiping === false && userArray !== undefined && userId !== "") {
       const sendSlots = async () => {
         const response = await axios.post(`https://backend.synccircle.net/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
@@ -136,45 +134,66 @@ function Calendar() {
   }, [isDragging, isSwiping]);
 
   const numRows = endIndex >= startIndex
-  ? endIndex - startIndex + 1
-  : endIndex + 24 - startIndex + 1;
+    ? endIndex - startIndex + 1
+    : endIndex + 24 - startIndex + 1;
 
 
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-  const totalCells = (days.length+1) * (numRows);
+  const totalCells = (days.length + 1) * (numRows);
 
   // Set CSS variables
 
   return (
-    <div className="CalendarGrid"
-      onTouchMove={handleTouchMove}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onMouseLeave={handleMouseUp}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      style={{ gridTemplateColumns, gridTemplateRows }}>
-      {/* Generate and render grid items */}
+    <div className="CalendarContainer">
+      <div className="TimeLabelContainer">
+        {Array.from({ length: numRows }, (_, index) => {
+          return (
+            <TimeLabel
+              key={index}
+              currTimeIndex={(startIndex + index) % 24}
+            />
+          );
+        })}
+      </div>
+      <div
+        className="CalendarGrid"
+        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onMouseLeave={handleMouseUp}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        style={{ gridTemplateColumns, gridTemplateRows }}>
+        {/* Generate and render grid items */}
+        {Array.from({ length: totalCells}, (_, index) => {
+          if (index % (days.length + 1) === 0) {
+            return null;
+          }
 
-      {Array.from({ length: totalCells }, (_, index) => {
-        const row = Math.floor(index / (days.length + 1));
-        const col = index % (days.length + 1) - 1;
-        const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
-          ? userArray[row][col]
-          : 0;
+          const row = Math.floor(index / (days.length + 1));
+          const col = index % (days.length + 1);
+          const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
+            ? userArray[row][col]
+            : 0;
 
-        return index % (days.length + 1) === 0 ? (
-          <TimeLabel
-            key={index}
-            currTimeIndex = {(startIndex + row) % 24}
-          />
-        ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket}/>
-        );
-      })}
-
+          return (
+            <Slot
+              key={index + numRows}
+              matrixKey={index + numRows}
+              days={days}
+              dragging={isDragging}
+              swiping={isSwiping}
+              touchPosition={touchPosition}
+              cellValue={cellValue}
+              socket={calSocket}
+            />
+          );
+        })}
+      </div>
     </div>
   );
+
 }
 
 export default Calendar;

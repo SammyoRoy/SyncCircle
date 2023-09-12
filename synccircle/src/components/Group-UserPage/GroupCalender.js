@@ -33,6 +33,16 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       const URL = window.location.href.split("/");
       const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
+      if (response.data.days[0] === "isDaysOftheWeek") {
+        setDays(response.data.days.slice(1)); 
+      }
+      else{
+        const extractedDays = [];
+        for (let i = 1; i < response.data.days.length; i+=2) {
+          extractedDays.push(response.data.days[i]);
+        }
+        setDays(extractedDays);
+      }
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
       setMasterArray(response.data.master_array);
