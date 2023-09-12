@@ -147,7 +147,7 @@ function Calendar() {
   return (
     <div className="CalendarContainer">
       <div className="TimeLabelContainer">
-        {Array.from({ length: numRows }, (_, index) => {
+        {Array.from({ length: numRows+1 }, (_, index) => {
           return (
             <TimeLabel
               key={index}
