@@ -138,7 +138,7 @@ function Calendar() {
     : endIndex + 24 - startIndex + 1;
 
 
-  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+  const gridTemplateColumns = `repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
   const totalCells = (days.length + 1) * (numRows);
 
@@ -147,7 +147,7 @@ function Calendar() {
   return (
     <div className="CalendarContainer">
       <div className="TimeLabelContainer">
-        {Array.from({ length: numRows+1 }, (_, index) => {
+        {Array.from({ length: numRows}, (_, index) => {
           return (
             <TimeLabel
               key={index}

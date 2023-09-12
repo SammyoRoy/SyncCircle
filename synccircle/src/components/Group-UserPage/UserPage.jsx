@@ -20,18 +20,18 @@ function UserPage() {
 
   useEffect(() => {
     const groupIdFromUrl = window.location.pathname.split("/").pop();
-    if (groupIdFromUrl !== ""){
+    if (groupIdFromUrl !== "") {
       setGroupId(groupIdFromUrl);
     }
   }, []); // Empty dependency array to run only once
-  
+
 
   return (
     <div className="UserBase">
       <div className="UserScreenBackground">
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, isDaysOfTheWeek, setIsDaysOfTheWeek }}>
           <UserTitle />
-          <HeaderCard/>
+          <HeaderCard />
           <Calendar />
         </AppContext.Provider>
       </div>
