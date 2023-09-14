@@ -4,8 +4,8 @@ import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import io from 'socket.io-client';
 
-function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
-  const { groupId, setUserId, userId, setFirst, setUsers, users } = useContext(AppContext);
+function JoinButton({updateJoined, updateSubmitted}) {
+  const { groupId, setUserId, userId, setFirst, userName, setEmptyInput} = useContext(AppContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");

@@ -5,11 +5,9 @@ import GroupPageButtonCircle from "./GroupPageButtonCircle";
 import { AppContext } from "../../context/AppContext";
 
 function UserNameForm() {
-  const { slotTried, setSlotTried } = useContext(AppContext);
-  const [userName, setUserName] = useState("");
+  const { slotTried, setSlotTried, userName, setUserName, isEmptyInput, setEmptyInput} = useContext(AppContext);
   const [hasJoined, setJoined] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
-  const [isEmptyInput, setEmptyInput] = useState(false);
 
   useEffect(() => {
     if (slotTried) {
@@ -29,9 +27,9 @@ function UserNameForm() {
       <GroupPageButtonCircle joined={hasJoined} />
       <input
         type="text"
-        className={`UserNameForm ${isEmptyInput || slotTried ? "is-invalid" : ""}`}
-        placeholder={isEmptyInput || slotTried ? "Enter a Valid Username (20 Char Max)" : "Username"}
-        value={isEmptyInput && userName? "" : userName}
+        className={`UserNameForm`}
+        placeholder="Username"
+        value={userName}
         onChange={(e) => setUserName(e.target.value)}
         disabled={isSubmitted}
       />
