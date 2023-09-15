@@ -1,8 +1,8 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket, initialCellValue}) {
-  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped} = useContext(AppContext);
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket, initialCellValue }) {
+  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
@@ -39,6 +39,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
 
   useEffect(() => {
     if (swiping && touchPosition) {
+
       handleSwipe();
     }
   }, [touchPosition, swiping]);
@@ -59,21 +60,21 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         touchPosition.y <= buttonRect.bottom
       ) {
         setIsModified(true);
-        setSelected(initialCellValue === 1 ? false : true);
-        setStyle(initialCellValue === 1 ? "UnselectedSlot" : "SelectedSlot");
-        replaceValueAt(row, col, initialCellValue === 1 ? 0 : 1);
-        
-        if (initialCellValue === 1){
-          socket.emit('unbooked', matrixKey, groupId);
-        } else {
+        setSelected(dragValue === 1);
+        setStyle(dragValue === 1 ? "SelectedSlot" : "UnselectedSlot");
+        replaceValueAt(row, col, dragValue);
+
+        if (dragValue === 1) {
           socket.emit('booked', matrixKey, groupId);
+        } else {
+          socket.emit('unbooked', matrixKey, groupId);
         }
       }
     }
   };
-  
+
   const handleTouch = (e) => {
-    if (swiping && !isModifed) {
+    if (!isModifed && swiping) {
       const touch = e.touches[0] || e.changedTouches[0];
       const touchX = touch.clientX;
       const touchY = touch.clientY;
@@ -85,20 +86,24 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         touchY >= buttonRect.top &&
         touchY <= buttonRect.bottom
       ) {
-        setSelected(initialCellValue === 1 ? false : true);
-        setStyle(initialCellValue === 1 ? "UnselectedSlot" : "SelectedSlot");
-        replaceValueAt(row, col, initialCellValue === 1 ? 0 : 1);
+        const newDragValue = cellValue === 1 ? 0 : 1;
+        setDragValue(newDragValue);
+        setSelected(newDragValue === 1);
+        setStyle(newDragValue === 1 ? "SelectedSlot" : "UnselectedSlot");
+        replaceValueAt(row, col, newDragValue);
         setIsModified(true);
   
-        if (initialCellValue === 1){
-          socket.emit('unbooked', matrixKey, groupId);
-        } else {
+        if (newDragValue === 1) {
           socket.emit('booked', matrixKey, groupId);
+        } else {
+          socket.emit('unbooked', matrixKey, groupId);
         }
       }
     }
   };
   
+  
+
 
 
 
@@ -132,19 +137,15 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       return;
     }
     setSlotTried(false);
-
-    if (isSelected) {
-      setSelected(false);
-      setStyle("UnselectedSlot");
-      replaceValueAt(row, col, 0);
-      socket.emit('unbooked', matrixKey, groupId);
-
-    } else {
-      setSelected(true);
-      setStyle("SelectedSlot");
-
-      replaceValueAt(row, col, 1);
+  
+    setSelected(dragValue === 1);
+    setStyle(dragValue === 1 ? "SelectedSlot" : "UnselectedSlot");
+    replaceValueAt(row, col, dragValue);
+  
+    if (dragValue === 1) {
       socket.emit('booked', matrixKey, groupId);
+    } else {
+      socket.emit('unbooked', matrixKey, groupId);
     }
   };
 
@@ -154,6 +155,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       return;
     }
     setSlotTried(false);
+    setDragValue(cellValue === 1 ? 0 : 1);
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");

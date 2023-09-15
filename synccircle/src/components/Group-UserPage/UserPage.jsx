@@ -21,6 +21,7 @@ function UserPage() {
   const [initialCellValue, setInitialCellValue] = useState(false);
   const [userName, setUserName] = useState("");
   const [isEmptyInput, setEmptyInput] = useState(false);
+  const [dragValue, setDragValue] = useState(0);
 
   useEffect(() => {
     const groupIdFromUrl = window.location.pathname.split("/").pop();
@@ -52,7 +53,7 @@ function UserPage() {
         {alertMessages.length > 0 &&<div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput}}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue}}>
           <UserTitle />
           <HeaderCard/>
           <Calendar />
