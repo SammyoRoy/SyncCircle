@@ -32,7 +32,7 @@ function UserPage() {
   let alertMessages = [];
   if(isEmptyInput) {
     if (userName.length > 20){
-      alertMessages.push("Name must be under 20 characters");
+      alertMessages.push("Name Must Be Under 20 Characters");
     }
     else{
       alertMessages.push("Please Enter Your Name");
@@ -40,7 +40,7 @@ function UserPage() {
   }
 
   if(slotTried) {
-    alertMessages.push("Please Enter Name Before Selecting Slot");
+    alertMessages.push("Please Enter Your Name And Join Before Selecting Slot");
     setTimeout(() => {
       setSlotTried(false);
     },2000);
@@ -50,7 +50,7 @@ function UserPage() {
     <div className="UserBase">
       <div className="UserScreenBackground">
         {alertMessages.length > 0 &&<div className="alert-container">
-          <Alert severity="error">{alertMessages}</Alert>
+          <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput}}>
           <UserTitle />

@@ -28,14 +28,14 @@ function CreateEventPage() {
   let alertMessages = [];
   if(eventTrigger) {
     if(eventName.length >= 30) {
-      alertMessages.push("Event Name must be under 30 characters");
+      alertMessages.push("Event Name Must Be Under 30 Characters");
     }
     if(eventName === "") {
       alertMessages.push("Please Enter Event Name");
     }
   }
   if(dayTrigger) {
-    alertMessages.push("Please Select at least one day");
+    alertMessages.push("Please Select At Least One Day");
   }
   return (
     <div className="Base">
