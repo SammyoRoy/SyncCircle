@@ -63,7 +63,6 @@ body {
     margin-top: 2%;
     height: auto;
     flex-grow: 0;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
 
@@ -262,6 +261,13 @@ body {
     
 }
 
+.DayLabelContainer {
+    background-color: #e6e6e6;
+    width: 100%;
+    box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+}
+
 .CalendarContainer {
     display: flex;
     align-items: flex-start;
@@ -289,7 +295,7 @@ body {
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(24, 1fr);
     flex-grow: 1;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     place-items: center;
     overflow-x: auto;
 }
@@ -353,6 +359,17 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 60px;
+}
+
+.ScrollIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    background-color: #e6e6e6;
+    border: none;
+    box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    z-index: 10;
 }
 
 @media only screen and (max-width: 1300px){

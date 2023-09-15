@@ -9,7 +9,6 @@ function HeaderCard(){
     return (
         <div className="HeaderCard">
           <UserNameForm/>
-          <DaysOfTheWeek styling={"DOTWBar"}/>
         </div>
     )
   

@@ -10,8 +10,8 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   const buttonRef = useRef(null);
   const cols = days.length;
 
-  const row = Math.floor(matrixKey / (cols + 1));
-  const col = matrixKey - (row * (cols + 1)) - 1;
+  const row = Math.floor(matrixKey / (cols));
+  const col = matrixKey - (row * (cols));
 
   const replaceValueAt = (row, col, value) => {
     const newArray = [...userArray];
@@ -187,6 +187,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       onTouchMove={handleTouch}
       onTouchEnd={handleTouchEnd}
       type="button"
+      
     ></button>
   )
 }
