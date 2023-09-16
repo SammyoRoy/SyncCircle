@@ -8,7 +8,6 @@ function GroupHeader(){
     return (
         <div className="GroupHeaderCard">
           <ShareLink />
-          <DaysOfTheWeek styling={"GroupDOTWBar"} />
         </div>
     )
   
