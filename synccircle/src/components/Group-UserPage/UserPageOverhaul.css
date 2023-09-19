@@ -20,7 +20,6 @@ body {
     flex-direction: column;
     height: 100vh;
     width: 50%;
-    max-width: 50%;
     background: #f7f7f7;
     justify-content: flex-start;
 
@@ -61,7 +60,7 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-top: 2%;
-    height: auto;
+    height: 15%;
     flex-grow: 0;
 
 }
@@ -69,8 +68,7 @@ body {
 .UserNameContainer {
     display: flex;
     width: 90%;
-    height: 40%;
-    justify-content: center;
+    height: 50%;
     background: #F7F7F7;
     border-radius: 30px;
     justify-content: space-between;
@@ -262,8 +260,12 @@ body {
 }
 
 .DayLabelContainer {
+    display: flex;
+    flex-direction: column;
     background-color: #e6e6e6;
     width: 100%;
+    border-top: none;
+    align-items: center;
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.25);
     z-index: 10;
 }
@@ -481,7 +483,11 @@ body {
 
 @media only screen and (max-height: 500px){
     .UserNameContainer{
-        height: 40%;
+        height: 70%;
+    }
+    .HeaderCard{
+        padding-bottom: 2%;
+        height: 50%;
     }
     .DOTWBar{
         padding-bottom: 2%;
