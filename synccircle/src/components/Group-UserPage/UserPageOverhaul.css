@@ -470,3 +470,54 @@ body {
     }
     
 }
+
+@media (prefers-color-scheme: dark){
+    .UserBase{
+        background-color: #202124;
+    }
+    .UserScreenBackground{
+        background-color: #202124;
+    }
+    .HeaderCard{
+        background-color: #303134;
+    }
+    .DOTWBar{
+        background-color: #303134;
+    }
+    .UserNameContainer{
+        background-color: #bdc1c6;
+    }
+    .UserNameForm{
+        color: #ffffff;
+    }
+    .GroupPageButton{
+        background-color: #5F00CD;
+    }
+    .DayLabel{
+        background-color: #237563;
+    }
+    .JoinButton{
+        background-color: #237563;
+    }
+    .JoinButton:hover{
+        background-color: #19ac1e;
+    }
+    .GroupPageButtonCircle{
+        border: 3px solid #bdc1c6;
+    }
+    .UnselectedSlot{
+        background-color: #bdc1c6;
+    }
+    .UnselectedSlot:hover{
+        background-color: #bdc1c6e8;
+    }
+    .SelectedSlot{
+        background-color: #237563;
+    }
+    .TimeLabel{
+        background-color: #303134 !important;
+    }
+    .UserTitle{
+        color: #ffffff;
+    }
+}

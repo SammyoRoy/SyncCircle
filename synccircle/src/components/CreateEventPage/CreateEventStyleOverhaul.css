@@ -444,3 +444,33 @@ body {
     }
 }
 
+@media (prefers-color-scheme: dark){
+    .Backdrop{
+        background-color: #303134 !important;
+    }
+    .EventNameInput{
+        background-color: #bdc1c6;
+    }
+    .TimeSelectionDropdown{
+        background-color: #bdc1c6;
+    }
+    .DayOfTheWeekButton{
+        background-color: #237563;
+    }
+    .DayOfTheWeekButtonPressed{
+        background-color: #5F00CD;
+    }
+    .CreateEventSubmitButton{
+        background-color: #237563;
+    }
+    .CreateEventSubmitButton:hover{
+        background-color: #5F00CD;
+    }
+    .EventNameForm:hover{
+        border: 2px solid #237563;
+    }
+    .TimeSelectionDropdown:hover{
+        border: 2px solid #237563;
+    }
+}
+

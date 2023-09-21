@@ -185,7 +185,6 @@ h6, h5 {
     flex-grow: 1;
     align-items: center;
     justify-items: center;
-    padding-right: 10px;
 }
 
 .Slot {
@@ -264,6 +263,31 @@ line-height: 150%; /* 24px */
         width: 100% !important;
         height: 100% !important;
     }
+}
+
+@media (prefers-color-scheme: dark){
+    .offcanvas-header{
+        background-color: #202124 !important;
+    }
+    .offcanvas-body{
+        background-color: #202124 !important;
+    }
+    .GroupHeaderCard{
+        background-color: #303134 !important;
+    }
+    .InviteFriends{
+        color:#237563 !important;
+    }
+    .CopyButton{
+        color: #237563 !important;
+    }
+    .GroupDOTWBar{
+        background-color: #303134 !important;
+    }
+    .GroupTitle{
+        color: #ffffff !important;
+    }
+
 }
 
 
