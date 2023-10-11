@@ -520,4 +520,7 @@ body {
     .UserTitle{
         color: #ffffff;
     }
+    ::-webkit-scrollbar-track {
+        background: #303134;
+    }
 }

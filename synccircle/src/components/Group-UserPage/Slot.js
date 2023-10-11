@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 
-function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket, initialCellValue }) {
+function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
   const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
@@ -64,9 +64,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         setStyle(dragValue === 1 ? "SelectedSlot" : "UnselectedSlot");
         replaceValueAt(row, col, dragValue);
 
-        if (dragValue === 1) {
+        if (cellValue != dragValue && dragValue === 1) {
           socket.emit('booked', matrixKey, groupId);
-        } else {
+        } else if (cellValue != dragValue){
           socket.emit('unbooked', matrixKey, groupId);
         }
       }
@@ -93,9 +93,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         replaceValueAt(row, col, newDragValue);
         setIsModified(true);
   
-        if (newDragValue === 1) {
+        if (cellValue != dragValue && newDragValue === 1) {
           socket.emit('booked', matrixKey, groupId);
-        } else {
+        } else if (cellValue != dragValue){
           socket.emit('unbooked', matrixKey, groupId);
         }
       }
@@ -142,9 +142,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     setStyle(dragValue === 1 ? "SelectedSlot" : "UnselectedSlot");
     replaceValueAt(row, col, dragValue);
   
-    if (dragValue === 1) {
+    if (cellValue != dragValue && dragValue === 1) {
       socket.emit('booked', matrixKey, groupId);
-    } else {
+    } else if (cellValue != dragValue){
       socket.emit('unbooked', matrixKey, groupId);
     }
   };
