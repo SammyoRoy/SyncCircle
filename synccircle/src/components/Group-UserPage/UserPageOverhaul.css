@@ -83,7 +83,7 @@ body {
     text-align: left;
     font-family: "Poppins";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 150%;
     border: 0px;
     background: none;
@@ -142,7 +142,7 @@ body {
     border-color: transparent;
     font-size: 1.1rem;
 
-    color: #000;
+    color: #ffffff;
     text-align: center;
     font-family: "Poppins";
     font-style: normal;
@@ -485,10 +485,10 @@ body {
         background-color: #303134;
     }
     .UserNameContainer{
-        background-color: #bdc1c6;
+        background-color: #edeff1;
     }
     .UserNameForm{
-        color: #ffffff;
+        color: #237563;
     }
     .GroupPageButton{
         background-color: #5F00CD;
@@ -503,13 +503,13 @@ body {
         background-color: #19ac1e;
     }
     .GroupPageButtonCircle{
-        border: 3px solid #bdc1c6;
+        border: 3px solid #edeff1;
     }
     .UnselectedSlot{
-        background-color: #bdc1c6;
+        background-color: #edeff1;
     }
     .UnselectedSlot:hover{
-        background-color: #bdc1c6e8;
+        background-color: #edeff1e4;
     }
     .SelectedSlot{
         background-color: #237563;

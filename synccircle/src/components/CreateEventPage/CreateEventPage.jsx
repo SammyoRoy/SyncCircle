@@ -27,7 +27,7 @@ function CreateEventPage() {
   console.log("EVENTNAME" + eventName)
   let alertMessages = [];
   if(eventTrigger) {
-    if(eventName.length >= 30) {
+    if(eventName.length > 30) {
       alertMessages.push("Event Name Must Be Under 30 Characters");
     }
     if(eventName === "") {

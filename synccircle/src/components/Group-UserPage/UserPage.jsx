@@ -41,7 +41,7 @@ function UserPage() {
   }
 
   if(slotTried) {
-    alertMessages.push("Please Enter Your Name And Join Before Selecting Slot");
+    alertMessages.push("Please Enter Your Name And Join Before Selecting A Slot");
     setTimeout(() => {
       setSlotTried(false);
     },2000);
