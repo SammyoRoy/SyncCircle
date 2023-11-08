@@ -165,6 +165,7 @@ h6, h5 {
     outline: none;
     border: none;
     color: #297045;
+    height: 24px;
 }
 
 .LightMode .btn-close{
