@@ -147,8 +147,8 @@ function Calendar() {
   }, [isDragging, isSwiping]);
 
   const numRows = endIndex >= startIndex
-    ? endIndex - startIndex + 1
-    : endIndex + 24 - startIndex + 1;
+    ? endIndex - startIndex+1
+    : endIndex + 24 - startIndex+1;
 
 
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;

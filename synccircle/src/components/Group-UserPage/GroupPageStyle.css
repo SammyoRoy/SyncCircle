@@ -291,7 +291,18 @@ line-height: 150%; /* 24px */
     .btn-close.text-reset{
         color: #ffffff !important;
     }
-
+    .GroupControls{
+        background-color: #303134 !important;
+    }
+    .GroupControls h6{
+        color: #ffffff !important;
+    }
+    .editButton{
+        color: #ffffff !important;
+    }
+    .switchButton{
+        background-color: #5F00CD !important;
+    }
 }
 
 
