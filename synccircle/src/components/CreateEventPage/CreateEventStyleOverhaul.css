@@ -472,5 +472,8 @@ body {
     .TimeSelectionDropdown:hover{
         border: 2px solid #237563;
     }
+    .Base{
+        background-image: url('PurpleCircleBG.png');
+    }
 }
 
