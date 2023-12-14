@@ -297,6 +297,9 @@ line-height: 150%; /* 24px */
     .GroupControls h6{
         color: #ffffff !important;
     }
+    .GroupControls ul{
+        color: #ffffff !important;
+    }
     .editButton{
         color: #ffffff !important;
     }
