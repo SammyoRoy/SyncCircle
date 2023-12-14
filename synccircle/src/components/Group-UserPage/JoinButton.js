@@ -12,16 +12,17 @@ function JoinButton({updateJoined, updateSubmitted}) {
   const [days, setDays] = useState([]);
 
   const [joinSocket, setJoinSocket] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect( () => {
-      const socket = io(`https://backend.synccircle.net`, { transports : ['websocket'] });
+      const socket = io(`${API_URL}`, { transports : ['websocket'] });
       setJoinSocket(socket);
   }, []);
 
 
   useEffect(() => {
     if (groupId !== "") {
-      axios.get(`https://backend.synccircle.net/groups/${groupId}`).then((response) => {
+      axios.get(`${API_URL}/groups/${groupId}`).then((response) => {
         setStartTime(response.data.start_time);
         setEndTime(response.data.end_time);
         setDays(response.data.days);
@@ -41,7 +42,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
         .then((response) => {
           if (response.data === "False") {
             //Make new User
-            axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
+            axios.post(`${API_URL}/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
                 console.log(response2.data)
                 setUserId(response2.data.user_id);
