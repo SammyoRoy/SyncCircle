@@ -4,8 +4,8 @@ import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import io from 'socket.io-client';
 
-function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) {
-  const { groupId, setUserId, userId, setFirst, setUsers, users } = useContext(AppContext);
+function JoinButton({updateJoined, updateSubmitted}) {
+  const { groupId, setUserId, userId, setFirst, userName, setEmptyInput} = useContext(AppContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -33,7 +33,11 @@ function JoinButton({ userName, updateJoined, updateSubmitted, setEmptyInput }) 
   const onSubmit = (event) => {
     event.preventDefault();
     if (userName !== "" && groupId !== "" && days !== [] && startTime !== "" && endTime !== "") {
-      axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: userName } })
+      if (userName.length > 20) {
+        setEmptyInput(true);
+        return;
+      }
+      axios.get(`${API_URL}/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {
             //Make new User

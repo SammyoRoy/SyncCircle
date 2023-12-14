@@ -19,7 +19,7 @@ function DayOfTheWeekButton({ day, setDays, days }) {
       }
     }; 
     return (
-      <button className={style} onClick={handlePress} style={dayTrigger? {border: "4px solid #b32121"}: null}>{day}</button>
+      <button className={style} onClick={handlePress}>{day}</button>
     );
   } 
 

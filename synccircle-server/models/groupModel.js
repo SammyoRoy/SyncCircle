@@ -7,7 +7,8 @@ const groupSchema = mongoose.Schema({
     },
     group_name: {
         type: String,
-        required: true
+        required: true,
+        length: 50
     },
     start_time: {
         type: String,

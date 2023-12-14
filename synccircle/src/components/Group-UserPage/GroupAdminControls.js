@@ -81,6 +81,7 @@ const GroupAdminControls = () => {
                             {user.user_name}
                         </div>
                     )}
+                    {users.length === 1 && <p>No other users in this group</p>}
                 </ul>
                 <div>
                     <h6>Change Group Name</h6>

@@ -18,7 +18,7 @@ function ShareLink() {
             <div className="LinkContainer">
                 <button className="CopyButton" onClick={handleCopyClick}>
                     {!isCopied && <ContentCopyIcon className="CopyIcon" fontSize="medium"/>}
-                    {isCopied && <div style={{marginLeft: "25%"}}>Copied</div>}
+                    {isCopied && <div style={{marginLeft: "25%", fontSize:"medium"}}>Copied</div>}
                 </button>
             </div>
         </div>

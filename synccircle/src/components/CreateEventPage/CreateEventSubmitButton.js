@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 
-function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
+function CreateEventSubmitButton({startTime, endTime, days }){
     const nav = useNavigate();
-    const { setEventTrigger, setDayTrigger} = useContext(AppContext);
+    const API_URL = process.env.REACT_APP_API_URL;
+    const { setEventTrigger, setDayTrigger, eventName} = useContext(AppContext);
     const handleEventTrigger = () => {
       setEventTrigger(true);
       setTimeout(() => {
@@ -19,9 +20,9 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days }){
       }, 2000);
     };
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0)
+      if (eventName === "" || days.length === 0 || eventName.length > 30)
       {
-        if (eventName === "")
+        if (eventName === "" || eventName.length > 30)
         {
           handleEventTrigger();
         }

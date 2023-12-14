@@ -165,6 +165,7 @@ h6, h5 {
     outline: none;
     border: none;
     color: #297045;
+    height: 24px;
 }
 
 .LightMode .btn-close{
@@ -185,7 +186,6 @@ h6, h5 {
     flex-grow: 1;
     align-items: center;
     justify-items: center;
-    padding-right: 10px;
 }
 
 .Slot {
@@ -263,6 +263,48 @@ line-height: 150%; /* 24px */
         top: 20% !important;
         width: 100% !important;
         height: 100% !important;
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    .offcanvas-header{
+        background-color: #202124 !important;
+    }
+    .offcanvas-body{
+        background-color: #202124 !important;
+    }
+    .GroupHeaderCard{
+        background-color: #303134 !important;
+    }
+    .InviteFriends{
+        color:#237563 !important;
+    }
+    .CopyButton{
+        color: #237563 !important;
+    }
+    .GroupDOTWBar{
+        background-color: #303134 !important;
+    }
+    .GroupTitle{
+        color: #ffffff !important;
+    }
+    .btn-close.text-reset{
+        color: #ffffff !important;
+    }
+    .GroupControls{
+        background-color: #303134 !important;
+    }
+    .GroupControls h6{
+        color: #ffffff !important;
+    }
+    .GroupControls ul{
+        color: #ffffff !important;
+    }
+    .editButton{
+        color: #ffffff !important;
+    }
+    .switchButton{
+        background-color: #5F00CD !important;
     }
 }
 
