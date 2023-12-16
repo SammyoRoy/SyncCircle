@@ -7,6 +7,7 @@ import DaySelectionFrame from "./DaySelectionFrame";
 import CreateEventSubmitButton from "./CreateEventSubmitButton";
 import { AppContext } from "../../context/AppContext";
 import Alert from '@mui/material/Alert';
+import { IOSSwitch } from "./IosSwitch";
 
 
 function CreateEventPage() {
@@ -18,12 +19,18 @@ function CreateEventPage() {
   const [startTrigger, setStartTrigger] = useState(false);
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
+  const [switchState, setSwitchState] = useState(false);
 
 
   const handleEventNameChange = (value) => {
     setEventTrigger(false);
     setEventName(value);
   };
+
+  const handleSwitchChange = (event) => {
+    setSwitchState(event.target.checked);
+  };
+
   console.log("EVENTNAME" + eventName)
   let alertMessages = [];
   if(eventTrigger) {
@@ -55,7 +62,10 @@ function CreateEventPage() {
               </svg>
               <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
             </div>
-            <DaySelectionFrame setDays={setDays} days={days} />
+            <div className="SwitchFrame">
+              <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
+            </div>
+            {switchState && <DaySelectionFrame setDays={setDays} days={days} />}
           </div>
           <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
         </AppContext.Provider>
