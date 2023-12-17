@@ -8,6 +8,7 @@ import CreateEventSubmitButton from "./CreateEventSubmitButton";
 import { AppContext } from "../../context/AppContext";
 import Alert from '@mui/material/Alert';
 import { IOSSwitch } from "./IosSwitch";
+import CalenderSelectionFrame from "./CalenderSelectionFrame";
 
 
 function CreateEventPage() {
@@ -66,6 +67,7 @@ function CreateEventPage() {
               <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
             </div>
             {switchState && <DaySelectionFrame setDays={setDays} days={days} />}
+            {!switchState && <CalenderSelectionFrame setDays={setDays} days={days} />}
           </div>
           <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
         </AppContext.Provider>

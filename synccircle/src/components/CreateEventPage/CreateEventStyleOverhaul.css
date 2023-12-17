@@ -131,6 +131,7 @@ body {
 
 
 
+
 .DaySelectionFrame {
     display: flex;
     flex-direction: column;
@@ -147,6 +148,13 @@ body {
     flex-basis: 100%;
     height: 30%;
 }
+
+.in-range {
+    background-color: lightblue !important;
+}
+
+
+
 
 .DayOfTheWeekButton {
     background: #70D474;
@@ -445,6 +453,9 @@ body {
 }
 
 @media (prefers-color-scheme: dark){
+    .Title{
+        color: #303134;
+    }
     .Backdrop{
         background-color: #303134 !important;
     }
@@ -457,6 +468,9 @@ body {
     .DayOfTheWeekButton{
         background-color: #237563;
     }
+    .DayOfTheWeekButton:hover{
+        background-color: #237563dd;
+    }
     .DayOfTheWeekButtonPressed{
         background-color: #5F00CD;
     }
@@ -464,7 +478,7 @@ body {
         background-color: #237563;
     }
     .CreateEventSubmitButton:hover{
-        background-color: #5F00CD;
+        background-color: #237563dd;
     }
     .EventNameForm:hover{
         border: 2px solid #237563;
