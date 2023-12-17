@@ -14,7 +14,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [endIndex, setEndIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
-  
+
 
   const [groupSocket, setGroupSocket] = useState(null);
   const [modifiedKey, setModifiedKey] = useState(0);
@@ -22,8 +22,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [totalMembers, setTotalMembers] = useState(0);
   const [addedNewMember, setAddedNewMember] = useState(true);
 
-  useEffect( () => {
-    const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
+  useEffect(() => {
+    const socket = io(`${API_URL}`, { transports: ['websocket'] });
     setGroupSocket(socket);
   }, []);
 
@@ -43,14 +43,14 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   }, []);
 
   useEffect(() => {
-    if (masterArray){
-      const lengthsArray = masterArray.map(innerArray => 
+    if (masterArray) {
+      const lengthsArray = masterArray.map(innerArray =>
         // Map through each sub-array in the inner array
         innerArray.map(subArray => subArray.length)
       );
-  
-        setNumAvailArr(lengthsArray);
-        console.log("Num avail :" +numAvailArr);
+
+      setNumAvailArr(lengthsArray);
+      console.log("Num avail :" + numAvailArr);
     }
   }, [masterArray]);
 
@@ -75,28 +75,28 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
       let parsedHour = parseInt(hour, 10);
-    
+
       if (period === "PM" && parsedHour < 12) {
         parsedHour += 12;
       }
-    
+
       if (period === "AM" && parsedHour === 12) {
         parsedHour = 0;
       }
-    
+
       const timeOptions = [
         '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
         '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
         '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
         '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM'
       ];
-    
+
       // Find the index of the parsed time in the timeOptions array
       const index = timeOptions.findIndex(option => option === time);
-    
+
       return index;
     }
-    
+
     const startTimeIndex = convertTimeToIndex(start);
     const endTimeIndex = convertTimeToIndex(end);
     const timeIndex = convertTimeToIndex(start);
@@ -107,22 +107,22 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
   useEffect(() => {
     if (groupSocket) { // Check if groupSocket is not null
-      
+
       groupSocket.on('new user', (signalGroupId) => {
-        if (groupId == signalGroupId){
+        if (groupId == signalGroupId) {
           setAddedNewMember(false);
-        } 
+        }
       });
 
       groupSocket.on('unbooked', (matrixKey, signalGroupId) => {
-        if (groupId == signalGroupId){
+        if (groupId == signalGroupId) {
           setModifiedKey(matrixKey);
           setIsBooked(false);
         }
       });
-  
+
       groupSocket.on('booked', (matrixKey, signalGroupId) => {
-        if (groupId == signalGroupId){
+        if (groupId == signalGroupId) {
           setModifiedKey(matrixKey);
           setIsBooked(true);
         }
@@ -130,8 +130,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
     }
   }, [groupSocket]); // Add groupSocket as a dependency
 
-  function getNumAvail(row, col){
-    if (numAvailArr === null){
+  function getNumAvail(row, col) {
+    if (numAvailArr === null) {
       return;
     }
     const num = numAvailArr[row][col];
@@ -139,56 +139,58 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   }
 
   const numRows = endIndex >= startIndex
-  ? endIndex - startIndex + 1
-  : endIndex + 24 - startIndex + 1;
+    ? endIndex - startIndex+1
+    : endIndex + 24 - startIndex+1;
 
   const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
   const totalCells = (days.length + 1) * (numRows);
 
   return (
-    <div className="CalendarGrid" style={{ gridTemplateColumns, gridTemplateRows }}>
-      {/* Generate and render grid items */}
+    <div className="CalenderContainer">
+      <div className="CalendarGrid" style={{ gridTemplateColumns, gridTemplateRows }}>
+        {/* Generate and render grid items */}
 
-      {Array.from({ length: totalCells }, (_, index) => {
-        const row = Math.floor(index / (days.length + 1));
-        const col = index % (days.length + 1) - 1;
-        let cellValue = 0;
+        {Array.from({ length: totalCells }, (_, index) => {
+          const row = Math.floor(index / (days.length + 1));
+          const col = index % (days.length + 1) - 1;
+          let cellValue = 0;
 
-        /*const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
-          ? masterArray[row][col]
-          : 0;*/
-        
-        
-        if (index % (days.length + 1) != 0){
-          //const slotIndex = row*(days.length) + col;
-          cellValue = getNumAvail(row, col);
-        }
+          /*const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
+            ? masterArray[row][col]
+            : 0;*/
 
 
+          if (index % (days.length + 1) != 0) {
+            //const slotIndex = row*(days.length) + col;
+            cellValue = getNumAvail(row, col);
+          }
 
-        return index % (days.length + 1) === 0 ? (
-          <TimeLabel
+
+
+          return index % (days.length + 1) === 0 ? (
+            <TimeLabel
+              key={index}
+              currTimeIndex={(startIndex + row) % 24}
+            />
+          ) : (<GroupSlot
             key={index}
-            currTimeIndex= {(startIndex + row) % 24}
+            matrixKey={index}
+            days={days}
+            groupId={groupId}
+            userId={userId}
+            setPopupMatrixKey={setPopupMatrixKey}
+            setPopupColor={setPopupColor}
+            setGroupSlotClicked={setGroupSlotClicked}
+            cellValue={cellValue}
+            totalMembers={totalMembers}
+            modifiedKey={modifiedKey}
+            isBooked={isBooked}
           />
-        ) : (<GroupSlot 
-                key={index} 
-                matrixKey={index} 
-                days={days} 
-                groupId={groupId} 
-                userId={userId} 
-                setPopupMatrixKey={setPopupMatrixKey} 
-                setPopupColor={setPopupColor}
-                setGroupSlotClicked={setGroupSlotClicked}
-                cellValue={cellValue} 
-                totalMembers={totalMembers}
-                modifiedKey={modifiedKey}
-                isBooked={isBooked}
-              />
-            );
-      })}
+          );
+        })}
 
+      </div>
     </div>
   );
 }
