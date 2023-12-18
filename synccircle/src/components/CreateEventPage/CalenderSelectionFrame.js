@@ -62,7 +62,7 @@ const CalendarSelectionFrame = () => {
     };
 
     return (
-        <div>
+        <div className='CalendarSelectionFrame'>
             <Calendar
                 onClickDay={onDateClick}
                 tileClassName={({ date, view }) => {
@@ -70,6 +70,20 @@ const CalendarSelectionFrame = () => {
                         return 'in-range'; // Custom styling for dates in range
                     }
                 }}
+                tileDisabled={({ date }) => {
+                    const currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0);
+                
+                    if (date < currentDate) {
+                        return true;
+                    }
+                }}
+                prev2Label={null}
+                next2Label={null}
+                showFixedNumberOfWeeks={true}
+                maxDetail='month'
+                minDetail='month'
+                
             />
             {/* Display merged ranges */}
             <div>

@@ -24,6 +24,7 @@ const sslOptions = {
 };
 
 const server = https.createServer(sslOptions, app); // Create an HTTPS server
+//const server = https.createServer(app); // Create an HTTPS server
 
 const { Server } = require("socket.io");
 const io = new Server(server);

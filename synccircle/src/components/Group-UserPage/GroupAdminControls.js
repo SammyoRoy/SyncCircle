@@ -13,6 +13,8 @@ const GroupAdminControls = () => {
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
+    console.log("$API: " + API_URL)
+
     useEffect(() => {
         const URL = window.location.href.split("/");
         axios.get(`${API_URL}/groups/${groupId}`)
@@ -40,6 +42,7 @@ const GroupAdminControls = () => {
         const URL = window.location.href.split("/");
         axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
             .then((response) => {
+                console.log(response.data);
                 setChangedName('');
                 
             })
@@ -65,7 +68,7 @@ const GroupAdminControls = () => {
             <div className='GroupControls'>
                 <h6>Users</h6>
                 <ul className='UserList'>
-                    {users !== [] && userId && users.filter(user => user.user_id != userId).map(user =>
+                    {users != [] && userId && users.filter(user => user.user_id != userId).map(user =>
                         <div key={user.user_id}>
                             <IconButton
                                 className="RemoveButton"

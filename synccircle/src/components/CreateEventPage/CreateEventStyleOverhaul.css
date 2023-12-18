@@ -132,7 +132,15 @@ body {
 
 
 
+
 .DaySelectionFrame {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 65%;
+    gap: 10px;
+}
+.CalendarSelectionFrame {
     display: flex;
     flex-direction: column;
     width: 80%;
