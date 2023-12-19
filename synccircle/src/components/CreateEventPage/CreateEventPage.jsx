@@ -21,7 +21,7 @@ function CreateEventPage() {
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
   const [switchState, setSwitchState] = useState(false);
-  const {isDaysOftheWeek, setIsDaysOftheWeek} = useState(false);
+  const [isDaysOftheWeek, setIsDaysOftheWeek] = useState(false);
 
 
   const handleEventNameChange = (value) => {
@@ -31,11 +31,7 @@ function CreateEventPage() {
 
   const handleSwitchChange = (event) => {
     setSwitchState(event.target.checked);
-    if (event.target.checked) {
-      setIsDaysOftheWeek(true);
-    } else {
-      setIsDaysOftheWeek(false);
-    }
+    setIsDaysOftheWeek(event.target.checked);
   };
 
   console.log("EVENTNAME" + eventName)
