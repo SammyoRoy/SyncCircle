@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 
-function CreateEventSubmitButton({startTime, endTime, days }){
+function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOftheWeek }){
     const nav = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
-    const { setEventTrigger, setDayTrigger, eventName} = useContext(AppContext);
+    const { setEventTrigger, setDayTrigger} = useContext(AppContext);
     const handleEventTrigger = () => {
       setEventTrigger(true);
       setTimeout(() => {
@@ -20,9 +20,9 @@ function CreateEventSubmitButton({startTime, endTime, days }){
       }, 2000);
     };
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0 || eventName.length > 30)
+      if (eventName === "" || days.length === 0)
       {
-        if (eventName === "" || eventName.length > 30)
+        if (eventName === "")
         {
           handleEventTrigger();
         }
@@ -34,9 +34,12 @@ function CreateEventSubmitButton({startTime, endTime, days }){
       }
       event.preventDefault();
       const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
-      days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
+      if (isDaysOftheWeek){
+        console.log("Getting sorted");
+        days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
+      }
       const dayString = days.join(",");
-      axios.post(`${API_URL}/groups/`, {
+      axios.post(API_URL+`/groups/`, {
           name: eventName,
           startTime: startTime,
           endTime: endTime,
@@ -58,4 +61,3 @@ function CreateEventSubmitButton({startTime, endTime, days }){
   }
 
 export default CreateEventSubmitButton;
-

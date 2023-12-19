@@ -2,9 +2,26 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 //import 'react-calendar/dist/Calendar.css';
 
-const CalendarSelectionFrame = () => {
+const CalendarSelectionFrame = ({days,setDays}) => {
     const [dateRanges, setDateRanges] = useState([]);
     const [tempRange, setTempRange] = useState({ start: null, end: null });
+
+    const generateFormattedDates = (ranges) => {
+        let allDates = [];
+        ranges.forEach(range => {
+            let currentDate = new Date(range.start);
+            while (currentDate <= range.end) {
+                allDates.push(`${currentDate.toLocaleString('en-us', { month: 'short' })} ${currentDate.getDate()} ${currentDate.toLocaleString('en-us', { weekday: 'short' })}`);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        });
+        return allDates;
+    };
+
+    const updateDateRanges = (newRanges) => {
+        const formattedDates = generateFormattedDates(newRanges);
+        setDays(formattedDates);
+    };
 
     // Function to check if two dates are consecutive
     const areConsecutiveDates = (first, second) => {
@@ -38,6 +55,7 @@ const CalendarSelectionFrame = () => {
 
     const onDateClick = (value) => {
         const selectedDate = new Date(value);
+        let newDates = dateRanges;
         
         //Check if the clicked date is part of an already existing range
         for (let i = 0; i<dateRanges.length; i++) {
@@ -46,11 +64,37 @@ const CalendarSelectionFrame = () => {
             let currEnd = new Date(current.end);
             
             //If part of an existing range, remove it
-            if (selectedDate >= currStart & selectedDate <= currEnd){
+            if (selectedDate > currStart && selectedDate < currEnd){
                 const newDateRanges = [...dateRanges];
                 newDateRanges.splice(i, 1);
                 setDateRanges(newDateRanges);
+                newDates = newDateRanges;
                 setTempRange({ start: null, end: null});
+                return;
+            }
+
+            else if (selectedDate.toDateString() === currStart.toDateString() && selectedDate.toDateString() === currEnd.toDateString()){
+                const newDateRanges = [...dateRanges];
+                newDateRanges.splice(i, 1);
+                setDateRanges(newDateRanges);
+                newDates = newDateRanges;
+                setTempRange({ start: null, end: null});
+                return;
+            }
+
+            //If at an endpoint of an existing range just remove the endpoint
+            else if (selectedDate.toDateString() === currStart.toDateString()){
+                current.start = new Date(currStart.setDate(currStart.getDate() + 1));
+                setTempRange({ start: null, end: null});
+                setDateRanges(mergeDateRanges(dateRanges, current));
+                newDates = mergeDateRanges(dateRanges, current);
+                return;
+            }
+            else if (selectedDate.toDateString() === currEnd.toDateString()){
+                current.end = new Date(currEnd.setDate(currEnd.getDate() - 1));
+                setTempRange({ start: null, end: null});
+                setDateRanges(mergeDateRanges(dateRanges, current));
+                newDates = mergeDateRanges(dateRanges, current);
                 return;
             }
 
@@ -59,12 +103,14 @@ const CalendarSelectionFrame = () => {
                 current.start = value;
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
+                newDates = mergeDateRanges(dateRanges, current);
                 return;
             }
             else if(areConsecutiveDates(currEnd, selectedDate)){
                 current.end = value;
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
+                newDates = mergeDateRanges(dateRanges, current);
                 return;
             }
         }
@@ -76,6 +122,7 @@ const CalendarSelectionFrame = () => {
             // Add the new range and merge if necessary
             const newRange = { start: tempRange.start, end: value };
             setDateRanges(mergeDateRanges([...dateRanges, newRange]));
+            newDates = mergeDateRanges([...dateRanges, newRange]);
             setTempRange({ start: null, end: null });
         }
         
@@ -95,6 +142,7 @@ const CalendarSelectionFrame = () => {
             setDateRanges(mergeDateRanges([...dateRanges, newRange]));
             setTempRange({ start: null, end: null });
         }*/
+        updateDateRanges(newDates);
     };
 
     const isDateInRange = (date) => {

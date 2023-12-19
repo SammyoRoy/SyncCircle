@@ -21,6 +21,7 @@ function CreateEventPage() {
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
   const [switchState, setSwitchState] = useState(false);
+  const {isDaysOftheWeek, setIsDaysOftheWeek} = useState(false);
 
 
   const handleEventNameChange = (value) => {
@@ -30,6 +31,11 @@ function CreateEventPage() {
 
   const handleSwitchChange = (event) => {
     setSwitchState(event.target.checked);
+    if (event.target.checked) {
+      setIsDaysOftheWeek(true);
+    } else {
+      setIsDaysOftheWeek(false);
+    }
   };
 
   console.log("EVENTNAME" + eventName)
@@ -69,7 +75,7 @@ function CreateEventPage() {
             {switchState && <DaySelectionFrame setDays={setDays} days={days} />}
             {!switchState && <CalenderSelectionFrame setDays={setDays} days={days} />}
           </div>
-          <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
+          <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} isDaysOftheWeek={isDaysOftheWeek} />
         </AppContext.Provider>
       </div>
     </div>
