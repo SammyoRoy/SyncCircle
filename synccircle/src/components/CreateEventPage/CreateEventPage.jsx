@@ -32,6 +32,12 @@ function CreateEventPage() {
   const handleSwitchChange = (event) => {
     setSwitchState(event.target.checked);
     setIsDaysOftheWeek(event.target.checked);
+    if (isDaysOftheWeek == true){
+      setDays(["isDaysOftheWeek"]);
+    }
+    else{
+      setDays([]);
+    }
   };
 
   console.log("EVENTNAME" + eventName)
