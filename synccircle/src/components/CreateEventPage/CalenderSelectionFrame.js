@@ -6,20 +6,41 @@ const CalendarSelectionFrame = ({days,setDays}) => {
     const [dateRanges, setDateRanges] = useState([]);
     const [tempRange, setTempRange] = useState({ start: null, end: null });
 
-    const generateFormattedDates = (ranges) => {
+    /*const generateFormattedDates = (ranges) => {
         let allDates = [];
         ranges.forEach(range => {
             let currentDate = new Date(range.start);
             while (currentDate <= range.end) {
                 allDates.push(`${currentDate.toLocaleString('en-us', { month: 'short' })} ${currentDate.getDate()} ${currentDate.toLocaleString('en-us', { weekday: 'short' })}`);
+                console.log(currentDate.toLocaleString('en-us', { month: 'short' })+ currentDate.getDate() +currentDate.toLocaleString('en-us', { weekday: 'short' }));
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         });
         return allDates;
-    };
+    };*/
+
+    function formatDateString(ranges) {
+
+        let allDates = [];
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const weekDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        ranges.forEach(range => {
+            let currentDate = new Date(range.start);
+            while (currentDate <= range.end) {
+                const monthDay = `${monthNames[currentDate.getMonth()]} ${currentDate.getDate()}`;
+                const weekday = weekDayNames[currentDate.getDay()];
+                console.log(monthDay + "," + weekday);
+                allDates.push([monthDay, weekday]);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        });
+
+        return allDates;
+      }
 
     const updateDateRanges = (newRanges) => {
-        const formattedDates = generateFormattedDates(newRanges);
+        const formattedDates = formatDateString(newRanges);
         setDays(formattedDates);
     };
 
@@ -126,22 +147,6 @@ const CalendarSelectionFrame = ({days,setDays}) => {
             setTempRange({ start: null, end: null });
         }
         
-        /*// Check if the clicked date is the start of any existing range
-        const rangeIndex = dateRanges.findIndex(range => range.start.toDateString() === value.toDateString());
-
-        if (rangeIndex > -1) {
-            // Remove the range if the start date is clicked
-            const newDateRanges = [...dateRanges];
-            newDateRanges.splice(rangeIndex, 1);
-            setDateRanges(newDateRanges);
-        } else if (!tempRange.start || (tempRange.start && tempRange.end)) {
-            setTempRange({ start: value, end: null });
-        } else {
-            // Add the new range and merge if necessary
-            const newRange = { start: tempRange.start, end: value };
-            setDateRanges(mergeDateRanges([...dateRanges, newRange]));
-            setTempRange({ start: null, end: null });
-        }*/
         updateDateRanges(newDates);
     };
 
@@ -150,6 +155,8 @@ const CalendarSelectionFrame = ({days,setDays}) => {
             date >= range.start && date <= range.end
         );
     };
+
+    
 
     return (
         <div className='CalendarSelectionFrame'>
