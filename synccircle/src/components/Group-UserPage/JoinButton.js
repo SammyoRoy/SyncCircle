@@ -33,7 +33,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (userName !== "" && groupId !== "" && days !== [] && startTime !== "" && endTime !== "") {
+    if (userName !== "" && groupId !== "" && days.length !== 0 && startTime !== "" && endTime !== "") {
       if (userName.length > 20) {
         setEmptyInput(true);
         return;

@@ -6,20 +6,25 @@ const CalendarSelectionFrame = ({days,setDays}) => {
     const [dateRanges, setDateRanges] = useState([]);
     const [tempRange, setTempRange] = useState({ start: null, end: null });
 
-    /*const generateFormattedDates = (ranges) => {
+    const generateFormattedDates = (ranges) => {
         let allDates = [];
         ranges.forEach(range => {
             let currentDate = new Date(range.start);
             while (currentDate <= range.end) {
-                allDates.push(`${currentDate.toLocaleString('en-us', { month: 'short' })} ${currentDate.getDate()} ${currentDate.toLocaleString('en-us', { weekday: 'short' })}`);
-                console.log(currentDate.toLocaleString('en-us', { month: 'short' })+ currentDate.getDate() +currentDate.toLocaleString('en-us', { weekday: 'short' }));
+                /*const month = currentDate.toLocaleString('en-us', { month: 'short' });
+                const date = currentDate.getDate();
+                const day = currentDate.toLocaleString('en-us', { weekday: 'short' });
+                allDates.push([])*/
+
+                allDates.push(`${currentDate.toLocaleString('en-us', { weekday: 'short' })} ${currentDate.toLocaleString('en-us',{ month: 'short' })} ${currentDate.getDate()}`);
+                console.log(allDates[allDates.length-1]);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         });
         return allDates;
-    };*/
+    };
 
-    function formatDateString(ranges) {
+    /*function formatDateString(ranges) {
 
         let allDates = [];
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -37,11 +42,12 @@ const CalendarSelectionFrame = ({days,setDays}) => {
         });
 
         return allDates;
-      }
+      }*/
 
     const updateDateRanges = (newRanges) => {
-        const formattedDates = formatDateString(newRanges);
+        const formattedDates = generateFormattedDates(newRanges);
         setDays(formattedDates);
+        console.log(days);
     };
 
     // Function to check if two dates are consecutive

@@ -256,6 +256,10 @@ body {
     align-items: center;
 }
 
+.dateLabel{
+    color:#969696;
+}
+
 .CalenderContainer{
     direction:ltr;
     overflow-y: auto;

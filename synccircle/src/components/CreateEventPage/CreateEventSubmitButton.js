@@ -33,11 +33,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
         return;
       }
       event.preventDefault();
-      const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
-      if (isDaysOftheWeek){
-        console.log("Getting sorted");
-        days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
-      }
+
       const dayString = days.join(",");
       axios.post(API_URL+`/groups/`, {
           name: eventName,

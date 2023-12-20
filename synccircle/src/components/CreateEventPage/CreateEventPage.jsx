@@ -29,13 +29,26 @@ function CreateEventPage() {
     setEventName(value);
   };
 
-  const handleSwitchChange = (event) => {
+  /*const handleSwitchChange = (event) => {
     setSwitchState(event.target.checked);
     setIsDaysOftheWeek(event.target.checked);
     if (isDaysOftheWeek == true){
       setDays(["isDaysOftheWeek"]);
     }
     else{
+      setDays([]);
+    }
+  };*/
+
+  const handleSwitchChange = (event) => {
+    const isChecked = event.target.checked;
+  
+    setSwitchState(isChecked);
+    setIsDaysOftheWeek(isChecked);
+  
+    if (isChecked) {
+      setDays(["isDaysOftheWeek"]);
+    } else {
       setDays([]);
     }
   };
