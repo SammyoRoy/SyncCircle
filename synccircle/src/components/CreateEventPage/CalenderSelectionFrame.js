@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-//import 'react-calendar/dist/Calendar.css';
+import './Calendar.css';
 
 const CalendarSelectionFrame = ({days,setDays}) => {
     const [dateRanges, setDateRanges] = useState([]);
@@ -173,6 +173,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 showFixedNumberOfWeeks={true}
                 maxDetail='month'
                 minDetail='month'
+                formatShortWeekday={(locale, value) => ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][value.getDay()]}
                 
             />
             {/* Display merged ranges */}
