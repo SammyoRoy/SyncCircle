@@ -17,6 +17,7 @@ function DaysOfTheWeek({ styling }) {
     const URL = window.location.href.split("/");
     try {
       const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
+      setDaysOfTheWeek(response.data.dotw);
       return response.data.days;
     } catch (error) {
       console.error(error);
@@ -74,9 +75,7 @@ function DaysOfTheWeek({ styling }) {
     async function fetchData() {
       const daysData = await GetDays();
       
-      if (daysData[0] == "isDaysOftheWeek"){
-        daysData.shift(); //remove isDaysOftheWeek from the array
-        setDaysOfTheWeek(true);
+      if (DaysOfTheWeek){
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
         console.log("Is days of the week");

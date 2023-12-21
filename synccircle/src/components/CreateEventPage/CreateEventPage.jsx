@@ -47,7 +47,7 @@ function CreateEventPage() {
     setIsDaysOftheWeek(isChecked);
   
     if (isChecked) {
-      setDays([]);
+      setDays(["isDaysOftheWeek"]);
     } else {
       setDays([]);
     }

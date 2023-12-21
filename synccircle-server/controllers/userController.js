@@ -24,10 +24,6 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access Public
 const addUser = asyncHandler(async (req, res) => {
     const { name, startTime, endTime, days } = req.body;
-    if (name.length() > 30){
-        res.status(400);
-        throw new Error('Name is too long');
-    }
     const groupId = req.params.groupid;
     const userId = uuidv4();
     const start = moment(startTime, 'h:mm a');
