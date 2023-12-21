@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 .react-calendar {
     width: 350px;
     max-width: 100%;
     background: white;
     border: 1px solid #a0a096;
     font-family: 'Lato';
+    font-weight: 500;
     line-height: 1.125em;
     border-radius: 10%;
   }
@@ -35,6 +38,7 @@
     margin: 0;
     border: 0;
     outline: none;
+
   }
   
   .react-calendar button:enabled:hover {
@@ -74,6 +78,7 @@
   
   .react-calendar__month-view__weekdays__weekday {
     padding: 0.5em;
+    font-size: 0.8em;
   }
 
   .react-calendar__month-view__weekdays__weekday abbr{
@@ -110,8 +115,8 @@
     background: none;
     text-align: center;
     line-height: 16px;
-    font: 'Lato-medium';
-    font-weight: 1000;
+    font: 'Lato';
+    font-weight: 500;
     font-size: 0.833em;
     overflow: hidden;
 }
@@ -163,4 +168,5 @@
     background-color: #70d473 !important;
     border-radius: 20%;
     border: 2px solid #ffffff !important;
+    font-weight: 600;
   }

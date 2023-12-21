@@ -22,10 +22,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [totalMembers, setTotalMembers] = useState(0);
   const [addedNewMember, setAddedNewMember] = useState(true);
   const API_URL = process.env.REACT_APP_API_URL;
-
+  
   useEffect(() => {
     const socket = io(`${API_URL}`, { transports: ['websocket'] });
     setGroupSocket(socket);
+
   }, []);
 
   useEffect(() => {
