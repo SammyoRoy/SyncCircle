@@ -147,10 +147,18 @@ const CalendarSelectionFrame = ({days,setDays}) => {
         } 
         else {
             // Add the new range and merge if necessary
-            const newRange = { start: tempRange.start, end: value };
-            setDateRanges(mergeDateRanges([...dateRanges, newRange]));
-            newDates = mergeDateRanges([...dateRanges, newRange]);
-            setTempRange({ start: null, end: null });
+            if (tempRange.start <= value){
+                const newRange = { start: tempRange.start, end: value };
+                setDateRanges(mergeDateRanges([...dateRanges, newRange]));
+                newDates = mergeDateRanges([...dateRanges, newRange]);
+                setTempRange({ start: null, end: null });
+            }
+            else{
+                const newRange = {start: value, end: tempRange.start};
+                setDateRanges(mergeDateRanges([...dateRanges, newRange]));
+                newDates = mergeDateRanges([...dateRanges, newRange]);
+                setTempRange({ start: null, end: null });
+            }
         }
         
         updateDateRanges(newDates);
