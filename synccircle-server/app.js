@@ -84,12 +84,12 @@ const io = require('socket.io')(server); // Pass the HTTP server instance to Soc
 io.on('connection', (socket) => {
     console.log('A user connected');
     
-    socket.on('unbooked', (matrixKey, groupId) => {
-        io.emit('unbooked', matrixKey, groupId);
+    socket.on('unbooked', (row, col, groupId) => {
+        io.emit('unbooked', row, col, groupId);
     });
 
-    socket.on('booked', (matrixKey, groupId) => {
-        io.emit('booked', matrixKey, groupId);
+    socket.on('booked', (row, col, groupId) => {
+        io.emit('booked', row, col, groupId);
     });
 
     socket.on('new user', (groupId) => {

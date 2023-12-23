@@ -64,9 +64,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         replaceValueAt(row, col, dragValue);
 
         if (cellValue != dragValue && dragValue === 1) {
-          socket.emit('booked', matrixKey, groupId);
+          socket.emit('booked', row, col, groupId);
         } else if (cellValue != dragValue){
-          socket.emit('unbooked', matrixKey, groupId);
+          socket.emit('unbooked', row, col, groupId);
         }
       }
     }
@@ -93,9 +93,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         setIsModified(true);
   
         if (cellValue != dragValue && newDragValue === 1) {
-          socket.emit('booked', matrixKey, groupId);
+          socket.emit('booked', row, col, groupId);
         } else if (cellValue != dragValue){
-          socket.emit('unbooked', matrixKey, groupId);
+          socket.emit('unbooked', row, col, groupId);
         }
       }
     }
@@ -142,9 +142,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     replaceValueAt(row, col, dragValue);
   
     if (cellValue != dragValue && dragValue === 1) {
-      socket.emit('booked', matrixKey, groupId);
+      socket.emit('booked', row, col, groupId);
     } else if (cellValue != dragValue){
-      socket.emit('unbooked', matrixKey, groupId);
+      socket.emit('unbooked', row, col, groupId);
     }
   };
 
@@ -158,14 +158,14 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     if (isSelected) {
       setSelected(false);
       setStyle("UnselectedSlot");
-      socket.emit('unbooked', matrixKey, groupId);
+      socket.emit('unbooked', row, col, groupId);
       replaceValueAt(row, col, 0);
       setUserSlot(Math.random());
 
     } else {
       setSelected(true);
       setStyle("SelectedSlot");
-      socket.emit('booked', matrixKey, groupId);
+      socket.emit('booked', row, col, groupId);
       console.log(matrixKey);
       replaceValueAt(row, col, 1);
       setUserSlot(Math.random());

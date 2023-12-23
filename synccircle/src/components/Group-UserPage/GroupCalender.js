@@ -17,7 +17,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
 
   const [groupSocket, setGroupSocket] = useState(null);
-  const [modifiedKey, setModifiedKey] = useState(0);
+  //const [modifiedKey, setModifiedKey] = useState(0);
+  const [modifiedRow, setModifiedRow] = useState(0);
+  const [modifiedCol, setModifiedCol] = useState(0);
   const [isBooked, setIsBooked] = useState(false);
   const [totalMembers, setTotalMembers] = useState(0);
   const [addedNewMember, setAddedNewMember] = useState(true);
@@ -116,16 +118,20 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         }
       });
 
-      groupSocket.on('unbooked', (matrixKey, signalGroupId) => {
+      groupSocket.on('unbooked', (row, col, signalGroupId) => {
         if (groupId == signalGroupId) {
-          setModifiedKey(matrixKey);
+          setModifiedRow(row);
+          console.log(row+","+col);
+          setModifiedCol(col);
           setIsBooked(false);
         }
       });
 
-      groupSocket.on('booked', (matrixKey, signalGroupId) => {
+      groupSocket.on('booked', (row, col, signalGroupId) => {
         if (groupId == signalGroupId) {
-          setModifiedKey(matrixKey);
+          setModifiedRow(row);
+          setModifiedCol(col);
+          console.log(row+","+col);
           setIsBooked(true);
         }
       });
@@ -165,12 +171,10 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             : 0;*/
 
 
-          if (index % (columnsDisplayed + 1) != 0) {
+          if ((index % (columnsDisplayed + 1)) !== 0) {
             //const slotIndex = row*(days.length) + col;
             cellValue = getNumAvail(row, col);
           }
-
-
 
           return index % (columnsDisplayed + 1) === 0 ? (
             <TimeLabel
@@ -188,7 +192,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             setGroupSlotClicked={setGroupSlotClicked}
             cellValue={cellValue}
             totalMembers={totalMembers}
-            modifiedKey={modifiedKey}
+            modifiedRow={modifiedRow}
+            modifiedCol={modifiedCol}
             isBooked={isBooked}
           />
           );

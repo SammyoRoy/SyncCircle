@@ -2,44 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue, MAX_COLUMNS_DISPLAYED, startColumn  }) {
+function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue  }) {
   const { userSlot } = useContext(AppContext);
-  const { groupId } = useContext(AppContext);
+  const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
   const [numAvail, setNumAvail] = useState(0);
   const [showMembers, setShowMembers] = useState(false);
   const [content, setContent] = useState("");
   const cols = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
+  console.log("Cols:" + cols);
 
   const row = Math.floor(matrixKey / (cols + 1));
   const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;
-
-
-  /* useEffect(() => {
-    async function fetchData() {
-      if (groupId !== "") {
-        setNumAvail(cellValue.length);
-      }
-    }
-
-    fetchData();
-  }, [userSlot, groupId, row, col]  ); */
-
-  /*useEffect(() => {
-    if (groupId !== "") {
-      async function fetchData() {
-        const response = await axios.get(
-          `http://localhost:4000/groups/nummem/${groupId}`
-        );
-        const totalMembersValue = parseInt(response.data);
-        setTotalMembers(totalMembersValue);
-      }
-      fetchData();
-    
-      console.log("Getting total mems");
-    }
-
-  }, [userSlot]);*/
 
   //Initialize the Slot
   useEffect(() => {
@@ -76,7 +50,10 @@ function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPo
   }
 
   useEffect(() => {
-    if (modifiedKey === matrixKey) {
+    console.log("Modified: " +modifiedRow+","+modifiedCol);
+    console.log(row+","+col);
+    if (modifiedRow === row && modifiedCol === col) {
+      console.log("This is the matching slot");
       setNumAvail((prevNumAvail) => {
         if (isBooked) {
           console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
@@ -89,7 +66,7 @@ function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPo
 
       console.log("Total members: " + totalMembers);
     }
-  }, [modifiedKey, isBooked]);
+  }, [modifiedRow, modifiedCol, isBooked]);
 
   useEffect(() => {
     setColorByRatio();
@@ -105,7 +82,7 @@ function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPo
         <div className={days.length >= 6? "SmallerContent": null}>
           {numAvail !== 0? numAvail: null}
         </div>
-      </button>
+      {row},{col}</button>
     </>
   )
 }
