@@ -355,6 +355,39 @@ body {
     justify-content: center;
 }
 
+.ShiftButtons {
+    display: flex;
+    gap: 10px;
+}
+.ShiftLeft {
+    width: 28px;
+    height: 28px;
+    border-Radius: 50%;
+    background-Color: #D7D9D5;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ShiftLeft:hover {
+    background-color: #bfc0be;
+}
+
+.ShiftRight {
+    width: 28px;
+    height: 28px;
+    border-Radius: 50%;
+    background-Color: #D7D9D5;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ShiftRight:hover {
+    background-color: #bfc0be;
+}
+
 @media only screen and (max-width: 1300px){
     .UserTitleSmall{
         font-size: 1.2rem;

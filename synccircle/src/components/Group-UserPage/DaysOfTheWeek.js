@@ -3,6 +3,7 @@ import axios from "axios";
 import ScrollIcon from "./ScrollIcon";
 import DayLabels from "./DayLabels";
 import { AppContext } from "../../context/AppContext";
+import ShiftButtons from "./ShiftButtons";
 
 function DaysOfTheWeek({ styling }) {
   const [days, setDays] = useState([]);
@@ -109,7 +110,7 @@ function DaysOfTheWeek({ styling }) {
 
   return (
     <div className={styling} style={{ gridTemplateColumns }}>
-      <ScrollIcon />
+      <ShiftButtons />
       {days.map((day, index) => (
         <div>
         <DayLabels key={index} day={day} length={days.length} />
