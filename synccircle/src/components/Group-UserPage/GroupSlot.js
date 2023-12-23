@@ -2,18 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue }) {
+function GroupSlot({ totalMembers, modifiedKey, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue, MAX_COLUMNS_DISPLAYED, startColumn  }) {
   const { userSlot } = useContext(AppContext);
   const { groupId } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
   const [numAvail, setNumAvail] = useState(0);
   const [showMembers, setShowMembers] = useState(false);
   const [content, setContent] = useState("");
-  const cols = days.length;
-  //const [totalMembers, setTotalMembers] = useState(0);
+  const cols = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
 
   const row = Math.floor(matrixKey / (cols + 1));
-  const col = matrixKey - (row * (cols + 1)) - 1;
+  const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;
 
 
   /* useEffect(() => {

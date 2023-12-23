@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
 function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
-    const { groupId } = useContext(AppContext);
+    const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0);
     const [row, setRow] = useState(0);
@@ -25,9 +25,9 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             setDays(daysData);
             setStartTime(response.data.start_time);
             setStartTimeIndex(convertTimeToIndex(response.data.start_time));
-            setCols(daysData.length);
-            setRow(Math.floor(matrixKey / (daysData.length + 1)));
-            setCol((matrixKey % (daysData.length + 1)) - 1);
+            setCols(Math.min(daysData.length, MAX_COLUMNS_DISPLAYED));
+            setRow(Math.floor(matrixKey / (MAX_COLUMNS_DISPLAYED + 1)));
+            setCol((matrixKey % (MAX_COLUMNS_DISPLAYED + 1)) - 1  + startColumn);
             setIsLoading(false);
             setShowPopup(true);
         }

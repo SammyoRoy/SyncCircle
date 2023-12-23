@@ -6,7 +6,7 @@ import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
-  const { groupId, userId, userSlot } = useContext(AppContext);
+  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -144,9 +144,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
     ? endIndex - startIndex+1
     : endIndex + 24 - startIndex+1;
 
-  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
-  const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-  const totalCells = (days.length + 1) * (numRows);
+    const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
+    const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
+    const gridTemplateRows = `repeat(${numRows}, 1fr)`
+    
+    const totalCells = (columnsDisplayed + 1) * (numRows);
 
   return (
     <div className="CalenderContainer">
@@ -154,8 +156,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         {/* Generate and render grid items */}
 
         {Array.from({ length: totalCells }, (_, index) => {
-          const row = Math.floor(index / (days.length + 1));
-          const col = index % (days.length + 1) - 1;
+          const row = Math.floor(index / (columnsDisplayed + 1));
+          const col = index % (columnsDisplayed + 1) - 1 + startColumn;
           let cellValue = 0;
 
           /*const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
@@ -163,14 +165,14 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             : 0;*/
 
 
-          if (index % (days.length + 1) != 0) {
+          if (index % (columnsDisplayed + 1) != 0) {
             //const slotIndex = row*(days.length) + col;
             cellValue = getNumAvail(row, col);
           }
 
 
 
-          return index % (days.length + 1) === 0 ? (
+          return index % (columnsDisplayed + 1) === 0 ? (
             <TimeLabel
               key={index}
               currTimeIndex={(startIndex + row) % 24}

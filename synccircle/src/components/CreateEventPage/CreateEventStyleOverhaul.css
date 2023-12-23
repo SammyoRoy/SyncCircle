@@ -143,6 +143,7 @@ body {
 .CalendarSelectionFrame {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 80%;
     height: 65%;
     gap: 10px;
@@ -230,9 +231,6 @@ body {
 
 .CreateEventSubmitButton:hover {
     background: #297045;
-}
-
-.react-calendar__tile--active{
 }
 
 @media only screen and (min-width: 1200px) {
