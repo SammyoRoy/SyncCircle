@@ -82,21 +82,6 @@ function Calendar() {
   }, [userId]);
 
   useEffect(() => {
-    /*function convertTimeToIndex(time) {
-      const [hourMinute, period] = time.split(' ');
-      const [hour] = hourMinute.split(':');
-      let parsedHour = parseInt(hour, 10);
-
-      if (period === "PM" && parsedHour < 12) {
-        parsedHour += 12;
-      }
-
-      if (period === "AM" && parsedHour === 12) {
-        parsedHour = 0;
-      }
-
-      return (parsedHour - 6);
-    }*/
 
     function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');

@@ -22,6 +22,9 @@ function UserPage() {
   const [userName, setUserName] = useState("");
   const [isEmptyInput, setEmptyInput] = useState(false);
   const [dragValue, setDragValue] = useState(0);
+  const [startColumn, setStartColumn] = useState(0);
+  
+  const MAX_COLUMNS_DISPLAYED = 5; //Detect screen size and set this accordingly
 
   useEffect(() => {
     const groupIdFromUrl = window.location.pathname.split("/").pop();
@@ -53,7 +56,7 @@ function UserPage() {
         {alertMessages.length > 0 &&<div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue}}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED}}>
           <UserTitle />
           <HeaderCard/>
           <Calendar />

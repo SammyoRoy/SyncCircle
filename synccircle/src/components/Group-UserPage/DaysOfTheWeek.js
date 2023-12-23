@@ -10,9 +10,9 @@ function DaysOfTheWeek({ styling }) {
   const [dates, setDates] = useState([]);
   const [DaysOfTheWeek, setDaysOfTheWeek] = useState(false);
   
-  const { groupId } = useContext(AppContext);
+  const { groupId, startColumn, MAX_COLUMNS_DISPLAYED} = useContext(AppContext);
   const API_URL = process.env.REACT_APP_API_URL;
-  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+  const gridTemplateColumns = `76px repeat(${Math.min(MAX_COLUMNS_DISPLAYED, days.length)}, 1fr)`;
 
   async function GetDays() {
     const URL = window.location.href.split("/");
@@ -106,15 +106,17 @@ function DaysOfTheWeek({ styling }) {
     }
 
     fetchData();
-  }, [API_URL, groupId]);
+  }, [API_URL, groupId, startColumn]);
+
+  const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
 
   return (
     <div className={styling} style={{ gridTemplateColumns }}>
       <ShiftButtons />
-      {days.map((day, index) => (
+      {days.slice(startColumn, startColumn + columnsDisplayed).map((day, index) => (
         <div>
         <DayLabels key={index} day={day} length={days.length} />
-        {!DaysOfTheWeek && <div className="dateLabel">{dates[index]}</div>}
+        {!DaysOfTheWeek && <div className="dateLabel">{dates[index+startColumn]}</div>}
         </div>
       ))}
     </div>

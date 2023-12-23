@@ -3,6 +3,7 @@ import ShiftLeft from "./ShiftLeft"
 import ShiftRight from "./ShiftRight"
 
 function ShiftButtons(){
+
     return (
         <div className="ShiftButtons">
             <ShiftLeft />

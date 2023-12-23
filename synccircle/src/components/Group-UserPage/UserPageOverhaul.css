@@ -363,30 +363,39 @@ body {
     width: 28px;
     height: 28px;
     border-Radius: 50%;
-    background-Color: #D7D9D5;
+    background-Color: #bfc0be;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .ShiftLeft:hover {
-    background-color: #bfc0be;
+    background-color: #9c9c9b;
+}
+.ShiftLeft:disabled {
+    background-color: #e0e0e0;
 }
 
 .ShiftRight {
     width: 28px;
     height: 28px;
     border-Radius: 50%;
-    background-Color: #D7D9D5;
+    background-Color: #bfc0be;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+
 .ShiftRight:hover {
-    background-color: #bfc0be;
+    background-color: #9c9c9b;
 }
+
+.ShiftRight:disabled {
+    background-color: #e0e0e0;
+}
+
 
 @media only screen and (max-width: 1300px){
     .UserTitleSmall{
