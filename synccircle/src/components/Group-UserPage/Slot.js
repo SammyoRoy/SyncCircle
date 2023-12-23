@@ -2,16 +2,17 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 
 function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
-  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue } = useContext(AppContext);
+  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
   const [isModifed, setIsModified] = useState(false);
   const buttonRef = useRef(null);
-  const cols = days.length;
+  
+  const cols = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
 
   const row = Math.floor(matrixKey / (cols + 1));
-  const col = matrixKey - (row * (cols + 1)) - 1;
+  const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;
 
   const replaceValueAt = (row, col, value) => {
     const newArray = [...userArray];
@@ -20,8 +21,6 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
 
     setUserArray(newArray);
   };
-
-
 
   //Initialize
   useEffect(() => {
@@ -183,7 +182,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       onTouchMove={handleTouch}
       onTouchEnd={handleTouchEnd}
       type="button"
-    ></button>
+    > {matrixKey}: ({row},{col}) </button>
   )
 }
 
