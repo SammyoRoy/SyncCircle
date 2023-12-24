@@ -66,7 +66,7 @@ function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey
 
       console.log("Total members: " + totalMembers);
     }
-  }, [modifiedRow, modifiedCol, isBooked, row, col]);
+  }, [modifiedRow, modifiedCol, isBooked]);
 
   useEffect(() => {
     setColorByRatio();
