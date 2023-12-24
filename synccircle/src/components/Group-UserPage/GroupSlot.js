@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue  }) {
+function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue  }) {
   const { userSlot } = useContext(AppContext);
   const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -49,7 +49,7 @@ function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey
     }
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("Modified: " +modifiedRow+","+modifiedCol);
     console.log(row+","+col);
     if (modifiedRow === row && modifiedCol === col) {
@@ -66,7 +66,13 @@ function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey
 
       console.log("Total members: " + totalMembers);
     }
-  }, [modifiedRow, modifiedCol, isBooked]);
+  }, [modifiedRow, modifiedCol, isBooked]);*/
+
+  useEffect(() => {
+    if (numAvailArr){
+      setNumAvail(numAvailArr[row][col]);
+    }
+  }, [numAvailArr])
 
   useEffect(() => {
     setColorByRatio();

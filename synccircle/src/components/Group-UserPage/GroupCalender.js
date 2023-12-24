@@ -124,6 +124,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
           console.log(row+","+col);
           setModifiedCol(col);
           setIsBooked(false);
+          setNumAvailArr((prevArr) => {
+            const newArr = [...prevArr];
+            newArr[row][col] -= 1;
+            return newArr;
+          });
         }
       });
 
@@ -133,6 +138,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
           setModifiedCol(col);
           console.log(row+","+col);
           setIsBooked(true);
+          setNumAvailArr((prevArr) => {
+            const newArr = [...prevArr];
+            newArr[row][col] += 1;
+            return newArr;
+          });
         }
       });
     }
@@ -195,6 +205,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             modifiedRow={modifiedRow}
             modifiedCol={modifiedCol}
             isBooked={isBooked}
+            numAvailArr={numAvailArr}
           />
           );
         })}
