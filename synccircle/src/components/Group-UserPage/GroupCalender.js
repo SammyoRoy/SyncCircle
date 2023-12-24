@@ -14,6 +14,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [endIndex, setEndIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
+  const [modifiedArr, setModifiedArr] = useState([]);
 
 
   const [groupSocket, setGroupSocket] = useState(null);
@@ -121,9 +122,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       groupSocket.on('unbooked', (row, col, signalGroupId) => {
         if (groupId == signalGroupId) {
           setModifiedRow(row);
-          console.log(row+","+col);
           setModifiedCol(col);
           setIsBooked(false);
+          setModifiedArr(modifiedArr => [...modifiedArr, [row,col, false]]);
         }
       });
 
@@ -133,6 +134,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
           setModifiedCol(col);
           console.log(row+","+col);
           setIsBooked(true);
+          setModifiedArr(modifiedArr => [...modifiedArr, [row,col, true]]);
         }
       });
     }
@@ -185,6 +187,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             key={index}
             matrixKey={index}
             days={days}
+            modifiedArr={modifiedArr}
+            setModifiedArr = {setModifiedArr}
             groupId={groupId}
             userId={userId}
             setPopupMatrixKey={setPopupMatrixKey}
@@ -195,6 +199,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             modifiedRow={modifiedRow}
             modifiedCol={modifiedCol}
             isBooked={isBooked}
+            setNumAvailArr = {setNumAvailArr}
+            numAvailArr= {numAvailArr}
           />
           );
         })}

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
-function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue  }) {
+function GroupSlot({ totalMembers, modifiedRow, modifiedCol, modifiedArr, setModifiedArr, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue, setNumAvailArr, numAvailArr }) {
   const { userSlot } = useContext(AppContext);
   const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const [color, setColor] = useState("#F7F7F7");
@@ -14,6 +14,17 @@ function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey
 
   const row = Math.floor(matrixKey / (cols + 1));
   const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;
+
+  const replaceValueAt = (row, col, value) => {
+    if (Array.isArray(numAvailArr) && numAvailArr[row] && Array.isArray(numAvailArr[row])) {
+      const newArray = [...numAvailArr];
+      newArray[row] = [...numAvailArr[row]];
+      newArray[row][col] = value;
+      console.log(newArray);
+
+      setNumAvailArr(newArray);
+    }
+  };
 
   //Initialize the Slot
   useEffect(() => {
@@ -48,25 +59,36 @@ function GroupSlot({ totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey
       setColor(`#F7F7F7`);
     }
   }
-
-  useEffect(() => {
-    console.log("Modified: " +modifiedRow+","+modifiedCol);
-    console.log(row+","+col);
-    if (modifiedRow === row && modifiedCol === col) {
-      console.log("This is the matching slot");
-      setNumAvail((prevNumAvail) => {
-        if (isBooked) {
-          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
-          return prevNumAvail + 1;
-        } else {
-          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
-          return prevNumAvail - 1;
+useEffect(() =>{
+  if (Array.isArray(modifiedArr) && modifiedArr.length !== 0) {
+    const locate = (row, col) => {
+      for (let i = 0; i < modifiedArr.length; i++) {
+        if (modifiedArr[i][0] === row && modifiedArr[i][1] === col) {
+          return i;
         }
+      }
+      return -1;
+    };
+  
+    const index = locate(row, col);  // Use the locate function directly
+    if (index !== -1) {  // Use strict inequality
+      console.log("Modified: " + row + "," + col);
+      
+      setNumAvail((prevNumAvail) => {
+        const newNumAvail = modifiedArr[index][2] ? prevNumAvail + 1 : prevNumAvail - 1;
+        replaceValueAt(row, col, newNumAvail);
+        
+        // Remove the item from modifiedArr without mutating the original state
+        const newModifiedArr = modifiedArr.filter((_, i) => i !== index);
+        setModifiedArr(newModifiedArr);
+        
+        return newNumAvail;
       });
-
-      console.log("Total members: " + totalMembers);
     }
-  }, [modifiedRow, modifiedCol, isBooked]);
+  }
+},[modifiedArr])
+  
+  
 
   useEffect(() => {
     setColorByRatio();
