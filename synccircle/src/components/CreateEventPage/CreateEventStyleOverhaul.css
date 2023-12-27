@@ -158,6 +158,17 @@ body {
     height: 30%;
 }
 
+.SwitchFrame{
+    display: flex;
+    flex-direction: row;
+    justify-content:  space-around;
+    color: #828282;
+    width: 50%;
+}
+.SwitchFrame div{
+   
+}
+
 
 
 

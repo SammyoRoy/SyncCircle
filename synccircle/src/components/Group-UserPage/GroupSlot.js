@@ -88,7 +88,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
         <div className={days.length >= 6? "SmallerContent": null}>
           {numAvail !== 0? numAvail: null}
         </div>
-      {row},{col}</button>
+      </button>
     </>
   )
 }

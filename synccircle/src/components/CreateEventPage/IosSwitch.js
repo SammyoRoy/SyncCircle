@@ -1,8 +1,27 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import {useState, useEffect} from 'react'
 
 
+function useDarkMode() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check if the media query matches the user's preference
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches); // Set the initial mode
+
+    // Add a listener to track changes
+    const handler = (event) => setIsDarkMode(event.matches);
+    mediaQuery.addListener(handler);
+
+    // Clean up the listener on component unmount
+    return () => mediaQuery.removeListener(handler);
+  }, []);
+
+  return isDarkMode;
+}
 export const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
   ))(({ theme }) => ({
@@ -17,7 +36,7 @@ export const IOSSwitch = styled((props) => (
         transform: 'translateX(16px)',
         color: '#fff',
         '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          backgroundColor: useDarkMode() === true ? '#2ECA45' : '#65C466',
           opacity: 1,
           border: 0,
         },
@@ -36,7 +55,7 @@ export const IOSSwitch = styled((props) => (
             : theme.palette.grey[600],
       },
       '&.Mui-disabled + .MuiSwitch-track': {
-        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+        opacity: useDarkMode() === false ? 0.7 : 0.3,
       },
     },
     '& .MuiSwitch-thumb': {
@@ -46,7 +65,7 @@ export const IOSSwitch = styled((props) => (
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
-      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      backgroundColor: useDarkMode() === false ? '#ffffff' : '#bdc1c6',
       opacity: 1,
       transition: theme.transitions.create(['background-color'], {
         duration: 500,

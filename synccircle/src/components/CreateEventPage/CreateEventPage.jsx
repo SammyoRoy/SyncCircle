@@ -86,6 +86,7 @@ function CreateEventPage() {
             </div>
             <div className="SwitchFrame">
               <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
+              <div>Days of the Week</div>
             </div>
             {switchState && <DaySelectionFrame setDays={setDays} days={days} />}
             {!switchState && <CalenderSelectionFrame setDays={setDays} days={days} />}
