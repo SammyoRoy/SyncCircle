@@ -22,17 +22,20 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
         async function fetchData() {
             const response = await axios.get(`${API_URL}/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
+            const tempCols = Math.min(daysData.length, MAX_COLUMNS_DISPLAYED);
+    
             setDays(daysData);
             setStartTime(response.data.start_time);
             setStartTimeIndex(convertTimeToIndex(response.data.start_time));
-            setCols(Math.min(daysData.length, MAX_COLUMNS_DISPLAYED));
-            setRow(Math.floor(matrixKey / (MAX_COLUMNS_DISPLAYED + 1)));
-            setCol((matrixKey % (MAX_COLUMNS_DISPLAYED + 1)) - 1  + startColumn);
+            setCols(tempCols);
+            setRow(Math.floor(matrixKey / (tempCols + 1)));
+            setCol((matrixKey % (tempCols + 1)) - 1 + startColumn);
             setIsLoading(false);
             setShowPopup(true);
         }
         fetchData();
-    }, [matrixKey, API_URL, groupId, groupSlotClicked]);
+    }, [matrixKey, API_URL, groupId, groupSlotClicked, startColumn, MAX_COLUMNS_DISPLAYED]);
+    
 
     useEffect(() => {
         getMembers();

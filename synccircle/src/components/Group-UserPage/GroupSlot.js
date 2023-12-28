@@ -85,7 +85,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
         setPopupColor(color)
         setGroupSlotClicked(Math.random)
       }} data-toggle="modal" data-target="#groupModal">
-        <div className={days.length >= 6? "SmallerContent": null}>
+        <div className={MAX_COLUMNS_DISPLAYED >= 6? "SmallerContent": null}>
           {numAvail !== 0? numAvail: null}
         </div>
       </button>
