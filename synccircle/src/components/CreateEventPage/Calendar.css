@@ -170,6 +170,13 @@
     font-weight: 600;
   }
 
+  .start-date{
+    background-color: #bff5c1 !important;
+    border-radius: 20%;
+    border: 2px solid #ffffff !important;
+    font-weight: 600;
+  }
+
   @media only screen and (max-height: 770px){
     .react-calendar__tile{
       height: 30px;

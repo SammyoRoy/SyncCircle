@@ -157,8 +157,13 @@ const CalendarSelectionFrame = ({days,setDays}) => {
             <Calendar
                 onClickDay={onDateClick}
                 tileClassName={({ date, view }) => {
-                    if (view === 'month' && isDateInRange(date)) {
-                        return 'in-range'; // Custom styling for dates in range
+                    if (view === 'month') {
+                        // Custom styling for dates in range
+                        if (tempRange.start && date.toDateString() === tempRange.start.toDateString()) {
+                          return 'start-date';
+                        } else if (isDateInRange(date)) {
+                          return 'in-range';
+                        }
                     }
                 }}
                 tileDisabled={({ date }) => {
@@ -177,14 +182,6 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 formatShortWeekday={(locale, value) => ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][value.getDay()]}
                 
             />
-            {/* Display merged ranges */}
-            <div>
-                {dateRanges.map((range, index) => (
-                    <div key={index}>
-                        {range.start.toLocaleDateString()} - {range.end.toLocaleDateString()}
-                    </div>
-                ))}
-            </div>
         </div>
     );
 };
