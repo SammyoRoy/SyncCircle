@@ -24,7 +24,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
   }, [cookies, groupId, days, startTime, endTime]);
 
   const autoJoin = () => {
-    if (cookies[`username_${groupId}`].length > 20) {
+    if (cookies[`username_${groupId}`].length > 30) {
       setEmptyInput(true);
       return;
     }

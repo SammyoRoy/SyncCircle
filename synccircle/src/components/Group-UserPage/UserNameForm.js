@@ -45,7 +45,7 @@ function UserNameForm() {
         type="text"
         className={`UserNameForm`}
         placeholder="Username"
-        value={userName}
+        value={hasJoined? userName.toUpperCase() : userName}
         onChange={(e) => onChange(e)}
         disabled={isSubmitted}
       />

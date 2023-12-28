@@ -125,7 +125,7 @@ const findMember = asyncHandler(async (req, res) => {
     const group = await Group.findOne({ group_id: req.params.groupId });
     const userName = req.query.userName;
     if (group) {
-        const user = group.users.find(user => user.user_name === userName);
+        const user = group.users.find(user => user.user_name.toUpperCase() === userName.toUpperCase());
         if (user) {
             res.status(200).json({user_id: user.user_id, users: group.users });
         }
