@@ -24,26 +24,6 @@ const CalendarSelectionFrame = ({days,setDays}) => {
         return allDates;
     };
 
-    /*function formatDateString(ranges) {
-
-        let allDates = [];
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const weekDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-        ranges.forEach(range => {
-            let currentDate = new Date(range.start);
-            while (currentDate <= range.end) {
-                const monthDay = `${monthNames[currentDate.getMonth()]} ${currentDate.getDate()}`;
-                const weekday = weekDayNames[currentDate.getDay()];
-                console.log(monthDay + "," + weekday);
-                allDates.push([monthDay, weekday]);
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-        });
-
-        return allDates;
-      }*/
-
     const updateDateRanges = (newRanges) => {
         const formattedDates = generateFormattedDates(newRanges);
         setDays(formattedDates);

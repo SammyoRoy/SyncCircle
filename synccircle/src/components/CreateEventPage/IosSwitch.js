@@ -42,6 +42,7 @@ export const IOSSwitch = styled((props) => (
         },
         '&.Mui-disabled + .MuiSwitch-track': {
           opacity: 0.5,
+          
         },
       },
       '&.Mui-focusVisible .MuiSwitch-thumb': {
@@ -65,7 +66,7 @@ export const IOSSwitch = styled((props) => (
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
-      backgroundColor: useDarkMode() === false ? '#ffffff' : '#bdc1c6',
+      backgroundColor: useDarkMode() === false ? '#a9a9a9' : '#bdc1c6',
       opacity: 1,
       transition: theme.transitions.create(['background-color'], {
         duration: 500,

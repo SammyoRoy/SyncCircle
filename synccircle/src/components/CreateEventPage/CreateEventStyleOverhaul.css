@@ -7,7 +7,6 @@ body {
 }
 
 
-
 .ScreenBackground {
     display: flex;
     flex-direction: column;
@@ -46,6 +45,8 @@ body {
     box-sizing: border-box;
     justify-content: space-evenly;
     align-items: center;
+    gap: 2%;
+    padding-top: 4%;
 }
 
 .EventNameForm {
@@ -129,10 +130,6 @@ body {
     border: 2px solid #5AD85F;
 }
 
-
-
-
-
 .DaySelectionFrame {
     display: flex;
     flex-direction: column;
@@ -145,7 +142,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 80%;
-    height: 65%;
     gap: 10px;
 }
 
@@ -161,16 +157,11 @@ body {
 .SwitchFrame{
     display: flex;
     flex-direction: row;
-    justify-content:  space-around;
+    justify-content:  center;
+    gap: 2%;
     color: #828282;
-    width: 50%;
+    width: 70%;
 }
-.SwitchFrame div{
-   
-}
-
-
-
 
 .DayOfTheWeekButton {
     background: #70D474;
@@ -276,7 +267,9 @@ body {
     }
 
     .Backdrop {
-        height: 65%;
+        height: 60%;
+        justify-content: center;
+        padding-top: 0%;
     }
 
     .DayOfTheWeekButton {
@@ -414,8 +407,8 @@ body {
     }
 
     .Backdrop{
-        height: 50%;
-    
+        height: 60%;
+        
     }
 
     .EventNameForm{
