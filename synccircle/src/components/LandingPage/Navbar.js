@@ -15,11 +15,14 @@ import {
     ListItemButton
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import {useNavigate} from 'react-router-dom'
 
 const Navbar = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+    const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -35,7 +38,7 @@ const Navbar = () => {
                     <ListItemText primary="Contact Us" />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary="Use SyncCircle"/>
+                    <ListItemText primary="Use SyncCircle" />
                 </ListItem>
                 {/* Add other nav items here */}
             </List>
@@ -52,7 +55,7 @@ const Navbar = () => {
                     </Typography>
 
                     {/* Navigation Links - Hide on mobile */}
-                    <Box sx={{display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'space-evenly', fontWeight:700}}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'space-evenly', fontWeight: 700 }}>
                         <Button color="inherit">How To Use</Button>
                         <Button color="inherit">Contact Us</Button>
                         <Button color="inherit">About</Button>
@@ -64,14 +67,20 @@ const Navbar = () => {
                             sx={{
                                 backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
                                 color: 'white',
+                                transition: 'box-shadow 0.3s ease-in-out',
                                 '&:hover': {
-                                    backgroundImage: 'linear-gradient(45deg, #7D83FF 30%, #5AD85F 90%)',
+                                    backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
+                                    boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.5)',
                                 }
                             }}
+                            onClick={() => (navigate('/'))}
                         >
                             Use SyncCircle
                         </Button>
                     </Box>
+
+
+
 
                     {/* Hamburger Menu Icon - Show on mobile */}
                     {isMobile && (
