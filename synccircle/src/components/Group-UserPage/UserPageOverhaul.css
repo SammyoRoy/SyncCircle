@@ -234,7 +234,7 @@ body {
     justify-items: center;
     height: 15%;
     padding-top: 1%;
-    padding-right: 10px;
+    /**padding-right: 10px;**/
     padding-bottom: 3%;
     
 }
@@ -258,6 +258,9 @@ body {
 
 .dateLabel{
     color:#969696;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5%;
 }
 
 .CalenderContainer{
@@ -486,12 +489,18 @@ body {
         border-radius: 0;
         margin-bottom: 0;
     }
+    .DOTWBar{
+        padding-bottom: 5%;
+    }
     .UserTitleSmall{
         font-size: 0.8rem;
     }
     .DayLabel{
         width: 28px;
         height: 28px;
+    }
+    .dateLabel{
+        font-size: small;
     }
     .UserNameContainer{
         margin-top: 0;

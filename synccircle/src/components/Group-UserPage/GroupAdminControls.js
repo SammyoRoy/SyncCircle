@@ -5,13 +5,18 @@ import { AppContext } from '../../context/AppContext';
 import { IconButton, Button, Input } from '@mui/material';
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 const GroupAdminControls = () => {
-    const { userId, groupId } = useContext(AppContext);
+    const { userId, groupId, first } = useContext(AppContext);
     const [users, setUsers] = useState([]);
     const [changedName, setChangedName] = useState('');
+    const [changedUser, setChangedUser] = useState('');
+    const isAdmin = first;
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+
+    const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
 
     console.log("$API: " + API_URL)
 
@@ -38,13 +43,30 @@ const GroupAdminControls = () => {
             });
     }
 
+    const handleLogout = () => {
+        removeCookie(`username_${groupId}`);
+        window.location.reload();
+    }
+
+    const handleUserNameChange = () => {
+        const URL = window.location.href.split("/");
+        axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
+            .then((response) => {
+                console.log(response.data);
+                setChangedUser('');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     const handleNameChange = () => {
         const URL = window.location.href.split("/");
         axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 console.log(response.data);
                 setChangedName('');
-                
+
             })
             .catch((error) => {
                 // handle the error
@@ -64,33 +86,49 @@ const GroupAdminControls = () => {
             });
     }
 
-        return (
-            <div className='GroupControls'>
-                <h6>Users</h6>
-                <ul className='UserList'>
-                    {users != [] && userId && users.filter(user => user.user_id != userId).map(user =>
-                        <div key={user.user_id}>
-                            <IconButton
-                                className="RemoveButton"
-                                sx={{
-                                    color: "#D11A2A",
-                                    '&:hover': {
-                                        color: "#b01624" // darken the red color on hover
-                                    }
-                                }}
-                                onClick={() => handleRemove(user.user_id)}
-                            >
-                                <RemoveCircleOutlinedIcon fontSize="small" />
-                            </IconButton>
-                            {user.user_name}
-                        </div>
-                    )}
-                    {users.length === 1 && <p>No other users in this group</p>}
-                </ul>
-                <div>
-                    <h6>Change Group Name</h6>
-                    <form onSubmit={handleNameChange}>
-                        <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New Group Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
+    return (
+        <div className='GroupControls'>
+            <h6>Other Users</h6>
+            <ul className='UserList'>
+                {users != [] && userId && users.filter(user => user.user_id != userId).map(user =>
+                    <div key={user.user_id}>
+                        {isAdmin && <IconButton
+                            className="RemoveButton"
+                            sx={{
+                                color: "#D11A2A",
+                                '&:hover': {
+                                    color: "#b01624" // darken the red color on hover
+                                }
+                            }}
+                            onClick={() => handleRemove(user.user_id)}
+                        >
+                            <RemoveCircleOutlinedIcon fontSize="small" />
+                        </IconButton>}
+                        {user.user_name}
+                    </div>
+                )}
+                {users.length === 1 && <p>No other users in this group</p>}
+            </ul>
+            <div>
+                <Button
+                    sx={{
+                        marginLeft: "4%",
+                        backgroundColor: "#D11A2A",
+                        color: "#fff",
+                        borderRadius: "5px",
+                        '&:hover': {
+                            backgroundColor: "#b01624" // darken the red color on hover
+                        }
+                    }}
+                    onClick={handleLogout}
+                >
+                    Logout
+                </Button>
+            </div>
+            {/**<div>
+                    <h6>Change Your Name</h6>
+                    <form onSubmit={handleUserNameChange}>
+                        <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New User Name' value={changedUser} onChange={(event) => setChangedUser(event.target.value)} />
                         <Button
                             sx={{
                                 backgroundColor: "#0398dc",
@@ -108,26 +146,49 @@ const GroupAdminControls = () => {
                             Change
                         </Button>
                     </form>
-                </div>
-                <div>
-                    <h6>Delete Group</h6>
+
+                        </div>**/}
+            {isAdmin && <div>
+                <h6>Change Group Name</h6>
+                <form onSubmit={handleNameChange}>
+                    <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New Group Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
                     <Button
                         sx={{
-                            marginLeft: "4%",
-                            backgroundColor: "#D11A2A",
+                            backgroundColor: "#0398dc",
                             color: "#fff",
-                            borderRadius: "5px",
+                            borderTopRightRadius: "5px",
+                            borderBottomRightRadius: "5px",
+                            borderBottomLeftRadius: "0px",
+                            borderTopLeftRadius: "0px",
                             '&:hover': {
-                                backgroundColor: "#b01624" // darken the red color on hover
+                                backgroundColor: "#027bb5" // darken the blue color on hover
                             }
                         }}
-                        onClick={handleDelete}
+                        type="submit"
                     >
-                        Delete
+                        Change
                     </Button>
-                </div>
-            </div>
-        );
-    }
+                </form>
+            </div>}
+            {isAdmin && <div>
+                <h6>Delete Group</h6>
+                <Button
+                    sx={{
+                        marginLeft: "4%",
+                        backgroundColor: "#D11A2A",
+                        color: "#fff",
+                        borderRadius: "5px",
+                        '&:hover': {
+                            backgroundColor: "#b01624" // darken the red color on hover
+                        }
+                    }}
+                    onClick={handleDelete}
+                >
+                    Delete
+                </Button>
+            </div>}
+        </div>
+    );
+}
 
-    export default GroupAdminControls;
+export default GroupAdminControls;

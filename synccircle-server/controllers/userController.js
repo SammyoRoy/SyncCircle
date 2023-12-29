@@ -93,6 +93,32 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, users: updatedGroup.users });
 });
 
+//@desc Change User info in a group
+//@route PUT /users/:groupid/:userid
+//@access Public
+const changeUser = asyncHandler(async (req, res) => {
+    const groupId = req.params.groupid;
+    const userId = req.params.userid;
+    const { name } = req.body;
+
+    const filter = { group_id: groupId, 'users.user_id': userId };
+    const update = { $set: { 'users.$.user_name': name } };
+
+    try {
+        const updatedGroup = await Group.findOneAndUpdate(filter, update, { new: true });
+
+        if (updatedGroup) {
+            res.status(200).json({ success: true, message: 'User updated successfully', users: updatedGroup.users });
+        } else {
+            res.status(404).json({ message: 'Group or User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update user', error: error.toString() });
+    }
+});
+
+
+
 
 // @desc   Fetch a user from a group
 // @route  GET /users/:groupid/:userid
@@ -267,4 +293,4 @@ const updateMasterArray = (group, user) => {
   };
   
 
-module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot };
+module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot, changeUser };
