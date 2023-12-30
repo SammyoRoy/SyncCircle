@@ -28,6 +28,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
       setEmptyInput(true);
       return;
     }
+    console.log(cookies[`username_${groupId}`] );
     axios.get(`${API_URL}/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
       .then((response) => {
         if (response.data === "False") {

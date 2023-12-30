@@ -34,7 +34,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             setShowPopup(true);
         }
         fetchData();
-    }, [matrixKey, API_URL, groupId, groupSlotClicked, startColumn, MAX_COLUMNS_DISPLAYED]);
+    }, [matrixKey, API_URL, groupId, groupSlotClicked, MAX_COLUMNS_DISPLAYED]);
     
 
     useEffect(() => {

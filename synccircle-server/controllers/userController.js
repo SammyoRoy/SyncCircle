@@ -32,7 +32,7 @@ const addUser = asyncHandler(async (req, res) => {
     if (end.isBefore(start)) {
         hours = 24 - hours;
     }
-    const availability_array = Array(hours+1).fill().map(() => Array(days.length).fill(0));
+    const availability_array = Array(hours + 1).fill().map(() => Array(days.length).fill(0));
     const user = {
         user_id: userId,
         user_name: name,
@@ -77,7 +77,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     const usernameToDelete = user.user_name;
 
-    const newMasterArray = group.master_array.map(row => 
+    const newMasterArray = group.master_array.map(row =>
         row.map(col => col.filter(name => name !== usernameToDelete))
     );
 
@@ -101,21 +101,58 @@ const changeUser = asyncHandler(async (req, res) => {
     const userId = req.params.userid;
     const { name } = req.body;
 
-    const filter = { group_id: groupId, 'users.user_id': userId };
-    const update = { $set: { 'users.$.user_name': name } };
+    const group = await Group.findOne({ group_id: groupId });
 
-    try {
-        const updatedGroup = await Group.findOneAndUpdate(filter, update, { new: true });
+    if (group) {
+        const userIndex = group.users.findIndex(user => user.user_id === userId);
+        if (userIndex !== -1) {
+            const oldName = group.users[userIndex].user_name;
+            group.users[userIndex].user_name = name;
 
-        if (updatedGroup) {
-            res.status(200).json({ success: true, message: 'User updated successfully', users: updatedGroup.users });
+            // Update the master_array
+            for (let row = 0; row < group.master_array.length; row++) {
+                for (let col = 0; col < (group.master_array[row] ? group.master_array[row].length : 0); col++) {
+                    const slotIndex = group.master_array[row][col].indexOf(oldName);
+                    if (slotIndex !== -1) {
+                        group.master_array[row][col][slotIndex] = name; // Update the name in the master array
+                    }
+                }
+            }
+
+            // Prepare the update for the users array and master_array
+            const update = {
+                $set: {
+                    'users.$[user].user_name': name,
+                    'master_array': group.master_array
+                }
+            };
+
+            try {
+                // Save the updated group document with the modified master_array and users array
+                const updatedGroup = await Group.findOneAndUpdate(
+                    { group_id: groupId, 'users.user_id': userId },
+                    update,
+                    { arrayFilters: [{ 'user.user_id': userId }], new: true }
+                );
+
+                if (updatedGroup) {
+                    res.status(200).json({ message: 'Change Name Successful', updatedGroup });
+                } else {
+                    res.status(500).json({ message: 'Update failed' });
+                }ß
+            } catch (error) {
+                console.error('Error updating group:', error);
+                res.status(500).json({ message: 'Update failed', error });
+            }
+
         } else {
-            res.status(404).json({ message: 'Group or User not found' });
+            res.status(404).json({ message: 'User not found in group' });
         }
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to update user', error: error.toString() });
+    } else {
+        res.status(404).json({ message: 'Group not found' });
     }
 });
+
 
 
 
@@ -165,7 +202,7 @@ const bookSlot = asyncHandler(async (req, res) => {
             group.markModified('master_array');
             group.markModified('users');
             await group.save();
-            res.status(200).json({ message: 'Booking successful.'});
+            res.status(200).json({ message: 'Booking successful.' });
         }
         else {
             res.status(404);
@@ -268,29 +305,29 @@ const massChangeSlot = asyncHandler(async (req, res) => {
 
 const updateMasterArray = (group, user) => {
     if (!group.master_array || !user.availability_array) {
-      console.error('master_array or availability_array is undefined');
-      return;
+        console.error('master_array or availability_array is undefined');
+        return;
     }
-  
+
     for (let row = 0; row < user.availability_array.length; row++) {
-      if (!user.availability_array[row] || !group.master_array[row]) {
-        console.error(`Row ${row} is undefined`);
-        continue;
-      }
-  
-      for (let col = 0; col < user.availability_array[row].length; col++) {
-        if (user.availability_array[row][col] === 1) {
-          // Book the slot if it's 1 in the availability_array
-          if (!group.master_array[row][col].includes(user.user_name)) {
-            group.master_array[row][col].push(user.user_name);
-          }
-        } else {
-          // Unbook the slot if it's 0 in the availability_array
-          group.master_array[row][col] = group.master_array[row][col].filter(name => name !== user.user_name);
+        if (!user.availability_array[row] || !group.master_array[row]) {
+            console.error(`Row ${row} is undefined`);
+            continue;
         }
-      }
+
+        for (let col = 0; col < user.availability_array[row].length; col++) {
+            if (user.availability_array[row][col] === 1) {
+                // Book the slot if it's 1 in the availability_array
+                if (!group.master_array[row][col].includes(user.user_name)) {
+                    group.master_array[row][col].push(user.user_name);
+                }
+            } else {
+                // Unbook the slot if it's 0 in the availability_array
+                group.master_array[row][col] = group.master_array[row][col].filter(name => name !== user.user_name);
+            }
+        }
     }
-  };
-  
+};
+
 
 module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot, changeUser };

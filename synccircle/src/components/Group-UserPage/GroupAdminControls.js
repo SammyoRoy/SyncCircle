@@ -25,6 +25,7 @@ const GroupAdminControls = () => {
         axios.get(`${API_URL}/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
+                console.log(response.data.users);
             })
             .catch((error) => {
                 console.error(error);
@@ -44,20 +45,25 @@ const GroupAdminControls = () => {
     }
 
     const handleLogout = () => {
-        removeCookie(`username_${groupId}`);
+        removeCookie(`username_${groupId}`, { path: '/' });
         window.location.reload();
+
     }
 
-    const handleUserNameChange = () => {
-        const URL = window.location.href.split("/");
-        axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
-            .then((response) => {
-                console.log(response.data);
-                setChangedUser('');
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    const handleUserNameChange = async () => {
+        if (!users.some(user => user.user_name === changedUser)) {
+            await setCookie(`username_${groupId}`, changedUser, { path: '/' });
+            axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+        else{
+            console.log("already a name");
+        }
     }
 
     const handleNameChange = () => {
@@ -110,6 +116,29 @@ const GroupAdminControls = () => {
                 {users.length === 1 && <p>No other users in this group</p>}
             </ul>
             <div>
+                <h6>Change Your Name</h6>
+                <form onSubmit={handleUserNameChange}>
+                    <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New User Name' value={changedUser} onChange={(event) => setChangedUser(event.target.value)} />
+                    <Button
+                        sx={{
+                            backgroundColor: "#0398dc",
+                            color: "#fff",
+                            borderTopRightRadius: "5px",
+                            borderBottomRightRadius: "5px",
+                            borderBottomLeftRadius: "0px",
+                            borderTopLeftRadius: "0px",
+                            '&:hover': {
+                                backgroundColor: "#027bb5" // darken the blue color on hover
+                            }
+                        }}
+                        type="submit"
+                    >
+                        Change
+                    </Button>
+                </form>
+
+            </div>
+            <div>
                 <Button
                     sx={{
                         marginLeft: "4%",
@@ -125,29 +154,6 @@ const GroupAdminControls = () => {
                     Logout
                 </Button>
             </div>
-            {/**<div>
-                    <h6>Change Your Name</h6>
-                    <form onSubmit={handleUserNameChange}>
-                        <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New User Name' value={changedUser} onChange={(event) => setChangedUser(event.target.value)} />
-                        <Button
-                            sx={{
-                                backgroundColor: "#0398dc",
-                                color: "#fff",
-                                borderTopRightRadius: "5px",
-                                borderBottomRightRadius: "5px",
-                                borderBottomLeftRadius: "0px",
-                                borderTopLeftRadius: "0px",
-                                '&:hover': {
-                                    backgroundColor: "#027bb5" // darken the blue color on hover
-                                }
-                            }}
-                            type="submit"
-                        >
-                            Change
-                        </Button>
-                    </form>
-
-                        </div>**/}
             {isAdmin && <div>
                 <h6>Change Group Name</h6>
                 <form onSubmit={handleNameChange}>
