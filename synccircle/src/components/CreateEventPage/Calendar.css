@@ -2,7 +2,7 @@
 
 .react-calendar {
     width: 350px;
-    max-width: 100%;
+    max-width: 110%;
     max-height: 100%;
     background: white;
     border: 1px solid #a0a096;
@@ -33,6 +33,7 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+  
   }
   
   .react-calendar button {
@@ -185,7 +186,7 @@
   }
   @media only screen and (max-height: 650px){
     .react-calendar__tile{
-      height: 25px;
+      height: 35px;
       line-height: 0px;
     }
   }
