@@ -2,8 +2,7 @@
 
 .react-calendar {
     width: 350px;
-    max-width: 110%;
-    max-height: 100%;
+    max-width: 100%;
     background: white;
     border: 1px solid #a0a096;
     font-family: 'Lato';
@@ -67,6 +66,7 @@
   
   .react-calendar__navigation button:enabled:hover{
     background-color: #e6e6e6;
+    border-radius: 30px;
   }
   
   .react-calendar__month-view__weekdays {
@@ -186,16 +186,13 @@
   }
   @media only screen and (max-height: 650px){
     .react-calendar__tile{
-      height: 35px;
-      line-height: 0px;
+      height: 30px;
+      line-height: 8px;
     }
   }
   @media only screen and (max-height: 575px){
-    .react-calendar{
-      overflow: scroll;
-    }
     .react-calendar__tile{
-      height: 40px;
-      line-height: 16px;
+      height: 25px;
+      line-height: 8px;
     }
   }

@@ -13,13 +13,14 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url('GreenCircleBG.png');
-    background-size:cover;
+    background-size: cover;
 }
 
 .ScreenBackground {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    min-width: 350px;
     background-color: transparent;
     justify-content: flex-start;
     align-items: center;
@@ -47,10 +48,11 @@ body {
 .Backdrop {
     display: flex;
     flex-direction: column;
-    min-width: 340px;
-    width: 90%;
+    min-width: 320px;
+    width: 100%;
     background: #E6E6E6;
     height: auto;
+    max-height: 500px;
     border-radius: 30px;
     box-sizing: border-box;
     align-items: center;
@@ -96,7 +98,8 @@ body {
 .EventNameInputRed::placeholder {
     color: #b32121;
 }
-.RedBorder{
+
+.RedBorder {
     border: 3px solid #b32121 !important;
     color: #b32121 !important;
 }
@@ -145,17 +148,19 @@ body {
     display: flex;
     flex-direction: column;
     width: 90%;
-    min-height: 320px;
     height: 100%;
+    min-height: 330px;
     gap: 10px;
 
 }
+
 .CalendarSelectionFrame {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 90%;
     height: 100%;
+    min-height: 330px;
     gap: 10px;
 }
 
@@ -168,10 +173,10 @@ body {
     height: 30%;
 }
 
-.SwitchFrame{
+.SwitchFrame {
     display: flex;
     flex-direction: row;
-    justify-content:  center;
+    justify-content: center;
     gap: 2%;
     color: #828282;
     width: 70%;
@@ -225,8 +230,8 @@ body {
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-  }
-  
+}
+
 
 
 .CreateEventSubmitButton {
@@ -255,97 +260,164 @@ body {
     background-color: #391463;
 }
 
-  /* Mobile devices (portrait and landscape) */
-  @media only screen and (max-width: 767px) {
-    .Title{
+@media only screen and (max-width: 380px) {
+    .Title {
+        font-size: 200%;
+        margin-bottom: 0;
+    }
+    .ScreenBackground {
+        min-width: 0px;
+        width: 95%;
+    }
+
+    .Backdrop {
+        min-width: 0px;
+    }
+}
+
+/* Mobile devices (portrait and landscape) */
+@media only screen and (min-width: 381px) and (max-width: 767px) {
+    .Title {
         font-size: 240%;
         margin-bottom: 0;
     }
-  }
-  
-  /* Tablets and small laptops */
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
 
-  }
-  
-  /* Standard laptops and desktops */
-  @media only screen and (min-width: 1024px) and (max-width: 1500px) {
-    .Title{
+/* Tablets and small laptops */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .Title {
+        font-size: 250%;
+        margin-bottom: 0;
+    }
+    .ScreenBackground{
+        width: 50%;
+    }
+    .EventNameInput{
+        font-size: 150%;
+    }
+    .CreateEventSubmitButton{
+        font-size: 150%;
+    }
+}
+
+/* Standard laptops and desktops */
+@media only screen and (min-width: 1024px) and (max-width: 1500px) {
+    .Title {
         font-size: 220%;
         margin-top: 4%;
         margin-bottom: 0;
     }
-
-    .DaySelectionFrame{
-        padding-top: 3%;
-        padding-bottom: 3%;
-        min-height: 312px;
-    }
-  }
-  
-  /* Wide-screen monitors */
-  @media only screen and (min-width: 1500px) {
     .ScreenBackground{
-        justify-content: center;
+        width: 30%;
     }
-    .Title{
-        font-size: 260%;
-        margin-top: 4%;
-        margin-bottom: 3%;
+}
+
+/* Wide-screen monitors */
+@media only screen and (min-width: 1500px) {
+    .ScreenBackground {
+        justify-content: center;
+        width: 30%;
     }
 
-    .Backdrop{
-        height: 55%;
+    .Title {
+        font-size: 260%;
+        margin-top: 0%;
+        margin-bottom: 7%;
+    }
+
+    .Backdrop {
         width: 95%;
     }
 
-    .CalendarSelectionFrame{
+    .CalendarSelectionFrame {
         height: 100%;
     }
 
-    .DaySelectionFrame{
+    .DaySelectionFrame {
         padding-top: 3%;
         padding-bottom: 3%;
         min-height: 350px;
     }
-  }
+}
 
-  
-@media (prefers-color-scheme: dark){
-    .Title{
+@media only screen and (max-height: 770px) {
+    .CalendarSelectionFrame {
+        min-height: 270px;
+    }
+
+    .DaySelectionFrame {
+        min-height: 270px;
+    }
+}
+
+@media only screen and (max-height: 650px) {
+    .CalendarSelectionFrame {
+        min-height: 270px;
+    }
+
+    .DaySelectionFrame {
+        min-height: 270px;
+    }
+}
+
+@media only screen and (max-height: 575px) {
+    .CalendarSelectionFrame {
+        min-height: 240px;
+    }
+
+    .DaySelectionFrame {
+        min-height: 240px;
+    }
+
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .Title {
         color: #ffffff;
     }
-    .Backdrop{
+
+    .Backdrop {
         background-color: #303134 !important;
     }
-    .EventNameInput{
+
+    .EventNameInput {
         background-color: #bdc1c6;
     }
-    .TimeSelectionDropdown{
+
+    .TimeSelectionDropdown {
         background-color: #bdc1c6;
     }
-    .DayOfTheWeekButton{
+
+    .DayOfTheWeekButton {
         background-color: #237563;
     }
-    .DayOfTheWeekButton:hover{
+
+    .DayOfTheWeekButton:hover {
         background-color: #237563dd;
     }
-    .DayOfTheWeekButtonPressed{
+
+    .DayOfTheWeekButtonPressed {
         background-color: #5F00CD;
     }
-    .CreateEventSubmitButton{
+
+    .CreateEventSubmitButton {
         background-color: #237563;
     }
-    .CreateEventSubmitButton:hover{
+
+    .CreateEventSubmitButton:hover {
         background-color: #237563dd;
     }
-    .EventNameForm:hover{
+
+    .EventNameForm:hover {
         border: 2px solid #237563;
     }
-    .TimeSelectionDropdown:hover{
+
+    .TimeSelectionDropdown:hover {
         border: 2px solid #237563;
     }
-    .Base{
+
+    .Base {
         background-image: url('PurpleCircleBG.png');
     }
 }
