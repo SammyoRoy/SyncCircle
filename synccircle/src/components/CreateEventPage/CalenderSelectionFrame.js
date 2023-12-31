@@ -187,14 +187,6 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 formatShortWeekday={(locale, value) => ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][value.getDay()]}
                 
             />
-            {/* Display merged ranges */}
-            <div>
-                {dateRanges.map((range, index) => (
-                    <div key={index}>
-                        {range.start.toLocaleDateString()} - {range.end.toLocaleDateString()}
-                    </div>
-                ))}
-            </div>
         </div>
     );
 };
