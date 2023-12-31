@@ -109,17 +109,15 @@ const changeUser = asyncHandler(async (req, res) => {
             const oldName = group.users[userIndex].user_name;
             group.users[userIndex].user_name = name;
 
-            // Update the master_array
             for (let row = 0; row < group.master_array.length; row++) {
                 for (let col = 0; col < (group.master_array[row] ? group.master_array[row].length : 0); col++) {
                     const slotIndex = group.master_array[row][col].indexOf(oldName);
                     if (slotIndex !== -1) {
-                        group.master_array[row][col][slotIndex] = name; // Update the name in the master array
+                        group.master_array[row][col][slotIndex] = name;
                     }
                 }
             }
 
-            // Prepare the update for the users array and master_array
             const update = {
                 $set: {
                     'users.$[user].user_name': name,
@@ -128,7 +126,6 @@ const changeUser = asyncHandler(async (req, res) => {
             };
 
             try {
-                // Save the updated group document with the modified master_array and users array
                 const updatedGroup = await Group.findOneAndUpdate(
                     { group_id: groupId, 'users.user_id': userId },
                     update,

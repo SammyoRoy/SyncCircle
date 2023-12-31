@@ -366,7 +366,7 @@ body {
     width: 28px;
     height: 28px;
     border-Radius: 50%;
-    background-Color: #bfc0be;
+    background-Color: #e0e0e0;
     border: none;
     display: flex;
     justify-content: center;
@@ -376,14 +376,14 @@ body {
     background-color: #9c9c9b;
 }
 .ShiftLeft:disabled {
-    background-color: #e0e0e0;
+    background-color: #bfc0be;
 }
 
 .ShiftRight {
     width: 28px;
     height: 28px;
     border-Radius: 50%;
-    background-Color: #bfc0be;
+    background-Color: #e0e0e0;
     border: none;
     display: flex;
     justify-content: center;
@@ -396,7 +396,7 @@ body {
 }
 
 .ShiftRight:disabled {
-    background-color: #e0e0e0;
+    background-color: #bfc0be;
 }
 
 

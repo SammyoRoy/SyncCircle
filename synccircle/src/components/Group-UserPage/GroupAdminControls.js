@@ -61,7 +61,7 @@ const GroupAdminControls = () => {
                     console.error(error);
                 });
         }
-        else{
+        else {
             console.log("already a name");
         }
     }
@@ -110,7 +110,11 @@ const GroupAdminControls = () => {
                         >
                             <RemoveCircleOutlinedIcon fontSize="small" />
                         </IconButton>}
-                        {user.user_name}
+                        {
+                            user.user_name === users[0].user_name
+                                ? <span style={{ color: 'gold' }}>{user.user_name}</span>
+                                : <span>{user.user_name}</span>
+                        }
                     </div>
                 )}
                 {users.length === 1 && <p>No other users in this group</p>}
