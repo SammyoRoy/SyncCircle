@@ -20,13 +20,13 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       }, 2000);
     };
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0)
+      if (eventName === "" || days.length === 0 || (days[0] == "isDaysOftheWeek" && days.length === 1))
       {
         if (eventName === "")
         {
           handleEventTrigger();
         }
-        if (days.length === 0)
+        if (days.length === 0 || (days[0] == "isDaysOftheWeek" && days.length === 1))
         {
           handleDayTrigger();
         }

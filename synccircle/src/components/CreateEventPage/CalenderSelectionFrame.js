@@ -27,7 +27,6 @@ const CalendarSelectionFrame = ({days,setDays}) => {
     const updateDateRanges = (newRanges) => {
         const formattedDates = generateFormattedDates(newRanges);
         setDays(formattedDates);
-        console.log(days);
     };
 
     // Function to check if two dates are consecutive
@@ -77,6 +76,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setDateRanges(newDateRanges);
                 newDates = newDateRanges;
                 setTempRange({ start: null, end: null});
+                updateDateRanges(newDates);
                 return;
             }
 
@@ -86,6 +86,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setDateRanges(newDateRanges);
                 newDates = newDateRanges;
                 setTempRange({ start: null, end: null});
+                updateDateRanges(newDates);
                 return;
             }
 
@@ -95,6 +96,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
                 newDates = mergeDateRanges(dateRanges, current);
+                updateDateRanges(newDates);
                 return;
             }
             else if (selectedDate.toDateString() === currEnd.toDateString()){
@@ -102,6 +104,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
                 newDates = mergeDateRanges(dateRanges, current);
+                updateDateRanges(newDates);
                 return;
             }
 
@@ -111,6 +114,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
                 newDates = mergeDateRanges(dateRanges, current);
+                updateDateRanges(newDates);
                 return;
             }
             else if(areConsecutiveDates(currEnd, selectedDate)){
@@ -118,6 +122,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 setTempRange({ start: null, end: null});
                 setDateRanges(mergeDateRanges(dateRanges, current));
                 newDates = mergeDateRanges(dateRanges, current);
+                updateDateRanges(newDates);
                 return;
             }
         }
@@ -182,6 +187,14 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 formatShortWeekday={(locale, value) => ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][value.getDay()]}
                 
             />
+            {/* Display merged ranges */}
+            <div>
+                {dateRanges.map((range, index) => (
+                    <div key={index}>
+                        {range.start.toLocaleDateString()} - {range.end.toLocaleDateString()}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
