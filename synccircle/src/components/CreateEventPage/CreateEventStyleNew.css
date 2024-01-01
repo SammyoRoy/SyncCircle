@@ -42,7 +42,7 @@ body {
     /* identical to box height, or 29px */
     color: #f7f7f7;
     margin-bottom: -3%;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .Backdrop {
@@ -178,6 +178,14 @@ body {
     flex-direction: row;
     justify-content: center;
     gap: 2%;
+    color: #33cf4d;
+    width: 70%;
+}
+.SwitchFrameOff {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2%;
     color: #828282;
     width: 70%;
 }
@@ -281,6 +289,9 @@ body {
         font-size: 240%;
         margin-bottom: 0;
     }
+    .EventNameInput{
+        font-size: 110%;
+    }
 }
 
 /* Tablets and small laptops */
@@ -293,10 +304,10 @@ body {
         width: 50%;
     }
     .EventNameInput{
-        font-size: 150%;
+        font-size: 130%;
     }
     .CreateEventSubmitButton{
-        font-size: 150%;
+        font-size: 130%;
     }
 }
 
@@ -310,6 +321,9 @@ body {
     .ScreenBackground{
         width: 30%;
     }
+    .EventNameInput{
+        font-size: 120%;
+    }
 }
 
 /* Wide-screen monitors */
@@ -321,7 +335,7 @@ body {
 
     .Title {
         font-size: 260%;
-        margin-top: 0%;
+        margin-top: -20%;
         margin-bottom: 3%;
     }
 
@@ -337,6 +351,9 @@ body {
         padding-top: 3%;
         padding-bottom: 3%;
         min-height: 350px;
+    }
+    .EventNameInput{
+        font-size: 120%;
     }
 }
 
@@ -419,5 +436,8 @@ body {
 
     .Base {
         background-image: url('PurpleCircleBG.png');
+    }
+    .SwitchFrame{
+        color: #237563;
     }
 }

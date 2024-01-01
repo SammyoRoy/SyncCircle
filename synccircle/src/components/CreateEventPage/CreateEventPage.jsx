@@ -74,7 +74,7 @@ function CreateEventPage() {
               </svg>
               <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
             </div>
-            <div className="SwitchFrame">
+            <div className={switchState? "SwitchFrame" : "SwitchFrameOff"} >
               <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
               <div>Days of the Week</div>
             </div>

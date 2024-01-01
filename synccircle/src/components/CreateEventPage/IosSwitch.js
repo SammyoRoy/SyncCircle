@@ -46,7 +46,7 @@ export const IOSSwitch = styled((props) => (
         },
       },
       '&.Mui-focusVisible .MuiSwitch-thumb': {
-        color: '#33cf4d',
+        backgroundColor: useDarkMode() === true? '#237563':'#33cf4d',
         border: '6px solid #fff',
       },
       '&.Mui-disabled .MuiSwitch-thumb': {
