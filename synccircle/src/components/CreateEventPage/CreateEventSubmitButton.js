@@ -20,13 +20,13 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       }, 2000);
     };
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0 || (days[0] == "isDaysOftheWeek" && days.length === 1))
+      if (eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
       {
         if (eventName === "")
         {
           handleEventTrigger();
         }
-        if (days.length === 0 || (days[0] == "isDaysOftheWeek" && days.length === 1))
+        if (days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
         {
           handleDayTrigger();
         }
@@ -34,7 +34,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       }
       event.preventDefault();
       
-      if (days[0] == "isDaysOftheWeek"){
+      if (days[0] === "isDaysOftheWeek"){
         const orderDays = new Map([["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thu", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
         days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
       }

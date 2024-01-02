@@ -11,6 +11,8 @@ function GroupTitle() {
     const { groupId, first, groupAdminClicked, setGroupAdminClicked, userId } = useContext(AppContext);
     const [eventName, setEventName] = useState("");
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
         const URL = window.location.href.split("/");

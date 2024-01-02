@@ -12,6 +12,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
   const [endTime, setEndTime] = useState("");
   const [days, setDays] = useState([]);
   const [joinSocket, setJoinSocket] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL;
 
 
   const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
