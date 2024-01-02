@@ -377,14 +377,31 @@ body {
     }
 }
 
-@media only screen and (max-height: 575px) {
+@media only screen and (max-height: 540px) {
     .CalendarSelectionFrame {
-        min-height: 240px;
+        min-height: 195px;
+    }
+    .DaySelectionFrame {
+        min-height: 195px;
+    }
+    .Title{
+        margin-top: 0%;
+    }
+    .Backdrop{
+        margin-top: 2%;
+        height:85%;
+    }
+    .EventNameForm{
+        min-height: 35px;
+    }
+    .CreateEventSubmitButton{
+        position: absolute;
+        top:33%;
+        right:3.3%;
+        width: 20%;
+        height: 30%
     }
 
-    .DaySelectionFrame {
-        min-height: 240px;
-    }
 
 }
 

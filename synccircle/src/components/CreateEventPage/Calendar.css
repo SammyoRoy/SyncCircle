@@ -192,7 +192,16 @@
   }
   @media only screen and (max-height: 575px){
     .react-calendar__tile{
-      height: 25px;
-      line-height: 8px;
+      height: 20px;
+      line-height: 0px;
+    }
+    .react-calendar__navigation{
+      margin-bottom: 0;
+    }
+    .in-range{
+      border: 0px !important;
+    }
+    .start-date{
+      border: 0px !important;
     }
   }
