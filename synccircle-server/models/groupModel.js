@@ -29,6 +29,10 @@ const groupSchema = mongoose.Schema({
     master_array: {
         type: Array,
         required: true
+    },
+    dotw: {
+        type: Boolean,
+        required: true
     }
 });
 

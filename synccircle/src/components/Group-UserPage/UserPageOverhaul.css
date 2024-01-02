@@ -234,7 +234,7 @@ body {
     justify-items: center;
     height: 15%;
     padding-top: 1%;
-    padding-right: 10px;
+    /**padding-right: 10px;**/
     padding-bottom: 3%;
     
 }
@@ -254,6 +254,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dateLabel{
+    color:#969696;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5%;
 }
 
 .CalenderContainer{
@@ -351,6 +358,49 @@ body {
     justify-content: center;
 }
 
+.ShiftButtons {
+    display: flex;
+    gap: 10px;
+}
+.ShiftLeft {
+    width: 28px;
+    height: 28px;
+    border-Radius: 50%;
+    background-Color: #bfc0be;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ShiftLeft:hover {
+    background-color: #9c9c9b;
+}
+.ShiftLeft:disabled {
+    background-color: #e0e0e0;
+    
+}
+
+.ShiftRight {
+    width: 28px;
+    height: 28px;
+    border-Radius: 50%;
+    background-Color: #bfc0be;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ShiftRight:hover {
+    background-color: #9c9c9b;
+}
+
+.ShiftRight:disabled {
+    background-color: #e0e0e0;
+}
+
+
 @media only screen and (max-width: 1300px){
     .UserTitleSmall{
         font-size: 1.2rem;
@@ -440,12 +490,18 @@ body {
         border-radius: 0;
         margin-bottom: 0;
     }
+    .DOTWBar{
+        padding-bottom: 5%;
+    }
     .UserTitleSmall{
         font-size: 0.8rem;
     }
     .DayLabel{
         width: 28px;
         height: 28px;
+    }
+    .dateLabel{
+        font-size: small;
     }
     .UserNameContainer{
         margin-top: 0;
