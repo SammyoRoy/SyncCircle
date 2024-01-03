@@ -1,7 +1,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
-.Navbar{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Navbar {
     margin: 0;
     padding: 0;
     font-family: 'Inter', 'Roboto';
+}
+
+.HeroPage {
+    display: flex;
+    height: 80%;
+    padding: 6% 9.5%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 104px;
+    align-self: stretch;
+    flex-direction: row;
+    background-color: #F5F7FA;
+}
+
+.HeroDesc {
+    font-family: 'Poppins';
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    flex: 1 0 0;
+}
+
+.HeroDesc h1 {
+    color: #4D4D4D;
+    font-weight: 600;
+}
+
+.HeroDesc h1 span {
+    color: #70D474;
+}
+
+.HeroDesc h6 {
+    font-weight: 400;
+    color: #717171;
+}
+
+.CreateEventBtn {
+    display: flex;
+    padding: 14px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 9px;
+    background: #297045;
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.HeroImg {
+    width: 250px;
+    height: 300px;
+}
+
+.Tutorial {
+    background-color: #FFFFFF;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.Tutorial h1 {
+    padding: 0px 144px;
+    color: #4D4D4D;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    line-height: 44px;
+    /* 122.222% */
+}
+
+@media only screen and (max-width: 800px) {
+    .HeroPage {
+        flex-direction: column;
+    }
 }
