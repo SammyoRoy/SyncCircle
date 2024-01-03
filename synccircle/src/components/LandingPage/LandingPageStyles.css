@@ -13,6 +13,11 @@
     font-family: 'Inter', 'Roboto';
 }
 
+.Beta{
+    font-size: 8px;
+    font-family: 'Inter';
+}
+
 .HeroPage {
     display: flex;
     height: 80%;
@@ -37,6 +42,7 @@
 
 .HeroDesc h1 {
     color: #4D4D4D;
+    animation: fadeIn 1.5s ease-out forwards;
     font-weight: 600;
 }
 
@@ -46,6 +52,7 @@
 
 .HeroDesc h6 {
     font-weight: 400;
+    animation: fadeIn 1.5s ease-out forwards;
     color: #717171;
 }
 
@@ -71,6 +78,18 @@
 .Tutorial {
     background-color: #FFFFFF;
     text-align: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .Tutorial h1 {
@@ -105,8 +124,17 @@
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
-
 }
+
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+[data-aos="fade-up"] {
+    opacity: 1 !important; 
+    transition-property: transform, opacity;
+  }
 
 .Step1 h3,
 .Step2 h3,
@@ -147,11 +175,42 @@
     line-height: 120%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .fadeIn {
+        animation: none;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .HeroPage {
         flex-direction: column;
     }
-    .Steps{
+
+    .Steps {
         flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fadeIn {
+        animation: none;
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    .Navbar{
+        background-color: #303134;
+    }
+    .HeroPage{
+        background-color: #303134;
+    }
+    .HeroDesc h1{
+        color:#F5F7FA;
+    }
+    .HeroDesc h1 span{
+        color: #297045;
+    }
+    .HeroDesc h6{
+        color: #E6E6E6;
     }
 }
