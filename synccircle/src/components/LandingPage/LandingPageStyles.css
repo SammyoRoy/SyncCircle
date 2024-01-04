@@ -13,7 +13,7 @@
     font-family: 'Inter', 'Roboto';
 }
 
-.Beta{
+.Beta {
     font-size: 8px;
     font-family: 'Inter';
 }
@@ -129,12 +129,12 @@
 [data-aos] {
     opacity: 0;
     transform: translateY(20px);
-  }
+}
 
 [data-aos="fade-up"] {
-    opacity: 1 !important; 
+    opacity: 1 !important;
     transition-property: transform, opacity;
-  }
+}
 
 .Step1 h3,
 .Step2 h3,
@@ -175,6 +175,60 @@
     line-height: 120%;
 }
 
+.Footer {
+    display: flex;
+    padding: 64px 165px;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 125px;
+    background-color: #263238;
+}
+
+.Logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    font-family: 'Inter';
+}
+
+.Logo b6 {
+    color: #F5F7FA;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.Icons{
+    display:flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.Email{
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+}
+
+.SendMail input{
+    background-color: transparent;
+    color:#F5F7FA;
+    padding: 10px;
+    padding-right: 30px;
+    border: 2px #fff solid;
+    border-radius: 20%;
+
+}
+
+.SendMail button{
+    background-color: transparent;
+    margin-left: -30px;
+    border: 0px;
+    
+}
+
 @media (prefers-reduced-motion: reduce) {
     .fadeIn {
         animation: none;
@@ -188,6 +242,10 @@
 
     .Steps {
         flex-direction: column;
+    }
+    .Footer{
+        flex-direction: column;
+        padding: 32px 83px;
     }
 }
 
