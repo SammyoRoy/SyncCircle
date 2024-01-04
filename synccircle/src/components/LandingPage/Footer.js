@@ -7,7 +7,7 @@ const Footer = () => {
         <div className='Footer'>
             <div className='Logo'>
                 <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1, color: '#FFFFFF', fontFamily: 'Poppins', fontWeight: 700 }}>
-                    <img src={logo} alt="SyncCircle Logo" style={{ width: '15px', height: '15px', marginRight: '10px', verticalAlign: 'middle' }} />
+                    <img src={logo} alt="SyncCircle Logo" style={{ width: '24px', height: '24px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle
                 </Typography>
                 <b6>Copyright © 2024 SyncCircle ltd.</b6>
@@ -50,7 +50,7 @@ const Footer = () => {
                     </button>
                 </div>
                 <h4>Contact Us: </h4>
-                <h6 style={{marginLeft:'10px'}}> synccircleapp@gmail.com</h6>
+                <h6 style={{ marginLeft: '10px' }}> synccircleapp@gmail.com</h6>
 
             </div>
         </div>
