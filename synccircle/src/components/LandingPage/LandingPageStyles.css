@@ -196,21 +196,3 @@
         animation: none;
     }
 }
-
-@media (prefers-color-scheme: dark){
-    .Navbar{
-        background-color: #303134;
-    }
-    .HeroPage{
-        background-color: #303134;
-    }
-    .HeroDesc h1{
-        color:#F5F7FA;
-    }
-    .HeroDesc h1 span{
-        color: #297045;
-    }
-    .HeroDesc h6{
-        color: #E6E6E6;
-    }
-}

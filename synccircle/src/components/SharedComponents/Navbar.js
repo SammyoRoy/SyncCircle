@@ -23,27 +23,6 @@ const Navbar = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    function useDarkMode() {
-
-        useEffect(() => {
-            // Check if the media query matches the user's preference
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            setIsDarkMode(mediaQuery.matches); // Set the initial mode
-
-            // Add a listener to track changes
-            const handler = (event) => setIsDarkMode(event.matches);
-            mediaQuery.addListener(handler);
-
-            // Clean up the listener on component unmount
-            return () => mediaQuery.removeListener(handler);
-        }, []);
-
-        return isDarkMode;
-    }
-    useDarkMode();
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -82,10 +61,10 @@ const Navbar = () => {
 
     return (
         <div className='Navbar'>
-            <AppBar position="fixed" color="default" elevation={0} sx={{ backgroundColor: isDarkMode ? '#303134' : '#F5F7FA' }}>
+            <AppBar position="fixed" color="default" elevation={0} sx={{ backgroundColor: '#F5F7FA' }}>
                 <Toolbar>
                     {/* Logo / Brand Name */}
-                    <Typography variant="h6" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: isDarkMode ? '#237563' : '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
+                    <Typography variant="h6" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
                         <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                         SyncCircle <span className='Beta'>Beta</span>
                     </Typography>
