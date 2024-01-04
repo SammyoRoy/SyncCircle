@@ -33,9 +33,9 @@ const FeedbackBox = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-                <ToggleButton value="bug">Bug</ToggleButton>
-                <ToggleButton value="idea">Idea</ToggleButton>
-                <ToggleButton value="thoughts">Thoughts</ToggleButton>
+                <ToggleButton value="bug" sx={{backgroundColor:"#fff"}}>Bug</ToggleButton>
+                <ToggleButton value="idea" sx={{backgroundColor:"#fff"}}>Idea</ToggleButton>
+                <ToggleButton value="thoughts" sx={{backgroundColor:"#fff"}}>Thoughts</ToggleButton>
             </ToggleButtonGroup>
             <TextField
                 multiline
@@ -44,7 +44,7 @@ const FeedbackBox = () => {
                 variant="outlined"
                 value={feedback}
                 onChange={handleTextChange}
-                style={{ width: '100%', margin: '10px 0', borderRadius:"30px"}}
+                style={{ width: '100%', margin: '10px 0', borderRadius:"30px", backgroundColor:"#fff"}}
             />
             <Button
                 variant="contained"

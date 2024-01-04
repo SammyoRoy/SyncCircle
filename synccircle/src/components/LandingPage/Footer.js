@@ -49,6 +49,8 @@ const Footer = () => {
                         </svg>
                     </button>
                 </div>
+                <h4>Contact Us: </h4>
+                <h6 style={{marginLeft:'10px'}}> synccircleapp@gmail.com</h6>
 
             </div>
         </div>
