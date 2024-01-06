@@ -459,6 +459,8 @@ body {
 @media only screen and (max-width: 550px){
     .UserScreenBackground{
         height: 80%;
+        position: absolute;
+        top:5%;
     }
     .HeaderCard{
         padding-top: 2%;
