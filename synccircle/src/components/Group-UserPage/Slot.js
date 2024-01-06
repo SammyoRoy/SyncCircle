@@ -95,9 +95,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         replaceValueAt(row, col, newDragValue);
         setIsModified(true);
   
-        if (cellValue != dragValue && newDragValue === 1) {
+        if (cellValue != newDragValue && newDragValue === 1) {
           socket.emit('booked', row, col, groupId);
-        } else if (cellValue != dragValue){
+        } else if (cellValue != newDragValue){
           socket.emit('unbooked', row, col, groupId);
         }
       }
@@ -115,19 +115,18 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   }
 
   useEffect(() => {
-    const button = buttonRef.current;
-
     const handleTouchMove = (e) => {
-      handleTouch(e);
       e.preventDefault();
+      handleTouch(e);
     };
-
+  
+    const button = buttonRef.current;
     button.addEventListener('touchmove', handleTouchMove, { passive: false });
-
+  
     return () => {
       button.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [handleTouch]);
+  }, []); 
 
 
   const handleEnter = async (e) => {
