@@ -26,7 +26,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const API_URL = process.env.REACT_APP_API_URL;
   
   useEffect(() => {
-    const socket = io(`${API_URL}`, { transports: ['websocket'] });
+    const socket = io(`https://backend.synccircle.net`, { transports: ['websocket'] });
     setGroupSocket(socket);
 
   }, []);

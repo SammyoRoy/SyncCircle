@@ -20,7 +20,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get(`${API_URL}/groups/${groupId}`);
+            const response = await axios.get(`https://backend.synccircle.net/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
             const tempCols = Math.min(daysData.length, MAX_COLUMNS_DISPLAYED);
     
@@ -50,7 +50,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     }, [availableMembers, allMembers]);
 
     const getMembers = () => {
-        axios.get(`${API_URL}/groups/slot/${groupId}`, { params: { row: row, col: col } }).then((response) => {
+        axios.get(`https://backend.synccircle.net/groups/slot/${groupId}`, { params: { row: row, col: col } }).then((response) => {
             setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
             console.error(error);

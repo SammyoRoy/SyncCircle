@@ -18,11 +18,11 @@ const GroupAdminControls = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
 
-    console.log("$API: " + API_URL)
+
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-        axios.get(`${API_URL}/groups/${groupId}`)
+        axios.get(`https://backend.synccircle.net/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
                 console.log(response.data.users);
@@ -34,7 +34,7 @@ const GroupAdminControls = () => {
 
     const handleRemove = (userId) => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/users/${groupId}/${userId}`)
+        axios.delete(`https://backend.synccircle.net/users/${groupId}/${userId}`)
             .then((response) => {
                 setUsers(response.data.users);
             })
@@ -53,7 +53,7 @@ const GroupAdminControls = () => {
     const handleUserNameChange = async () => {
         if (!users.some(user => user.user_name === changedUser)) {
             await setCookie(`username_${groupId}`, changedUser, { path: '/' });
-            axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
+            axios.put(`https://backend.synccircle.net/users/${groupId}/${userId}`, { name: changedUser })
                 .then((response) => {
                     console.log(response.data);
                 })
@@ -68,7 +68,7 @@ const GroupAdminControls = () => {
 
     const handleNameChange = () => {
         const URL = window.location.href.split("/");
-        axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
+        axios.put(`https://backend.synccircle.net/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 console.log(response.data);
                 setChangedName('');
@@ -82,7 +82,7 @@ const GroupAdminControls = () => {
 
     const handleDelete = () => {
         const URL = window.location.href.split("/");
-        axios.delete(`${API_URL}/groups/${groupId}`)
+        axios.delete(`https://backend.synccircle.net/groups/${groupId}`)
             .then((response) => {
                 navigate('/');
             })

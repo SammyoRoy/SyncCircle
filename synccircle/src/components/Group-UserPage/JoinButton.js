@@ -29,11 +29,11 @@ function JoinButton({updateJoined, updateSubmitted}) {
       return;
     }
     console.log(cookies[`username_${groupId}`] );
-    axios.get(`${API_URL}/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
+    axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
       .then((response) => {
         if (response.data === "False") {
           //Make new User
-          axios.post(`${API_URL}/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
+          axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
             .then((response2) => {
               console.log(response2.data)
               setUserId(response2.data.user_id);
@@ -82,7 +82,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
         setEmptyInput(true);
         return;
       }
-      axios.get(`${API_URL}/groups/findmem/${groupId}`, { params: { userName: userName } })
+      axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {
             //Make new User

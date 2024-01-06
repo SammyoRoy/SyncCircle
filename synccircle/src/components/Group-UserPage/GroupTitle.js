@@ -16,7 +16,7 @@ function GroupTitle() {
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-        axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`)
+        axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`)
             .then((response) => {
                 // navigate to /group pages
                 setEventName(response.data.group_name);

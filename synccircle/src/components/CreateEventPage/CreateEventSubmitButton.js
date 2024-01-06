@@ -40,20 +40,22 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       }
       
       const dayString = days.join(",");
-      axios.post(API_URL+`/groups/`, {
+      
+      axios.post(`https://backend.synccircle.net/groups/`, {
           name: eventName,
           startTime: startTime,
           endTime: endTime,
           days: dayString,
           })
         .then((response) => {
+          console.log(response)
           const groupId = response.data.group_id;
           nav(`/group/${groupId}`);
           
         })
         .catch((error) => {
           // handle the error
-          console.error(error);
+          console.log(error);
         });
     };
     return (
