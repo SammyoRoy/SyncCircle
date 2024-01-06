@@ -20,22 +20,7 @@ const Hero = () => {
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle <span className='Beta'>Beta</span>
                 </Typography>
-                <Box sx={{ display: {md: 'flex' } }} marginRight="10%">
-                        <Button
-                            sx={{
-                                backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
-                                color: 'white',
-                                transition: 'box-shadow 0.3s ease-in-out',
-                                '&:hover': {
-                                    backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
-                                    boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.5)',
-                                }
-                            }}
-                            onClick={() => (navigate('/create'))}
-                        >
-                            Use SyncCircle
-                        </Button>
-                    </Box>
+                
             </div>
             <div className='HeroPage'>
                 <div className='HeroDesc'>
@@ -45,7 +30,7 @@ const Hero = () => {
                     <h6 data-aos="fade-up">
                         So that amazing plan can finally make it out of the group chat.
                     </h6>
-                    <button type="submit" className="CreateEventBtn" disabled>Create Event</button>
+                    <button type="submit" className="CreateEventBtn" onClick={() => (navigate('/create'))}>Create Event</button>
                 </div>
                 <div className='HeroImg'>
                     {<img src={splashImage} 

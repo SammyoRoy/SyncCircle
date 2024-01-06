@@ -65,12 +65,16 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    border: none;
     border-radius: 9px;
     background: #297045;
     color: #FFF;
     text-align: center;
     font-weight: 600;
     font-size: 16px;
+}
+.CreateEventBtn:hover {
+    background: #391463;
 }
 
 .HeroImg {
@@ -80,6 +84,7 @@
 .Tutorial {
     background-color: #FFFFFF;
     text-align: center;
+    margin-top: -5%;
 }
 
 @keyframes fadeIn {

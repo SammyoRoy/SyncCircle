@@ -55,7 +55,7 @@ const Tutorial = () => {
                     </div>
                     <h3>Share the link!</h3>
                     <b3>
-                        Use purple group button to open the group tab. Copy the link and send it to your friends. Then watch as the slots update in real time as they fill in their availabilities.
+                        Use the purple Group button to open the group tab. Copy the link and send it to your friends. Then watch as the slots update in real time as they fill in their availabilities!
                     </b3>
 
                 </div>
