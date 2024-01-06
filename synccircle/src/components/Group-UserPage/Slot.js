@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 
 function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
-  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
+  const { setUserSlot, setSlotTried, userArray, setUserArray, loading, setStopped, dragValue, setDragValue, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
@@ -175,15 +175,19 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     }
   };
 
+  const eventHandlers = !loading ? {
+    onMouseDown: handlePress,
+    onMouseEnter: handleEnter,
+    onTouchMove: handleTouch,
+    onTouchEnd: handleTouchEnd
+  }: {}
+
 
   return (
     <button
       ref={buttonRef}
       className={style}
-      onMouseDown={handlePress}
-      onMouseEnter={handleEnter}
-      onTouchMove={handleTouch}
-      onTouchEnd={handleTouchEnd}
+      {...eventHandlers}
       type="button"
     > </button>
   )

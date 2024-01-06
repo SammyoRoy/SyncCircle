@@ -4,9 +4,10 @@ import Slot from "./Slot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
+import { CircularProgress } from "@mui/material";
 
 function Calendar() {
-  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
+  const { groupId, userId, userArray, setUserArray, stopped, loading, setUserSlot, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -143,20 +144,39 @@ function Calendar() {
   const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
   const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`
-  
+
   const totalCells = (columnsDisplayed + 1) * (numRows);
+
+  const eventHandlers = !loading ? {
+    onTouchMove: handleTouchMove,
+    onTouchStart: handleTouchStart,
+    onTouchEnd: handleTouchEnd,
+    onMouseLeave: handleMouseUp,
+    onMouseDown: handleMouseDown,
+    onMouseUp: handleMouseUp,
+  } : {};
 
   // Set CSS variables
 
   return (
     <div className="CalenderContainer">
+      {loading && (
+        <div className="CalendarLoadingOverlay" style={{ 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          width: '100%', 
+          height: '100%', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          zIndex: 1000 
+        }}>
+          <CircularProgress />
+        </div>
+      )}
       <div className="CalendarGrid"
-        onTouchMove={handleTouchMove}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onMouseLeave={handleMouseUp}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
+        {...eventHandlers}
         style={{ gridTemplateColumns, gridTemplateRows }}>
         {/* Generate and render grid items */}
 
@@ -172,7 +192,7 @@ function Calendar() {
               key={index}
               currTimeIndex={(startIndex + row) % 24}
             />
-          ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} initialCellValue={initialCellValue}/>
+          ) : (<Slot key={index} matrixKey={index} days={days} dragging={isDragging} swiping={isSwiping} touchPosition={touchPosition} cellValue={cellValue} socket={calSocket} initialCellValue={initialCellValue} />
           );
         })}
       </div>

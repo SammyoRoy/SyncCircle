@@ -56,6 +56,7 @@ const GroupAdminControls = () => {
             axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
                 .then((response) => {
                     console.log(response.data);
+                    setChangedUser('');
                 })
                 .catch((error) => {
                     console.error(error);
