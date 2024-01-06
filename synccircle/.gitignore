@@ -13,10 +13,11 @@ firebaseConfig.js
 /build
 
 # misc
-.env.development
 .env
 .DS_Store
 .env.local
+.env.dev
+.env.development
 .env.development.local
 .env.test.local
 .env.production.local

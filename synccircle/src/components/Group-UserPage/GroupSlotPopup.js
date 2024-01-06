@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
 function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
-    const { groupId } = useContext(AppContext);
+    const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0);
     const [row, setRow] = useState(0);
@@ -21,12 +21,14 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
         async function fetchData() {
             const response = await axios.get(`https://backend.synccircle.net/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
+            const tempCols = Math.min(daysData.length, MAX_COLUMNS_DISPLAYED);
+    
             setDays(daysData);
             setStartTime(response.data.start_time);
             setStartTimeIndex(convertTimeToIndex(response.data.start_time));
-            setCols(daysData.length);
-            setRow(Math.floor(matrixKey / (daysData.length + 1)));
-            setCol((matrixKey % (daysData.length + 1)) - 1);
+            setCols(tempCols);
+            setRow(Math.floor(matrixKey / (tempCols + 1)));
+            setCol((matrixKey % (tempCols + 1)) - 1 + startColumn);
             setIsLoading(false);
             setShowPopup(true);
         }

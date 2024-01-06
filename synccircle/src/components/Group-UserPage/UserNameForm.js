@@ -3,11 +3,27 @@ import JoinButton from "./JoinButton";
 import UserTitle from "./UserTitle";
 import GroupPageButtonCircle from "./GroupPageButtonCircle";
 import { AppContext } from "../../context/AppContext";
+import { useCookies } from "react-cookie";
 
 function UserNameForm() {
-  const { slotTried, setSlotTried, userName, setUserName, isEmptyInput, setEmptyInput} = useContext(AppContext);
+  const { slotTried, setSlotTried, userName, setUserName, isEmptyInput, setEmptyInput, groupId} = useContext(AppContext);
   const [hasJoined, setJoined] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
+
+  useEffect(() => {
+    const groupCookieKey = `username_${groupId}`;
+    if (cookies[groupCookieKey]) {
+      setUserName(cookies[groupCookieKey]);
+    }
+  }, [groupId, cookies, setUserName]);
+
+
+  const onChange = (e) => {
+    setUserName(e.target.value);
+    setCookie(`username_${groupId}`, e.target.value, { path: '/' });
+  }
+
 
   useEffect(() => {
     if (slotTried) {
@@ -30,7 +46,7 @@ function UserNameForm() {
         className={`UserNameForm`}
         placeholder="Username"
         value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        onChange={(e) => onChange(e)}
         disabled={isSubmitted}
       />
       <JoinButton

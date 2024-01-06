@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './CreateEventStyleOverhaul.css';
+//import './CreateEventStyleOverhaul.css';
+import './CreateEventStyleNew.css';
 import Title from "./Title";
 import EventNameForm from "./EventNameForm";
 import TimeDropdown from "./TimeDropdown";
@@ -7,6 +8,8 @@ import DaySelectionFrame from "./DaySelectionFrame";
 import CreateEventSubmitButton from "./CreateEventSubmitButton";
 import { AppContext } from "../../context/AppContext";
 import Alert from '@mui/material/Alert';
+import { IOSSwitch } from "./IosSwitch";
+import CalenderSelectionFrame from "./CalenderSelectionFrame";
 
 
 function CreateEventPage() {
@@ -18,12 +21,28 @@ function CreateEventPage() {
   const [startTrigger, setStartTrigger] = useState(false);
   const [endTrigger, setEndTrigger] = useState(false);
   const [dayTrigger, setDayTrigger] = useState(false);
+  const [switchState, setSwitchState] = useState(false);
+  const [isDaysOftheWeek, setIsDaysOftheWeek] = useState(false);
 
 
   const handleEventNameChange = (value) => {
     setEventTrigger(false);
     setEventName(value);
   };
+
+  const handleSwitchChange = (event) => {
+    const isChecked = event.target.checked;
+  
+    setSwitchState(isChecked);
+    setIsDaysOftheWeek(isChecked);
+  
+    if (isChecked) {
+      setDays(["isDaysOftheWeek"]);
+    } else {
+      setDays([]);
+    }
+  };
+
   console.log("EVENTNAME" + eventName)
   let alertMessages = [];
   if(eventTrigger) {
@@ -55,9 +74,14 @@ function CreateEventPage() {
               </svg>
               <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
             </div>
-            <DaySelectionFrame setDays={setDays} days={days} />
+            <div className={switchState? "SwitchFrame" : "SwitchFrameOff"} >
+              <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
+              <div>Days of the Week</div>
+            </div>
+            {switchState && <DaySelectionFrame setDays={setDays} days={days} />}
+            {!switchState && <CalenderSelectionFrame setDays={setDays} days={days} />}
           </div>
-          <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} />
+          <CreateEventSubmitButton eventName={eventName} startTime={startTime} endTime={endTime} days={days} isDaysOftheWeek={isDaysOftheWeek} />
         </AppContext.Provider>
       </div>
     </div>

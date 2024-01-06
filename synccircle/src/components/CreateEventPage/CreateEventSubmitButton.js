@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 
-function CreateEventSubmitButton({startTime, endTime, days }){
+function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOftheWeek }){
     const nav = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
-    const { setEventTrigger, setDayTrigger, eventName} = useContext(AppContext);
+    const { setEventTrigger, setDayTrigger} = useContext(AppContext);
     const handleEventTrigger = () => {
       setEventTrigger(true);
       setTimeout(() => {
@@ -20,22 +20,27 @@ function CreateEventSubmitButton({startTime, endTime, days }){
       }, 2000);
     };
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0 || eventName.length > 30)
+      if (eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
       {
-        if (eventName === "" || eventName.length > 30)
+        if (eventName === "")
         {
           handleEventTrigger();
         }
-        if (days.length === 0)
+        if (days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
         {
           handleDayTrigger();
         }
         return;
       }
       event.preventDefault();
-      const orderDays = new Map([["Mon", 0], ["Tues", 1], ["Wed", 2], ["Thurs", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
-      days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
+      
+      if (days[0] === "isDaysOftheWeek"){
+        const orderDays = new Map([["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thu", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]);
+        days.sort((a, b) => orderDays.get(a) - orderDays.get(b));
+      }
+      
       const dayString = days.join(",");
+      
       axios.post(`https://backend.synccircle.net/groups/`, {
           name: eventName,
           startTime: startTime,
@@ -43,13 +48,14 @@ function CreateEventSubmitButton({startTime, endTime, days }){
           days: dayString,
           })
         .then((response) => {
+          console.log(response)
           const groupId = response.data.group_id;
           nav(`/group/${groupId}`);
           
         })
         .catch((error) => {
           // handle the error
-          console.error(error);
+          console.log(error);
         });
     };
     return (
@@ -58,4 +64,3 @@ function CreateEventSubmitButton({startTime, endTime, days }){
   }
 
 export default CreateEventSubmitButton;
-

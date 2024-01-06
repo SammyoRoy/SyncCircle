@@ -5,10 +5,17 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import Button from '@mui/material/Button';
 import { IconButton } from "@mui/material";
 import GroupIcon from '@mui/icons-material/Group'
+import SettingsIcon from '@mui/icons-material/Settings';
 
 function GroupTitle() {
-    const { groupId, first, groupAdminClicked, setGroupAdminClicked } = useContext(AppContext);
+    const { groupId, first, groupAdminClicked, setGroupAdminClicked, userId } = useContext(AppContext);
     const [eventName, setEventName] = useState("");
+<<<<<<< HEAD
+=======
+
+    const API_URL = process.env.REACT_APP_API_URL;
+
+>>>>>>> main
 
     useEffect(() => {
         const URL = window.location.href.split("/");
@@ -28,6 +35,12 @@ function GroupTitle() {
     return (
         <div className="groupTitleContainer">
             {first && (!groupAdminClicked ? <IconButton className="editButton" color="#FF9999" onClick={() => setGroupAdminClicked(!groupAdminClicked)}><EditOutlinedIcon fontSize="small" /></IconButton>
+                : <IconButton className="editButton switchButton" sx={{
+                    backgroundColor: "#7D83FF", color: "#fff", '&:hover': {
+                        backgroundColor: "#5f65d4"
+                    }
+                }} onClick={() => setGroupAdminClicked(!groupAdminClicked)}><GroupIcon fontSize="small" /></IconButton>)}
+            {userId && !first && (!groupAdminClicked ? <IconButton className="editButton" color="#FF9999" onClick={() => setGroupAdminClicked(!groupAdminClicked)}><SettingsIcon fontSize="small" /></IconButton>
                 : <IconButton className="editButton switchButton" sx={{
                     backgroundColor: "#7D83FF", color: "#fff", '&:hover': {
                         backgroundColor: "#5f65d4"

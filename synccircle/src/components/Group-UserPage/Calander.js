@@ -6,7 +6,7 @@ import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 
 function Calendar() {
-  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot } = useContext(AppContext);
+  const { groupId, userId, userArray, setUserArray, stopped, setUserSlot, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -82,21 +82,6 @@ function Calendar() {
   }, [userId]);
 
   useEffect(() => {
-    /*function convertTimeToIndex(time) {
-      const [hourMinute, period] = time.split(' ');
-      const [hour] = hourMinute.split(':');
-      let parsedHour = parseInt(hour, 10);
-
-      if (period === "PM" && parsedHour < 12) {
-        parsedHour += 12;
-      }
-
-      if (period === "AM" && parsedHour === 12) {
-        parsedHour = 0;
-      }
-
-      return (parsedHour - 6);
-    }*/
 
     function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');
@@ -147,13 +132,19 @@ function Calendar() {
   }, [isDragging, isSwiping]);
 
   const numRows = endIndex >= startIndex
-    ? endIndex - startIndex+1
-    : endIndex + 24 - startIndex+1;
+    ? endIndex - startIndex
+    : endIndex + 24 - startIndex;
 
 
-  const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
+  /*const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;
-  const totalCells = (days.length + 1) * (numRows);
+  const totalCells = (days.length + 1) * (numRows);*/
+
+  const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
+  const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
+  const gridTemplateRows = `repeat(${numRows}, 1fr)`
+  
+  const totalCells = (columnsDisplayed + 1) * (numRows);
 
   // Set CSS variables
 
@@ -170,13 +161,13 @@ function Calendar() {
         {/* Generate and render grid items */}
 
         {Array.from({ length: totalCells }, (_, index) => {
-          const row = Math.floor(index / (days.length + 1));
-          const col = index % (days.length + 1) - 1;
+          const row = Math.floor(index / (columnsDisplayed + 1));
+          const col = index % (columnsDisplayed + 1) - 1 + startColumn;
           const cellValue = userArray && row >= 0 && row < userArray.length && col >= 0 && col < userArray[row].length
             ? userArray[row][col]
             : 0;
 
-          return index % (days.length + 1) === 0 ? (
+          return index % (columnsDisplayed + 1) === 0 ? (
             <TimeLabel
               key={index}
               currTimeIndex={(startIndex + row) % 24}
