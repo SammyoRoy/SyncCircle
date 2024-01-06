@@ -3,6 +3,8 @@ import AOS from 'aos';
 import { Typography, Box, Button } from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
+import splashImage from './SCLandingPageImageFinal.png'
+
 const Hero = () => {
 
     useEffect(() => {
@@ -10,7 +12,7 @@ const Hero = () => {
     }, []);
     const navigate = useNavigate();
 
-    const tempImageUrl = 'https://picsum.photos/250/300';
+    const tempImageUrl = 'TransparentSCLandingPageImageFinal.png';
     return (
         <>
             <div className='Top'>
@@ -41,12 +43,15 @@ const Hero = () => {
                         Scheduling with friends <span>made easy</span>.
                     </h1>
                     <h6 data-aos="fade-up">
-                        Get those plans out of the group chat
+                        So that amazing plan can finally make it out of the group chat.
                     </h6>
                     <button type="submit" className="CreateEventBtn" disabled>Create Event</button>
                 </div>
                 <div className='HeroImg'>
-                    {<img src={tempImageUrl} alt='Temporary Placeholder'></img>}
+                    {<img src={splashImage} 
+                      alt='Temporary Placeholder'
+                      style={{ maxWidth: '90%', maxHeight: '150%', height: 'auto', display: 'block', margin: '0 auto' }}>
+                    </img>}
                 </div>
             </div>
         </>
