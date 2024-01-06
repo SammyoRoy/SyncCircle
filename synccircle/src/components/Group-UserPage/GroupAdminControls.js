@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 import { IconButton, Button, Input } from '@mui/material';
@@ -18,7 +17,7 @@ const GroupAdminControls = () => {
 
     const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
 
-
+    const [isDarkMode, setIsDarkMode] = useState(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     useEffect(() => {
         const URL = window.location.href.split("/");
@@ -30,7 +29,15 @@ const GroupAdminControls = () => {
             .catch((error) => {
                 console.error(error);
             });
-    }, []);
+
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleDarkModeChange = (e) => setIsDarkMode(e.matches);
+        darkModeMediaQuery.addListener(handleDarkModeChange);
+
+        return () => {
+            darkModeMediaQuery.removeListener(handleDarkModeChange);
+        };
+    }, [API_URL, groupId]);
 
     const handleRemove = (userId) => {
         const URL = window.location.href.split("/");
@@ -97,23 +104,25 @@ const GroupAdminControls = () => {
         <div className='GroupControls'>
             <h6>Other Users</h6>
             <ul className='UserList'>
-                {users != [] && userId && users.filter(user => user.user_id != userId).map(user =>
+                {users.length > 0 && userId && users.filter(user => user.user_id !== userId).map(user =>
                     <div key={user.user_id}>
-                        {isAdmin && <IconButton
-                            className="RemoveButton"
-                            sx={{
-                                color: "#D11A2A",
-                                '&:hover': {
-                                    color: "#b01624" // darken the red color on hover
-                                }
-                            }}
-                            onClick={() => handleRemove(user.user_id)}
-                        >
-                            <RemoveCircleOutlinedIcon fontSize="small" />
-                        </IconButton>}
+                        {isAdmin && (
+                            <IconButton
+                                className="RemoveButton"
+                                sx={{
+                                    color: "#D11A2A",
+                                    '&:hover': {
+                                        color: "#b01624"
+                                    }
+                                }}
+                                onClick={() => handleRemove(user.user_id)}
+                            >
+                                <RemoveCircleOutlinedIcon fontSize="small" />
+                            </IconButton>
+                        )}
                         {
                             user.user_name === users[0].user_name
-                                ? <span style={{ color: 'gold' }}>{user.user_name}</span>
+                                ? <span style={{ color: isDarkMode ? 'gold' : 'blue' }}>{user.user_name}</span>
                                 : <span>{user.user_name}</span>
                         }
                     </div>
