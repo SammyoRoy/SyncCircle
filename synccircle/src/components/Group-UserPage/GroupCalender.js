@@ -157,8 +157,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   }
 
   const numRows = endIndex >= startIndex
-    ? endIndex - startIndex+1
-    : endIndex + 24 - startIndex+1;
+    ? endIndex - startIndex
+    : endIndex + 24 - startIndex;
 
     const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
     const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
