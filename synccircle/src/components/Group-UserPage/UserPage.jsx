@@ -5,6 +5,7 @@ import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
 import { Alert } from "@mui/material";
+import SyncCircleButton from "../SyncCircleButton";
 
 import UserTitle from "./UserTitle";
 
@@ -82,6 +83,9 @@ function UserPage() {
 
   return (
     <div className="UserBase">
+      <div className="sync-circle-container">
+        <SyncCircleButton/>
+      </div>
       <div className="UserScreenBackground">
         {alertMessages.length > 0 && <div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>

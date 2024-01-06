@@ -25,6 +25,23 @@ body {
 
 }
 
+.sync-circle-button {
+    max-width: 75px;
+    margin: 0 auto;
+    width: 100%;
+    position: absolute;
+    
+}
+
+.sync-circle-container {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    z-index: 10; 
+    width: 12%;
+    
+  }
+
 
 .UserTitle {
     /* SyncCircle */
@@ -435,9 +452,9 @@ body {
 
 @media only screen and (max-width: 768px){
     .UserScreenBackground{
-        height: 90%;
+        height: 95%;
         position: absolute;
-        top:5%;
+        bottom: 5%
     }
     .HeaderCard{
         padding-top: 1%;
@@ -495,6 +512,7 @@ body {
         margin-bottom: 0;
     }
     .DOTWBar{
+        padding-top: 3%;
         padding-bottom: 5%;
     }
     .UserTitleSmall{
