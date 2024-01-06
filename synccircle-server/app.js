@@ -1,5 +1,5 @@
 // Commented out code is for encrypted production version of backend
-/*const express = require('express');
+const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
 const connectToDb = require('./db');
@@ -33,21 +33,21 @@ const io = new Server(server);
 io.on('connection', (socket) => {
     console.log('A user connected');
     
-    socket.on('unbooked', (matrixKey, groupId) => {
-        io.emit('unbooked', matrixKey, groupId);
-    } )
+    socket.on('unbooked', (row, col, groupId) => {
+        io.emit('unbooked', row, col, groupId);
+    });
 
-    socket.on('booked', (matrixKey, groupId) => {
-        io.emit('booked', matrixKey, groupId);
-    })
+    socket.on('booked', (row, col, groupId) => {
+        io.emit('booked', row, col, groupId);
+    });
 
     socket.on('new user', (groupId) => {
         io.emit('new user', groupId);
-    })
+    });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
-      });
+    });
 });
 
 app.get('/', (req, res) => {
@@ -58,8 +58,8 @@ server.listen(443, () => { // Start the server on port 443 (HTTPS)
     console.log('Listening on port 443');
 });
 
-*/
 
+/*
 const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
@@ -109,3 +109,4 @@ const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
+*/
