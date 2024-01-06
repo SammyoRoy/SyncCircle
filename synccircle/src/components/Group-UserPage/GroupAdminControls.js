@@ -56,6 +56,7 @@ const GroupAdminControls = () => {
             axios.put(`https://backend.synccircle.net/users/${groupId}/${userId}`, { name: changedUser })
                 .then((response) => {
                     console.log(response.data);
+                    setChangedUser('');
                 })
                 .catch((error) => {
                     console.error(error);
