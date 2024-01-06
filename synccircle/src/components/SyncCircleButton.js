@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './SyncCircle192.png'; 
+import logo from './SyncCircle512.png'; 
 import { useNavigate } from 'react-router';
 
 const SyncCircleButton = () => {
