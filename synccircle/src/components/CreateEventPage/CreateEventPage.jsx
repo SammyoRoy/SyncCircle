@@ -33,10 +33,10 @@ function CreateEventPage() {
 
   const handleSwitchChange = (event) => {
     const isChecked = event.target.checked;
-  
+
     setSwitchState(isChecked);
     setIsDaysOftheWeek(isChecked);
-  
+
     if (isChecked) {
       setDays(["isDaysOftheWeek"]);
     } else {
@@ -46,28 +46,30 @@ function CreateEventPage() {
 
   console.log("EVENTNAME" + eventName)
   let alertMessages = [];
-  if(eventTrigger) {
-    if(eventName.length > 30) {
+  if (eventTrigger) {
+    if (eventName.length > 30) {
       alertMessages.push("Event Name Must Be Under 30 Characters");
     }
-    if(eventName === "") {
+    if (eventName === "") {
       alertMessages.push("Please Enter Event Name");
     }
   }
-  if(dayTrigger) {
+  if (dayTrigger) {
     alertMessages.push("Please Select At Least One Day");
   }
   return (
     <div className="Base">
-      <div className="sync-circle-container">
-        <SyncCircleButton/>
-      </div>
       <div className="ScreenBackground">
-      {alertMessages.length > 0 && (
+        {alertMessages.length > 0 && (
           <div className="alert-container">
             <Alert severity="error">{alertMessages.join(' | ')}</Alert>
           </div>)}
-        <Title />
+        <div className="TitleContainer">
+          <SyncCircleButton />
+          <div>
+            <Title />
+          </div>
+        </div>
         <AppContext.Provider value={{ eventTrigger, setEventTrigger, startTrigger, setStartTrigger, endTrigger, setEndTrigger, dayTrigger, setDayTrigger, eventName, setEventName }}>
           <div className="Backdrop">
             <EventNameForm OnEventNameChange={handleEventNameChange} />
@@ -78,8 +80,8 @@ function CreateEventPage() {
               </svg>
               <TimeDropdown OnTimeChange={setEndTime} label="End Time" />
             </div>
-            <div className={switchState? "SwitchFrame" : "SwitchFrameOff"} >
-              <IOSSwitch checked={switchState} onChange={handleSwitchChange}/>
+            <div className={switchState ? "SwitchFrame" : "SwitchFrameOff"} >
+              <IOSSwitch checked={switchState} onChange={handleSwitchChange} />
               <div>Days of the Week</div>
             </div>
             {switchState && <DaySelectionFrame setDays={setDays} days={days} />}

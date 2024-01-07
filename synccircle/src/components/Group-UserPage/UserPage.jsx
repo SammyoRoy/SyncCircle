@@ -83,15 +83,17 @@ function UserPage() {
 
   return (
     <div className="UserBase">
-      <div className="sync-circle-container">
-        <SyncCircleButton/>
-      </div>
       <div className="UserScreenBackground">
         {alertMessages.length > 0 && <div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading }}>
-          <UserTitle />
+          <div className="UserTitleContainer">
+            <SyncCircleButton />
+            <div>
+              <UserTitle />
+            </div>
+          </div>
           <HeaderCard />
           <Calendar />
         </AppContext.Provider>

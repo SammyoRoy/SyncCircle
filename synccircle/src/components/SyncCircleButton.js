@@ -11,7 +11,7 @@ const SyncCircleButton = () => {
           border: 'none',
           cursor: 'pointer',
         }}>
-        <img src={logo} alt="SyncCircle" style={{ maxWidth: '100%', height: 'auto' }} /> 
+        <img src={logo} alt="SyncCircle" style={{ width: '100%', minWidth: '25px', height: 'auto', maxWidth: '50px' }} /> 
       </button>
     </div>
   );

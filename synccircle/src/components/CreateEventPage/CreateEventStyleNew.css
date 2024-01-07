@@ -14,6 +14,7 @@ body {
     align-items: center;
     background-image: url('GreenCircleBG.png');
     background-size: cover;
+
 }
 
 .ScreenBackground {
@@ -30,18 +31,23 @@ body {
 
 .Title {
     /* SyncCircle */
-    width: 100%;
+    width: 80%;
     height: 1.81rem;
-    text-align: center;
     justify-content: center;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 2rem;
-    line-height: 120%;
     /* identical to box height, or 29px */
     color: #f7f7f7;
-    margin-bottom: -3%;
+}
+
+.TitleContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center ;
     margin-top: 10%;
 }
 
@@ -145,21 +151,11 @@ body {
 }
 
 .sync-circle-button {
-    max-width: 75px;
-    margin: 0 auto;
+    max-width: 45px;
     width: 100%;
-    position: absolute;
-    
+    min-width: 40px;
+    margin-bottom: 5%;
 }
-
-.sync-circle-container {
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    z-index: 10; 
-    width: 15%;
-    
-  }
 
 .DaySelectionFrame {
     display: flex;
@@ -288,7 +284,6 @@ body {
 @media only screen and (max-width: 380px) {
     .Title {
         font-size: 200%;
-        margin-bottom: 0;
     }
     .ScreenBackground {
         min-width: 0px;
@@ -300,14 +295,29 @@ body {
     }
 }
 
+@media only screen and (max-width: 380px) {
+    .Base{
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
 /* Mobile devices (portrait and landscape) */
 @media only screen and (min-width: 381px) and (max-width: 767px) {
     .Title {
         font-size: 240%;
-        margin-bottom: 0;
+    }
+    .TitleContainer{
+        margin-bottom: -3%;
     }
     .EventNameInput{
         font-size: 110%;
+    }
+    .Base{
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
     }
 }
 
@@ -315,7 +325,6 @@ body {
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .Title {
         font-size: 250%;
-        margin-bottom: 0;
     }
     .ScreenBackground{
         width: 50%;
@@ -332,8 +341,6 @@ body {
 @media only screen and (min-width: 1024px) and (max-width: 1500px) {
     .Title {
         font-size: 220%;
-        margin-top: 4%;
-        margin-bottom: 0;
     }
     .ScreenBackground{
         width: 30%;
@@ -352,8 +359,6 @@ body {
 
     .Title {
         font-size: 260%;
-        margin-top: -20%;
-        margin-bottom: 3%;
     }
 
     .Backdrop {
