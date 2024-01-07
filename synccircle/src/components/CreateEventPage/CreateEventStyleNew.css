@@ -438,11 +438,11 @@ body {
     }
 
     .EventNameInput {
-        background-color: #bdc1c6;
+        background-color: #edeff1;
     }
 
     .TimeSelectionDropdown {
-        background-color: #bdc1c6;
+        background-color: #edeff1;
     }
 
     .DayOfTheWeekButton {
@@ -462,7 +462,7 @@ body {
     }
 
     .CreateEventSubmitButton:hover {
-        background-color: #237563dd;
+        background-color: #4c366a;
     }
 
     .EventNameForm:hover {

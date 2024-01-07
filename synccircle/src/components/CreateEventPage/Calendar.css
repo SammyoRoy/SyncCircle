@@ -206,3 +206,14 @@
       border: 0px !important;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    .in-range {
+      background-color: #A274CC !important;
+    }
+
+    .start-date{
+      background-color: #d1bae7 !important;
+    }
+
+  }

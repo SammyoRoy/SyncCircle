@@ -569,16 +569,20 @@ body {
         color: #237563;
     }
     .GroupPageButton{
-        background-color: #5F00CD;
+        background-color: #5c62da;
     }
+    .GroupPageButton:hover{
+        background-color: #383c8d;
+    }
+
     .DayLabel{
-        background-color: #237563;
+        background-color: #604488;
     }
     .JoinButton{
-        background-color: #237563;
+        background-color: #08605f;
     }
     .JoinButton:hover{
-        background-color: #19ac1e;
+        background-color: #0fbdba;
     }
     .GroupPageButtonCircle{
         border: 3px solid #edeff1;
