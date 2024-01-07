@@ -605,4 +605,16 @@ body {
     ::-webkit-scrollbar-track {
         background: #303134;
     }
+    .ShiftLeft{
+        background-color: #e0e0e0;
+    }
+    .ShiftLeft:disabled{
+        background-Color: #bfc0be;
+    }
+    .ShiftRight{
+        background-color: #e0e0e0;
+    }
+    .ShiftRight:disabled{
+        background-Color: #bfc0be;
+    }
 }
