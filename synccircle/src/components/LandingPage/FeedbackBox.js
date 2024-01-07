@@ -22,6 +22,7 @@ const FeedbackBox = () => {
         );
         window.open(`mailto:${recipientEmail}?subject=${subject}&body=${emailBody}`);**/
         console.log('Submitted')
+        setFeedback('');
     };
 
     return (
