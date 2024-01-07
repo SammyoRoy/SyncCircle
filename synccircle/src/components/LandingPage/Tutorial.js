@@ -3,6 +3,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const Tutorial = () => {
+    const tempImageUrl = 'https://picsum.photos/250/300';
+    
     useEffect(() => {
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,6 +34,7 @@ const Tutorial = () => {
                     <b3>
                         Enter an event name, time range, and select days
                     </b3>
+                    <img src={tempImageUrl}></img>
                 </div>
                 <div className='Step2' data-aos="fade-down" data-aos-delay="400">
                     <div className='Count'>
@@ -44,6 +47,7 @@ const Tutorial = () => {
                     <b3>
                         Type in a username, and then press the time slots for when you’re free. If you need to update your availability later, you can log back in with the same username.
                     </b3>
+                    <img src={tempImageUrl}></img>
 
                 </div>
                 <div className='Step3' data-aos="fade-down" data-aos-delay="800">
@@ -57,7 +61,7 @@ const Tutorial = () => {
                     <b3>
                         Use the purple Group button to open the group tab. Copy the link and send it to your friends. Then watch as the slots update in real time as they fill in their availabilities!
                     </b3>
-
+                    <img src={tempImageUrl}></img>
                 </div>
             </div>
         </div>

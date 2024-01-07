@@ -12,7 +12,6 @@ const Hero = () => {
     }, []);
     const navigate = useNavigate();
 
-    const tempImageUrl = 'TransparentSCLandingPageImageFinal.png';
     return (
         <>
             <div className='Top'>
@@ -20,7 +19,7 @@ const Hero = () => {
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle <span className='Beta'>Beta</span>
                 </Typography>
-                
+            
             </div>
             <div className='HeroPage'>
                 <div className='HeroDesc'>
