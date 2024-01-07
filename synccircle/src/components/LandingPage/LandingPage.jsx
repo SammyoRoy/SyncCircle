@@ -9,7 +9,7 @@ import FeedbackPage from './FeedbackPage'
 export const LandingPage = () => {
 
   return (
-    <div>
+    <div className='LandingPage'>
       {/**<Navbar />**/}
       <Hero />
       <div className='curve'>
