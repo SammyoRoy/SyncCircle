@@ -45,7 +45,6 @@ body {
 .UserTitle {
     /* SyncCircle */
     width: 100%;
-    height: 1.81rem;
     text-align: center;
     justify-content: center;
     font-family: 'Poppins';
@@ -286,6 +285,7 @@ body {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: 0px 0px 30px 30px;
     margin-bottom: 3%;
+    z-index: 1000;
 }
 
 
@@ -501,22 +501,46 @@ body {
    
 }
 
+/**Phones**/
 @media only screen and (max-width: 400px){
+    .UserBase{
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        z-index: 5;
+    }
+    
+    .UserScreenBackground{
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        padding-left: 10px;
+        padding-right: 10px;
+        z-index: 10;
+    }
+
+    .UserTitleContainer{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    
     .HeaderCard{
         padding-top: 5%;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
+        
     }
 
     .CalenderContainer{
-        margin-bottom: 0;
     }
+
+
     .DOTWBar{
         padding-top: 3%;
         padding-bottom: 5%;
     }
     .UserTitleSmall{
-        font-size: 0.8rem;
+        font-size: 1.2rem;
     }
     .DayLabel{
         width: 28px;
