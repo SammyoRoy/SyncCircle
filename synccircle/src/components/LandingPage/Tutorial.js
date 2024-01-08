@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import createImage from './Create_Event.png'
+import groupImage from './Group_Slots.png'
+import userImage from './User_Slots.png'
 
 const Tutorial = () => {
-    const tempImageUrl = 'https://picsum.photos/250/300';
     
     useEffect(() => {
 
@@ -34,7 +36,7 @@ const Tutorial = () => {
                     <b3>
                         Enter an event name, time range, and select days
                     </b3>
-                    <img src={tempImageUrl}></img>
+                    <img src={createImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
                 </div>
                 <div className='Step2' data-aos="fade-down" data-aos-delay="400">
                     <div className='Count'>
@@ -43,11 +45,11 @@ const Tutorial = () => {
                             <text className='Text' fill='#FFF' x="50%" y="50%" textAnchor="middle" dy=".3em">2</text>
                         </svg>
                     </div>
-                    <h3>Fill out your availability</h3>
+                    <h3>Fill out availability</h3>
                     <b3>
                         Type in a username, and then press the time slots for when you’re free. If you need to update your availability later, you can log back in with the same username.
                     </b3>
-                    <img src={tempImageUrl}></img>
+                    <img src={userImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
 
                 </div>
                 <div className='Step3' data-aos="fade-down" data-aos-delay="800">
@@ -61,7 +63,7 @@ const Tutorial = () => {
                     <b3>
                         Use the purple Group button to open the group tab. Copy the link and send it to your friends. Then watch as the slots update in real time as they fill in their availabilities!
                     </b3>
-                    <img src={tempImageUrl}></img>
+                    <img src={groupImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
                 </div>
             </div>
         </div>
