@@ -5,6 +5,7 @@ import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
 import { Alert } from "@mui/material";
+import SyncCircleButton from "../SyncCircleButton";
 
 import UserTitle from "./UserTitle";
 
@@ -23,6 +24,7 @@ function UserPage() {
   const [isEmptyInput, setEmptyInput] = useState(false);
   const [dragValue, setDragValue] = useState(0);
   const [startColumn, setStartColumn] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const useMaxColumnsDisplayed = () => {
     const [maxColumnsDisplayed, setMaxColumnsDisplayed] = useState(5);
@@ -85,8 +87,13 @@ function UserPage() {
         {alertMessages.length > 0 && <div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED }}>
-          <UserTitle />
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading }}>
+          <div className="UserTitleContainer">
+            <SyncCircleButton />
+            <div>
+              <UserTitle />
+            </div>
+          </div>
           <HeaderCard />
           <Calendar />
         </AppContext.Provider>

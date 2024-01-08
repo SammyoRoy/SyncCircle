@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 
 function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, socket}) {
-  const { setUserSlot, setSlotTried, userArray, setUserArray, setStopped, dragValue, setDragValue, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
+  const { setUserSlot, setSlotTried, userArray, setUserArray, loading, setStopped, dragValue, setDragValue, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
   const { groupId, userId } = useContext(AppContext);
   const [isSelected, setSelected] = useState(false);
   const [style, setStyle] = useState("UnselectedSlot");
@@ -95,9 +95,9 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
         replaceValueAt(row, col, newDragValue);
         setIsModified(true);
   
-        if (cellValue != dragValue && newDragValue === 1) {
+        if (cellValue != newDragValue && newDragValue === 1) {
           socket.emit('booked', row, col, groupId);
-        } else if (cellValue != dragValue){
+        } else if (cellValue != newDragValue){
           socket.emit('unbooked', row, col, groupId);
         }
       }
@@ -115,19 +115,18 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
   }
 
   useEffect(() => {
-    const button = buttonRef.current;
-
     const handleTouchMove = (e) => {
-      handleTouch(e);
       e.preventDefault();
+      handleTouch(e);
     };
-
+  
+    const button = buttonRef.current;
     button.addEventListener('touchmove', handleTouchMove, { passive: false });
-
+  
     return () => {
       button.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [handleTouch]);
+  }, []); 
 
 
   const handleEnter = async (e) => {
@@ -175,15 +174,19 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
     }
   };
 
+  const eventHandlers = !loading ? {
+    onMouseDown: handlePress,
+    onMouseEnter: handleEnter,
+    onTouchMove: handleTouch,
+    onTouchEnd: handleTouchEnd
+  }: {}
+
 
   return (
     <button
       ref={buttonRef}
       className={style}
-      onMouseDown={handlePress}
-      onMouseEnter={handleEnter}
-      onTouchMove={handleTouch}
-      onTouchEnd={handleTouchEnd}
+      {...eventHandlers}
       type="button"
     > </button>
   )

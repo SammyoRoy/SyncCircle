@@ -115,6 +115,7 @@
     padding: 10px 6.6667px;
     background: none;
     text-align: center;
+    color: #000000;
     line-height: 16px;
     font: 'Lato';
     font-weight: 500;
@@ -204,4 +205,15 @@
     .start-date{
       border: 0px !important;
     }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .in-range {
+      background-color: #A274CC !important;
+    }
+
+    .start-date{
+      background-color: #d1bae7 !important;
+    }
+
   }

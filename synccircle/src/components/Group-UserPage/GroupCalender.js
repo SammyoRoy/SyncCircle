@@ -6,7 +6,7 @@ import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
-  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
+  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -54,6 +54,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       );
 
       setNumAvailArr(lengthsArray);
+      setLoading(false);
       console.log("Num avail :" + numAvailArr);
     }
   }, [masterArray]);
