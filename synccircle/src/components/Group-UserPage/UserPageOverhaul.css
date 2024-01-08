@@ -35,9 +35,9 @@ body {
 }
 
 .sync-circle-button {
-    max-width: 45px;
+    max-width: 35px;
     width: 100%;
-    min-width: 40px;
+    min-width: 30px;
     margin-bottom: 5%;
 }
 
@@ -455,6 +455,10 @@ body {
         position: absolute;
         bottom: 5%
     }
+    .sync-circle-button {
+        max-width: 25px;
+        min-width: 20px;
+    }
     .HeaderCard{
         padding-top: 1%;
     }
@@ -485,7 +489,6 @@ body {
         width: 100%;
     }
     .GroupPageButtonCircleIcon{
-        margin-top: 50% !important;
         width: 28px !important;
         height: 28px !important;
     }
