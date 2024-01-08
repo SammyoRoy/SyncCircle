@@ -10,7 +10,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
   const [showMembers, setShowMembers] = useState(false);
   const [content, setContent] = useState("");
   const cols = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
-  console.log("Cols:" + cols);
+  
 
   const row = Math.floor(matrixKey / (cols + 1));
   const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;
@@ -50,21 +50,21 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
   }
 
   /*useEffect(() => {
-    console.log("Modified: " +modifiedRow+","+modifiedCol);
-    console.log(row+","+col);
+    
+    
     if (modifiedRow === row && modifiedCol === col) {
-      console.log("This is the matching slot");
+      
       setNumAvail((prevNumAvail) => {
         if (isBooked) {
-          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
+          
           return prevNumAvail + 1;
         } else {
-          console.log("Row " + row + " Col " + col + "Num avail " + numAvail);
+          
           return prevNumAvail - 1;
         }
       });
 
-      console.log("Total members: " + totalMembers);
+      
     }
   }, [modifiedRow, modifiedCol, isBooked]);*/
 

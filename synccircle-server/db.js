@@ -12,10 +12,10 @@ const connectToDb = async () => {
 
     try {
         dbConnect = await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('MongoDB Connected');
+        
         return dbConnect;
     } catch (err) {
-        console.log(err);
+        
     }
 }
 

@@ -48,14 +48,14 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
           days: dayString,
           })
         .then((response) => {
-          console.log(response)
+          
           const groupId = response.data.group_id;
           nav(`/group/${groupId}`);
           
         })
         .catch((error) => {
           // handle the error
-          console.log(error);
+          
         });
     };
     return (

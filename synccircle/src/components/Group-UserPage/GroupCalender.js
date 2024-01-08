@@ -55,7 +55,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       setNumAvailArr(lengthsArray);
       setLoading(false);
-      console.log("Num avail :" + numAvailArr);
+      
     }
   }, [masterArray]);
 
@@ -70,7 +70,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         setAddedNewMember(true);
       }
       fetchData();
-      console.log("Getting total mems");
+      
     }
   }, [addedNewMember]);
 
@@ -122,7 +122,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       groupSocket.on('unbooked', (row, col, signalGroupId) => {
         if (groupId == signalGroupId) {
           setModifiedRow(row);
-          console.log(row+","+col);
+          
           setModifiedCol(col);
           setIsBooked(false);
           setNumAvailArr((prevArr) => {
@@ -137,7 +137,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         if (groupId == signalGroupId) {
           setModifiedRow(row);
           setModifiedCol(col);
-          console.log(row+","+col);
+          
           setIsBooked(true);
           setNumAvailArr((prevArr) => {
             const newArr = [...prevArr];

@@ -24,7 +24,7 @@ const GroupAdminControls = () => {
         axios.get(`https://backend.synccircle.net/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
-                console.log(response.data.users);
+                
             })
             .catch((error) => {
                 console.error(error);
@@ -62,7 +62,7 @@ const GroupAdminControls = () => {
             await setCookie(`username_${groupId}`, changedUser, { path: '/' });
             axios.put(`https://backend.synccircle.net/users/${groupId}/${userId}`, { name: changedUser })
                 .then((response) => {
-                    console.log(response.data);
+                    
                     setChangedUser('');
                 })
                 .catch((error) => {
@@ -70,7 +70,7 @@ const GroupAdminControls = () => {
                 });
         }
         else {
-            console.log("already a name");
+            
         }
     }
 
@@ -78,7 +78,7 @@ const GroupAdminControls = () => {
         const URL = window.location.href.split("/");
         axios.put(`https://backend.synccircle.net/groups/${groupId}`, { name: changedName })
             .then((response) => {
-                console.log(response.data);
+                
                 setChangedName('');
 
             })

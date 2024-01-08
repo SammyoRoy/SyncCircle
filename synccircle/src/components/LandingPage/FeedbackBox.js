@@ -21,7 +21,7 @@ const FeedbackBox = () => {
             `Type of Feedback: ${selected}\n\nFeedback:\n${feedback}`
         );
         window.open(`mailto:${recipientEmail}?subject=${subject}&body=${emailBody}`);**/
-        console.log('Submitted')
+        
         setFeedback('');
     };
 

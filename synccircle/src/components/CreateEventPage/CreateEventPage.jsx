@@ -44,7 +44,7 @@ function CreateEventPage() {
     }
   };
 
-  console.log("EVENTNAME" + eventName)
+  
   let alertMessages = [];
   if (eventTrigger) {
     if (eventName.length > 30) {

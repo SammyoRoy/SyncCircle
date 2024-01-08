@@ -9,7 +9,7 @@ function ShiftLeft() {
     const handleClick = () => {
         if (startColumn > 0) {
             setStartColumn(startColumn - 1);
-            console.log(startColumn);
+            
         }
     }
 

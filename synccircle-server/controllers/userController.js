@@ -166,7 +166,7 @@ const getUser = asyncHandler(async (req, res) => {
     if (group) {
         const user = group.users.find(user => user.user_id === userId);
         if (user) {
-            console.log(user);
+            
             res.status(200).json(user);
         }
         else {
