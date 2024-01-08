@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, forwardRef } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import createImage from './Create_Event.png'
 import groupImage from './Group_Slots.png'
 import userImage from './User_Slots.png'
 
-const Tutorial = () => {
+const Tutorial = forwardRef((props,ref) => {
+
+
     
     useEffect(() => {
 
@@ -22,7 +24,7 @@ const Tutorial = () => {
         }
     }, []);
     return (
-        <div className='Tutorial'>
+        <div className='Tutorial' ref={ref}>
             <h1 data-aos="fade-down">Sync your schedules with one easy link</h1>
             <div className='Steps'>
                 <div className='Step1' data-aos="fade-down" data-aos-delay="100">
@@ -68,6 +70,6 @@ const Tutorial = () => {
             </div>
         </div>
     )
-}
+});
 
 export default Tutorial

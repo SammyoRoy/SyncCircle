@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import AOS from 'aos';
 import { Typography, Box, Button, Select, MenuItem } from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
 import splashImage from './SCLandingPageImageFinal.png'
 
-const Hero = () => {
+const Hero = ({ scrollRef }) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const targetDivRef = scrollRef;
+    const scrollToDiv = () => {
+        targetDivRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
 
 
     useEffect(() => {
@@ -36,7 +40,7 @@ const Hero = () => {
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle <span className='Beta'>Beta</span>
                 </Typography>}
-                {windowWidth >= 530 && <Box sx={{ display: { md: 'flex' }}} marginRight="10%" alignSelf="center">
+                {windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
                     <Button
                         sx={{
                             backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
@@ -61,7 +65,10 @@ const Hero = () => {
                     <h6 data-aos="fade-up">
                         So that amazing plan can finally make it out of the group chat.
                     </h6>
-                    <button type="submit" className="CreateEventBtn" onClick={() => (navigate('/create'))}>Create Event</button>
+                    <div className='Btns'>
+                        <button type="submit" className="CreateEventBtn" onClick={() => (navigate('/create'))}>Create Event</button>
+                        <button type="button" className='CreateEventBtn' onClick={scrollToDiv}>How to Use</button>
+                    </div>
                 </div>
                 <div className='HeroImg'>
                     {<img src={splashImage}

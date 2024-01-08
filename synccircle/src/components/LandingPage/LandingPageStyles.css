@@ -79,7 +79,13 @@
     font-size: 16px;
 }
 .CreateEventBtn:hover {
-    background: #391463;
+    background: #24643e9e;
+}
+
+.Btns{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .HeroImg {
