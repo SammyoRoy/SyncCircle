@@ -5,7 +5,7 @@ import HeaderCard from "./HeaderCard";
 import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
 import { Alert } from "@mui/material";
-import SyncCircleButton from "../SyncCircleButton";
+import SyncCircleButton from "../SharedComponents/SyncCircleButton";
 
 import UserTitle from "./UserTitle";
 

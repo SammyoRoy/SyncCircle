@@ -10,7 +10,7 @@ import { AppContext } from "../../context/AppContext";
 import Alert from '@mui/material/Alert';
 import { IOSSwitch } from "./IosSwitch";
 import CalenderSelectionFrame from "./CalenderSelectionFrame";
-import SyncCircleButton from "../SyncCircleButton";
+import SyncCircleButton from "../SharedComponents/SyncCircleButton";
 
 
 function CreateEventPage() {
