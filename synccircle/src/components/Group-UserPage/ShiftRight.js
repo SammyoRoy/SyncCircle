@@ -21,8 +21,13 @@ function ShiftRight() {
 
 
     const handleClick = () => {
-        if (startColumn < (days.length - MAX_COLUMNS_DISPLAYED))
+        if ((startColumn+MAX_COLUMNS_DISPLAYED*2) < days.length){
+            setStartColumn(startColumn + MAX_COLUMNS_DISPLAYED);
+        }
+        else if (startColumn < (days.length - MAX_COLUMNS_DISPLAYED)){
             setStartColumn(startColumn + 1);
+        }
+
         console.log(startColumn);
     }
 
