@@ -79,7 +79,25 @@
     font-size: 16px;
 }
 .CreateEventBtn:hover {
-    background: #24643e9e;
+    background: #70D474;
+}
+
+.HowToBtn {
+    display: flex;
+    padding: 14px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 9px;
+    background: #8983a5;
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+.HowToBtn:hover {
+    background: #85509a;
 }
 
 .Btns{

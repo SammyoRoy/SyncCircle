@@ -67,7 +67,7 @@ const Hero = ({ scrollRef }) => {
                     </h6>
                     <div className='Btns'>
                         <button type="submit" className="CreateEventBtn" onClick={() => (navigate('/create'))}>Create Event</button>
-                        <button type="button" className='CreateEventBtn' onClick={scrollToDiv}>How to Use</button>
+                        <button type="button" className='HowToBtn' onClick={scrollToDiv}>How to Use</button>
                     </div>
                 </div>
                 <div className='HeroImg'>
