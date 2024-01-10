@@ -32,15 +32,11 @@ const Hero = ({ scrollRef }) => {
     return (
         <>
             <div className='Top'>
-                {windowWidth >= 530 && <Typography variant="h6" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
+                <Typography variant="h6" noWrap component="div" marginLeft="10%" onClick={() => navigate('/create')} sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle <span className='Beta'>Beta</span>
-                </Typography>}
-                {windowWidth < 530 && <Typography variant="h6" noWrap component="div" marginLeft="10%" onClick={() => navigate('/create')} sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
-                    <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
-                    SyncCircle <span className='Beta'>Beta</span>
-                </Typography>}
-                {windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
+                </Typography>
+                {/**windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
                     <Button
                         sx={{
                             backgroundImage: 'linear-gradient(45deg, #5AD85F 30%, #4CAF4F 90%)',
@@ -51,11 +47,11 @@ const Hero = ({ scrollRef }) => {
                                 boxShadow: '0 0 10px 3px rgba(0, 0, 0, 0.5)',
                             }
                         }}
-                        onClick={() => (navigate('/create'))}
+                    onClick={() => (navigate('/create'))}
                     >
                         Use SyncCircle
                     </Button>
-                </Box>}
+                    </Box>**/}
             </div>
             <div className='HeroPage'>
                 <div className='HeroDesc'>
