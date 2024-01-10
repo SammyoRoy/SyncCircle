@@ -54,6 +54,7 @@ function UserNameForm() {
         updateJoined={setJoined}
         updateSubmitted={setSubmitted}
         setEmptyInput={setEmptyInput}
+        shouldVibrate={hasJoined}
       />
     </div>
   );

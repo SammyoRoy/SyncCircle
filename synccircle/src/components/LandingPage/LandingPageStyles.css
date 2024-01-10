@@ -80,6 +80,7 @@
 }
 .CreateEventBtn:hover {
     background: #70D474;
+    border-radius: 15px;
 }
 
 .HowToBtn {
@@ -98,6 +99,7 @@
 }
 .HowToBtn:hover {
     background: #85509a;
+    border-radius: 15px;
 }
 
 .Btns{
