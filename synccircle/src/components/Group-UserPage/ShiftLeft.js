@@ -7,7 +7,7 @@ function ShiftLeft() {
 
 
     const handleClick = () => {
-        if ((startColumn-MAX_COLUMNS_DISPLAYED*2) > 0){
+        if ((startColumn+1-MAX_COLUMNS_DISPLAYED) > 0){
             setStartColumn(startColumn-MAX_COLUMNS_DISPLAYED);
         }
         else if (startColumn > 0) {

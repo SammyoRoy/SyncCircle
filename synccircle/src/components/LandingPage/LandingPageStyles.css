@@ -369,6 +369,10 @@
         height: fit-content;
         gap: 30px;
     }
+    .Btns{
+        flex-direction: column;
+        align-items: stretch;
+    }
     .Tutorial{
         height: fit-content;
     }
