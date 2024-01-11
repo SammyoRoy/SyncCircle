@@ -101,6 +101,10 @@
     background: #85509a;
     border-radius: 15px;
 }
+.PP{
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .Btns{
     display: flex;

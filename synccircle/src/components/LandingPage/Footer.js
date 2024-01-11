@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import { Input, Typography } from '@mui/material'
 import logo from './SyncCircle192.png';
+import { useNavigate } from 'react-router';
 
 const Footer = () => {
     const [value, setValue] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -17,6 +19,7 @@ const Footer = () => {
                 </Typography>
                 <b6>Copyright © 2024 SyncCircle ltd.</b6>
                 <b6>All rights reserved</b6>
+                <b6 onClick={() => navigate('/privacy')} className="PP">Privacy Policy</b6>
                 <div className='Icons'>
                 </div>
             </div>
