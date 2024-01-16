@@ -290,9 +290,10 @@ line-height: 150%; /* 24px */
     .GroupTitle{
         color: #ffffff !important;
     }
-    .btn-close.text-reset{
-        color: #ffffff !important;
+    .btn-close {
+        filter: brightness(0) invert(1);
     }
+    
     .GroupControls{
         background-color: #303134 !important;
     }

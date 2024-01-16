@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 
 connectToDb();
 
+const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 // Read the SSL certificate and key files
 const sslOptions = {

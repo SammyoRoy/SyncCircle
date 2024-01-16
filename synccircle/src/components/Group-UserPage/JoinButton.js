@@ -5,7 +5,7 @@ import GroupPageButton from './GroupPageButton';
 import io from 'socket.io-client';
 import { useCookies } from 'react-cookie';
 
-function JoinButton({updateJoined, updateSubmitted}) {
+function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
   const { groupId, setUserId, userId, setFirst, userName, setEmptyInput} = useContext(AppContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("");
@@ -119,7 +119,7 @@ function JoinButton({updateJoined, updateSubmitted}) {
     <div className="UserButtonContainer">
       {show ? (
         <button type="submit" className={groupId !== ""? "JoinButton": "JoinButton disabled"} onClick={onSubmit} disabled={groupId===""}>Join</button>
-      ) : <GroupPageButton groupId={groupId} userId={userId} />}
+      ) : <GroupPageButton shouldVibrate={shouldVibrate} groupId={groupId} userId={userId} />}
     </div>
   );
 }

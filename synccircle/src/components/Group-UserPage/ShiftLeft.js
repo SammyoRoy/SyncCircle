@@ -3,11 +3,14 @@ import { AppContext } from "../../context/AppContext";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function ShiftLeft() {
-    const { startColumn, setStartColumn } = useContext(AppContext);
+    const { startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
 
 
     const handleClick = () => {
-        if (startColumn > 0) {
+        if ((startColumn+1-MAX_COLUMNS_DISPLAYED) > 0){
+            setStartColumn(startColumn-MAX_COLUMNS_DISPLAYED);
+        }
+        else if (startColumn > 0) {
             setStartColumn(startColumn - 1);
             
         }

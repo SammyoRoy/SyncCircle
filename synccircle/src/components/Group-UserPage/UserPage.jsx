@@ -32,7 +32,7 @@ function UserPage() {
     const updateMaxColumns = () => {
       const screenWidth = window.innerWidth;
       if (screenWidth < 600) {
-        setMaxColumnsDisplayed(4);
+        setMaxColumnsDisplayed(5);
       } else if (screenWidth < 900) {
         setMaxColumnsDisplayed(6);
       } else {
