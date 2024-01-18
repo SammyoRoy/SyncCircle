@@ -55,10 +55,10 @@ const Hero = ({ scrollRef }) => {
             </div>
             <div className='HeroPage'>
                 <div className='HeroDesc'>
-                    <h1 data-aos="fade-up">
+                    <h1>
                         Scheduling with friends <span>made easy</span>.
                     </h1>
-                    <h6 data-aos="fade-up">
+                    <h6>
                         So that amazing plan can finally make it out of the group chat.
                     </h6>
                     <div className='Btns'>

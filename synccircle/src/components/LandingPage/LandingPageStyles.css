@@ -50,7 +50,6 @@
 
 .HeroDesc h1 {
     color: #4D4D4D;
-    animation: fadeIn 1.5s ease-out forwards;
     font-weight: 600;
 }
 
@@ -60,7 +59,6 @@
 
 .HeroDesc h6 {
     font-weight: 400;
-    animation: fadeIn 1.5s ease-out forwards;
     color: #717171;
 }
 
