@@ -28,7 +28,7 @@ function ShiftRight() {
             setStartColumn(startColumn + 1);
         }
 
-        console.log(startColumn);
+       //console.log(startColumn);
     }
 
     return (

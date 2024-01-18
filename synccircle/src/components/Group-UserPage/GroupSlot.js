@@ -10,7 +10,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
   const [showMembers, setShowMembers] = useState(false);
   const [content, setContent] = useState("");
   const cols = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
-  console.log("Cols:" + cols);
+ // console.log("Cols:" + cols);
 
   const row = Math.floor(matrixKey / (cols + 1));
   const col = matrixKey - (row * (cols + 1)) - 1 + startColumn;

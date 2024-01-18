@@ -68,7 +68,7 @@ function Calendar() {
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
-      console.log(response.data);
+      //console.log(response.data);
     }
     async function fetchUser() {
       if (groupId) {

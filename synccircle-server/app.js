@@ -38,7 +38,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
+   // console.log('A user connected');
     
     socket.on('unbooked', (row, col, groupId) => {
         io.emit('unbooked', row, col, groupId);
@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('A user disconnected');
+        //('A user disconnected');
     });
 });
 
@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
 });
 
 server.listen(443, () => { // Start the server on port 443 (HTTPS)
-    console.log('Listening on port 443');
+   // console.log('Listening on port 443');
 });
 
 

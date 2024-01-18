@@ -28,14 +28,14 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
       setEmptyInput(true);
       return;
     }
-    console.log(cookies[`username_${groupId}`] );
+   // console.log(cookies[`username_${groupId}`] );
     axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
       .then((response) => {
         if (response.data === "False") {
           //Make new User
           axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
             .then((response2) => {
-              console.log(response2.data)
+            //  console.log(response2.data)
               setUserId(response2.data.user_id);
               if(response2.data.users[0].user_id === response2.data.user_id){
                 setFirst(true);
@@ -45,7 +45,7 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
           updateJoined(true);
           updateSubmitted(true);
           joinSocket.emit('new user', groupId);
-          console.log("New user sent");
+         // console.log("New user sent");
         }
         else {
           setUserId(response.data.user_id);
@@ -88,7 +88,7 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
             //Make new User
             axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
-                console.log(response2.data)
+               // console.log(response2.data)
                 setUserId(response2.data.user_id);
                 if(response2.data.users[0].user_id === response2.data.user_id){
                   setFirst(true);
@@ -98,7 +98,7 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
             updateJoined(true);
             updateSubmitted(true);
             joinSocket.emit('new user', groupId);
-            console.log("New user sent");
+            //console.log("New user sent");
           }
           else {
             setUserId(response.data.user_id);

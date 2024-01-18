@@ -79,14 +79,14 @@ function DaysOfTheWeek({ styling }) {
       if (DaysOfTheWeek){
         const sortedDaysData = sortDays(daysData);
         setDays(sortedDaysData);
-        console.log("Is days of the week");
+        //console.log("Is days of the week");
       }
       else{
         const extractedDays = [];
         const extractedDates = [];
 
         for (let i = 0; i < daysData.length; i++) {
-          console.log(daysData[i]);
+         // console.log(daysData[i]);
           const dateParts = daysData[i].split(' ');
       
           const day = dateParts[0];

@@ -24,6 +24,9 @@ body {
     justify-content: flex-start;
 
 }
+.offcanvas{
+    width: 40% !important;
+}
 
 .UserTitleContainer{
         display: flex;
@@ -436,6 +439,9 @@ body {
         width: 30px !important;
         height: 30px !important;
     }
+    .offcanvas{
+        width: 50% !important;
+    }
     .GPCircleContainer{
         width: 10%;
         padding-bottom: 10%;
@@ -455,6 +461,9 @@ body {
     .GPCircleContainer{
         width: 8%;
         padding-bottom: 8%;
+    }
+    .offcanvas{
+        width: 60% !important;
     }
     
 

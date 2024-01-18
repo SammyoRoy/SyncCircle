@@ -168,7 +168,7 @@ function Slot({ matrixKey, days, dragging, swiping, touchPosition, cellValue, so
       setSelected(true);
       setStyle("SelectedSlot");
       socket.emit('booked', row, col, groupId);
-      console.log(matrixKey);
+     // console.log(matrixKey);
       replaceValueAt(row, col, 1);
       setUserSlot(Math.random());
     }
