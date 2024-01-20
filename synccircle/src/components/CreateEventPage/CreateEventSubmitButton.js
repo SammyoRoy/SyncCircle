@@ -41,7 +41,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       
       const dayString = days.join(",");
       
-      axios.post(`https://backend.synccircle.net/groups/`, {
+      axios.post(`http://localhost:4000/groups/`, {
           name: eventName,
           startTime: startTime,
           endTime: endTime,

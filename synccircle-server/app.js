@@ -1,5 +1,5 @@
 // Commented out code is for encrypted production version of backend
-const express = require('express');
+/**const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
 const connectToDb = require('./db');
@@ -63,10 +63,10 @@ app.get('/', (req, res) => {
 
 server.listen(443, () => { // Start the server on port 443 (HTTPS)
    // console.log('Listening on port 443');
-});
+});**/
 
 
-/*
+
 const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
@@ -116,4 +116,3 @@ const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
-*/

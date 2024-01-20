@@ -21,7 +21,7 @@ const GroupAdminControls = () => {
 
     useEffect(() => {
         const URL = window.location.href.split("/");
-        axios.get(`https://backend.synccircle.net/groups/${groupId}`)
+        axios.get(`http://localhost:4000/groups/${groupId}`)
             .then((response) => {
                 setUsers(response.data.users);
                // console.log(response.data.users);
@@ -41,7 +41,7 @@ const GroupAdminControls = () => {
 
     const handleRemove = (userId) => {
         const URL = window.location.href.split("/");
-        axios.delete(`https://backend.synccircle.net/users/${groupId}/${userId}`)
+        axios.delete(`http://localhost:4000/users/${groupId}/${userId}`)
             .then((response) => {
                 setUsers(response.data.users);
             })
@@ -60,7 +60,7 @@ const GroupAdminControls = () => {
     const handleUserNameChange = async () => {
         if (!users.some(user => user.user_name === changedUser)) {
             await setCookie(`username_${groupId}`, changedUser, { path: '/' });
-            axios.put(`https://backend.synccircle.net/users/${groupId}/${userId}`, { name: changedUser })
+            axios.put(`http://localhost:4000/users/${groupId}/${userId}`, { name: changedUser })
                 .then((response) => {
                    // console.log(response.data);
                     setChangedUser('');
@@ -76,7 +76,7 @@ const GroupAdminControls = () => {
 
     const handleNameChange = () => {
         const URL = window.location.href.split("/");
-        axios.put(`https://backend.synccircle.net/groups/${groupId}`, { name: changedName })
+        axios.put(`http://localhost:4000/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 //console.log(response.data);
                 setChangedName('');
@@ -90,7 +90,7 @@ const GroupAdminControls = () => {
 
     const handleDelete = () => {
         const URL = window.location.href.split("/");
-        axios.delete(`https://backend.synccircle.net/groups/${groupId}`)
+        axios.delete(`http://localhost:4000/groups/${groupId}`)
             .then((response) => {
                 navigate('/');
             })

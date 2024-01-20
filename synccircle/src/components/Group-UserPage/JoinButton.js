@@ -29,11 +29,11 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
       return;
     }
    // console.log(cookies[`username_${groupId}`] );
-    axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
+    axios.get(`http://localhost:4000/groups/findmem/${groupId}`, { params: { userName: cookies[`username_${groupId}`] } })
       .then((response) => {
         if (response.data === "False") {
           //Make new User
-          axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
+          axios.post(`http://localhost:4000/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
             .then((response2) => {
             //  console.log(response2.data)
               setUserId(response2.data.user_id);
@@ -59,14 +59,14 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
       });
   }
   useEffect( () => {
-      const socket = io('https://backend.synccircle.net', { transports : ['websocket'] });
+      const socket = io('http://localhost:4000', { transports : ['websocket'] });
       setJoinSocket(socket);
   }, []);
 
 
   useEffect(() => {
     if (groupId !== "") {
-      axios.get(`https://backend.synccircle.net/groups/${groupId}`).then((response) => {
+      axios.get(`http://localhost:4000/groups/${groupId}`).then((response) => {
         setStartTime(response.data.start_time);
         setEndTime(response.data.end_time);
         setDays(response.data.days);
@@ -82,11 +82,11 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
         setEmptyInput(true);
         return;
       }
-      axios.get(`https://backend.synccircle.net/groups/findmem/${groupId}`, { params: { userName: userName } })
+      axios.get(`http://localhost:4000/groups/findmem/${groupId}`, { params: { userName: userName } })
         .then((response) => {
           if (response.data === "False") {
             //Make new User
-            axios.post(`https://backend.synccircle.net/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
+            axios.post(`http://localhost:4000/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
               .then((response2) => {
                // console.log(response2.data)
                 setUserId(response2.data.user_id);

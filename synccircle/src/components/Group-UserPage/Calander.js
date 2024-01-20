@@ -21,7 +21,7 @@ function Calendar() {
   const [calSocket, setCalSocket] = useState(null);
 
   useEffect(() => {
-    const socket = io(`https://backend.synccircle.net`, { transports: ['websocket'] });
+    const socket = io(`http://localhost:4000`, { transports: ['websocket'] });
     setCalSocket(socket);
   }, []);
 
@@ -64,7 +64,7 @@ function Calendar() {
   useEffect(() => {
     async function fetchData() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`https://backend.synccircle.net/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
@@ -73,7 +73,7 @@ function Calendar() {
     async function fetchUser() {
       if (groupId) {
         const URL = window.location.href.split("/");
-        const response = await axios.get(`https://backend.synccircle.net/users/${groupId}/${userId}`);
+        const response = await axios.get(`http://localhost:4000/users/${groupId}/${userId}`);
         setUserArray(response.data.availability_array);
       }
     }
@@ -122,7 +122,7 @@ function Calendar() {
   useEffect(() => {
     if (isDragging === false && isSwiping === false && userArray !== undefined && userId !== "") {
       const sendSlots = async () => {
-        const response = await axios.post(`https://backend.synccircle.net/users/massbook/${groupId}/${userId}`, { user_array: userArray });
+        const response = await axios.post(`http://localhost:4000/users/massbook/${groupId}/${userId}`, { user_array: userArray });
         setUserSlot(Math.random());
 
       }
