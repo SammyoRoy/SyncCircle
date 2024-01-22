@@ -42,7 +42,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
       
       const dayString = days.join(",");
       
-      axios.post(`http://localhost:4000/groups/`, {
+      axios.post(`${API_URL}/groups/`, {
           name: eventName,
           startTime: startTime,
           endTime: endTime,

@@ -28,7 +28,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const API_URL = process.env.REACT_APP_API_URL;
   
   useEffect(() => {
-    const socket = io(`http://localhost:4000`, { transports: ['websocket'] });
+    const socket = io(`${API_URL}`, { transports: ['websocket'] });
     setGroupSocket(socket);
 
   }, []);
@@ -37,7 +37,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
     // Combine fetching of days, start, and end into a single function
     async function fetchData() {
       const URL = window.location.href.split("/");
-      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
@@ -66,7 +66,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
     if (groupId !== "") {
       async function fetchData() {
         const response = await axios.get(
-          `http://localhost:4000/groups/nummem/${groupId}`
+          `${API_URL}/groups/nummem/${groupId}`
         );
         const totalMembersValue = parseInt(response.data);
         setTotalMembers(totalMembersValue);

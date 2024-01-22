@@ -17,7 +17,7 @@ function DaysOfTheWeek({ styling }) {
   async function GetDays() {
     const URL = window.location.href.split("/");
     try {
-      const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+      const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
       setDaysOfTheWeek(response.data.dotw);
       return response.data.days;
     } catch (error) {

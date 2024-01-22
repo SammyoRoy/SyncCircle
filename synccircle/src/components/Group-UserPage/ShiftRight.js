@@ -12,7 +12,7 @@ function ShiftRight() {
         // Combine fetching of days, start, and end into a single function
         async function fetchData() {
             const URL = window.location.href.split("/");
-            const response = await axios.get(`http://localhost:4000/groups/${URL[URL.length - 1]}`);
+            const response = await axios.get(`${API_URL}/groups/${URL[URL.length - 1]}`);
             setDays(response.data.days);
         }
 

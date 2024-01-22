@@ -12,6 +12,7 @@ import {
 const title = <title>SyncCircle</title>;
 const groupStores = localStorage.getItem("group");
 const userStores = localStorage.getItem("user");
+
 let groupName;
 let userName;
 if (groupStores != null){
