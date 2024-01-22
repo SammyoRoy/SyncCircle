@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
+import moment from "moment-timezone";
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOftheWeek }){
     const nav = useNavigate();
@@ -46,6 +47,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
           startTime: startTime,
           endTime: endTime,
           days: dayString,
+          timeZone: moment.tz.guess(),
           })
         .then((response) => {
           //console.log(response)

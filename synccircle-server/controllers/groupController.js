@@ -30,7 +30,7 @@ const getGroupById = asyncHandler(async (req, res) => {
 // @route   POST /groups
 // @access  Public
 const createGroup = asyncHandler(async (req, res) => {
-    const {name, startTime, endTime, days} = req.body;
+    const {name, startTime, endTime, days, timeZone} = req.body;
     const days_array = days.split(',');
     const groupId = uuidv4();
     const users = [];
@@ -54,7 +54,8 @@ const createGroup = asyncHandler(async (req, res) => {
         days: days_array,
         dotw: isDaysOftheWeek,
         users: users,
-        master_array: master_array
+        master_array: master_array,
+        time_zone: timeZone
     });
     const createdGroup = await group.save();
     res.status(201).json(createdGroup);

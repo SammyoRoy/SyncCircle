@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
+import moment from 'moment-timezone';
 
 function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
@@ -16,6 +17,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     const [allMembers, setAllMembers] = useState("");
     const [unavailableMembers, setUnavailableMembers] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const [timeZone, setTimeZone] = useState("");
     const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
@@ -26,8 +28,24 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     
             setDays(daysData);
             setStartTime(response.data.start_time);
-            setStartTimeIndex(convertTimeToIndex(response.data.start_time));
+            if (response.data.time_zone !== "" ) {
+
+                const startTimeIndex = convertTimeToIndex(response.data.start_time);
+                const now = new moment();
+                const groupTimeZoneOffset = now.tz(response.data.time_zone).utcOffset();
+                //const userTimeZoneOffset = now.tz("Asia/Kolkata").utcOffset();
+                const userTimeZoneOffset = now.tz(moment.tz.guess()).utcOffset();
+                let timeZoneOffset = groupTimeZoneOffset - userTimeZoneOffset;
+                timeZoneOffset = timeZoneOffset / 60;
+                const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
+          
+                setStartTimeIndex(adjustedStartIndex);
+            }
+            else{
+                setStartTimeIndex(convertTimeToIndex(response.data.start_time));
+            }
             setCols(tempCols);
+            setTimeZone(response.data.time_zone);
             setRow(Math.floor(matrixKey / (tempCols + 1)));
             setCol((matrixKey % (tempCols + 1)) - 1 + startColumn);
             setIsLoading(false);

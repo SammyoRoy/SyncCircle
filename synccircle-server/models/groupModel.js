@@ -18,6 +18,10 @@ const groupSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    time_zone: {
+        type: String,
+        required: true
+    },
     days: {
         type: Array,
         required: true

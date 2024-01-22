@@ -5,12 +5,14 @@ import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 import { CircularProgress } from "@mui/material";
+import moment from 'moment-timezone';
 
 function Calendar() {
   const { groupId, userId, userArray, setUserArray, stopped, loading, setUserSlot, userSlot, startColumn, MAX_COLUMNS_DISPLAYED } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [timeZone, setTimeZone] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [initialCellValue, setInitialCellValue] = useState(0);
@@ -68,6 +70,7 @@ function Calendar() {
       setDays(response.data.days);
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
+      setTimeZone(response.data.time_zone);
       //console.log(response.data);
     }
     async function fetchUser() {
@@ -83,7 +86,6 @@ function Calendar() {
   }, [userId]);
 
   useEffect(() => {
-
     function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
@@ -109,15 +111,32 @@ function Calendar() {
 
       return index;
     }
+    if (timeZone !== "") {
 
+      const startTimeIndex = convertTimeToIndex(start);
+      const endTimeIndex = convertTimeToIndex(end);
+      const timeIndex = convertTimeToIndex(start);
+      const now = new moment();
+      const groupTimeZoneOffset = now.tz(timeZone).utcOffset();
+      //const userTimeZoneOffset = now.tz("Asia/Kolkata").utcOffset();
+      const userTimeZoneOffset = now.tz(moment.tz.guess()).utcOffset();
+      let timeZoneOffset = groupTimeZoneOffset - userTimeZoneOffset;
+      timeZoneOffset = timeZoneOffset / 60;
+      const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
+      const adjustedEndIndex = (endTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
 
-    const startTimeIndex = convertTimeToIndex(start);
-    const endTimeIndex = convertTimeToIndex(end);
-    const timeIndex = convertTimeToIndex(start);
+      setStartIndex(adjustedStartIndex);
+      setEndIndex(adjustedEndIndex);
+    }
+    else{
+      const startTimeIndex = convertTimeToIndex(start);
+      const endTimeIndex = convertTimeToIndex(end);
+      const timeIndex = convertTimeToIndex(start);
+      setStartIndex(startTimeIndex);
+      setEndIndex(endTimeIndex);
+    }
 
-    setStartIndex(startTimeIndex);
-    setEndIndex(endTimeIndex);
-  }, [start, end]);
+  }, [start, end, timeZone]);
 
   useEffect(() => {
     if (isDragging === false && isSwiping === false && userArray !== undefined && userId !== "") {

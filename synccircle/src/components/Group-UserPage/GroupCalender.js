@@ -4,6 +4,7 @@ import GroupSlot from "./GroupSlot";
 import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
+import moment from "moment-timezone";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
   const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading } = useContext(AppContext);
@@ -14,6 +15,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [endIndex, setEndIndex] = useState(0);
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
+  const [timeZone, setTimeZone] = useState("");
 
 
   const [groupSocket, setGroupSocket] = useState(null);
@@ -40,6 +42,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       setStart(response.data.start_time);
       setEnd(response.data.end_time);
       setMasterArray(response.data.master_array);
+      setTimeZone(response.data.time_zone);
       setAddedNewMember(false);
     }
 
@@ -102,12 +105,30 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       return index;
     }
 
-    const startTimeIndex = convertTimeToIndex(start);
-    const endTimeIndex = convertTimeToIndex(end);
-    const timeIndex = convertTimeToIndex(start);
+    if (timeZone !== "") {
 
-    setStartIndex(startTimeIndex);
-    setEndIndex(endTimeIndex);
+      const startTimeIndex = convertTimeToIndex(start);
+      const endTimeIndex = convertTimeToIndex(end);
+      const timeIndex = convertTimeToIndex(start);
+      const now = new moment();
+      const groupTimeZoneOffset = now.tz(timeZone).utcOffset();
+      //const userTimeZoneOffset = now.tz("Asia/Kolkata").utcOffset();
+      const userTimeZoneOffset = now.tz(moment.tz.guess()).utcOffset();
+      let timeZoneOffset = groupTimeZoneOffset - userTimeZoneOffset;
+      timeZoneOffset = timeZoneOffset / 60;
+      const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
+      const adjustedEndIndex = (endTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
+
+      setStartIndex(adjustedStartIndex);
+      setEndIndex(adjustedEndIndex);
+    }
+    else{
+      const startTimeIndex = convertTimeToIndex(start);
+      const endTimeIndex = convertTimeToIndex(end);
+      const timeIndex = convertTimeToIndex(start);
+      setStartIndex(startTimeIndex);
+      setEndIndex(endTimeIndex);
+    }
   }, [start, end]);
 
   useEffect(() => {
