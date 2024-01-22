@@ -113,7 +113,7 @@ function Calendar() {
 
       return index;
     }
-    if (timeZone !== "") {
+    if (timeZone !== "" && timeZone !== undefined) {
 
       const startTimeIndex = convertTimeToIndex(start);
       const endTimeIndex = convertTimeToIndex(end);

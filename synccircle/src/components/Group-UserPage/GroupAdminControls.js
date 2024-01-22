@@ -51,35 +51,33 @@ const GroupAdminControls = () => {
             });
     }
 
-    const handleLogout = () => {
+    const handleLogout = (event) => {
+        event.preventDefault();
         removeCookie(`username_${groupId}`, { path: '/' });
         window.location.reload();
-
     }
 
-    const handleUserNameChange = async () => {
+    const handleUserNameChange = async (event) => {
+        event.preventDefault();
         if (!users.some(user => user.user_name === changedUser)) {
+            const response = await axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
+            setChangedUser('');
             await setCookie(`username_${groupId}`, changedUser, { path: '/' });
-            axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
-                .then((response) => {
-                   // console.log(response.data);
-                    setChangedUser('');
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            window.location.reload();
         }
         else {
             //console.log("already a name");
         }
     }
 
-    const handleNameChange = () => {
+    const handleNameChange = (event) => {
+        event.preventDefault();
         const URL = window.location.href.split("/");
         axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 //console.log(response.data);
                 setChangedName('');
+                window.location.reload();
 
             })
             .catch((error) => {

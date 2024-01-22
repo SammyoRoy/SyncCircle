@@ -78,7 +78,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   }, [addedNewMember]);
 
   useEffect(() => {
-    // Function to convert time to index, not asynchronous
     function convertTimeToIndex(time) {
       const [hourMinute, period] = time.split(' ');
       const [hour] = hourMinute.split(':');
@@ -104,8 +103,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       return index;
     }
-
-    if (timeZone !== "") {
+    if (timeZone !== "" && timeZone !== undefined) {
 
       const startTimeIndex = convertTimeToIndex(start);
       const endTimeIndex = convertTimeToIndex(end);
@@ -129,7 +127,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       setStartIndex(startTimeIndex);
       setEndIndex(endTimeIndex);
     }
-  }, [start, end]);
+
+  }, [start, end, timeZone]);
 
   useEffect(() => {
     if (groupSocket) { // Check if groupSocket is not null

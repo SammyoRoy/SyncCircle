@@ -28,7 +28,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     
             setDays(daysData);
             setStartTime(response.data.start_time);
-            if (response.data.time_zone !== "" ) {
+            if (response.data.time_zone !== "" && response.data.time_zone !== undefined ) {
 
                 const startTimeIndex = convertTimeToIndex(response.data.start_time);
                 const now = new moment();
