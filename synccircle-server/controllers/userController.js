@@ -90,7 +90,7 @@ const deleteUser = asyncHandler(async (req, res) => {
         { new: true }
     );
 
-    res.status(200).json({ success: true, users: updatedGroup.users });
+    res.status(200).json({ success: true, users: updatedGroup.users, username: usernameToDelete });
 });
 
 //@desc Change User info in a group

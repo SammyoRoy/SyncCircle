@@ -5,12 +5,14 @@ import { IconButton, Button, Input } from '@mui/material';
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
+import io from 'socket.io-client';
 
 const GroupAdminControls = () => {
     const { userId, groupId, first } = useContext(AppContext);
     const [users, setUsers] = useState([]);
     const [changedName, setChangedName] = useState('');
     const [changedUser, setChangedUser] = useState('');
+    const [groupSocket, setGroupSocket] = useState(null);
     const isAdmin = first;
     const API_URL = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
@@ -18,6 +20,12 @@ const GroupAdminControls = () => {
     const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
 
     const [isDarkMode, setIsDarkMode] = useState(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    useEffect(() => {
+        const socket = io(`${API_URL}`, { transports: ['websocket'] });
+        setGroupSocket(socket);
+    
+      }, []);
 
     useEffect(() => {
         const URL = window.location.href.split("/");
@@ -44,12 +52,19 @@ const GroupAdminControls = () => {
         axios.delete(`${API_URL}/users/${groupId}/${userId}`)
             .then((response) => {
                 setUsers(response.data.users);
+                if (groupSocket) {
+                    console.log(response.data.username)
+                    const username = response.data.username;
+                    groupSocket.emit('kicked user', username, groupId);
+                }
             })
             .catch((error) => {
-                // handle the error
+                // Handle the error
                 console.error(error);
-            });
-    }
+        });
+     }
+
+    
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -90,6 +105,9 @@ const GroupAdminControls = () => {
         const URL = window.location.href.split("/");
         axios.delete(`${API_URL}/groups/${groupId}`)
             .then((response) => {
+                if (groupSocket) {
+                    groupSocket.emit('delete group', groupId);
+                }
                 navigate('/');
             })
             .catch((error) => {

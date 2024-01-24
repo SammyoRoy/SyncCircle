@@ -5,9 +5,10 @@ import TimeLabel from "./TimeLabel";
 import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 import moment from "moment-timezone";
+import { useNavigate } from "react-router-dom";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
-  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading } = useContext(AppContext);
+  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName } = useContext(AppContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -16,6 +17,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
   const [timeZone, setTimeZone] = useState("");
+
+  const navigate = useNavigate();
 
 
   const [groupSocket, setGroupSocket] = useState(null);
@@ -164,6 +167,47 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             newArr[row][col] += 1;
             return newArr;
           });
+        }
+      });
+
+      groupSocket.on('kicked user' , (signalUserName, signalGroupId) => {
+        if (groupId == signalGroupId && userName == signalUserName) {
+          navigate('/')
+        }
+        else if (groupId == signalGroupId) {
+          axios.get(`${API_URL}/groups/${groupId}`)
+            .then((response) => {
+              const masterArray = response.data.master_array;
+              console.log(masterArray);
+              setNumAvailArr((prevArr) => {
+                const newArr = [...prevArr];
+                for (let i = 0; i < newArr.length; i++) {
+                  for (let j = 0; j < newArr[i].length; j++) {
+                    newArr[i][j] = masterArray[i][j].length;
+                  }
+                }
+                return newArr;
+              });
+              setTotalMembers((prevTotal) => prevTotal - 1);
+            })
+            .catch((error) => {
+              // handle the error
+              console.error(error);
+            });
+        }
+
+        groupSocket.on('change name', (signalGroupId) => {
+          console.log(signalGroupId);
+          if (groupId == signalGroupId) {
+            console.log("Name changed")
+            window.location.reload();
+          }
+        });
+      });
+
+      groupSocket.on('delete group', (signalGroupId) => {
+        if (groupId == signalGroupId) {
+          navigate('/')
         }
       });
     }

@@ -102,9 +102,19 @@ io.on('connection', (socket) => {
     socket.on('new user', (groupId) => {
         io.emit('new user', groupId);
     });
+    socket.on('kicked user', (username, groupId) => {
+        io.emit('kicked user', username, groupId);
+    });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
+    });
+    socket.on('delete group', (groupId) => {
+        io.emit('delete group', groupId);
+    });
+
+    socket.on('change name', (groupId) => {
+        io.emit('change name', groupId);
     });
 });
 
