@@ -6,9 +6,11 @@ import { AppContext } from "../../context/AppContext";
 import io from 'socket.io-client';
 import moment from "moment-timezone";
 import { useNavigate } from "react-router-dom";
+import { IndexContext } from "../../context/IndexContext";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
-  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName } = useContext(AppContext);
+  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName} = useContext(AppContext);
+  const {leaveMessage, setLeaveMessage} = useContext(IndexContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -172,7 +174,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('kicked user' , (signalUserName, signalGroupId) => {
         if (groupId == signalGroupId && userName == signalUserName) {
-          navigate('/')
+          setLeaveMessage('You have been kicked from the group');
+          navigate('/');
         }
         else if (groupId == signalGroupId) {
           axios.get(`${API_URL}/groups/${groupId}`)
@@ -197,7 +200,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         }
 
         groupSocket.on('change name', (signalGroupId) => {
-          console.log(signalGroupId);
           if (groupId == signalGroupId) {
             console.log("Name changed")
             window.location.reload();
@@ -207,7 +209,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('delete group', (signalGroupId) => {
         if (groupId == signalGroupId) {
-          navigate('/')
+          setLeaveMessage('The group you were in has been deleted');
+          
+          navigate('/');
         }
       });
     }

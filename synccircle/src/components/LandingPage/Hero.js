@@ -9,6 +9,7 @@ const Hero = ({ scrollRef }) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const targetDivRef = scrollRef;
+    const API_URL = process.env.REACT_APP_API_URL;
     const scrollToDiv = () => {
         targetDivRef.current.scrollIntoView({ behavior: 'smooth' });
     };
