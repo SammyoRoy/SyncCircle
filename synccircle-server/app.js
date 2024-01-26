@@ -71,6 +71,8 @@ const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
 const cors = require('cors');
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 
 const groupRoutes = require('./routes/groupRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -121,6 +123,42 @@ io.on('connection', (socket) => {
 app.get('/', (req, res) => {
     res.send('Easter Egg');
 });
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+async function sendMail(type, feedback) {
+    const msg = {
+        to: process.env.EMAIL_USER,
+        from: process.env.EMAIL_USER,
+        subject: `${type} Feedback`,
+        text: feedback,
+        html: `<h3>${feedback}<h3>`,
+    };
+
+    try {
+        await sgMail.send(msg);
+        console.log('Email sent');
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
+}
+
+app.post('/feedback', async (req, res) => {
+    const { type, feedback } = req.body;
+    console.log(type, feedback);
+    try {
+        await sendMail(type, feedback);
+        res.status(200).send('Email sent successfully');
+    } catch (error) {
+        console.log('Error in sending email through route:', error);
+        res.status(500).send('Error sending email');
+    }
+});
+
+
+
+
 
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {

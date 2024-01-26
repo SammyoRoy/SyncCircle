@@ -1,9 +1,11 @@
 import { Container, ToggleButtonGroup, ToggleButton, TextField, Button } from '@mui/material';
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const FeedbackBox = () => {
     const [selected, setSelected] = useState('bug');
     const [feedback, setFeedback] = useState('');
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleChange = (event, newSelection) => {
         setSelected(newSelection);
@@ -15,15 +17,20 @@ const FeedbackBox = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        /**const recipientEmail = "synccircleapp@gmail.com";
-        const subject = encodeURIComponent(`${selected} feedback`);
-        const emailBody = encodeURIComponent(
-            `Type of Feedback: ${selected}\n\nFeedback:\n${feedback}`
-        );
-        window.open(`mailto:${recipientEmail}?subject=${subject}&body=${emailBody}`);**/
-       //console.log('Submitted')
-        setFeedback('');
+        axios.post(`${API_URL}/feedback`, {
+            type: selected,
+            feedback: feedback,
+        })
+        .then((response) => {
+            console.log(response);
+            setFeedback('');
+            setSelected('bug');
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     };
+    
 
     return (
         <div className='FeedbackBox'>
