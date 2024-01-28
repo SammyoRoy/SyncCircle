@@ -170,7 +170,6 @@ body {
     outline: none;
     border-color: transparent;
     font-size: 1.1rem;
-
     color: #ffffff;
     text-align: center;
     font-family: "Poppins";
@@ -499,12 +498,6 @@ body {
     .CalenderContainer{
         direction: rtl;
     }
-    .CalendarGrid{
-        overflow-y: visible;
-    }
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
 }
 
 @media only screen and (max-width: 550px){
@@ -628,10 +621,10 @@ body {
         background-color: #604488;
     }
     .JoinButton{
-        background-color: #08605f;
+        background-color: #2ea75e;
     }
     .JoinButton:hover{
-        background-color: #0fbdba;
+        background-color: #1c7941;
     }
     .GroupPageButtonCircle{
         border: 3px solid #edeff1;

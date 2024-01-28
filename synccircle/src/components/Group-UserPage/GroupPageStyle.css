@@ -85,7 +85,7 @@ h6, h5 {
 .AdminControlsHeader h3{
     padding-top: 2%;
     padding-bottom: 2%;
-    margin:0;
+    margin-top: 5%;
     font-size: 1.3rem;
     font-weight: 600;
 }
@@ -319,10 +319,10 @@ line-height: 150%; /* 24px */
         background-color: #303134 !important;
     }
     .InviteFriends{
-        color:#8946d7  !important;
+        color:#2ea75e  !important;
     }
     .CopyButton{
-        color: #8946d7   !important;
+        color: #2ea75e   !important;
     }
     .GroupDOTWBar{
         background-color: #303134 !important;
@@ -348,6 +348,15 @@ line-height: 150%; /* 24px */
     }
     .switchButton{
         background-color: #5F00CD !important;
+    }
+    .UpdateButton{
+        background-color: #5c62da;
+    }
+    .UpdateButton:hover{
+        background-color: #3e43a3;
+    }
+    .AdminControlsHeader{
+        color: #2ea75e;
     }
 }
 
