@@ -6,6 +6,7 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import io from 'socket.io-client';
+import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 
 const GroupAdminControls = () => {
     const { userId, groupId, first } = useContext(AppContext);
@@ -148,80 +149,41 @@ const GroupAdminControls = () => {
             <div>
                 <h6>Change Your Name</h6>
                 <form onSubmit={handleUserNameChange}>
-                    <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New User Name' value={changedUser} onChange={(event) => setChangedUser(event.target.value)} />
-                    <Button
-                        sx={{
-                            backgroundColor: "#0398dc",
-                            color: "#fff",
-                            borderTopRightRadius: "5px",
-                            borderBottomRightRadius: "5px",
-                            borderBottomLeftRadius: "0px",
-                            borderTopLeftRadius: "0px",
-                            '&:hover': {
-                                backgroundColor: "#027bb5" // darken the blue color on hover
-                            }
-                        }}
-                        type="submit"
-                    >
-                        Change
-                    </Button>
+                    <input className="UpdateForm" value={changedUser} onChange={(event) => setChangedUser(event.target.value)} placeholder='Enter new username'/>
+                    <button className="UpdateButton" type="submit">
+                        <ChangeCircleOutlinedIcon />
+                    </button>
                 </form>
 
             </div>
             <div>
-                <Button
-                    sx={{
-                        marginLeft: "4%",
-                        backgroundColor: "#D11A2A",
-                        color: "#fff",
-                        borderRadius: "5px",
-                        '&:hover': {
-                            backgroundColor: "#b01624" // darken the red color on hover
-                        }
-                    }}
+                <button
+                    className="LogoutButton"
                     onClick={handleLogout}
                 >
                     Logout
-                </Button>
+                </button>
             </div>
             {isAdmin && <div>
                 <h6>Change Group Name</h6>
                 <form onSubmit={handleNameChange}>
-                    <Input sx={{ marginLeft: "4%", background: "#fff", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", paddingLeft: "2%", minHeight: "36.5px" }} type='text' placeholder='New Group Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
-                    <Button
-                        sx={{
-                            backgroundColor: "#0398dc",
-                            color: "#fff",
-                            borderTopRightRadius: "5px",
-                            borderBottomRightRadius: "5px",
-                            borderBottomLeftRadius: "0px",
-                            borderTopLeftRadius: "0px",
-                            '&:hover': {
-                                backgroundColor: "#027bb5" // darken the blue color on hover
-                            }
-                        }}
+                    <input className="UpdateForm" type='text' placeholder='New Group Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
+                    <button
+                        className='UpdateButton'
                         type="submit"
                     >
-                        Change
-                    </Button>
+                        <ChangeCircleOutlinedIcon />
+                    </button>
                 </form>
             </div>}
             {isAdmin && <div>
                 <h6>Delete Group</h6>
-                <Button
-                    sx={{
-                        marginLeft: "4%",
-                        backgroundColor: "#D11A2A",
-                        color: "#fff",
-                        borderRadius: "5px",
-                        '&:hover': {
-                            backgroundColor: "#b01624" // darken the red color on hover
-                        }
-                    }}
+                <button
+                    className="LogoutButton"
                     onClick={handleDelete}
                 >
                     Delete
-                </Button>
+                </button>
             </div>}
         </div>
     );
