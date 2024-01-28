@@ -122,6 +122,9 @@ h6, h5 {
     padding-left: 3px;
     border-radius: 0 20px 20px 0px;
 }
+.UpdateButton:hover{
+    background-color: #297045;
+}
 
 .LogoutButton{
     background-color: #D11A2A;
@@ -132,6 +135,9 @@ h6, h5 {
     font-family: "Poppins";
     font-size: 0.9em;
     width: 70px;
+}
+.LogoutButton:hover{
+    background-color: #8d121d;
 }
 
 .GroupControls h6{
