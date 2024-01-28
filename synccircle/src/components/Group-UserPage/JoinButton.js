@@ -4,6 +4,8 @@ import axios from 'axios';
 import GroupPageButton from './GroupPageButton';
 import io from 'socket.io-client';
 import { useCookies } from 'react-cookie';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../../firebaseConfig';
 
 function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
   const { groupId, setUserId, userId, setFirst, userName, setEmptyInput} = useContext(AppContext);
@@ -16,6 +18,19 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
 
 
   const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
+
+  const logUserCreation = () => {
+    try {
+        // Log event to Firebase Analytics
+        logEvent(analytics,"user_created", {
+            groupId: groupId,
+            userName: userName,
+            userId: userId,
+        });
+    } catch (error) {
+        console.error("Error logging event to Firebase Analytics", error);
+    }
+  };
 
   useEffect(() => {
     if (cookies[`username_${groupId}`] && groupId !== "" && days.length > 0 && startTime !== "" && endTime !== "") {
@@ -37,6 +52,7 @@ function JoinButton({updateJoined, updateSubmitted, shouldVibrate}) {
             .then((response2) => {
             //  console.log(response2.data)
               setUserId(response2.data.user_id);
+              logUserCreation();
               if(response2.data.users[0].user_id === response2.data.user_id){
                 setFirst(true);
               }

@@ -24,10 +24,16 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
     };
 
     const logEventCreation = () => {
-      analytics.logEvent('event_creation', {
-        event_name: eventName,
-      });
-    };
+      try {
+          // Log event to Firebase Analytics
+          logEvent(analytics,"create_event", {
+              event_name: eventName
+          });
+      } catch (error) {
+          console.error("Error logging event to Firebase Analytics", error);
+      }
+  };
+  
 
     const eventSubmit = (event) => {
       if (eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))

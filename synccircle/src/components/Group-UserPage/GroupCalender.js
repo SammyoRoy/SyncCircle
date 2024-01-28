@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import moment from "moment-timezone";
 import { useNavigate } from "react-router-dom";
 import { IndexContext } from "../../context/IndexContext";
+import { useCookies } from "react-cookie";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
   const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName} = useContext(AppContext);
@@ -21,6 +22,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [timeZone, setTimeZone] = useState("");
 
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
 
 
   const [groupSocket, setGroupSocket] = useState(null);
@@ -174,7 +176,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('kicked user' , (signalUserName, signalGroupId) => {
         if (groupId == signalGroupId && userName == signalUserName) {
-          setLeaveMessage('You have been kicked from the group');
+          setLeaveMessage('You have been removed from the group');
+          removeCookie(`username_${groupId}`, { path: '/' });
           navigate('/');
         }
         else if (groupId == signalGroupId) {
