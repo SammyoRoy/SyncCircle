@@ -1,9 +1,13 @@
 // Commented out code is for encrypted production version of backend
-/**const express = require('express');
+
+const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
 const connectToDb = require('./db');
 const cors = require('cors');
+
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 
 const groupRoutes = require('./routes/groupRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -32,7 +36,7 @@ const sslOptions = {
 };
 
 const server = https.createServer(sslOptions, app); // Create an HTTPS server
-//const server = https.createServer(app); // Create an HTTPS server
+
 
 const { Server } = require("socket.io");
 const io = new Server(server);
@@ -52,8 +56,20 @@ io.on('connection', (socket) => {
         io.emit('new user', groupId);
     });
 
+    socket.on('kicked user', (username, groupId) => {
+        io.emit('kicked user', username, groupId);
+    });
+
     socket.on('disconnect', () => {
         //('A user disconnected');
+    });
+
+    socket.on('delete group', (groupId) => {
+        io.emit('delete group', groupId);
+    });
+
+    socket.on('change name', (groupId) => {
+        io.emit('change name', groupId);
     });
 });
 
@@ -61,13 +77,45 @@ app.get('/', (req, res) => {
     res.send('Easter Egg');
 });
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+async function sendMail(type, feedback) {
+    const msg = {
+        to: process.env.EMAIL_USER,
+        from: process.env.EMAIL_USER,
+        subject: `${type} Feedback`,
+        text: feedback,
+        html: `<h3>${feedback}<h3>`,
+    };
+
+    try {
+        await sgMail.send(msg);
+        console.log('Email sent');
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
+}
+
+app.post('/feedback', async (req, res) => {
+    const { type, feedback } = req.body;
+    console.log(type, feedback);
+    try {
+        await sendMail(type, feedback);
+        res.status(200).send('Email sent successfully');
+    } catch (error) {
+        console.log('Error in sending email through route:', error);
+        res.status(500).send('Error sending email');
+    }
+});
+
 server.listen(443, () => { // Start the server on port 443 (HTTPS)
    // console.log('Listening on port 443');
-});**/
+});
 
 
 
-const express = require('express');
+/**const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
 const fs = require('fs');
@@ -88,15 +136,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
-// Read the SSL certificate and key files
-const sslOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/privkey.pem'), // Update the path to your private key
-    cert: fs.readFileSync('/etc/letsencrypt/live/backend.synccircle.net/fullchain.pem') // Update the path to your full chain certificate
-};
 
-const server = https.createServer(sslOptions, app); // Create an HTTPS server
-
-//const server = https.createServer(app); // Create an HTTPS server
+const server = https.createServer(app); // Create an HTTPS server
 const io = require('socket.io')(server); // Pass the HTTP server instance to Socket.IO
 
 io.on('connection', (socket) => {
@@ -170,6 +211,6 @@ app.post('/feedback', async (req, res) => {
 
 
 const PORT = process.env.PORT || 4000;
-server.listen(443, () => { // Start the server on port 443 (HTTPS)
+server.listen(PORT, () => { // Start the server on port 443 (HTTPS)
     // console.log('Listening on port 443');
- });
+ });**/
