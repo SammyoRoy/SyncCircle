@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 import moment from "moment-timezone";
+import { getAnalytics, logEvent } from "firebase/analytics";
+import { analytics } from "../../firebaseConfig";
 
 function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOftheWeek }){
     const nav = useNavigate();
@@ -20,6 +22,13 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
         setDayTrigger(false);
       }, 2000);
     };
+
+    const logEventCreation = () => {
+      analytics.logEvent('event_creation', {
+        event_name: eventName,
+      });
+    };
+
     const eventSubmit = (event) => {
       if (eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
       {
@@ -52,6 +61,7 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
         .then((response) => {
           //console.log(response)
           const groupId = response.data.group_id;
+          logEventCreation();
           nav(`/group/${groupId}`);
           
         })

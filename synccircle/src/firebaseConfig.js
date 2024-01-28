@@ -32,3 +32,5 @@ const usePageTracking = () => {
 }
 
 export default usePageTracking;
+
+export {analytics};

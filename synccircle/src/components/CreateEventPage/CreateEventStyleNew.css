@@ -40,6 +40,7 @@ body {
     font-size: 2rem;
     /* identical to box height, or 29px */
     color: #f7f7f7;
+    cursor: pointer;
 }
 
 .TitleContainer{

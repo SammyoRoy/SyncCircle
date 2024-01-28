@@ -1,8 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 
 const Title = () => {
+  const navigate = useNavigate();
   return (
-        <h2 className="Title"> SyncCircle</h2>
+        <h2 className="Title" onClick={() => navigate('/')} > SyncCircle</h2>
   )
 }
 
