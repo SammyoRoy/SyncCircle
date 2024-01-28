@@ -307,6 +307,9 @@ line-height: 150%; /* 24px */
         width: 100% !important;
         height: 100% !important;
     }
+    .UpdateForm{
+        font-size: 0.7em !important;
+    }
 }
 
 @media (prefers-color-scheme: dark){
