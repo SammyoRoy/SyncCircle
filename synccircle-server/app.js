@@ -1,5 +1,5 @@
 // Commented out code is for encrypted production version of backend
-
+/**
 const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
@@ -112,10 +112,11 @@ app.post('/feedback', async (req, res) => {
 server.listen(443, () => { // Start the server on port 443 (HTTPS)
    // console.log('Listening on port 443');
 });
+*/
 
 
 
-/**const express = require('express');
+const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
 const fs = require('fs');
@@ -137,7 +138,7 @@ app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
 
-const server = https.createServer(app); // Create an HTTPS server
+const server = http.createServer(app); // Create an HTTPS server
 const io = require('socket.io')(server); // Pass the HTTP server instance to Socket.IO
 
 io.on('connection', (socket) => {
@@ -211,6 +212,6 @@ app.post('/feedback', async (req, res) => {
 
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => { // Start the server on port 443 (HTTPS)
-    // console.log('Listening on port 443');
- });**/
+server.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+ });
