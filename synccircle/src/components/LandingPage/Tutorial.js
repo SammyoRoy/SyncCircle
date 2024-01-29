@@ -38,7 +38,7 @@ const Tutorial = forwardRef((props,ref) => {
                     <b3>
                         Enter an event name, time range, and select days
                     </b3>
-                    <img src={createImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
+                    <img src={createImage} alt="create-event" style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
                 </div>
                 <div className='Step2' data-aos="fade-down" data-aos-delay="400">
                     <div className='Count'>
@@ -51,7 +51,7 @@ const Tutorial = forwardRef((props,ref) => {
                     <b3>
                         Type in a username, and then press the time slots for when you’re free. If you need to update your availability later, you can log back in with the same username.
                     </b3>
-                    <img src={userImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
+                    <img src={userImage} alt="availability" style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
 
                 </div>
                 <div className='Step3' data-aos="fade-down" data-aos-delay="800">
@@ -65,7 +65,7 @@ const Tutorial = forwardRef((props,ref) => {
                     <b3>
                         Use the purple Group button to open the group tab. Copy the link and send it to your friends. Then watch as the slots update in real time as they fill in their availabilities!
                     </b3>
-                    <img src={groupImage} style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
+                    <img src={groupImage} alt="share-link" style={{width:'250px', height:'auto', borderRadius:'30px', border: '2px solid lightgray'}}></img>
                 </div>
             </div>
         </div>

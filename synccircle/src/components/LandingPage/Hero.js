@@ -69,7 +69,7 @@ const Hero = ({ scrollRef }) => {
                 </div>
                 <div className='HeroImg'>
                     {<img src={splashImage}
-                        alt='Temporary Placeholder'
+                        alt='People working on a calendar'
                         style={{ maxWidth: '90%', maxHeight: '150%', height: 'auto', display: 'block', margin: '0 auto' }}>
                     </img>}
                 </div>
