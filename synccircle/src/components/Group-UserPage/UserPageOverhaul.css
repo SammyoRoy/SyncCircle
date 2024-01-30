@@ -16,6 +16,7 @@ body {
 }
 
 .UserScreenBackground {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -24,17 +25,19 @@ body {
     justify-content: flex-start;
 
 }
-.offcanvas{
+
+.offcanvas {
     width: 40% !important;
 }
 
-.UserTitleContainer{
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: center;
-        align-items: center ;
-        margin-top: 3%;
+.UserTitleContainer {
+    position:absolute;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
 }
 
 .sync-circle-button {
@@ -62,15 +65,32 @@ body {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
-    20%, 40%, 60%, 80% { transform: translateX(3px); }
-  }
-  
-  .vibrate-animation {
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  }
-  
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-3px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+.vibrate-animation {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
 
 .UserTitleSmall {
     font-size: 1.5rem;
@@ -84,7 +104,7 @@ body {
     border-radius: 30px 30px 0px 0px;
     align-items: center;
     justify-content: space-between;
-    margin-top: 2%;
+    margin-top: 4%;
     height: auto;
     flex-grow: 0;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -161,6 +181,35 @@ body {
     background: #555;
 }
 
+.TutorialContainer {
+    margin-left: auto;
+    width: 30px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.TutorialButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #ffffff;
+    outline: none;
+    border: none;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.TutorialButton:hover {
+    background-color: #f7f7f7;
+}
+
 
 .JoinButton {
     width: 90%;
@@ -232,8 +281,8 @@ body {
     background: #7D83FF;
     width: 100%;
     height: 0;
-    padding-bottom: 86%; 
-    
+    padding-bottom: 86%;
+
     right: 35%;
 }
 
@@ -244,7 +293,8 @@ body {
 .GroupPageButtonCircleIcon .GroupPageButtonIcon {
     color: white;
 }
-.GroupPageButtonCircleIcon{
+
+.GroupPageButtonCircleIcon {
     margin-top: 15% !important;
     width: 32px !important;
     height: 32px !important;
@@ -264,7 +314,7 @@ body {
     padding-top: 1%;
     /**padding-right: 10px;**/
     padding-bottom: 3%;
-    
+
 }
 
 .DayLabel {
@@ -284,15 +334,15 @@ body {
     align-items: center;
 }
 
-.dateLabel{
-    color:#969696;
+.dateLabel {
+    color: #969696;
     display: flex;
     justify-content: center;
     padding-bottom: 5%;
 }
 
-.CalenderContainer{
-    direction:ltr;
+.CalenderContainer {
+    direction: ltr;
     overflow-y: auto;
     height: 100%;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -343,7 +393,7 @@ body {
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-  }
+}
 
 .UnselectedSlot:hover {
     background-color: #eeeeee;
@@ -391,6 +441,7 @@ body {
     display: flex;
     gap: 10px;
 }
+
 .ShiftLeft {
     width: 28px;
     height: 28px;
@@ -401,12 +452,14 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .ShiftLeft:hover {
     background-color: #9c9c9b;
 }
+
 .ShiftLeft:disabled {
     background-color: #e0e0e0;
-    
+
 }
 
 .ShiftRight {
@@ -430,109 +483,127 @@ body {
 }
 
 
-@media only screen and (max-width: 1300px){
-    .UserTitleSmall{
+@media only screen and (max-width: 1300px) {
+    .UserTitleSmall {
         font-size: 1.2rem;
     }
-    .GroupPageButtonCircleIcon{
+
+    .GroupPageButtonCircleIcon {
         width: 30px !important;
         height: 30px !important;
     }
-    .offcanvas{
+
+    .offcanvas {
         width: 50% !important;
     }
-    .GPCircleContainer{
+
+    .GPCircleContainer {
         width: 10%;
         padding-bottom: 10%;
     }
 }
-@media only screen and (max-width: 1000px){
-    .UserScreenBackground{
+
+@media only screen and (max-width: 1000px) {
+    .UserScreenBackground {
         width: 80%;
     }
-    .UserTitleSmall{
+
+    .UserTitleSmall {
         font-size: 1.2rem;
     }
-    .GroupPageButtonCircleIcon{
+
+    .GroupPageButtonCircleIcon {
         width: 30px !important;
         height: 30px !important;
     }
-    .GPCircleContainer{
+
+    .GPCircleContainer {
         width: 8%;
         padding-bottom: 8%;
     }
-    .offcanvas{
+
+    .offcanvas {
         width: 60% !important;
     }
-    
+
 
 }
 
-@media only screen and (max-width: 768px){
-    .UserScreenBackground{
+@media only screen and (max-width: 768px) {
+    .UserScreenBackground {
         height: 95%;
         position: absolute;
         bottom: 5%
     }
+
     .sync-circle-button {
         max-width: 25px;
         min-width: 20px;
     }
-    .HeaderCard{
+
+    .HeaderCard {
         padding-top: 1%;
     }
-    .UserScreenBackground{
+
+    .UserScreenBackground {
         width: 90%;
     }
-    .offcanvas{
+
+    .offcanvas {
         width: 100% !important;
     }
-    .GroupPageButtonCircleIcon{
+
+    .GroupPageButtonCircleIcon {
         width: 28px !important;
         height: 28px !important;
     }
-    .GPCircleContainer{
+
+    .GPCircleContainer {
         width: 9%;
         padding-bottom: 9%;
     }
-    .CalenderContainer{
+
+    .CalenderContainer {
         direction: rtl;
     }
 }
 
-@media only screen and (max-width: 550px){
-    .HeaderCard{
+@media only screen and (max-width: 550px) {
+    .HeaderCard {
         padding-top: 2%;
     }
-    .UserScreenBackground{
+
+    .UserScreenBackground {
         width: 100%;
     }
-    .GroupPageButtonCircleIcon{
+
+    .GroupPageButtonCircleIcon {
         width: 28px !important;
         height: 28px !important;
     }
-    .GPCircleContainer{
+
+    .GPCircleContainer {
         width: 12%;
         padding-bottom: 12%;
     }
 
 
-    .UserTitleSmall{
+    .UserTitleSmall {
         font-size: 1rem;
     }
-   
+
 }
 
 /**Phones**/
-@media only screen and (max-width: 400px){
-    .UserBase{
+@media only screen and (max-width: 400px) {
+    .UserBase {
         position: fixed;
         width: 100%;
         overflow: hidden;
         z-index: 5;
     }
-    
-    .UserScreenBackground{
+
+    .UserScreenBackground {
         position: fixed;
         width: 100%;
         overflow: hidden;
@@ -541,122 +612,149 @@ body {
         z-index: 10;
     }
 
-    .UserTitleContainer{
+    .UserTitleContainer {
         padding-left: 5%;
         padding-right: 5%;
     }
-    
-    .HeaderCard{
+
+    .HeaderCard {
         padding-top: 5%;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
-        
+
     }
 
-    .DOTWBar{
+    .DOTWBar {
         padding-top: 3%;
         padding-bottom: 5%;
     }
-    .UserTitleSmall{
+
+    .UserTitleSmall {
         font-size: 1.2rem;
     }
-    .DayLabel{
+
+    .DayLabel {
         width: 28px;
         height: 28px;
     }
-    .dateLabel{
+
+    .dateLabel {
         font-size: small;
     }
-    .UserNameContainer{
+
+    .UserNameContainer {
         margin-top: 0;
         height: 50%;
     }
-    .GroupPageButtonCircleIcon{
+
+    .GroupPageButtonCircleIcon {
         width: 26px !important;
         height: 26px !important;
     }
-    .GPCircleContainer{
+
+    .GPCircleContainer {
         width: 15%;
         padding-bottom: 15%;
     }
 }
 
-@media only screen and (max-height: 500px){
-    .UserNameContainer{
+@media only screen and (max-height: 500px) {
+    .UserNameContainer {
         height: 40%;
     }
-    .DOTWBar{
+
+    .DOTWBar {
         padding-bottom: 2%;
     }
-    
+
 }
 
-@media (prefers-color-scheme: dark){
-    .UserBase{
+@media (prefers-color-scheme: dark) {
+    .UserBase {
         background-color: #202124;
     }
-    .UserScreenBackground{
+
+    .UserScreenBackground {
         background-color: #202124;
     }
-    .HeaderCard{
+
+    .HeaderCard {
         background-color: #303134;
     }
-    .DOTWBar{
+
+    .DOTWBar {
         background-color: #303134;
     }
-    .UserNameContainer{
+
+    .UserNameContainer {
         background-color: #edeff1;
     }
-    .UserNameForm{
+
+    .UserNameForm {
         color: #237563;
     }
-    .GroupPageButton{
+
+    .GroupPageButton {
         background-color: #5c62da;
     }
-    .GroupPageButton:hover{
+
+    .GroupPageButton:hover {
         background-color: #383c8d;
     }
 
-    .DayLabel{
+    .DayLabel {
         background-color: #604488;
     }
-    .JoinButton{
+
+    .JoinButton {
         background-color: #2ea75e;
     }
-    .JoinButton:hover{
+
+    .JoinButton:hover {
         background-color: #1c7941;
     }
-    .GroupPageButtonCircle{
+
+    .GroupPageButtonCircle {
         border: 3px solid #edeff1;
     }
-    .UnselectedSlot{
+
+    .UnselectedSlot {
         background-color: #edeff1;
     }
-    .UnselectedSlot:hover{
+
+    .UnselectedSlot:hover {
         background-color: #edeff1e4;
     }
-    .SelectedSlot{
+
+    .SelectedSlot {
         background-color: #237563;
     }
-    .TimeLabel{
+
+    .TimeLabel {
         background-color: #303134 !important;
     }
-    .UserTitle{
+
+    .UserTitle {
         color: #ffffff;
     }
+
     ::-webkit-scrollbar-track {
         background: #303134;
     }
-    .ShiftLeft{
+
+    .ShiftLeft {
         background-color: #e0e0e0;
     }
-    .ShiftLeft:disabled{
+
+    .ShiftLeft:disabled {
         background-Color: #bfc0be;
     }
-    .ShiftRight{
+
+    .ShiftRight {
         background-color: #e0e0e0;
     }
-    .ShiftRight:disabled{
+
+    .ShiftRight:disabled {
         background-Color: #bfc0be;
     }
 }

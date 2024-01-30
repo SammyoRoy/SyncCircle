@@ -6,6 +6,7 @@ import Calendar from "./Calander";
 import GroupPageButton from "./GroupPageButton";
 import { Alert } from "@mui/material";
 import SyncCircleButton from "../SyncCircleButton";
+import Tutorial from "./Tutorial";
 
 import UserTitle from "./UserTitle";
 
@@ -87,6 +88,7 @@ function UserPage() {
         {alertMessages.length > 0 && <div className="alert-container">
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
+        <Tutorial />
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading }}>
           <div className="UserTitleContainer">
             <SyncCircleButton />
