@@ -5,7 +5,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-
+import UserJoinImg from './User_Join.webp';
+import UserPreJoin from './User_PreJoin.png';
+import DragSlots from './DragSlots.png';
+import GroupPageBtn from './GroupPageBtn.png';
+import GroupPage from './GroupPage.png';
+import GroupPopup from './GroupPopup.png';
+import GearIcon from './GearIcon.png';
+import PencilIcon from './PencilIcon.png';
+import GroupControls from './GroupControls.png';
+import AdminControls from './AdminControls.png';
+import GroupIcon from './GroupIcon.png';
 const Tutorial = () => {
     const [open, setOpen] = useState(false);
 
@@ -23,19 +33,37 @@ const Tutorial = () => {
                 <HelpOutlineIcon sx={{ width: '24px', height: '24px', color: '#297050' }} />
             </button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{"How To Use SyncCircle"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {/* Add your tutorial content here */}
-                        Step 1: Description of step 1...<br/>
-                        Step 2: Description of step 2...<br/>
-                        {/* Add more steps as needed */}
-                    </DialogContentText>
+                <DialogTitle sx={{backgroundColor:"#202124", color:"#F7F7F7", display:"flex", justifyContent:"Center"}} >{"How To Use SyncCircle"}</DialogTitle>
+                <DialogContent sx={{backgroundColor:"#202124", color:"#F7F7F7"}}>
+                    <div style={{display:"flex", justifyContent:"Center", flexDirection:"column"}}>
+                        <p>Step 1: Enter a username and hit the join button.</p>
+                        <img src={UserPreJoin} alt="User PreJoin" width="100%" style={{paddingBottom:"10px"}}/>
+                        <img src={UserJoinImg} alt="User Join" width="100%" style={{paddingBottom:"10px"}}/>
+                        <p>Step 2: Click/drag the slots to show others when you are free.</p>
+                        <img src={DragSlots} alt="Drag Slots" width="100%"/>
+                        <p>Step 3: Open the group page by clicking the group page button.</p>
+                        <img src={GroupPageBtn} alt="Group Page Button" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <p>Step 4: Find specifically who is available by clicking a time slot on the group page.</p>
+                        <img src={GroupPage} alt="Group Page" width="100%"/>
+                        <img src={GroupPopup} alt="Group Popup" width="100%" style={{paddingBottom:"30px"}}/>
+                        <p><b>Extra Features</b></p>
+                        <p>Click the gear/pencil icon to see more settings.</p>
+                        <img src={GearIcon} alt="Gear Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <img src={PencilIcon} alt="Pencil Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <p>If you have the gear icon, you can change your username or logout.</p>
+                        <img src={GroupControls } alt="Group Controls" width="100%"/>
+                        <p>If you have the pencil icon, you can remove users, change your username, logout, change the group name, or delete the group.</p>
+                        <img src={AdminControls} alt="Admin Controls" width="100%"/>
+                        <p>Hit the group icon to get back to seeing the group slots.</p>
+                        <img src={GroupIcon} alt="Group Icon" width="50%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <p><b>Now you know how to use SyncCircle inside and out. 🙂</b></p>
+                    </div>
                 </DialogContent>
-                <DialogActions>
-                    <button onClick={handleClose}>Close</button>
+                <DialogActions sx={{backgroundColor:"#202124", color:"#F7F7F7"}}>
+                    <button className="TutorialClose" onClick={handleClose} >Close</button>
                 </DialogActions>
             </Dialog>
+
         </div>
     );
 };

@@ -142,6 +142,17 @@ body {
     font-size: 1.3rem;
 }
 
+.TutorialClose{
+    font-weight: 700;
+    height:100%;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #f7f7f7;
+    border:#000000;
+    outline: none;
+    cursor : pointer;
+}
+
 .UserButtonContainer {
     display: flex;
     border-radius: 30px;
@@ -182,6 +193,8 @@ body {
 }
 
 .TutorialContainer {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
     margin-left: auto;
     width: 30px;
     z-index: 100;
