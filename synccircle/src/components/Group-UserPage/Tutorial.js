@@ -5,17 +5,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import UserJoinImg from './User_Join.webp';
-import UserPreJoin from './User_PreJoin.png';
-import DragSlots from './DragSlots.png';
-import GroupPageBtn from './GroupPageBtn.png';
-import GroupPage from './GroupPage.png';
-import GroupPopup from './GroupPopup.png';
-import GearIcon from './GearIcon.png';
-import PencilIcon from './PencilIcon.png';
-import GroupControls from './GroupControls.png';
-import AdminControls from './AdminControls.png';
-import GroupIcon from './GroupIcon.png';
+import UserJoinImg from './images/User_Join.webp';
+import UserPreJoin from './images/User_PreJoin.png';
+import DragSlots from './images/DragSlots.png';
+import GroupPageBtn from './images/GroupPageBtn.png';
+import GroupPage from './images/GroupPage.png';
+import GroupPopup from './images/GroupPopup.png';
+import GearIcon from './images/GearIcon.png';
+import PencilIcon from './images/PencilIcon.png';
+import GroupControls from './images/GroupControls.png';
+import AdminControls from './images/AdminControls.png';
+import GroupIcon from './images/GroupIcon.png';
 const Tutorial = () => {
     const [open, setOpen] = useState(false);
 
