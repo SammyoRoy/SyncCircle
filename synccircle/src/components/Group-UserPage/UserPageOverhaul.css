@@ -143,10 +143,13 @@ body {
 }
 
 .TutorialClose{
+    position: absolute;
+    right: 1%;
+    top: 1%;
     font-weight: 700;
-    height:100%;
-    width: 100%;
-    border-radius: 15px;
+    display:flex;
+    align-items: center;
+    border-radius: 50%;
     background-color: #f7f7f7;
     border:#000000;
     color:#000000;
@@ -194,7 +197,7 @@ body {
 }
 
 .TutorialContainer {
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins";
     font-weight: 400;
     margin-left: auto;
     width: 30px;

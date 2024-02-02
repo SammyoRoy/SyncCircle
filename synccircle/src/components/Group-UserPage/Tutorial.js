@@ -16,6 +16,8 @@ import PencilIcon from './images/PencilIcon.png';
 import GroupControls from './images/GroupControls.png';
 import AdminControls from './images/AdminControls.png';
 import GroupIcon from './images/GroupIcon.png';
+import CloseIcon from '@mui/icons-material/Close';
+import Close from '@mui/icons-material/Close';
 const Tutorial = () => {
     const [open, setOpen] = useState(false);
 
@@ -33,8 +35,10 @@ const Tutorial = () => {
                 <HelpOutlineIcon sx={{ width: '24px', height: '24px', color: '#297050' }} />
             </button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle sx={{backgroundColor:"#202124", color:"#F7F7F7", display:"flex", justifyContent:"Center"}} >{"How To Use SyncCircle"}</DialogTitle>
-                <DialogContent sx={{backgroundColor:"#202124", color:"#F7F7F7"}}>
+                <DialogTitle sx={{backgroundColor:"#202124", color:"#F7F7F7", display:"flex", justifyContent:"Center", fontFamily: "Poppins, sans serif"}} >{"How To Use SyncCircle"}
+                <button className="TutorialClose" onClick={handleClose} ><Close/></button>
+                </DialogTitle>
+                <DialogContent sx={{backgroundColor:"#202124", color:"#F7F7F7", fontFamily: "Poppins, sans serif", textAlign:"center"}}>
                     <div style={{display:"flex", justifyContent:"Center", flexDirection:"column"}}>
                         <p>Step 1: Enter a username and hit the join button.</p>
                         <img src={UserPreJoin} alt="User PreJoin" width="100%" style={{paddingBottom:"10px"}}/>
@@ -50,20 +54,17 @@ const Tutorial = () => {
                         <p><b>Extra Features</b></p>
                         <p>Click the gear/pencil icon (on the group page next to the title) to see more settings. <br></br>
                         *If you're the creator of the group you will have the pencil icon others will have the gear icon.*</p>
-                        <img src={GearIcon} alt="Gear Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
-                        <img src={PencilIcon} alt="Pencil Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <img src={GearIcon} alt="Gear Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px", maxWidth:"150px" }}/>
+                        <img src={PencilIcon} alt="Pencil Icon" width="30%" style={{ display: "block", margin: "auto", paddingBottom: "10px", maxWidth:"150px" }}/>
                         <p>If you have the gear icon, you can change your username or logout.</p>
                         <img src={GroupControls } alt="Group Controls" width="100%"/>
                         <p>If you have the pencil icon, you can remove users, change your username, logout, change the group name, or delete the group.</p>
                         <img src={AdminControls} alt="Admin Controls" width="100%"/>
                         <p>Hit the group icon to get back to seeing the group slots.</p>
-                        <img src={GroupIcon} alt="Group Icon" width="50%" style={{ display: "block", margin: "auto", paddingBottom: "10px" }}/>
+                        <img src={GroupIcon} alt="Group Icon" width="50%" style={{ display: "block", margin: "auto", paddingBottom: "10px", maxWidth:"150px" }}/>
                         <p><b>Now you know how to use SyncCircle inside and out. 🙂</b></p>
                     </div>
                 </DialogContent>
-                <DialogActions sx={{backgroundColor:"#202124", color:"#F7F7F7"}}>
-                    <button className="TutorialClose" onClick={handleClose} >Close</button>
-                </DialogActions>
             </Dialog>
 
         </div>
