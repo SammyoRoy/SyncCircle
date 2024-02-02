@@ -27,23 +27,23 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
     if (ratio == 1) {
       setColor(`#5F00CD`);
     } else if (ratio >= 0.9) {
-      setColor(`rgba(95, 0, 205, .89)`);
+      setColor(`#701BD1`);
     } else if (ratio >= 0.8) {
-      setColor(`rgba(95, 0, 205, .78)`);
+      setColor(`#8036D6`);
     } else if (ratio >= 0.7) {
-      setColor(`rgba(95, 0, 205, .67)`);
+      setColor(`#9151DA`);
     } else if (ratio >= 0.6) {
-      setColor(`rgba(95, 0, 205, .56)`);
+      setColor(`#A16CDF`);
     } else if (ratio >= 0.5) {
-      setColor(`rgba(95, 0, 205, .44)`);
+      setColor(`#B58BE5`);
     } else if (ratio >= 0.4) {
-      setColor(`rgba(95, 0, 205, .33)`);
+      setColor(`#C5A6EA`);
     } else if (ratio >= 0.3) {
-      setColor(`rgba(95, 0, 205, .22)`);
+      setColor(`#D6C1EE`);
     } else if (ratio >= 0.2) {
-      setColor(`rgba(95, 0, 205, .11)`);
+      setColor(`#E6DCF3`);
     } else if (ratio >= 0.1) {
-      setColor(`rgba(95, 0, 205, .01)`);
+      setColor(`#F5F4F6`);
     } else if (ratio >= 0) {
       setColor(`#F7F7F7`);
     }
