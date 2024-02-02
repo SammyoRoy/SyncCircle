@@ -122,6 +122,8 @@ const connectToDb = require('./db');
 const fs = require('fs');
 const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const groupRoutes = require('./routes/groupRoutes');
@@ -129,10 +131,28 @@ const userRoutes = require('./routes/userRoutes');
 
 connectToDb();
 
+const limiter = rateLimit({
+    windowMs: 1000, // 1 second
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 1 second',
+});
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"], // Default policy for loading content
+            scriptSrc: ["'self'", 'synccircle.net', 'localhost:3000'], // Allowed script sources
+            styleSrc: ["'self'", 'https://synccircle.net', 'http://localhost:3000'], // Allowed style sources
+            imgSrc: ["'self'", 'data:', 'https://synccircle.net', 'http://localhost:3000'], // Allowed image sources
+            connectSrc: ["'self'", 'https://synccircle.net', 'http://localhost:3000'], // Allowed connection sources for things like WebSocket, Fetch, XMLHttpRequest, etc.
+        }
+    }
+}));
+app.use(limiter);
 
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
@@ -143,7 +163,7 @@ const io = require('socket.io')(server); // Pass the HTTP server instance to Soc
 
 io.on('connection', (socket) => {
     console.log('A user connected');
-    
+
     socket.on('unbooked', (row, col, groupId) => {
         io.emit('unbooked', row, col, groupId);
     });
@@ -214,4 +234,4 @@ app.post('/feedback', async (req, res) => {
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
- });
+});

@@ -3,7 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import UserTitle from "./UserTitle";
 import GroupCalendar from "./GroupCalender";
 import GroupHeader from "./GroupHeader";
-import Copy from "./copy.png";
+import Copy from "./images/copy.png";
 import GroupTitle from "./GroupTitle"
 import './GroupPageStyle.css';
 import GroupSlotPopup from './GroupSlotPopup';

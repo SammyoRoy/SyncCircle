@@ -149,6 +149,7 @@ body {
     border-radius: 15px;
     background-color: #f7f7f7;
     border:#000000;
+    color:#000000;
     outline: none;
     cursor : pointer;
 }
