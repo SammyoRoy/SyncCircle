@@ -30,6 +30,12 @@ body {
     width: 40% !important;
 }
 
+.StickyDiv {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .UserTitleContainer {
     position:absolute;
     display: flex;
@@ -38,6 +44,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 3%;
+    
 }
 
 .sync-circle-button {
@@ -586,12 +593,37 @@ body {
 }
 
 @media only screen and (max-width: 550px) {
+    .UserBase {
+        position: fixed;
+        width: 100%;
+        z-index: 5;
+        height: 100%;
+        overflow-y: scroll;
+    }
+    
     .HeaderCard {
         padding-top: 2%;
     }
 
     .UserScreenBackground {
+        overflow-y: scroll;
         width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        z-index: 10;
+    }
+
+    .StickyDiv{
+        position: sticky;
+        top: 0px;
+        z-index: 4000;
+        background-color: red;
+        height: auto;
+    }
+
+    .CalenderContainer{
+        height: auto;
+        overflow-y: visible;
     }
 
     .GroupPageButtonCircleIcon {
@@ -609,25 +641,15 @@ body {
         font-size: 1rem;
     }
 
+    .CalenderContainer{
+        display: flex;
+    }
+
 }
 
 /**Phones**/
 @media only screen and (max-width: 400px) {
-    .UserBase {
-        position: fixed;
-        width: 100%;
-        overflow: hidden;
-        z-index: 5;
-    }
 
-    .UserScreenBackground {
-        position: fixed;
-        width: 100%;
-        overflow: hidden;
-        padding-left: 10px;
-        padding-right: 10px;
-        z-index: 10;
-    }
 
     .UserTitleContainer {
         padding-left: 5%;
@@ -640,6 +662,7 @@ body {
         border-top-right-radius: 15px;
 
     }
+
 
     .DOTWBar {
         padding-top: 3%;
@@ -673,6 +696,7 @@ body {
         width: 15%;
         padding-bottom: 15%;
     }
+    
 }
 
 @media only screen and (max-height: 500px) {
