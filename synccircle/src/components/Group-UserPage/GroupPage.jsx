@@ -28,14 +28,19 @@ function GroupPage() {
           className="btn-close text-reset"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
+          zIndex="5000"
         ></button>
-        <div className="offcanvas-header">
-          <GroupTitle />
+        <div className="StickyDiv">
+          <div className="offcanvas-header">
+            <GroupTitle />
+          </div>
         </div>
         <div className="offcanvas-body">
-          <GroupHeader />
-          {!groupAdminClicked? <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} setGroupSlotClicked={setGroupSlotClicked}/>: <GroupAdminControls />}
-          {popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked}/>}
+          <div className="StickyDiv">
+            <GroupHeader />
+          </div>
+          {!groupAdminClicked ? <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} setGroupSlotClicked={setGroupSlotClicked} /> : <GroupAdminControls />}
+          {popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked} />}
         </div>
       </div>
     </div>

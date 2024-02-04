@@ -215,6 +215,7 @@ h6, h5 {
     position: absolute;
     top: 2px;
     right: 2px;
+    z-index: 5000;
 }
 
 .GroupDOTWBar {

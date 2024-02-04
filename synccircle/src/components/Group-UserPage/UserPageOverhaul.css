@@ -160,7 +160,7 @@ body {
     border-radius: 50%;
     background-color: transparent;
     border:#000000;
-    color:#F7F7F7;
+    color:#f7f7f7;
     outline: none;
     cursor : pointer;
 }
@@ -622,10 +622,9 @@ body {
     }
 
     .CalenderContainer{
-        display: flex;
         height: auto;
         overflow-y: visible;
-        min-height: 75%;
+        display: flex;
     }
 
     .GroupPageButtonCircleIcon {
@@ -653,7 +652,6 @@ body {
         padding-left: 5%;
         padding-right: 5%;
     }
-
 
     .HeaderCard {
         padding-top: 5%;
