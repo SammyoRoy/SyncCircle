@@ -34,6 +34,7 @@ body {
     height: auto;
     display: flex;
     flex-direction: column;
+    background-color: #f7f7f7;
 }
 
 .UserTitleContainer {
@@ -43,7 +44,7 @@ body {
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 3%;
+    margin-top: 2%;
     
 }
 
@@ -157,9 +158,9 @@ body {
     display:flex;
     align-items: center;
     border-radius: 50%;
-    background-color: #f7f7f7;
+    background-color: transparent;
     border:#000000;
-    color:#000000;
+    color:#F7F7F7;
     outline: none;
     cursor : pointer;
 }
@@ -410,7 +411,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 5000;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -555,9 +556,8 @@ body {
 
 @media only screen and (max-width: 768px) {
     .UserScreenBackground {
-        height: 95%;
+        height: 100%;
         position: absolute;
-        bottom: 5%
     }
 
     .sync-circle-button {
@@ -617,13 +617,15 @@ body {
         position: sticky;
         top: 0px;
         z-index: 4000;
-        background-color: red;
+        background-color: #f7f7f7;
         height: auto;
     }
 
     .CalenderContainer{
+        display: flex;
         height: auto;
         overflow-y: visible;
+        min-height: 75%;
     }
 
     .GroupPageButtonCircleIcon {
@@ -641,10 +643,6 @@ body {
         font-size: 1rem;
     }
 
-    .CalenderContainer{
-        display: flex;
-    }
-
 }
 
 /**Phones**/
@@ -655,6 +653,7 @@ body {
         padding-left: 5%;
         padding-right: 5%;
     }
+
 
     .HeaderCard {
         padding-top: 5%;
@@ -797,5 +796,9 @@ body {
 
     .ShiftRight:disabled {
         background-Color: #bfc0be;
+    }
+
+    .StickyDiv{
+        background-color: #202124;
     }
 }
