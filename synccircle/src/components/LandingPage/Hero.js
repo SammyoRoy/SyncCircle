@@ -33,9 +33,9 @@ const Hero = ({ scrollRef }) => {
     return (
         <>
             <div className='Top'>
-                <Typography variant="h6" noWrap component="div" marginLeft="10%" onClick={() => navigate('/create')} sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
+                <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" onClick={() => navigate('/create')} sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' }}>
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
-                    SyncCircle <span className='Beta'>Beta</span>
+                    SyncCircle
                 </Typography>
                 {/**windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
                     <Button
@@ -56,9 +56,9 @@ const Hero = ({ scrollRef }) => {
             </div>
             <div className='HeroPage'>
                 <div className='HeroDesc'>
-                    <h1>
-                        Scheduling with friends <span>made easy</span>.
-                    </h1>
+                    <h2>
+                        Group Scheduling <span>made easy</span>.
+                    </h2>
                     <h6>
                         So that amazing plan can finally make it out of the group chat.
                     </h6>
@@ -68,10 +68,12 @@ const Hero = ({ scrollRef }) => {
                     </div>
                 </div>
                 <div className='HeroImg'>
-                    {<img src={splashImage}
+                    <img
+                        src={splashImage}
                         alt='People working on a calendar'
-                        style={{ maxWidth: '90%', maxHeight: '150%', height: 'auto', display: 'block', margin: '0 auto' }}>
-                    </img>}
+                        style={{ maxWidth: '90%', maxHeight: '150%', height: 'auto', display: 'block', margin: '0 auto' }}
+                        loading="lazy"
+                    />
                 </div>
             </div>
         </>

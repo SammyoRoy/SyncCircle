@@ -10,7 +10,7 @@ import { AppContext } from "../../context/AppContext";
 import Alert from '@mui/material/Alert';
 import { IOSSwitch } from "./IosSwitch";
 import CalenderSelectionFrame from "./CalenderSelectionFrame";
-import SyncCircleButton from "../SyncCircleButton";
+import SyncCircleButton from "../SharedComponents/SyncCircleButton";
 
 
 function CreateEventPage() {
@@ -66,9 +66,7 @@ function CreateEventPage() {
           </div>)}
         <div className="TitleContainer">
           <SyncCircleButton />
-          <div>
-            <Title />
-          </div>
+          <Title />
         </div>
         <AppContext.Provider value={{ eventTrigger, setEventTrigger, startTrigger, setStartTrigger, endTrigger, setEndTrigger, dayTrigger, setDayTrigger, eventName, setEventName }}>
           <div className="Backdrop">

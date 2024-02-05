@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './SyncCircle512.png'; 
+import logo from '../SyncCircle512.png'; 
 import { useNavigate } from 'react-router';
 
 const SyncCircleButton = () => {
@@ -11,7 +11,7 @@ const SyncCircleButton = () => {
           border: 'none',
           cursor: 'pointer',
         }}>
-        <img src={logo} alt="SyncCircle" style={{ width: '100%', minWidth: '25px', height: 'auto', maxWidth: '50px' }} /> 
+        <img src={logo} alt="SyncCircle" style={{height:"2rem"}} /> 
       </button>
     </div>
   );

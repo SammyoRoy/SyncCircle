@@ -31,7 +31,6 @@ body {
 
 .Title {
     /* SyncCircle */
-    width: 80%;
     height: 1.81rem;
     justify-content: center;
     font-family: 'Poppins';
@@ -41,15 +40,18 @@ body {
     /* identical to box height, or 29px */
     color: #f7f7f7;
     cursor: pointer;
+    align-self: end;
 }
 
 .TitleContainer{
     display: flex;
-    flex-direction: row;
     width: 100%;
-    justify-content: center;
-    align-items: center ;
+    flex-direction: row;
+    justify-content:center;
+    gap: 3%;
+    align-items: center;
     margin-top: 10%;
+    height:2rem;
 }
 
 .Backdrop {
@@ -152,10 +154,8 @@ body {
 }
 
 .sync-circle-button {
-    max-width: 45px;
-    width: 100%;
-    min-width: 40px;
-    margin-bottom: 5%;
+    height: 50%;
+    align-self: start;
 }
 
 .DaySelectionFrame {
@@ -284,7 +284,7 @@ body {
 
 @media only screen and (max-width: 380px) {
     .Title {
-        font-size: 200%;
+        font-size: 240%;
     }
     .ScreenBackground {
         min-width: 0px;

@@ -49,12 +49,13 @@
     margin-top: -5%;
 }
 
-.HeroDesc h1 {
+.HeroDesc h2 {
     color: #4D4D4D;
     font-weight: 600;
+    font-size: 2.33rem;
 }
 
-.HeroDesc h1 span {
+.HeroDesc h2 span {
     color: #70D474;
 }
 
