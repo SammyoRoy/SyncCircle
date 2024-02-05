@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import io from 'socket.io-client';
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
+import Alert from '@mui/material/Alert';
 
 const GroupAdminControls = () => {
     const { userId, groupId, first } = useContext(AppContext);
@@ -16,6 +17,7 @@ const GroupAdminControls = () => {
     const [groupSocket, setGroupSocket] = useState(null);
     const isAdmin = first;
     const API_URL = process.env.REACT_APP_API_URL;
+    const [alertMessages, setAlertMessages] = useState([]);
     const navigate = useNavigate();
 
     const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
@@ -76,10 +78,19 @@ const GroupAdminControls = () => {
     const handleUserNameChange = async (event) => {
         event.preventDefault();
         if (!users.some(user => user.user_name === changedUser)) {
-            const response = await axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
-            setChangedUser('');
-            await setCookie(`username_${groupId}`, changedUser, { path: '/' });
-            window.location.reload();
+            if (changedUser.length < 20){
+
+                const response = await axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: changedUser })
+                setChangedUser('');
+                await setCookie(`username_${groupId}`, changedUser, { path: '/' });
+                window.location.reload();
+            }
+            else {
+                setAlertMessages(["Name must be less than 20 characters"]);
+                setTimeout(() => {
+                    setAlertMessages([]);
+                }, 3000);
+            }
         }
         else {
             //console.log("already a name");
@@ -89,7 +100,8 @@ const GroupAdminControls = () => {
     const handleNameChange = (event) => {
         event.preventDefault();
         const URL = window.location.href.split("/");
-        axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
+        if (changedName.length < 30) {
+            axios.put(`${API_URL}/groups/${groupId}`, { name: changedName })
             .then((response) => {
                 //console.log(response.data);
                 setChangedName('');
@@ -100,6 +112,13 @@ const GroupAdminControls = () => {
                 // handle the error
                 console.error(error);
             });
+        }
+        else{
+            setAlertMessages(["Group name must be less than 30 characters"]);
+            setTimeout(() => {
+                setAlertMessages([]);
+            }, 3000);
+        }
     }
 
     const handleDelete = () => {
@@ -119,6 +138,9 @@ const GroupAdminControls = () => {
 
     return (
         <div className='GroupControls'>
+            {alertMessages.length > 0 && <div className="alert-container">
+          <Alert severity="error">{alertMessages.join(" | ")}</Alert>
+        </div>}
             <h6>Other Users</h6>
             <ul className='UserList'>
                 {users.length > 0 && userId && users.filter(user => user.user_id !== userId).map(user =>
@@ -149,7 +171,7 @@ const GroupAdminControls = () => {
             <div>
                 <h6>Change Your Name</h6>
                 <form onSubmit={handleUserNameChange}>
-                    <input className="UpdateForm" value={changedUser} onChange={(event) => setChangedUser(event.target.value)} placeholder='Enter new username'/>
+                    <input className="UpdateForm" value={changedUser} onChange={(event) => setChangedUser(event.target.value)} placeholder='Enter Name'/>
                     <button className="UpdateButton" type="submit">
                         <ChangeCircleOutlinedIcon />
                     </button>
@@ -167,7 +189,7 @@ const GroupAdminControls = () => {
             {isAdmin && <div>
                 <h6>Change Group Name</h6>
                 <form onSubmit={handleNameChange}>
-                    <input className="UpdateForm" type='text' placeholder='New Group Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
+                    <input className="UpdateForm" type='text' placeholder='Enter Name' value={changedName} onChange={(event) => setChangedName(event.target.value)} />
                     <button
                         className='UpdateButton'
                         type="submit"

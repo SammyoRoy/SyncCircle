@@ -297,7 +297,6 @@ line-height: 150%; /* 24px */
 @media only screen and (max-width: 400px) {
     .GroupTitleSmall{
         font-size: 1.2rem;
-        margin-top: 5%;
     }
 
     .offcanvas-body{
