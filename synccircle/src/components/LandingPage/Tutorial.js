@@ -1,9 +1,9 @@
 import React, { useEffect, forwardRef } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import createImage from './Create_Event.png'
-import groupImage from './Group_Slots.png'
-import userImage from './User_Slots.png'
+import createImage from './Create_Event.jpg'
+import groupImage from './Group_Slots.jpg'
+import userImage from './User_Slots.jpg'
 
 const Tutorial = forwardRef((props,ref) => {
 
