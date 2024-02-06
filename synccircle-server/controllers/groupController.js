@@ -45,7 +45,8 @@ const createGroup = asyncHandler(async (req, res) => {
     if (end.isBefore(start)) {
         hours = 24 - hours;
     }
-    const master_array = Array(hours+1).fill().map(() => Array(days_array.length).fill([]));
+    const master_array = Array((hours*4)).fill().map(() => Array(days_array.length).fill([]));
+    console.log(master_array);
     const group = new Group({
         group_id: groupId,
         group_name: name,
