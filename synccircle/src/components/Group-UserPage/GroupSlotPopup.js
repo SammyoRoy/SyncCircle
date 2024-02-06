@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 import moment from 'moment-timezone';
 
-function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
+function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
     const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0);
@@ -18,6 +18,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
     const [unavailableMembers, setUnavailableMembers] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [timeZone, setTimeZone] = useState("");
+    const [abbr, setAbbr] = useState("");
     const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
@@ -25,23 +26,24 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             const response = await axios.get(`${API_URL}/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
             const tempCols = Math.min(daysData.length, MAX_COLUMNS_DISPLAYED);
-    
+
             setDays(daysData);
             setStartTime(response.data.start_time);
-            if (response.data.time_zone !== "" && response.data.time_zone !== undefined ) {
+            if (response.data.time_zone !== "" && response.data.time_zone !== undefined) {
 
                 const startTimeIndex = convertTimeToIndex(response.data.start_time);
                 const now = new moment();
                 const groupTimeZoneOffset = now.tz(response.data.time_zone).utcOffset();
                 //const userTimeZoneOffset = now.tz("Asia/Kolkata").utcOffset();
                 const userTimeZoneOffset = now.tz(moment.tz.guess()).utcOffset();
+                setAbbr(now.tz(response.data.time_zone).format('z'));
                 let timeZoneOffset = groupTimeZoneOffset - userTimeZoneOffset;
-                timeZoneOffset = timeZoneOffset / 60;
-                const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 24) % 24;
-          
+                timeZoneOffset = timeZoneOffset / 15;
+                const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 96) % 96;
+
                 setStartTimeIndex(adjustedStartIndex);
             }
-            else{
+            else {
                 setStartTimeIndex(convertTimeToIndex(response.data.start_time));
             }
             setCols(tempCols);
@@ -53,7 +55,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
         }
         fetchData();
     }, [matrixKey, API_URL, groupId, groupSlotClicked, MAX_COLUMNS_DISPLAYED]);
-    
+
 
     useEffect(() => {
         getMembers();
@@ -79,7 +81,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
             console.error(error);
         });
     }
-    
+
     useEffect(() => {
         const availableMembersArray = availableMembers.split(',');
         const allMembersArray = allMembers.split(',')
@@ -91,19 +93,44 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
 
 
     const timeOptions = [
-        "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM",
-        "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM",
-        "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM",
-        "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM",
-        "10:00 PM", "11:00 PM", "12:00 AM", "1:00 AM",
-        "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM"
+        '6:00 AM', '6:15 AM', '6:30 AM', '6:45 AM',
+        '7:00 AM', '7:15 AM', '7:30 AM', '7:45 AM',
+        '8:00 AM', '8:15 AM', '8:30 AM', '8:45 AM',
+        '9:00 AM', '9:15 AM', '9:30 AM', '9:45 AM',
+        '10:00 AM', '10:15 AM', '10:30 AM', '10:45 AM',
+        '11:00 AM', '11:15 AM', '11:30 AM', '11:45 AM',
+        '12:00 PM', '12:15 PM', '12:30 PM', '12:45 PM',
+        '1:00 PM', '1:15 PM', '1:30 PM', '1:45 PM',
+        '2:00 PM', '2:15 PM', '2:30 PM', '2:45 PM',
+        '3:00 PM', '3:15 PM', '3:30 PM', '3:45 PM',
+        '4:00 PM', '4:15 PM', '4:30 PM', '4:45 PM',
+        '5:00 PM', '5:15 PM', '5:30 PM', '5:45 PM',
+        '6:00 PM', '6:15 PM', '6:30 PM', '6:45 PM',
+        '7:00 PM', '7:15 PM', '7:30 PM', '7:45 PM',
+        '8:00 PM', '8:15 PM', '8:30 PM', '8:45 PM',
+        '9:00 PM', '9:15 PM', '9:30 PM', '9:45 PM',
+        '10:00 PM', '10:15 PM', '10:30 PM', '10:45 PM',
+        '11:00 PM', '11:15 PM', '11:30 PM', '11:45 PM',
+        '12:00 AM', '12:15 AM', '12:30 AM', '12:45 AM',
+        '1:00 AM', '1:15 AM', '1:30 AM', '1:45 AM',
+        '2:00 AM', '2:15 AM', '2:30 AM', '2:45 AM',
+        '3:00 AM', '3:15 AM', '3:30 AM', '3:45 AM',
+        '4:00 AM', '4:15 AM', '4:30 AM', '4:45 AM',
+        '5:00 AM', '5:15 AM', '5:30 AM', '5:45 AM'
+
     ];
+
 
     return (
         <div className="modal" id="groupModal" style={showPopup ? { display: "block", zIndex: "5000" } : null}>
             <div className="modal-content" style={popupColor !== "F7F7F7" ? { border: `3px solid ${popupColor}` } : null}>
-                <div className="modal-header">
-                    <h4 className="modal-title">{isLoading ? "Loading..." : days[col] + ", " + timeOptions[(startTimeIndex + row) %24] + "-" + timeOptions[(startTimeIndex + row + 1)%24]}</h4>
+                <div className="modal-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <h4 className="modal-title">
+                        {isLoading ? "Loading..." : `${days[col]}, ${timeOptions[(startTimeIndex + row) % 96]}-${timeOptions[(startTimeIndex + row + 1) % 96]}`}
+                    </h4>
+                    <div className="modal-title-abbr">
+                        {abbr}
+                    </div>
                 </div>
                 <div className="modal-body">
                     <h5>Available Members: {membersLoading ? "Loading..." : availableMembers}</h5>
@@ -114,6 +141,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked}) {
                 </div>
             </div>
         </div>
+
     );
 }
 
@@ -125,12 +153,13 @@ function sortDays(daysData) {
 }
 
 function convertTimeToIndex(time) {
-    const [hour] = time.split(':');
-    const parsedHour = parseInt(hour, 10);
-    if (parsedHour >= 6) {
-        return (parsedHour - 6);
-    } else {
-        return (parsedHour + 18);
+    const [timePart, period] = time.split(' ');
+    const [hour, minute] = timePart.split(':').map(x => parseInt(x, 10));
+    let index = hour * 4 + Math.floor(minute / 15);
+    if (period === 'PM' && hour < 12) {
+        index += 48;
     }
+    return index - 24;
 }
+
 

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-h6, h5 {
+h6,
+h5 {
     font-family: 'Poppins';
 }
 
@@ -22,17 +23,18 @@ h6, h5 {
     margin-top: 0%;
 }
 
-.GroupTitleSmall{
+.GroupTitleSmall {
     font-size: 1.2rem;
 }
 
 
-.offcanvas-header{
+.offcanvas-header {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     margin-bottom: 5%;
 }
+
 .offcanvas-body {
     display: flex;
     flex-direction: column;
@@ -46,10 +48,10 @@ h6, h5 {
     justify-content: center;
     align-items: flex-end !important;
     position: relative;
-    top:0;
+    top: 0;
 }
 
-.editButton{
+.editButton {
     position: absolute;
     right: -30px;
     bottom: -10px;
@@ -72,11 +74,11 @@ h6, h5 {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.AdminControlsHead{
+.AdminControlsHead {
     border-bottom: 2px solid #297045;
 }
 
-.AdminControlsHeader{
+.AdminControlsHeader {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,7 +86,7 @@ h6, h5 {
     color: #297045;
 }
 
-.AdminControlsHeader h3{
+.AdminControlsHeader h3 {
     padding-top: 2%;
     padding-bottom: 2%;
     margin-top: 5%;
@@ -92,7 +94,7 @@ h6, h5 {
     font-weight: 600;
 }
 
-.GroupControls{
+.GroupControls {
     display: flex;
     flex-direction: column;
     background: #e6e6e6;
@@ -104,9 +106,9 @@ h6, h5 {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.UpdateForm{
+.UpdateForm {
     background: #fff;
-    padding-left: 2%; 
+    padding-left: 2%;
     min-height: 40px;
     width: 40%;
     border: none;
@@ -116,7 +118,7 @@ h6, h5 {
     outline: none;
 }
 
-.UpdateButton{
+.UpdateButton {
     background-color: #5AD85F;
     color: #f8f8f8;
     border: none;
@@ -125,11 +127,12 @@ h6, h5 {
     padding-left: 3px;
     border-radius: 0 20px 20px 0px;
 }
-.UpdateButton:hover{
+
+.UpdateButton:hover {
     background-color: #297045;
 }
 
-.LogoutButton{
+.LogoutButton {
     background-color: #D11A2A;
     color: #fff;
     border-radius: 5px;
@@ -139,19 +142,20 @@ h6, h5 {
     font-size: 0.9em;
     width: 70px;
 }
-.LogoutButton:hover{
+
+.LogoutButton:hover {
     background-color: #8d121d;
 }
 
-.GroupControls h6{
+.GroupControls h6 {
     font-weight: 600;
 }
 
-.GroupControls ul{
+.GroupControls ul {
     padding-left: 2% !important;
 }
 
-.GroupControls div{
+.GroupControls div {
     margin-bottom: 5%;
 }
 
@@ -162,7 +166,7 @@ h6, h5 {
 .InviteFriends {
     text-align: center;
     color: #297045;
-    margin:0;
+    margin: 0;
     margin-left: 12%;
 }
 
@@ -196,7 +200,7 @@ h6, h5 {
     padding: 1.5%;
 }
 
-.LinkContainer span{
+.LinkContainer span {
     font-size: 0.8rem;
     margin-bottom: 0;
     padding: 1.5%;
@@ -211,7 +215,7 @@ h6, h5 {
     height: 24px;
 }
 
-.LightMode .btn-close{
+.LightMode .btn-close {
     position: absolute;
     top: 2px;
     right: 2px;
@@ -225,7 +229,7 @@ h6, h5 {
     border-bottom: 2px solid #B5B5B5;
     z-index: 5;
     background-color: #e6e6e6;
-    padding-bottom: 1% !important; 
+    padding-bottom: 1% !important;
     padding-top: 1% !important;
     flex-grow: 1;
     align-items: center;
@@ -240,17 +244,18 @@ h6, h5 {
     border-right: none;
     background: #F7F7F7;
     z-index: 3;
-    min-height: 60px;
+    min-height: 30px;
 
     color: #ffffff;
-text-align: center;
-font-family: "Poppins";
-font-style: normal;
-font-weight: 600;
-line-height: 150%; /* 24px */
+    text-align: center;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 24px */
 }
 
-.SmallerContent{
+.SmallerContent {
     font-size: 0.7rem;
 }
 
@@ -278,14 +283,14 @@ line-height: 150%; /* 24px */
     background-color: #F7F7F7;
 }
 
-.modal{
+.modal {
     left: 40% !important;
     top: 25% !important;
     width: 40% !important;
     height: auto !important;
 }
 
-.close{
+.close {
     position: absolute;
     top: 0;
     right: 0;
@@ -295,15 +300,16 @@ line-height: 150%; /* 24px */
 }
 
 @media only screen and (max-width: 400px) {
-    .GroupTitleSmall{
+    .GroupTitleSmall {
         font-size: 1.2rem;
     }
 
-    .offcanvas-body{
+    .offcanvas-body {
         padding-right: 10px !important;
         padding-left: 10px !important;
     }
-    .modal{
+
+    .modal {
         left: 0% !important;
         top: 20% !important;
         width: 100% !important;
@@ -311,57 +317,68 @@ line-height: 150%; /* 24px */
     }
 }
 
-@media (prefers-color-scheme: dark){
-    .offcanvas-header{
+@media (prefers-color-scheme: dark) {
+    .offcanvas-header {
         background-color: #202124 !important;
     }
-    .offcanvas-body{
+
+    .offcanvas-body {
         background-color: #202124 !important;
     }
-    .GroupHeaderCard{
+
+    .GroupHeaderCard {
         background-color: #303134 !important;
     }
-    .InviteFriends{
-        color:#2ea75e  !important;
+
+    .InviteFriends {
+        color: #2ea75e !important;
     }
-    .CopyButton{
-        color: #2ea75e   !important;
+
+    .CopyButton {
+        color: #2ea75e !important;
     }
-    .GroupDOTWBar{
+
+    .GroupDOTWBar {
         background-color: #303134 !important;
     }
-    .GroupTitle{
+
+    .GroupTitle {
         color: #ffffff !important;
     }
+
     .btn-close {
         filter: brightness(0) invert(1);
     }
-    
-    .GroupControls{
+
+    .GroupControls {
         background-color: #303134 !important;
     }
-    .GroupControls h6{
+
+    .GroupControls h6 {
         color: #ffffff !important;
     }
-    .GroupControls ul{
+
+    .GroupControls ul {
         color: #ffffff !important;
     }
-    .editButton{
+
+    .editButton {
         color: #ffffff !important;
     }
-    .switchButton{
+
+    .switchButton {
         background-color: #5F00CD !important;
     }
-    .UpdateButton{
+
+    .UpdateButton {
         background-color: #5c62da;
     }
-    .UpdateButton:hover{
+
+    .UpdateButton:hover {
         background-color: #3e43a3;
     }
-    .AdminControlsHeader{
+
+    .AdminControlsHeader {
         color: #2ea75e;
     }
 }
-
-
-  
