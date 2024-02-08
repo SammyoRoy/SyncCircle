@@ -55,6 +55,34 @@
     font-size: 2.33rem;
 }
 
+.GoogleButton{
+    display: flex;
+    padding: 14px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #263238;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.GoogleButton:hover {
+    background: rgba(112, 212, 115, 0.3);
+    border-radius: 15px;
+}
+
+.GooglePhoto{
+    display:flex;
+    gap:10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
 .HeroDesc h2 span {
     color: #70D474;
 }
@@ -353,6 +381,9 @@
     .Step3 img {
         position: static;
     }
+    .GoogleButton{
+        font-size: 12px;
+    }
     .Tutorial{
         height: fit-content;
     }
@@ -378,6 +409,10 @@
     .Btns{
         flex-direction: column;
         align-items: stretch;
+    }
+    .GoogleButton{
+        font-size: 10px;
+        padding: 10px 10px;
     }
     .Tutorial{
         height: fit-content;

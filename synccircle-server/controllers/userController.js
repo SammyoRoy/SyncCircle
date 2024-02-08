@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const moment = require('moment');
 
 const Group = require('../models/groupModel');
+const User = require('../models/userModal');
 
 // @desc   Fetch all users
 // @route  GET /users/:groupid/

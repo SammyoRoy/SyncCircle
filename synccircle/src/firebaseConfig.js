@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { useLocation } from "react-router";
+import { GoogleAuthProvider } from 'firebase/auth';
+import { getAuth } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,6 +24,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 const usePageTracking = () => {
   let location = useLocation();
@@ -33,4 +38,4 @@ const usePageTracking = () => {
 
 export default usePageTracking;
 
-export {analytics};
+export {analytics, provider,auth};
