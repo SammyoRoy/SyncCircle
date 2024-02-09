@@ -4,9 +4,11 @@ import UserTitle from "./UserTitle";
 import GroupPageButtonCircle from "./GroupPageButtonCircle";
 import { AppContext } from "../../context/AppContext";
 import { useCookies } from "react-cookie";
+import { IndexContext } from "../../context/IndexContext";
 
 function UserNameForm() {
-  const { slotTried, setSlotTried, userName, setUserName, isEmptyInput, setEmptyInput, groupId} = useContext(AppContext);
+  const { slotTried, setSlotTried, userName, setUserName, isEmptyInput, setEmptyInput, groupId } = useContext(AppContext);
+  const { googleUser } = useContext(IndexContext);
   const [hasJoined, setJoined] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
@@ -23,6 +25,15 @@ function UserNameForm() {
     setUserName(e.target.value);
     setCookie(`username_${groupId}`, e.target.value, { path: '/' });
   }
+
+  useEffect(() => {
+    if (googleUser !== null && googleUser.displayName !== undefined && groupId !== "") {
+      if (googleUser.displayName.length < 30 && googleUser.displayName.length > 0) {
+        setUserName(googleUser.displayName);
+        setCookie(`username_${groupId}`, googleUser.displayName, { path: '/' });
+      }
+    }
+  }, [googleUser, groupId]);
 
 
   useEffect(() => {

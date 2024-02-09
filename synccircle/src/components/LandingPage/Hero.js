@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import AOS from 'aos';
 import { Typography, Box, Button, Select, MenuItem } from '@mui/material';
 import logo from './SyncCircle192.png'
@@ -6,25 +6,25 @@ import { useNavigate } from 'react-router';
 import splashImage from './SCLandingPageImageFinal.png'
 import {provider,auth} from '../../firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
+import { IndexContext } from '../../context/IndexContext';
 
 const Hero = ({ scrollRef }) => {
-
+    const {googleUser, setGoogleUser} = useContext(IndexContext);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const targetDivRef = scrollRef;
     const API_URL = process.env.REACT_APP_API_URL;
-    const [user, setUser] = useState(null);
     const scrollToDiv = () => {
         targetDivRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleLogin = async () => {
         const result = await signInWithPopup(auth,provider);
-        setUser(result.user); 
+        setGoogleUser(result.user);
     }
 
     const handleLogout = () => {
         auth.signOut();
-        setUser(null);
+        setGoogleUser(null);
     }
 
 
@@ -42,6 +42,7 @@ const Hero = ({ scrollRef }) => {
     }, []);
 
     const navigate = useNavigate();
+    console.log(googleUser)
 
 
     return (
@@ -53,11 +54,11 @@ const Hero = ({ scrollRef }) => {
                         SyncCircle
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
-                       {user == null? <button className='GoogleButton' onClick={handleLogin}>
+                       {googleUser == null? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
                         <div className="GooglePhoto" onClick={handleLogout}>
-                            <img src={user.photoURL} alt={user.displayName} style={{width:'36px',height:'36px',borderRadius:'50%'}}/>
+                            <img src={googleUser.photoURL} alt={googleUser.displayName} style={{width:'36px',height:'36px',borderRadius:'50%'}}/>
                     </div>}
                     </div>
                 </Typography>
