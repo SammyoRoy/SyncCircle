@@ -8,9 +8,12 @@ import { useCookies } from "react-cookie";
 import io from 'socket.io-client';
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 import Alert from '@mui/material/Alert';
+import { IndexContext } from '../../context/IndexContext';
+import { auth } from '../../firebaseConfig';
 
 const GroupAdminControls = () => {
     const { userId, groupId, first } = useContext(AppContext);
+    const {googleUser, setGoogleUser} = useContext(IndexContext);
     const [users, setUsers] = useState([]);
     const [changedName, setChangedName] = useState('');
     const [changedUser, setChangedUser] = useState('');
@@ -71,6 +74,10 @@ const GroupAdminControls = () => {
 
     const handleLogout = (event) => {
         event.preventDefault();
+        if (googleUser !== null) {
+            auth.signOut();
+            setGoogleUser(null);
+        }
         removeCookie(`username_${groupId}`, { path: '/' });
         window.location.reload();
     }

@@ -6,11 +6,21 @@ import { IndexContext } from "../../context/IndexContext";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider} from "../../firebaseConfig";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 
 function GroupPageButtonCircle({ joined }) {
   const { groupId, userId } = useContext(AppContext);
   const { googleUser, setGoogleUser } = useContext(IndexContext);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setGoogleUser(user);
+    }
+    else {
+      setGoogleUser(null);
+    }
+  });
+
 
   const handleLogin = async () => {
     const result = await signInWithPopup(auth, provider);

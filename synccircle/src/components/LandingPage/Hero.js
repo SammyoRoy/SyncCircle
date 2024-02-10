@@ -4,21 +4,36 @@ import { Typography, Box, Button, Select, MenuItem } from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
 import splashImage from './SCLandingPageImageFinal.png'
-import {provider,auth} from '../../firebaseConfig';
-import { signInWithPopup } from 'firebase/auth';
+import { provider, auth } from '../../firebaseConfig';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
 
 const Hero = ({ scrollRef }) => {
-    const {googleUser, setGoogleUser} = useContext(IndexContext);
+    const { googleUser, setGoogleUser } = useContext(IndexContext);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [isLoading, setIsLoading] = useState(false);
     const targetDivRef = scrollRef;
     const API_URL = process.env.REACT_APP_API_URL;
     const scrollToDiv = () => {
         targetDivRef.current.scrollIntoView({ behavior: 'smooth' });
     };
+    useEffect(() => {
+        setIsLoading(true);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setGoogleUser(user);
+                setIsLoading(false);
+            }
+            else {
+                setGoogleUser(null);
+                setIsLoading(false);
+            }
+        });
+    }, []);
+
 
     const handleLogin = async () => {
-        const result = await signInWithPopup(auth,provider);
+        const result = await signInWithPopup(auth, provider);
         setGoogleUser(result.user);
     }
 
@@ -48,19 +63,19 @@ const Hero = ({ scrollRef }) => {
     return (
         <>
             <div className='Top'>
-                <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem' ,gap:'20px'}}>
-                    <div onClick={() => navigate('/create')} style={{cursor:'pointer'}}>
+                <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
+                    <div onClick={() => navigate('/create')} style={{ cursor: 'pointer' }}>
                         <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                         SyncCircle
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
-                       {googleUser == null? <button className='GoogleButton' onClick={handleLogin}>
+                    {!isLoading &&<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
+                        {googleUser == null ? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
-                        <div className="GooglePhoto" onClick={handleLogout}>
-                            <img src={googleUser.photoURL} alt={googleUser.displayName} style={{width:'36px',height:'36px',borderRadius:'50%'}}/>
+                            <div className="GooglePhoto" onClick={handleLogout}>
+                                <img src={googleUser.photoURL} alt={googleUser.displayName} style={{ width: '36px', height: '36px', borderRadius: '50%' }} />
+                            </div>}
                     </div>}
-                    </div>
                 </Typography>
                 {/**windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
                     <Button
