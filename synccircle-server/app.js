@@ -1,5 +1,5 @@
 // Commented out code is for encrypted production version of backend
-/**
+
 const express = require('express');
 const https = require('https'); // Import the 'https' module
 const fs = require('fs'); // Import the 'fs' module for reading the SSL certificate and key files
@@ -7,6 +7,8 @@ const connectToDb = require('./db');
 const cors = require('cors');
 
 const sgMail = require('@sendgrid/mail');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const groupRoutes = require('./routes/groupRoutes');
@@ -14,12 +16,29 @@ const userRoutes = require('./routes/userRoutes');
 
 connectToDb();
 
+const limiter = rateLimit({
+    windowMs: 1000, // 1 second
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 1 second',
+});
+
 const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"], // Default policy for loading content
+            scriptSrc: ["'self'", 'synccircle.net', 'localhost:3000'], // Allowed script sources
+            styleSrc: ["'self'", 'https://synccircle.net', 'http://localhost:3000'], // Allowed style sources
+            imgSrc: ["'self'", 'data:', 'https://synccircle.net', 'http://localhost:3000'], // Allowed image sources
+            connectSrc: ["'self'", 'https://synccircle.net', 'http://localhost:3000'], // Allowed connection sources for things like WebSocket, Fetch, XMLHttpRequest, etc.
+        }
+    }
+}));
+app.use(limiter);
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
 
@@ -112,10 +131,10 @@ app.post('/feedback', async (req, res) => {
 server.listen(443, () => { // Start the server on port 443 (HTTPS)
    // console.log('Listening on port 443');
 });
-*/
 
 
 
+/*
 const express = require('express');
 const http = require('http'); // Import the 'http' module
 const connectToDb = require('./db');
@@ -235,3 +254,4 @@ const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
+*/
