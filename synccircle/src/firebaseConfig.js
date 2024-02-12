@@ -25,6 +25,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
+
+provider.addScope('https://www.googleapis.com/auth/calendar.readonly');
 const auth = getAuth();
 
 const usePageTracking = () => {

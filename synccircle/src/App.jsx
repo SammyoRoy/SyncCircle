@@ -16,8 +16,9 @@ function PageTracker() {
 function App() {
   const [leaveMessage, setLeaveMessage] = useState('');
   const [googleUser, setGoogleUser] = useState(null);
+  const [token, setToken] = useState('');
   return (
-    <IndexContext.Provider value={{ leaveMessage, setLeaveMessage, googleUser, setGoogleUser }}>
+    <IndexContext.Provider value={{ leaveMessage, setLeaveMessage, googleUser, setGoogleUser, token, setToken }}>
     <Router>
       <PageTracker /> 
       <div>

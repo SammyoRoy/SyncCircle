@@ -8,12 +8,15 @@ import { FcGoogle } from "react-icons/fc";
 import { Dialog, DialogTitle, DialogContent, Switch } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { auth, provider } from "../../firebaseConfig";
-import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider} from "firebase/auth";
+import { gapi } from 'gapi-script';
 
 function GroupPageButtonCircle({ joined }) {
   const { groupId, userId } = useContext(AppContext);
-  const { googleUser, setGoogleUser } = useContext(IndexContext);
+  const { googleUser, setGoogleUser, token, setToken } = useContext(IndexContext);
   const [autofillAvailability, setAutofillAvailability] = useState(true);
+
+  const [events, setEvents] = useState([]);
 
   const [open, setOpen] = useState(false);
 
@@ -31,7 +34,9 @@ function GroupPageButtonCircle({ joined }) {
   const handleLogin = async () => {
     const result = await signInWithPopup(auth, provider);
     setGoogleUser(result.user);
-  }
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    setToken(credential.accessToken);
+}
 
 
   const handleOpen = () => {
@@ -41,6 +46,34 @@ function GroupPageButtonCircle({ joined }) {
   const handleClose = () => {
     setOpen(false);
   }
+
+  const handleImport = () => {
+    gapi.load('client', () => {
+      gapi.client.init({
+        apiKey: "AIzaSyDFa4O21qp6TYOFKBRpDk9UP2EISCsoFrQ",
+        clientId: "695221716118-48a0qqt7qo4j2uab6rkepg6nneelbjrn.apps.googleusercontent.com",
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+        scope: "https://www.googleapis.com/auth/calendar.readonly",
+      });
+
+      /**gapi.client.load('calendar', 'v3', () => {
+        gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(response => {
+          const events = response.result.items;
+          setEvents(events);
+          console.log(events);
+        });
+      }
+      );**/
+    });
+    console.log(gapi.client);
+  };
 
   return (
     <>
@@ -76,7 +109,7 @@ function GroupPageButtonCircle({ joined }) {
                 />
                 <p style={{ margin: "0" }}>Autofill availability with Calendar events</p>
               </div>
-              <button className="CalendarImportButton" onClick={handleClose}>Import</button>
+              <button className="CalendarImportButton" onClick={handleImport}>Import</button>
 
             </div>
           </DialogContent>

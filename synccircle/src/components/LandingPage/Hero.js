@@ -5,11 +5,11 @@ import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
 import splashImage from './SCLandingPageImageFinal.png'
 import { provider, auth } from '../../firebaseConfig';
-import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider} from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
 
 const Hero = ({ scrollRef }) => {
-    const { googleUser, setGoogleUser } = useContext(IndexContext);
+    const { googleUser, setGoogleUser, setToken } = useContext(IndexContext);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [isLoading, setIsLoading] = useState(false);
     const targetDivRef = scrollRef;
@@ -35,6 +35,8 @@ const Hero = ({ scrollRef }) => {
     const handleLogin = async () => {
         const result = await signInWithPopup(auth, provider);
         setGoogleUser(result.user);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        setToken(credential.accessToken);
     }
 
     const handleLogout = () => {
@@ -57,7 +59,6 @@ const Hero = ({ scrollRef }) => {
     }, []);
 
     const navigate = useNavigate();
-    console.log(googleUser)
 
 
     return (

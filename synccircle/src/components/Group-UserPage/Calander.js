@@ -179,8 +179,6 @@ function Calendar() {
     ? (endIndex - startIndex)
     : (endIndex + 96 - startIndex);
 
-    console.log(numRows)
-
 
   /*const gridTemplateColumns = `76px repeat(${days.length}, 1fr)`;
   const gridTemplateRows = `repeat(${numRows}, 1fr)`;

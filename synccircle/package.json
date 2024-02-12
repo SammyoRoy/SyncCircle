@@ -19,6 +19,7 @@
     "eslint-plugin-jest": "^27.6.3",
     "firebase": "^10.1.0",
     "firebase-tools": "^12.4.7",
+    "gapi-script": "^1.2.0",
     "moment-timezone": "^0.5.44",
     "react": "^18.2.0",
     "react-calendar": "^4.7.0",
