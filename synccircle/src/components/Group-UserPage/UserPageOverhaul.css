@@ -234,6 +234,21 @@ body {
     background-color: #f7f7f7;
 }
 
+.CalendarImportButton{
+    border-radius: 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 5px;
+    background-color: #2ea75e;
+    color: #ffffff;
+    border: none;
+}
+
+.CalendarImportButton:hover{
+    background-color: #1c7941;
+}
+
 
 .JoinButton {
     width: 90%;

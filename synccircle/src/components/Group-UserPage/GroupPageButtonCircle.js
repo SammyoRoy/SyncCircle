@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Dialog, DialogTitle, DialogContent, Switch } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { auth, provider } from "../../firebaseConfig";
-import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider} from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 import { gapi } from 'gapi-script';
 
 function GroupPageButtonCircle({ joined }) {
@@ -36,7 +36,7 @@ function GroupPageButtonCircle({ joined }) {
     setGoogleUser(result.user);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     setToken(credential.accessToken);
-}
+  }
 
 
   const handleOpen = () => {
@@ -100,12 +100,14 @@ function GroupPageButtonCircle({ joined }) {
             <div style={{ display: "flex", justifyContent: "Center", flexDirection: "column" }}>
               <p>Google Account</p>
               <div style={{ display: "flex", flexDirection: "row", gap: "10px", marginBottom: "5%" }}>
-                <p style={{ margin: "0" }}>{googleUser.email}</p>
+                <p style={{ margin: "0", marginLeft: "5%" }}>{googleUser.email}</p>
               </div>
               <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px", marginBottom: "5%" }}>
                 <Switch
                   checked={autofillAvailability}
                   onChange={() => setAutofillAvailability(!autofillAvailability)}
+                  color="success"
+                  sx={{marginLeft: "-12px"}}
                 />
                 <p style={{ margin: "0" }}>Autofill availability with Calendar events</p>
               </div>
