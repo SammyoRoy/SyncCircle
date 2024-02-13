@@ -89,7 +89,7 @@ function GroupPageButtonCircle({ joined }) {
         </button>
       </div>}
       {joined && googleUser && <div className="GPCircleContainer">
-        <button className="GroupPageButtonCircle" type="button" style={{ background: "#5AD85F" }} onClick={handleOpen}>
+        <button className="GroupPageButtonCircle" type="button" style={{ background: "#2ea75e",  }} onClick={handleOpen}>
           <CalendarTodayIcon className="GroupPageButtonCircleIcon" fontSize="large" />
         </button>
         <Dialog open={open} onClose={handleClose}>
