@@ -1,17 +1,20 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import AOS from 'aos';
-import { Typography, Box, Button, Select, MenuItem } from '@mui/material';
+import { Typography, Box, Button, Select, MenuItem, Dialog } from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
 import splashImage from './SCLandingPageImageFinal.png'
 import { provider, auth } from '../../firebaseConfig';
-import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider} from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
 
 const Hero = ({ scrollRef }) => {
     const { googleUser, setGoogleUser, setToken } = useContext(IndexContext);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [isLoading, setIsLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const userImageRef = useRef(null);
+    const navigate = useNavigate();
     const targetDivRef = scrollRef;
     const API_URL = process.env.REACT_APP_API_URL;
     const scrollToDiv = () => {
@@ -42,6 +45,15 @@ const Hero = ({ scrollRef }) => {
     const handleLogout = () => {
         auth.signOut();
         setGoogleUser(null);
+        setOpen(false);
+    }
+
+    const openPopup = () => {
+        setOpen(true);
+    }
+
+    const openSettings = () => {
+        navigate('/settings');
     }
 
 
@@ -58,8 +70,6 @@ const Hero = ({ scrollRef }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const navigate = useNavigate();
-
 
     return (
         <>
@@ -69,14 +79,36 @@ const Hero = ({ scrollRef }) => {
                         <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                         SyncCircle
                     </div>
-                    {!isLoading &&<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
+                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
                         {googleUser == null ? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
-                            <div className="GooglePhoto" onClick={handleLogout}>
-                                <img src={googleUser.photoURL} alt={googleUser.displayName} style={{ width: '36px', height: '36px', borderRadius: '50%' }} />
+                            <div className="GooglePhoto" onClick={openPopup}>
+                                <img className="GoogleLogo" ref={userImageRef} src={googleUser.photoURL} alt={googleUser.displayName} style={{ width: '36px', height: '36px', borderRadius: '50%' }} />
                             </div>}
                     </div>}
+                    {open && <Dialog
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        BackdropProps={{ style: { backgroundColor: 'transparent' } }}
+                        PaperProps={{
+                            style: {
+                                position: 'absolute',
+                                top: userImageRef.current ? userImageRef.current.offsetTop + userImageRef.current.offsetHeight-20 : 0,
+                                left: userImageRef.current ? userImageRef.current.offsetLeft - 150 : 0,
+                            }
+                        }}
+                        ModalProps={{ disableScrollLock: true }}
+                    >
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '20px', borderRadius:"15px" }}>
+                            <button className='OptionsButton' onClick={openSettings}>
+                                Settings
+                            </button>
+                            <button className='OptionsButton' onClick={handleLogout}>
+                                Sign Out
+                            </button>
+                        </Box>
+                    </Dialog>}
                 </Typography>
                 {/**windowWidth >= 530 && <Box sx={{ display: { md: 'flex' } }} marginRight="10%" alignSelf="center">
                     <Button

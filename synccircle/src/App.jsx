@@ -5,6 +5,9 @@ import UserPage from './components/Group-UserPage/UserPage.jsx';
 import GroupPage from './components/Group-UserPage/GroupPage.jsx';
 import { LandingPage } from './components/LandingPage/LandingPage.jsx';
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx';
+import Settings from './components/Settings/Settings.jsx';
+import Groups from './components/Groups/Groups.jsx';
+import ProtectedRoute from './components/SharedComponents/ProtectedRoute.js';
 import usePageTracking from './firebaseConfig.js';
 import { IndexContext } from './context/IndexContext.js';
 
@@ -27,6 +30,8 @@ function App() {
           <Route path="/group/:group" element={<UserPage/>} />
           <Route path="/create" element={<CreateEventPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+          <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>
