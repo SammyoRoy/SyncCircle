@@ -56,7 +56,6 @@ const GroupAdminControls = () => {
             .then((response) => {
                 setUsers(response.data.users);
                 if (groupSocket) {
-                    console.log(response.data.username)
                     const username = response.data.username;
                     groupSocket.emit('kicked user', username, groupId);
                 }

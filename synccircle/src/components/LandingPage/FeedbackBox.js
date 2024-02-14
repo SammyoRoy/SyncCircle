@@ -22,7 +22,6 @@ const FeedbackBox = () => {
             feedback: feedback,
         })
         .then((response) => {
-            console.log(response);
             setFeedback('');
             setSelected('bug');
         })

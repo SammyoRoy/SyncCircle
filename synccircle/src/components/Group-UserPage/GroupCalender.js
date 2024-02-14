@@ -184,7 +184,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
           axios.get(`${API_URL}/groups/${groupId}`)
             .then((response) => {
               const masterArray = response.data.master_array;
-              console.log(masterArray);
               setNumAvailArr((prevArr) => {
                 const newArr = [...prevArr];
                 for (let i = 0; i < newArr.length; i++) {
@@ -204,7 +203,6 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
         groupSocket.on('change name', (signalGroupId) => {
           if (groupId == signalGroupId) {
-            console.log("Name changed")
             window.location.reload();
           }
         });
