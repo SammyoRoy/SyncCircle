@@ -72,15 +72,21 @@ const GroupAdminControls = () => {
 
     
 
-    const handleLogout = (event) => {
+     const handleLogout = async (event) => {
         event.preventDefault();
         if (googleUser !== null) {
-            auth.signOut();
+            await auth.signOut(); // Wait for the sign out to complete
             setGoogleUser(null);
         }
         removeCookie(`username_${groupId}`, { path: '/' });
+    
+        // You may also want to remove other cookies set by Google authentication
+        // removeCookie('OtherGoogleCookieName', { path: '/' });
+    
+        // Instead of using window.location.reload(), consider using React Router for navigation if you're using it
         window.location.reload();
-    }
+    };
+    
 
     const handleUserNameChange = async (event) => {
         event.preventDefault();
