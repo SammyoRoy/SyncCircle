@@ -32,6 +32,7 @@ function GroupPageButtonCircle({ joined }) {
   useEffect(() => {
     axios.get(`${API_URL}/groups/${groupId}`)
       .then((response) => {
+        console.log(response.data);
         const dayStart = response.data.days[0];
         const dayEnd = response.data.days[response.data.days.length - 1];
         const currentYear = new Date().getFullYear();

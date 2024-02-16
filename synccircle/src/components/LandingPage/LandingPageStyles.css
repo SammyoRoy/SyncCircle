@@ -61,16 +61,34 @@
     padding: 14px 32px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     gap: 10px;
     border: none;
     border-radius: 9px;
+    margin-right: 20px;
     background: transparent;
     color: #263238;
     text-align: center;
     font-weight: 600;
     font-size: 16px;
-    margin-right: 20px;
     max-height: 36px;
+}
+
+.AllEventsBtn{
+    display: flex;
+    padding: 14px 32px;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #263238;
+    text-align: bottom;
+    font-weight: 600;
+    font-size: 16px;
+    max-height: 36px;
+
 }
 
 
@@ -405,6 +423,9 @@
     .GoogleButton{
         font-size: 12px;
     }
+    .AllEventsBtn{
+        font-size: 12px;
+    }
     .Tutorial{
         height: fit-content;
     }
@@ -432,6 +453,10 @@
         align-items: stretch;
     }
     .GoogleButton{
+        font-size: 10px;
+        padding: 10px 10px;
+    }
+    .AllEventsBtn{
         font-size: 10px;
         padding: 10px 10px;
     }

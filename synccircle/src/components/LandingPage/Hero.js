@@ -79,7 +79,10 @@ const Hero = ({ scrollRef }) => {
                         <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                         SyncCircle
                     </div>
-                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
+                    {googleUser !== null && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
+                        <button className="AllEventsBtn" onClick={() => navigate('/events')}>Events</button>
+                    </div>}
+                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: googleUser? "0" : "auto"}}>
                         {googleUser == null ? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
