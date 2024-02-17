@@ -128,6 +128,7 @@ require('dotenv').config();
 
 const groupRoutes = require('./routes/groupRoutes');
 const userRoutes = require('./routes/userRoutes');
+const authUserRoutes = require('./routes/authUserRoutes');
 
 connectToDb();
 
@@ -156,6 +157,7 @@ app.use(limiter);
 
 app.use('/groups', groupRoutes);
 app.use('/users', userRoutes);
+app.use('/authUsers', authUserRoutes);
 
 
 const server = http.createServer(app); // Create an HTTPS server

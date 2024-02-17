@@ -7,6 +7,7 @@ import splashImage from './SCLandingPageImageFinal.png'
 import { provider, auth } from '../../firebaseConfig';
 import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
+import axios from 'axios';
 
 const Hero = ({ scrollRef }) => {
     const { googleUser, setGoogleUser, setToken } = useContext(IndexContext);
@@ -37,6 +38,12 @@ const Hero = ({ scrollRef }) => {
 
     const handleLogin = async () => {
         const result = await signInWithPopup(auth, provider);
+        axios.get(`${API_URL}/authUsers/${result.user.email}`)
+            .then((response) => {
+                if (response.status === 404) {
+                    axios.post(`${API_URL}/authUsers`, { email: result.user.email, photoUrl: result.user.photoURL, login_type: "google" });
+                }
+            });
         setGoogleUser(result.user);
         const credential = GoogleAuthProvider.credentialFromResult(result);
         setToken(credential.accessToken);
@@ -82,7 +89,7 @@ const Hero = ({ scrollRef }) => {
                     {googleUser !== null && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
                         <button className="AllEventsBtn" onClick={() => navigate('/events')}>Events</button>
                     </div>}
-                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: googleUser? "0" : "auto"}}>
+                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: googleUser ? "0" : "auto" }}>
                         {googleUser == null ? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
@@ -97,13 +104,13 @@ const Hero = ({ scrollRef }) => {
                         PaperProps={{
                             style: {
                                 position: 'absolute',
-                                top: userImageRef.current ? userImageRef.current.offsetTop + userImageRef.current.offsetHeight-20 : 0,
+                                top: userImageRef.current ? userImageRef.current.offsetTop + userImageRef.current.offsetHeight - 20 : 0,
                                 left: userImageRef.current ? userImageRef.current.offsetLeft - 150 : 0,
                             }
                         }}
                         ModalProps={{ disableScrollLock: true }}
                     >
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '20px', borderRadius:"15px" }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '20px', borderRadius: "15px" }}>
                             <button className='OptionsButton' onClick={openSettings}>
                                 Settings
                             </button>

@@ -5,6 +5,10 @@ const authUserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    photoUrl: {
+        type: String,
+        required: true
+    },
     groups: {
         type: Array,
         required: true

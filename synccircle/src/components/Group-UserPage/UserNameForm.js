@@ -28,7 +28,7 @@ function UserNameForm() {
 
   useEffect(() => {
     if (googleUser !== null && googleUser.displayName !== undefined && groupId !== "") {
-      if (googleUser.displayName.length < 30 && googleUser.displayName.length > 0) {
+      if (googleUser.displayName.length < 20 && googleUser.displayName.length > 0) {
         setUserName(googleUser.displayName);
         setCookie(`username_${groupId}`, googleUser.displayName, { path: '/' });
       }
