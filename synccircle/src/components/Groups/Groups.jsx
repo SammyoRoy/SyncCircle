@@ -1,10 +1,15 @@
 import React from 'react';
-import Events from './Events';
+import EventsHeader from './EventsHeader';
+import GroupCards from './GroupCards';
+import './Groups.css';
 
 const Groups = () => {
   return (
     <div>
-      <Events />
+      <EventsHeader />
+      <div className="GroupCardContainer">
+        <GroupCards />
+      </div>
     </div>
   )
 }

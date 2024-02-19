@@ -9,7 +9,7 @@
 }
 
 
-.LandingPage{
+.LandingPage {
     width: 100%;
     height: 100%;
 }
@@ -56,7 +56,7 @@
     font-size: 2.33rem;
 }
 
-.GoogleButton{
+.GoogleButton {
     display: flex;
     padding: 14px 32px;
     justify-content: center;
@@ -74,27 +74,31 @@
     max-height: 36px;
 }
 
-.AllEventsBtn{
+.AllEventsBtn {
     display: flex;
     padding: 14px 32px;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    cursor: pointer;
+    gap: 10px;
     border: none;
     border-radius: 9px;
-    background: transparent;
-    color: #263238;
-    text-align: bottom;
+    background: #8983a5;
+    color: #FFF;
+    text-align: center;
     font-weight: 600;
     font-size: 16px;
-    max-height: 36px;
 
 }
 
+.AllEventsBtn:hover {
+    background: #85509a;
+    border-radius: 15px;
+}
 
-.GooglePhoto{
-    display:flex;
-    gap:10px;
+
+.GooglePhoto {
+    display: flex;
+    gap: 10px;
     margin-right: 20px;
     cursor: pointer;
 }
@@ -122,12 +126,13 @@
     font-weight: 600;
     font-size: 16px;
 }
+
 .CreateEventBtn:hover {
     background: #70D474;
     border-radius: 15px;
 }
 
-.OptionsButton{
+.OptionsButton {
     display: flex;
     padding: 10px 22px;
     justify-content: center;
@@ -141,12 +146,13 @@
     font-weight: 600;
     font-size: 16px;
 }
+
 .OptionsButton:hover {
     background: #70D474;
     border-radius: 15px;
 }
 
-.GoogleLogo:hover{
+.GoogleLogo:hover {
     border: 2px solid #70D474;
 }
 
@@ -164,24 +170,24 @@
     font-weight: 600;
     font-size: 16px;
 }
+
 .HowToBtn:hover {
     background: #85509a;
     border-radius: 15px;
 }
-.PP{
+
+.PP {
     cursor: pointer;
     text-decoration: underline;
 }
 
-.Btns{
+.Btns {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.HeroImg {
-
-}
+.HeroImg {}
 
 .Tutorial {
     background-color: #FFFFFF;
@@ -274,12 +280,13 @@
     margin-left: 5%;
     margin-right: 5%;
 }
+
 .Step1 img,
 .Step2 img,
-.Step3 img{
+.Step3 img {
     position: fixed;
     top: 36%;
-} 
+}
 
 .Count {
     width: 32px;
@@ -325,36 +332,36 @@
     line-height: 20px;
 }
 
-.Icons{
-    display:flex;
+.Icons {
+    display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.Email{
+.Email {
     display: flex;
     flex-direction: column;
     color: #FFF;
-    gap:20px
+    gap: 20px
 }
 
-.SendMail input{
+.SendMail input {
     background-color: transparent;
-    color:#F5F7FA;
+    color: #F5F7FA;
     padding: 10px;
     padding-right: 30px;
     border: 2px #fff solid;
     border-radius: 20px;
 }
 
-.SendMail button{
+.SendMail button {
     background-color: transparent;
     margin-left: -30px;
     border: 0px;
-    
+
 }
 
-.Top{
+.Top {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -366,12 +373,12 @@
     border-color: #E6E6E6;
 }
 
-.FeedbackPage{
+.FeedbackPage {
     background-color: #F5F7FA;
 }
 
-.FeedbackBox{
-    display:flex;
+.FeedbackBox {
+    display: flex;
     flex-direction: column;
     background-color: #F5F7FA;
     width: 100%;
@@ -389,9 +396,18 @@
     }
 }
 
-@media only screen and (max-width: 1060px){
-    .Step1,.Step2,.Step3{
+@media only screen and (max-width: 1060px) {
+
+    .Step1,
+    .Step2,
+    .Step3 {
         width: 30%;
+    }
+    .HeroPage{
+        padding-left: 2%;
+    }
+    .AllEventsBtn, .CreateEventBtn, .HowToBtn{
+        font-size: 12px;
     }
 }
 
@@ -400,7 +416,12 @@
         flex-direction: column;
         gap: 50px;
     }
-    .HeroDesc{
+
+    .AllEventsBtn, .CreateEventBtn, .HowToBtn{
+        font-size: 16px;
+    }
+
+    .HeroDesc {
         margin-top: 10%;
     }
 
@@ -409,6 +430,7 @@
         height: fit-content;
         gap: 30px;
     }
+
     .Step1 h3,
     .Step2 h3,
     .Step3 h3,
@@ -420,57 +442,72 @@
     .Step3 img {
         position: static;
     }
-    .GoogleButton{
+
+    .GoogleButton {
         font-size: 12px;
     }
-    .AllEventsBtn{
-        font-size: 12px;
-    }
-    .Tutorial{
+
+    .Tutorial {
         height: fit-content;
     }
-    .Tutorial h1{
+
+    .Tutorial h1 {
         padding: 5%;
     }
-    .Step1, .Step2, .Step3{
+
+    .Step1,
+    .Step2,
+    .Step3 {
         width: 50%;
         height: 30%;
     }
-    .Footer{
+
+    .Footer {
         padding: 32px 83px;
         gap: 30px;
     }
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
+    .HeroPage {
+        padding: 5%;
+        padding-top: 0%;
+    }
+
     .Steps {
         flex-direction: column;
         height: fit-content;
         gap: 30px;
     }
-    .Btns{
+
+    .Btns {
         flex-direction: column;
         align-items: stretch;
+        align-self: center;
+        width: 50%;
     }
-    .GoogleButton{
+
+    .GoogleButton {
         font-size: 10px;
         padding: 10px 10px;
     }
-    .AllEventsBtn{
-        font-size: 10px;
-        padding: 10px 10px;
-    }
-    .Tutorial{
+
+    .Tutorial {
         height: fit-content;
     }
-    .Tutorial h1{
+
+    .Tutorial h1 {
         padding: 5%;
     }
-    .Step1, .Step2, .Step3{
+
+    .Step1,
+    .Step2,
+    .Step3 {
         width: 90%;
         height: 30%;
     }
-    .Footer{
+
+    .Footer {
         flex-direction: column;
         padding: 32px 83px;
         gap: 30px;

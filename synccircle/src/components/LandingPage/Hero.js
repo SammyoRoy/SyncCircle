@@ -86,10 +86,7 @@ const Hero = ({ scrollRef }) => {
                         <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                         SyncCircle
                     </div>
-                    {googleUser !== null && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 'auto' }}>
-                        <button className="AllEventsBtn" onClick={() => navigate('/events')}>Events</button>
-                    </div>}
-                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: googleUser ? "0" : "auto" }}>
+                    {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "auto" }}>
                         {googleUser == null ? <button className='GoogleButton' onClick={handleLogin}>
                             Sign in
                         </button> :
@@ -146,6 +143,7 @@ const Hero = ({ scrollRef }) => {
                         So that amazing plan can finally make it out of the group chat.
                     </h6>
                     <div className='Btns'>
+                        {googleUser && <button type="button" className="AllEventsBtn" onClick={() => (navigate('/events'))}>Your Events</button>}
                         <button type="submit" className="CreateEventBtn" onClick={() => (navigate('/create'))}>Create Event</button>
                         <button type="button" className='HowToBtn' onClick={scrollToDiv}>How to Use</button>
                     </div>
