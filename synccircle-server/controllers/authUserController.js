@@ -40,6 +40,7 @@ const createAuthUser = asyncHandler(async (req, res) => {
     });
     const createdUser = await user.save();
     res.status(201).json(createdUser);
+    console.log(createdUser);
 });
 
 // @desc   Update a user

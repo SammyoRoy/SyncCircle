@@ -26,6 +26,7 @@ function UserPage() {
   const [dragValue, setDragValue] = useState(0);
   const [startColumn, setStartColumn] = useState(0);
   const [loading, setLoading] = useState(true);
+  
 
   const useMaxColumnsDisplayed = () => {
     const [maxColumnsDisplayed, setMaxColumnsDisplayed] = useState(5);

@@ -43,6 +43,9 @@ const Hero = ({ scrollRef }) => {
                 if (response.status === 404) {
                     axios.post(`${API_URL}/authUsers`, { email: result.user.email, photoUrl: result.user.photoURL, login_type: "google" });
                 }
+            })
+            .catch((error) => {
+                axios.post(`${API_URL}/authUsers`, { email: result.user.email, photoUrl: result.user.photoURL, login_type: "google" });
             });
         setGoogleUser(result.user);
         const credential = GoogleAuthProvider.credentialFromResult(result);

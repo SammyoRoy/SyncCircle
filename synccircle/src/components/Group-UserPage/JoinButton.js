@@ -6,9 +6,11 @@ import io from 'socket.io-client';
 import { useCookies } from 'react-cookie';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../../firebaseConfig';
+import { IndexContext } from '../../context/IndexContext';
 
 function JoinButton({ updateJoined, updateSubmitted, shouldVibrate }) {
   const { groupId, setUserId, userId, setFirst, userName, setEmptyInput } = useContext(AppContext);
+  const {googleUser} = useContext(IndexContext);
   const [show, setShow] = useState(true);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -36,6 +38,32 @@ function JoinButton({ updateJoined, updateSubmitted, shouldVibrate }) {
         autoJoin();
       }
     }, [cookies, groupId, days, startTime, endTime]);
+
+    useEffect(() => {
+      if (googleUser && !show) {
+        axios.get(`${API_URL}/authUsers/${googleUser.email}`)
+          .then((response) => {
+            if (response.status === 404) {
+              axios.post(`${API_URL}/authUsers`, { email: googleUser.email, photoUrl: googleUser.photoURL, login_type: "google" });
+              groupId !== null || groupId !== undefined && axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
+            }
+            else {
+              axios.get(`${API_URL}/authUsers/groups/${googleUser.email}`)
+                .then((response) => {
+                  const groups = response.data;
+                  if (!groups.includes(groupId) && groupId !== null && groupId !== undefined && groupId !== "") {
+                    axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
+                  }
+                });
+  
+            }
+          })
+          .catch ((error) => {
+            axios.post(`${API_URL}/authUsers`, { email: googleUser.email, photoUrl: googleUser.photoURL, login_type: "google" });
+            groupId !== null || groupId !== undefined && axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
+          });
+      }
+    }, [googleUser, show, groupId]);
 
     const autoJoin = () => {
       if (cookies[`username_${groupId}`].length > 30) {
