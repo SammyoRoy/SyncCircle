@@ -23,6 +23,7 @@
     justify-content: center;
     margin: 5%;
     height: 100%;
+    width:80%;
 
 }
 
@@ -66,4 +67,41 @@
     margin-top: 10%;
     text-align: center;
     color: #535353;
+}
+
+.HomeIcon{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.EventContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.CreateEventBtnEvent{
+    display: flex;
+    padding: 14px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 9px;
+    background: #297045;
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 5%;
+    margin-right: 10%;
+}
+
+.CreateEventBtn:hover{
+    background: #3D8A5A;
 }
