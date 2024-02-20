@@ -77,6 +77,7 @@ const GroupAdminControls = () => {
         if (googleUser !== null) {
             await auth.signOut(); // Wait for the sign out to complete
             setGoogleUser(null);
+            sessionStorage.removeItem('googleUser');
         }
         removeCookie(`username_${groupId}`, { path: '/' });
     

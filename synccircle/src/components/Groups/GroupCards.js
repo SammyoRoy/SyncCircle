@@ -6,35 +6,41 @@ import { IndexContext } from '../../context/IndexContext';
 const GroupCards = () => {
     const [groups, setGroups] = useState([]);
     const API_URL = process.env.REACT_APP_API_URL;
-    const {googleUser} = useContext(IndexContext);
+    const {googleUser, setGoogleUser} = useContext(IndexContext);
 
+    useEffect(() => {
+        const sessionGoogleUser = sessionStorage.getItem('googleUser');
+        if (sessionGoogleUser) {
+            setGoogleUser(JSON.parse(sessionGoogleUser));
+        }
+    }, [setGoogleUser]);
     useEffect(() => {
         async function fetchData() {
             if (googleUser) {
+                sessionStorage.setItem('googleUser', JSON.stringify(googleUser));
                 const response = await axios.get(`${API_URL}/authUsers/groups/${googleUser.email}`);
-
-                if (response.status !== 404){
-                    response.data.forEach((group) => {
-                        axios.get(`${API_URL}/groups/${group}`)
-                            .then((response) => {
-                                setGroups((prevGroups) => {
-                                    return [...prevGroups, response.data];
-                                });
-                            });
+    
+                if (response.status === 200 && response.data) {
+                    const fetchedGroups = response.data;
+                    const groupPromises = fetchedGroups.map(async (group) => {
+                        const groupResponse = await axios.get(`${API_URL}/groups/${group}`);
+                        return groupResponse.data;
                     });
+                    const groupData = await Promise.all(groupPromises);
+                    setGroups(groupData);
                 }
             }
         }
-
+    
         fetchData();
     }, [API_URL, googleUser]);
+    
 
     const handleClick = (id) => {
         const groupId = id;
         window.location.href = `/group/${groupId}`;
     }
 
-    console.log(groups);
   return (
     <div className="GroupCards">
         {groups && groups.map((group) => (

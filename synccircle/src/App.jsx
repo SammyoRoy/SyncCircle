@@ -30,8 +30,8 @@ function App() {
           <Route path="/group/:group" element={<UserPage/>} />
           <Route path="/create" element={<CreateEventPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-          <Route path="/events" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/events" element={<Groups />} />
         </Routes>
       </div>
     </Router>

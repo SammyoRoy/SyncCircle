@@ -55,6 +55,7 @@ const Hero = ({ scrollRef }) => {
     const handleLogout = () => {
         auth.signOut();
         setGoogleUser(null);
+        sessionStorage.removeItem('googleUser');
         setOpen(false);
     }
 
@@ -111,9 +112,9 @@ const Hero = ({ scrollRef }) => {
                         ModalProps={{ disableScrollLock: true }}
                     >
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '20px', borderRadius: "15px" }}>
-                            <button className='OptionsButton' onClick={openSettings}>
+                           {/** <button className='OptionsButton' onClick={openSettings}>
                                 Settings
-                            </button>
+                            </button>*/}
                             <button className='OptionsButton' onClick={handleLogout}>
                                 Sign Out
                             </button>
