@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventsHeader from './EventsHeader';
 import GroupCards from './GroupCards';
@@ -9,9 +9,10 @@ import './Groups.css';
 const Groups = () => {
   const { googleUser } = useContext(IndexContext);
   const navigate = useNavigate();
+  const [rendered, setRendered] = useState(false);
 
   useEffect(() => {
-    if (googleUser === null && sessionStorage.getItem('googleUser') === null){
+    if (googleUser === null && sessionStorage.getItem('googleUser') === null) {
       navigate('/');
     }
   }, [googleUser]);
@@ -20,10 +21,12 @@ const Groups = () => {
     <div>
       <EventsHeader />
       <div className="EventContainer">
-      <div className="GroupCardContainer">
-        <GroupCards />
-      </div>
-      <AddEvent/>
+        <div className="GroupCardContainer">
+          <GroupCards setRendered={setRendered} />
+        </div>
+        <div className="CreateEventContainer">
+          <AddEvent rendered={rendered} />
+        </div>
       </div>
     </div>
   )

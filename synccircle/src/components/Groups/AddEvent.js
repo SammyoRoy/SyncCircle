@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const AddEvent = () => {
+const AddEvent = ({rendered}) => {
     const navigate = useNavigate();
   return (
     <div>
-        <button type="submit" className="CreateEventBtnEvent" onClick={() => (navigate('/create'))}>Create Event</button>
+        {rendered && <button type="submit" className="CreateEventBtnEvent" onClick={() => (navigate('/create'))}>Create</button>}
     </div>
   )
 }

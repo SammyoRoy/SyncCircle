@@ -182,7 +182,7 @@ const GroupAdminControls = () => {
                 )}
                 {users.length === 1 && <p>No other users in this group</p>}
             </ul>
-            <div>
+           {!googleUser && <div>
                 <h6>Change Your Name</h6>
                 <form onSubmit={handleUserNameChange}>
                     <input className="UpdateForm" value={changedUser} onChange={(event) => setChangedUser(event.target.value)} placeholder='Enter Name'/>
@@ -191,7 +191,7 @@ const GroupAdminControls = () => {
                     </button>
                 </form>
 
-            </div>
+            </div>}
             <div>
                 <button
                     className="LogoutButton"
