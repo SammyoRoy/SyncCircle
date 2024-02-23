@@ -40,7 +40,7 @@ const GroupCards = ({ setRendered }) => {
         fetchData();
     }, [API_URL, googleUser]);
 
-    const handleRemove = (e,id) => {
+    const handleRemove = (e, id) => {
         e.stopPropagation();
         axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: id })
             .then((response) => {
@@ -73,13 +73,16 @@ const GroupCards = ({ setRendered }) => {
     return (
         <div className="GroupCards">
             {groups && groups.map((group) => (
-                <div key={group.group_id} className="GroupCard"  onClick={() => handleClick(group.group_id)}>
-                    {group.group_name.length < 11 &&<h2>{group.group_name}</h2>}
-                    {group.group_name.length >= 11 && <h2>{group.group_name.slice(0, 11)}...</h2>}
+                <div key={group.group_id} className="GroupCard" onClick={() => handleClick(group.group_id)}>
+                    {group.group_name.length >= 11 && (
+                        <span className="Tooltip">{group.group_name}</span>
+                    )}
+                    <h2>{group.group_name.length < 11 ? group.group_name : `${group.group_name.slice(0, 11)}...`}
+                    </h2>
                     <div className="Subtitle">
                         <p>{group.days[0]} - {group.days[group.days.length - 1]}</p>
                         <p>Click to View</p>
-                        <button className="RemoveButton" onClick={(e) => handleRemove(e,group.group_id)}>Remove Me</button>
+                        <button className="RemoveButton" onClick={(e) => handleRemove(e, group.group_id)}>Remove Me</button>
                     </div>
                 </div>
             ))}

@@ -111,13 +111,12 @@
     cursor: pointer;
 }
 
-.HeroDesc h2 span {
+.HeroDesc h2 .highlighted-text {
     color: #70D474;
-    background: linear-gradient(to right, #70D474, #BA68C8, #70D474);
+    background: linear-gradient(to right, #70D474, #BA68C8, #70D474, #BA68C8);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    display: inline;
 }
 
 .HeroDesc h6 {
@@ -438,6 +437,10 @@
         margin-top: 10%;
     }
 
+    .fadeIn {
+        animation: none;
+    }
+
     .Steps {
         flex-direction: column;
         height: fit-content;
@@ -531,4 +534,67 @@
     .fadeIn {
         animation: none;
     }
+}
+
+@media (prefers-color-scheme: dark) {
+    .Top{
+        background-color: #202124;
+        border-color: #263238;
+    }
+    .HeroPage{
+        background-color: #202124;
+    }
+    .HeroDesc h2{
+        color: #F7F7F7;
+    }
+    .HeroDesc h6{
+        color: #f5f7fac2;
+    }
+    .AllEventsBtn{
+        background: #85509a;
+    }
+    .CreateEventBtn{
+        background: #70D474;
+    }
+    .OptionsButton{
+        background: #70D474;
+    }
+    .HowToBtn{
+        background: #85509a;
+    }
+    .curve{
+        background-color:#242526;
+    }
+    .Tutorial{
+        background-color: #242526;
+    }
+    .Step1,
+    .Step2,
+    .Step3{
+        background-color: #303134;
+    }
+    .Step1 h3,
+    .Step2 h3,
+    .Step3 h3{
+        color: #F7F7F7;
+    }
+
+    .Step1 b3,
+    .Step2 b3,
+    .Step3 b3{
+        color: #f5f7fac2;
+    }
+
+    .Tutorial h1{
+        color: #F7F7F7;
+    }
+
+    .FeedbackBox{
+        background-color: #202124;
+    }
+    .Footer{
+       background-color:#202124;
+       border-top: 2px solid #263238;
+    }
+
 }

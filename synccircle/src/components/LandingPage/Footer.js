@@ -15,7 +15,7 @@ const Footer = () => {
             <div className='Logo'>
                 <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1, color: '#FFFFFF', fontFamily: 'Inter', fontWeight: 700 }}>
                     <div className="SCLogo">
-                        <img src={logo} alt="SyncCircle Logo" style={{ width: '24px', height: '24px'}} />
+                        <img src={logo} alt="SyncCircle Logo" style={{ width: '22px', height: '22px'}} />
                         SyncCircle
                     </div>
                 </Typography>

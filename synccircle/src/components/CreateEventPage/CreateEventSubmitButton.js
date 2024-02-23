@@ -36,9 +36,13 @@ function CreateEventSubmitButton({ eventName, startTime, endTime, days, isDaysOf
   
 
     const eventSubmit = (event) => {
-      if (eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
+      if (eventName.length > 30 || eventName === "" || days.length === 0 || (days[0] === "isDaysOftheWeek" && days.length === 1))
       {
         if (eventName === "")
+        {
+          handleEventTrigger();
+        }
+        if (eventName.length > 30)
         {
           handleEventTrigger();
         }

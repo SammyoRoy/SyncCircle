@@ -43,12 +43,12 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 5%;
     width: 100%;
-    cursor: pointer;
 }
 
 .GroupCard {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
     align-items: center;
     justify-content: center;
     min-width: 100px;
@@ -57,7 +57,27 @@
     background-color: #F5F7FA;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
 }
+
+.GroupCard .Tooltip {
+    visibility: hidden;
+    width: fit-content;
+    background-color: #F5F7FA;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 20px;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    font-size: smaller;
+  }
+  
+  .GroupCard:hover .Tooltip {
+    visibility: visible;
+  }
+  
 
 .GroupCard h2 {
     font-family: 'Poppins', sans-serif;

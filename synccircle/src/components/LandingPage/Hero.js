@@ -104,7 +104,7 @@ const Hero = ({ scrollRef }) => {
                 <div className='Top'>
                     <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#006C67', fontFamily: 'Inter', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
                         <div className="SCLogo" onClick={() => navigate('/create')} style={{ cursor: 'pointer' }}>
-                            <img src={logo} alt="SyncCircle Logo" style={{ width: '32px', height: '32px'}} />
+                            <img src={logo} alt="SyncCircle Logo" style={{ width: '28px', height: '28px'}} />
                             SyncCircle
                         </div>
                         {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "auto" }}>
@@ -158,7 +158,7 @@ const Hero = ({ scrollRef }) => {
                 <div className='HeroPage'>
                     <div className='HeroDesc'>
                         <h2>
-                            Group Scheduling <span>made easy</span>.
+                            Group Scheduling  <div className="highlighted-text">made easy.</div>
                         </h2>   
                         <h6>
                             So that amazing plan can finally make it out of the group chat.
