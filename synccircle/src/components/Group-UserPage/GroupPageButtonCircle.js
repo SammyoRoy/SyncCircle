@@ -54,33 +54,6 @@ function GroupPageButtonCircle({ joined }) {
     }
   }, [API_URL, groupId]);
 
-  useEffect(() => {
-    if (googleUser) {
-      axios.get(`${API_URL}/authUsers/${googleUser.email}`)
-        .then((response) => {
-          if (response.status === 404) {
-            axios.post(`${API_URL}/authUsers`, { email: googleUser.email, photoUrl: googleUser.photoURL, login_type: "google" });
-            groupId !== null || groupId !== undefined && axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
-          }
-          else {
-            axios.get(`${API_URL}/authUsers/groups/${googleUser.email}`)
-              .then((response) => {
-                const groups = response.data;
-                if (!groups.includes(groupId) && groupId !== null && groupId !== undefined && groupId !== "") {
-                  axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
-                }
-              });
-
-          }
-        })
-        .catch ((error) => {
-          axios.post(`${API_URL}/authUsers`, { email: googleUser.email, photoUrl: googleUser.photoURL, login_type: "google" });
-          groupId !== null || groupId !== undefined && axios.put(`${API_URL}/authUsers/groups/${googleUser.email}`, { group: groupId });
-        });
-    }
-  }, [googleUser]);
-
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setGoogleUser(user);

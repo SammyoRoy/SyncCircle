@@ -14,6 +14,14 @@
     height: 100%;
 }
 
+.SCLogo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 .Navbar {
     margin: 0;
     padding: 0;

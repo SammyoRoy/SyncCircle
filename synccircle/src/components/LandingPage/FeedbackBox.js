@@ -52,7 +52,7 @@ const FeedbackBox = () => {
                 variant="outlined"
                 value={feedback}
                 onChange={handleTextChange}
-                style={{ width: '100%', margin: '10px 0', backgroundColor:"#fff", borderRadius:"15px"}}
+                style={{ width: '100%', margin: '10px 0', backgroundColor:"#fff"}}
             />
             <Button
                 variant="contained"

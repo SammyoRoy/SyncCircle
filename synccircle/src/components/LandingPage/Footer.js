@@ -14,8 +14,10 @@ const Footer = () => {
         <div className='Footer'>
             <div className='Logo'>
                 <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1, color: '#FFFFFF', fontFamily: 'Inter', fontWeight: 700 }}>
-                    <img src={logo} alt="SyncCircle Logo" style={{ width: '24px', height: '24px', marginRight: '10px', verticalAlign: 'middle' }} />
-                    SyncCircle
+                    <div className="SCLogo">
+                        <img src={logo} alt="SyncCircle Logo" style={{ width: '24px', height: '24px'}} />
+                        SyncCircle
+                    </div>
                 </Typography>
                 {/**<b6>Copyright © 2024 SyncCircle ltd.</b6>
                 <b6>All rights reserved</b6>**/}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Suspense } from 'react'
 import Navbar from '../SharedComponents/Navbar'
 import Hero from './Hero'
 import Tutorial from './Tutorial'

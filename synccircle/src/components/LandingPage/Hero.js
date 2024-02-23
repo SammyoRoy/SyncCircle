@@ -102,9 +102,9 @@ const Hero = ({ scrollRef }) => {
         return (
             <>
                 <div className='Top'>
-                    <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#297045', fontFamily: 'Inter', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
-                        <div onClick={() => navigate('/create')} style={{ cursor: 'pointer' }}>
-                            <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
+                    <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#006C67', fontFamily: 'Inter', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
+                        <div className="SCLogo" onClick={() => navigate('/create')} style={{ cursor: 'pointer' }}>
+                            <img src={logo} alt="SyncCircle Logo" style={{ width: '32px', height: '32px'}} />
                             SyncCircle
                         </div>
                         {!isLoading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: "auto" }}>
@@ -159,7 +159,7 @@ const Hero = ({ scrollRef }) => {
                     <div className='HeroDesc'>
                         <h2>
                             Group Scheduling <span>made easy</span>.
-                        </h2>
+                        </h2>   
                         <h6>
                             So that amazing plan can finally make it out of the group chat.
                         </h6>
