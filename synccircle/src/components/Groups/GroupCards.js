@@ -74,7 +74,8 @@ const GroupCards = ({ setRendered }) => {
         <div className="GroupCards">
             {groups && groups.map((group) => (
                 <div key={group.group_id} className="GroupCard"  onClick={() => handleClick(group.group_id)}>
-                    <h2>{group.group_name}</h2>
+                    {group.group_name.length < 11 &&<h2>{group.group_name}</h2>}
+                    {group.group_name.length >= 11 && <h2>{group.group_name.slice(0, 11)}...</h2>}
                     <div className="Subtitle">
                         <p>{group.days[0]} - {group.days[group.days.length - 1]}</p>
                         <p>Click to View</p>

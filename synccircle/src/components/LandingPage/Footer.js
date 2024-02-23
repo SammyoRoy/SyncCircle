@@ -13,7 +13,7 @@ const Footer = () => {
     return (
         <div className='Footer'>
             <div className='Logo'>
-                <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1, color: '#FFFFFF', fontFamily: 'Poppins', fontWeight: 700 }}>
+                <Typography variant="h5" noWrap component="div" sx={{ flexGrow: 1, color: '#FFFFFF', fontFamily: 'Inter', fontWeight: 700 }}>
                     <img src={logo} alt="SyncCircle Logo" style={{ width: '24px', height: '24px', marginRight: '10px', verticalAlign: 'middle' }} />
                     SyncCircle
                 </Typography>

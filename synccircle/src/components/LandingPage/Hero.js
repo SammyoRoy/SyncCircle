@@ -3,7 +3,7 @@ import AOS from 'aos';
 import { Typography, Box, Button, Select, MenuItem, Dialog } from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
-import splashImage from './SCLandingPageImageFinal.png'
+import splashImage from './SCLandingPageImageFinal.webp'
 import { provider, auth } from '../../firebaseConfig';
 import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
@@ -102,7 +102,7 @@ const Hero = ({ scrollRef }) => {
         return (
             <>
                 <div className='Top'>
-                    <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#5AD85F', fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
+                    <Typography variant="h1" display="flex" alignItems="Center" noWrap component="div" marginLeft="10%" sx={{ flexGrow: 1, color: '#297045', fontFamily: 'Inter', fontWeight: 700, fontSize: '2rem', gap: '20px' }}>
                         <div onClick={() => navigate('/create')} style={{ cursor: 'pointer' }}>
                             <img src={logo} alt="SyncCircle Logo" style={{ width: '30px', height: '30px', marginRight: '10px', verticalAlign: 'middle' }} />
                             SyncCircle

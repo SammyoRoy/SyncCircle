@@ -39,7 +39,7 @@
 }
 
 .HeroDesc {
-    font-family: 'Poppins';
+    font-family: 'Inter';
     font-style: normal;
     display: flex;
     flex-direction: column;
@@ -105,6 +105,11 @@
 
 .HeroDesc h2 span {
     color: #70D474;
+    background: linear-gradient(to right, #70D474, #BA68C8, #70D474);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline;
 }
 
 .HeroDesc h6 {
@@ -271,7 +276,7 @@
 .Step3 b3 {
     color: #717171;
     text-align: center;
-    font-family: Inter;
+    font-family: 'Inter';
     font-style: normal;
     position: fixed;
     top: 18%;
