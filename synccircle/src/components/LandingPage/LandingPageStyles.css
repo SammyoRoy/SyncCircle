@@ -596,5 +596,8 @@
        background-color:#202124;
        border-top: 2px solid #263238;
     }
+    .GoogleButton{
+        color: #F7F7F7;
+    }
 
 }

@@ -5,6 +5,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+.Event{
+    height: 100vh;
+
+}
 
 .EventsHeader {
     font-family: 'Poppins', sans-serif;
@@ -20,7 +24,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     margin: 5%;
     height: 100%;
     width: 80%;
@@ -152,4 +156,22 @@
     text-align: center;
     font-weight: 600;
     font-size: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .EventsHeader {
+        background-color: #202124;
+    }
+    .EventContainer {
+        background-color: #202124;
+    }
+    .GroupCard{
+        background-color: #242526;
+    }
+    .GroupCard h2 {
+        color: #F5F7FA;
+    }
+    .GroupCard .Subtitle {
+        color: #f5f7fac2;
+    }
 }

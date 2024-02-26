@@ -18,7 +18,7 @@ const Groups = () => {
   }, [googleUser]);
 
   return (
-    <div>
+    <div className="Event">
       <EventsHeader />
       <div className="EventContainer">
         <div className="GroupCardContainer">
