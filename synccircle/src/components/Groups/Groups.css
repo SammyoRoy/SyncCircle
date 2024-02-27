@@ -174,4 +174,8 @@
     .GroupCard .Subtitle {
         color: #f5f7fac2;
     }
+    .GroupCard .Tooltip{
+        background-color: #242526;
+        color: #f5f7fa;
+    }
 }
