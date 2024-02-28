@@ -23,12 +23,18 @@ const GroupCards = ({ setRendered }) => {
                 if (response.status === 200 && response.data) {
                     const fetchedGroups = response.data;
                     const groupPromises = fetchedGroups.map(async (group) => {
-                        const groupResponse = await axios.get(`${API_URL}/groups/${group}`);
-                        return groupResponse.data;
+                        try {
+                            const groupResponse = await axios.get(`${API_URL}/groups/${group}`);
+                            return groupResponse.data;
+                        } catch (error) {
+                            axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: group });
+                            return null;
+                        }
                     });
                     const groupData = await Promise.all(groupPromises);
-                    if (groupData.length > 0) {
-                        setGroups(groupData);
+                    const validGroupData = groupData.filter((group) => group !== null);
+                    if (validGroupData.length > 0) {
+                        setGroups(validGroupData);
                         setRendered(true);
                     } else {
                         setRendered(false);

@@ -23,7 +23,7 @@ const getUsers = asyncHandler(async (req, res) => {
 // @route  POST /users/:groupid
 // @access Public
 const addUser = asyncHandler(async (req, res) => {
-    const { name, startTime, endTime, days } = req.body;
+    const { name, startTime, endTime, days} = req.body;
     const groupId = req.params.groupid;
     const userId = uuidv4();
     const start = moment(startTime, 'h:mm a');
@@ -36,7 +36,7 @@ const addUser = asyncHandler(async (req, res) => {
     const user = {
         user_id: userId,
         user_name: name,
-        availability_array: availability_array
+        availability_array: availability_array,
     };
     const updatedGroup = await Group.findOneAndUpdate(
         { group_id: groupId },
@@ -327,4 +327,4 @@ const updateMasterArray = (group, user) => {
 };
 
 
-module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot, changeUser };
+module.exports = { getUsers, addUser, deleteUser, getUser, bookSlot, unbookSlot, massChangeSlot, changeUser};

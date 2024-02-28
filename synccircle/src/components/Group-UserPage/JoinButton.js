@@ -75,7 +75,7 @@ function JoinButton({ updateJoined, updateSubmitted, shouldVibrate }) {
         .then((response) => {
           if (response.data === "False") {
             //Make new User
-            axios.post(`${API_URL}/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days })
+            axios.post(`${API_URL}/users/${groupId}`, { name: cookies[`username_${groupId}`], startTime: startTime, endTime: endTime, days: days})
               .then((response2) => {
                 //  console.log(response2.data)
                 setUserId(response2.data.user_id);
@@ -121,7 +121,7 @@ function JoinButton({ updateJoined, updateSubmitted, shouldVibrate }) {
     const onSubmit = (event) => {
       event.preventDefault();
       if (userName !== "" && groupId !== "" && days.length !== 0 && startTime !== "" && endTime !== "") {
-        if (userName.length > 20) {
+        if (userName.length > 20 && !googleUser) {
           setEmptyInput(true);
           return;
         }
@@ -129,7 +129,7 @@ function JoinButton({ updateJoined, updateSubmitted, shouldVibrate }) {
           .then((response) => {
             if (response.data === "False") {
               //Make new User
-              axios.post(`${API_URL}/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days })
+              axios.post(`${API_URL}/users/${groupId}`, { name: userName, startTime: startTime, endTime: endTime, days: days})
                 .then((response2) => {
                   // console.log(response2.data)
                   setUserId(response2.data.user_id);

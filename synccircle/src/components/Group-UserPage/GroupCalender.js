@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
   const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName} = useContext(AppContext);
-  const {leaveMessage, setLeaveMessage} = useContext(IndexContext);
+  const {leaveMessage, setLeaveMessage, googleUser} = useContext(IndexContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -197,6 +197,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('kicked user' , (signalUserName, signalGroupId) => {
         if (groupId == signalGroupId && userName == signalUserName) {
+          if (googleUser){
+            axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: groupId })
+          }
           setLeaveMessage('You have been removed from the group');
           removeCookie(`username_${groupId}`, { path: '/' });
           navigate('/');
@@ -233,6 +236,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('delete group', (signalGroupId) => {
         if (groupId == signalGroupId) {
+          if (googleUser){
+            axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: groupId })
+          }
           setLeaveMessage('The group you were in has been deleted');
           
           navigate('/');

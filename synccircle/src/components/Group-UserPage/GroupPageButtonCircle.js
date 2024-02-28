@@ -69,6 +69,9 @@ function GroupPageButtonCircle({ joined }) {
   const handleLogin = async () => {
     const result = await signInWithPopup(auth, provider);
     setGoogleUser(result.user);
+    if (groupId !== null && groupId !== undefined && userId !== null && userId !== undefined) {
+      axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: result.user.displayName});
+    }
     const credential = GoogleAuthProvider.credentialFromResult(result);
     setToken(credential.accessToken);
   }
