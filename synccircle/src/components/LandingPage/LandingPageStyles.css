@@ -152,7 +152,7 @@
     gap: 10px;
     border: none;
     border-radius: 9px;
-    background: #297045;
+    background: #ff4545;
     color: #FFF;
     text-align: center;
     font-weight: 600;
@@ -160,7 +160,7 @@
 }
 
 .OptionsButton:hover {
-    background: #70D474;
+    background: #ff4545;
     border-radius: 15px;
 }
 
@@ -556,9 +556,6 @@
     .CreateEventBtn{
         background: #70D474;
     }
-    .OptionsButton{
-        background: #70D474;
-    }
     .HowToBtn{
         background: #85509a;
     }
@@ -594,7 +591,7 @@
     }
     .Footer{
        background-color:#202124;
-       border-top: 2px solid #242526;
+       border-top: 2px solid #263238;
     }
     .GoogleButton{
         color: #F7F7F7;
