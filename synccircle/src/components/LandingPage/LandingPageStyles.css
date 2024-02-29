@@ -111,13 +111,30 @@
     cursor: pointer;
 }
 
+@keyframes shiftGradient {
+    0%, 100% {
+        background-position: center;
+        background-size: 100% 100%;
+    }
+    25% {
+        background-position: left;
+        background-size: 200% 100%;
+    }
+    75% {
+        background-position: right;
+        background-size: 200% 100%;
+    }
+}
+
 .HeroDesc h2 .highlighted-text {
     color: #70D474;
-    background: linear-gradient(to right, #70D474, #BA68C8, #70D474, #BA68C8);
+    background: linear-gradient(to right, #BA68C8, #70D474, #BA68C8, #70D474);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: shiftGradient 5s ease forwards;
 }
+
 
 .HeroDesc h6 {
     font-weight: 400;
@@ -552,9 +569,6 @@
     }
     .AllEventsBtn{
         background: #85509a;
-    }
-    .CreateEventBtn{
-        background: #6ABEA7;
     }
     .HowToBtn{
         background: #85509a;
