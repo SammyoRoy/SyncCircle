@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import "./PrivacyPolicy.css"
 
 const PrivacyPolicy = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <div className='Privacy'>
             <h1>Privacy Policy</h1>

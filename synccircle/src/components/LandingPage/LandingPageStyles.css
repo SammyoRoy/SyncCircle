@@ -32,6 +32,21 @@
     font-size: 8px;
     font-family: 'Inter';
 }
+.curve{
+    background-color: #F5F7FA;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 50 1440 320'%3E%3Cpath fill='%23FFFFFF' fill-opacity='1' d='M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,96C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    width: 100%;
+    padding-bottom: 22.33%;
+}
+
+.curve2{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220'%3E%3Cpath fill='%23F5F7FA' fill-opacity='1' d='M0,96L48,85.3C96,75,192,53,288,80C384,107,480,181,576,192C672,203,768,149,864,133.3C960,117,1056,139,1152,133.3C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    width: 100%; 
+    padding-top: 15.33%;
+
+}
 
 .HeroPage {
     display: flex;
@@ -216,7 +231,10 @@
     gap: 20px;
 }
 
-.HeroImg {}
+/* HeroImg.css */
+.HeroImg {
+}
+
 
 .Tutorial {
     background-color: #FFFFFF;
@@ -573,9 +591,15 @@
     .HowToBtn{
         background: #85509a;
     }
-    .curve{
-        background-color:#242526;
+    .curve {
+        background-color: #242526;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 50 1440 320'%3E%3Cpath fill='%23202124' fill-opacity='1' d='M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,96C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
     }
+    .curve2{
+        background-color: #242526;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220'%3E%3Cpath fill='%23202124' fill-opacity='1' d='M0,96L48,85.3C96,75,192,53,288,80C384,107,480,181,576,192C672,203,768,149,864,133.3C960,117,1056,139,1152,133.3C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    }
+      
     .Tutorial{
         background-color: #242526;
     }

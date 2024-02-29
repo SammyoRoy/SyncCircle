@@ -3,7 +3,7 @@ import AOS from 'aos';
 import { Typography} from '@mui/material';
 import logo from './SyncCircle192.png'
 import { useNavigate } from 'react-router';
-import splashImage from './SCLandingPageImageFinal.webp'
+import splashImage from './TransparentSCLandingPageImageFinal.webp'
 import { provider, auth } from '../../firebaseConfig';
 import { signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
 import { IndexContext } from '../../context/IndexContext';
