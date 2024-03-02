@@ -36,13 +36,10 @@ function GroupPageButtonCircle({ joined }) {
           const dayStart = response.data.days[0];
           const dayEnd = response.data.days[response.data.days.length - 1];
           const currentYear = new Date().getFullYear();
-          const fullDateStart = `${dayStart} ${currentYear}`;
-          const fullDateEnd = `${dayEnd} ${currentYear}`;
+          const fullDateStart = `${dayStart}`;
+          const fullDateEnd = `${dayEnd}`;
           const startDate = new Date(fullDateStart);
           const endDate = new Date(fullDateEnd);
-          if (endDate < startDate) {
-            endDate.setMonth(endDate.getMonth() + 12);
-          }
           setStartDate(startDate);
           setEndDate(endDate);
           setStartTime(response.data.startTime);
@@ -123,7 +120,6 @@ function GroupPageButtonCircle({ joined }) {
       'timeMax': (endDate).toISOString(),
       'showDeleted': false,
       'singleEvents': true,
-      'maxResults': 10,
       'orderBy': 'startTime'
     }).then(response => {
       const events = response.result.items;

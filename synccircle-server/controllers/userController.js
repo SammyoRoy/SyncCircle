@@ -136,7 +136,7 @@ const changeUser = asyncHandler(async (req, res) => {
                     res.status(200).json({ message: 'Change Name Successful', updatedGroup });
                 } else {
                     res.status(500).json({ message: 'Update failed' });
-                }ß
+                }
             } catch (error) {
                 console.error('Error updating group:', error);
                 res.status(500).json({ message: 'Update failed', error });

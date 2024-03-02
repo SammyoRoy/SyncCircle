@@ -16,7 +16,7 @@ const CalendarSelectionFrame = ({days,setDays}) => {
                 const day = currentDate.toLocaleString('en-us', { weekday: 'short' });
                 allDates.push([])*/
 
-                allDates.push(`${currentDate.toLocaleString('en-us', { weekday: 'short' })} ${currentDate.toLocaleString('en-us',{ month: 'short' })} ${currentDate.getDate()}`);
+                allDates.push(`${currentDate.toLocaleString('en-us', { weekday: 'short' })} ${currentDate.toLocaleString('en-us',{ month: 'short' })} ${currentDate.getDate()} ${currentDate.getFullYear()}`);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         });
