@@ -16,11 +16,11 @@ function ShiftLeft() {
     }
 
     return (
-        <button className="ShiftLeft" onClick={handleClick} disabled={startColumn == 0}>
+        <button className={startColumn == 0? "ShiftLeft None": "ShiftLeft"} onClick={handleClick} disabled={startColumn == 0}>
             {/**<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 6L9 12L15 18" stroke="#297045" strokeWidth="2" />
             </svg>*/}
-            <ArrowBackIosIcon sx={{ width: '12px', height: '12px', color: '#297050' }}/>
+            <ArrowBackIosIcon sx={{ width: '12px', height: '12px', color: startColumn != 0? '#297050': 'transparent'}}/>
         </button>
     )
 }

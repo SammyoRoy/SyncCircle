@@ -32,11 +32,11 @@ function ShiftRight() {
     }
 
     return (
-        <button className="ShiftRight" onClick={handleClick} disabled={startColumn >= days.length - MAX_COLUMNS_DISPLAYED}>
+        <button className={startColumn >= days.length - MAX_COLUMNS_DISPLAYED ? "ShiftRight None": "ShiftRight"} onClick={handleClick} disabled={startColumn >= days.length - MAX_COLUMNS_DISPLAYED}>
             {/**<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 6L15 12L9 18" stroke="#297045" strokeWidth="2" />
     </svg>*/}
-            <ArrowForwardIosIcon sx={{ width: '12px', height: '12px', color: '#297050' }} />
+            <ArrowForwardIosIcon sx={{ width: '12px', height: '12px', color: startColumn >= days.length - MAX_COLUMNS_DISPLAYED?'transparent': '#297050' }} />
         </button>
     )
 }

@@ -495,11 +495,6 @@ body {
     background-color: #9c9c9b;
 }
 
-.ShiftLeft:disabled {
-    background-color: #e0e0e0;
-
-}
-
 .ShiftRight {
     width: 28px;
     height: 28px;
@@ -516,8 +511,8 @@ body {
     background-color: #9c9c9b;
 }
 
-.ShiftRight:disabled {
-    background-color: #e0e0e0;
+.None{
+    background-color: transparent !important;
 }
 
 
@@ -810,16 +805,8 @@ body {
         background-color: #e0e0e0;
     }
 
-    .ShiftLeft:disabled {
-        background-Color: #bfc0be;
-    }
-
     .ShiftRight {
         background-color: #e0e0e0;
-    }
-
-    .ShiftRight:disabled {
-        background-Color: #bfc0be;
     }
 
     .StickyDiv{
