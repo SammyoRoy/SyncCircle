@@ -46,6 +46,7 @@ const createGroup = asyncHandler(async (req, res) => {
         hours = 24 - hours;
     }
     const master_array = Array((hours*4)).fill().map(() => Array(days_array.length).fill([]));
+    const schedule_array = Array((hours*4)).fill().map(() => Array(days_array.length).fill(0));
     console.log(master_array);
     const group = new Group({
         group_id: groupId,
@@ -56,6 +57,7 @@ const createGroup = asyncHandler(async (req, res) => {
         dotw: isDaysOftheWeek,
         users: users,
         master_array: master_array,
+        scheduled_array:schedule_array,
         time_zone: timeZone
     });
     const createdGroup = await group.save();
@@ -192,6 +194,23 @@ const updateName = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc   Schedule Group time
+// @route  POST /groups/schedule/:groupid
+// @access Public
+const scheduleGroup = asyncHandler(async (req, res) => {
+    const {scheduledArray} = req.body;
+
+    const group = await Group.findOneAndUpdate({ group_id: req.params.groupId }, { scheduled_array: scheduledArray }, { new: true });
+
+    if (group) {
+        res.status(200).json({ success: true, group: group });
+    }
+    else {
+        res.status(404);
+        throw new Error('Group not found');
+    }
+});
+
 module.exports = {
     getGroups,
     getGroupById,
@@ -203,6 +222,7 @@ module.exports = {
     findMember,
     slot,
     slotSize,
-    updateName
+    updateName,
+    scheduleGroup
 }
 

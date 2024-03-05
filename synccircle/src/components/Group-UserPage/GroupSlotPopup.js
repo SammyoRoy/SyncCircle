@@ -4,7 +4,7 @@ import { AppContext } from '../../context/AppContext';
 import moment from 'moment-timezone';
 
 function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
-    const { groupId, MAX_COLUMNS_DISPLAYED, startColumn } = useContext(AppContext);
+    const { groupId, MAX_COLUMNS_DISPLAYED, startColumn, scheduleCheck } = useContext(AppContext);
     const [days, setDays] = useState([]);
     const [cols, setCols] = useState(0);
     const [row, setRow] = useState(0);
@@ -22,6 +22,9 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
     const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
+        if (scheduleCheck) {
+            return null;
+        }
         async function fetchData() {
             const response = await axios.get(`${API_URL}/groups/${groupId}`);
             const daysData = sortDays(response.data.days);

@@ -5,9 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 
 function ShareLink() {
-    const { first } = useContext(AppContext);
+    const { first, scheduleCheck, setScheduleCheck } = useContext(AppContext);
     const [isCopied, setIsCopied] = useState(false);
-    const [scheduleCheck, setScheduleCheck] = useState(false);
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(window.location.href);

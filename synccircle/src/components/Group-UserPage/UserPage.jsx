@@ -26,6 +26,8 @@ function UserPage() {
   const [dragValue, setDragValue] = useState(0);
   const [startColumn, setStartColumn] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [scheduleCheck, setScheduleCheck] = useState(false);
+  const [scheduleArray, setScheduleArray] = useState([]);
   
 
   const useMaxColumnsDisplayed = () => {
@@ -90,7 +92,7 @@ function UserPage() {
           <Alert severity="error">{alertMessages.join(" | ")}</Alert>
         </div>}
         
-        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading }}>
+        <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading, scheduleCheck, setScheduleCheck, scheduleArray, setScheduleArray }}>
           <div className="StickyDiv">
             <Tutorial />
             <div className="UserTitleContainer">

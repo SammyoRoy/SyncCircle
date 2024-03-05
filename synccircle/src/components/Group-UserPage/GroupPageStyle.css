@@ -226,6 +226,7 @@ h5 {
 }
 
 
+
 .ConfirmButton{
     background-color: #2ea75e;
     color: #f7f7f7;
@@ -366,6 +367,14 @@ h5 {
     margin-top: 2%;
     margin-right: 2%;
     font-size: 1.5rem;
+}
+
+.NotScheduledSlot {
+    background-color: #8d121d !important;
+}
+
+.ScheduledSlot {
+    background-color: #3e43a3 !important;
 }
 
 @media only screen and (max-width: 400px) {

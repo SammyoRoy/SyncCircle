@@ -34,6 +34,10 @@ const groupSchema = mongoose.Schema({
         type: Array,
         required: true
     },
+    scheduled_array: {
+        type: Array,
+        required: false
+    },
     dotw: {
         type: Boolean,
         required: true

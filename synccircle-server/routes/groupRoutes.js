@@ -12,7 +12,8 @@ const {
     findMember,
     slot,
     slotSize,
-    updateName
+    updateName,
+    scheduleGroup
 } = require('../controllers/groupController');
 
 router.route('/').get(getGroups).post(createGroup);
@@ -21,6 +22,8 @@ router.route('/:groupId').get(getGroupById).delete(deleteGroup).put(updateName);
  
 
 router.route('/display/:groupId').get(displayGroup);
+
+router.route('/schedule/:groupId').post(scheduleGroup);
 
 router.route('/nummem/:groupId').get(numberOfMembers);
 

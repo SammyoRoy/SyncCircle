@@ -10,8 +10,8 @@ import { IndexContext } from "../../context/IndexContext";
 import { useCookies } from "react-cookie";
 
 function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }) {
-  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName} = useContext(AppContext);
-  const {leaveMessage, setLeaveMessage, googleUser} = useContext(IndexContext);
+  const { groupId, userId, userSlot, startColumn, MAX_COLUMNS_DISPLAYED, setLoading, userName, scheduleCheck, scheduleArray, setScheduleArray } = useContext(AppContext);
+  const { leaveMessage, setLeaveMessage, googleUser } = useContext(IndexContext);
   const [days, setDays] = useState([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -20,6 +20,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [masterArray, setMasterArray] = useState(null);
   const [numAvailArr, setNumAvailArr] = useState(null);
   const [timeZone, setTimeZone] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 });
 
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([`username_${groupId}`]);
@@ -33,7 +36,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
   const [totalMembers, setTotalMembers] = useState(0);
   const [addedNewMember, setAddedNewMember] = useState(true);
   const API_URL = process.env.REACT_APP_API_URL;
-  
+
   useEffect(() => {
     const socket = io(`${API_URL}`, { transports: ['websocket'] });
     setGroupSocket(socket);
@@ -50,8 +53,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       setEnd(response.data.end_time);
       setMasterArray(response.data.master_array);
       setTimeZone(response.data.time_zone);
+      setScheduleArray(response.data.scheduled_array);
       setAddedNewMember(false);
     }
+
+
 
     fetchData();
   }, []);
@@ -80,7 +86,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         setAddedNewMember(true);
       }
       fetchData();
-     // console.log("Getting total mems");
+      // console.log("Getting total mems");
     }
   }, [addedNewMember]);
 
@@ -131,6 +137,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       return index;
     }
+
     if (timeZone !== "" && timeZone !== undefined) {
 
       const startTimeIndex = convertTimeToIndex(start);
@@ -148,7 +155,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       setStartIndex(adjustedStartIndex);
       setEndIndex(adjustedEndIndex);
     }
-    else{
+    else {
       const startTimeIndex = convertTimeToIndex(start);
       const endTimeIndex = convertTimeToIndex(end);
       const timeIndex = convertTimeToIndex(start);
@@ -195,9 +202,9 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
         }
       });
 
-      groupSocket.on('kicked user' , (signalUserName, signalGroupId) => {
+      groupSocket.on('kicked user', (signalUserName, signalGroupId) => {
         if (groupId == signalGroupId && userName == signalUserName) {
-          if (googleUser){
+          if (googleUser) {
             axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: groupId })
           }
           setLeaveMessage('You have been removed from the group');
@@ -236,11 +243,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
       groupSocket.on('delete group', (signalGroupId) => {
         if (groupId == signalGroupId) {
-          if (googleUser){
+          if (googleUser) {
             axios.put(`${API_URL}/authUsers/removegroup/${googleUser.email}`, { group: groupId })
           }
           setLeaveMessage('The group you were in has been deleted');
-          
+
           navigate('/');
         }
       });
@@ -259,21 +266,60 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
     ? endIndex - startIndex
     : endIndex + 24 - startIndex;
 
-    const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
-    const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
-    const gridTemplateRows = `repeat(${numRows}, 1fr)`
-    
-    const totalCells = (columnsDisplayed + 1) * (numRows);
+  const columnsDisplayed = Math.min(days.length, MAX_COLUMNS_DISPLAYED);
+  const gridTemplateColumns = `76px repeat(${columnsDisplayed}, 1fr)`;
+  const gridTemplateRows = `repeat(${numRows}, 1fr)`
+
+  const totalCells = (columnsDisplayed + 1) * (numRows);
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = () => {
+    if (userId !== "") {
+      setIsSwiping(true);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (userId !== "") {
+      setIsSwiping(true);
+      // Get the touch position from the event
+      const touch = e.touches[0];
+      setTouchPosition({ x: touch.clientX, y: touch.clientY });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsSwiping(false);
+    setTouchPosition(null);
+  };
+
+  const eventHandlers = {
+    onTouchMove: handleTouchMove,
+    onTouchStart: handleTouchStart,
+    onTouchEnd: handleTouchEnd,
+    onMouseLeave: handleMouseUp,
+    onMouseDown: handleMouseDown,
+    onMouseUp: handleMouseUp,
+  };
+
 
   return (
     <div className="CalenderContainer">
-      <div className="CalendarGrid" style={{ gridTemplateColumns, gridTemplateRows }}>
+      <div className="CalendarGrid" {...eventHandlers} style={{ gridTemplateColumns, gridTemplateRows }}>
         {/* Generate and render grid items */}
 
         {Array.from({ length: totalCells }, (_, index) => {
           const row = Math.floor(index / (columnsDisplayed + 1));
           const col = index % (columnsDisplayed + 1) - 1 + startColumn;
           let cellValue = 0;
+          let scheduleValue = 0;
 
           /*const cellValue = masterArray && row >= 0 && row < masterArray.length && col >= 0 && col < masterArray[row].length
             ? masterArray[row][col]
@@ -283,6 +329,11 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
           if ((index % (columnsDisplayed + 1)) !== 0) {
             //const slotIndex = row*(days.length) + col;
             cellValue = getNumAvail(row, col);
+          }
+
+          if ((index % (columnsDisplayed + 1)) !== 0 && scheduleArray) {
+            //const slotIndex = row*(days.length) + col;
+            scheduleValue = scheduleArray[row][col];
           }
 
           return index % (columnsDisplayed + 1) === 0 ? (
@@ -300,11 +351,16 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
             setPopupColor={setPopupColor}
             setGroupSlotClicked={setGroupSlotClicked}
             cellValue={cellValue}
+            scheduleValue={scheduleValue}
             totalMembers={totalMembers}
             modifiedRow={modifiedRow}
             modifiedCol={modifiedCol}
             isBooked={isBooked}
             numAvailArr={numAvailArr}
+            dragging={isDragging} 
+            swiping={isSwiping} 
+            touchPosition={touchPosition}
+
           />
           );
         })}
