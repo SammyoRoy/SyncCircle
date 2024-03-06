@@ -54,6 +54,7 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
       setMasterArray(response.data.master_array);
       setTimeZone(response.data.time_zone);
       setScheduleArray(response.data.scheduled_array);
+      console.log(response.data.scheduled_array);
       setAddedNewMember(false);
     }
 

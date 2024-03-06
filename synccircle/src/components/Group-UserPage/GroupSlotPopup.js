@@ -21,10 +21,8 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
     const [abbr, setAbbr] = useState("");
     const API_URL = process.env.REACT_APP_API_URL;
 
+
     useEffect(() => {
-        if (scheduleCheck) {
-            return null;
-        }
         async function fetchData() {
             const response = await axios.get(`${API_URL}/groups/${groupId}`);
             const daysData = sortDays(response.data.days);
@@ -93,6 +91,10 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
         setMembersLoading(false);
     }, [availableMembers, allMembers]);
 
+    if (scheduleCheck) {
+        return null;
+    }
+
 
 
     const timeOptions = [
@@ -144,6 +146,7 @@ function GroupSlotPopup({ matrixKey, popupColor, groupSlotClicked }) {
                 </div>
             </div>
         </div>
+
 
     );
 }

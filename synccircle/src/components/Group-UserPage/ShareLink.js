@@ -1,12 +1,15 @@
 import React, { useState, useContext } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { AppContext } from "../../context/AppContext";
+import axios from "axios";
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 
 function ShareLink() {
-    const { first, scheduleCheck, setScheduleCheck } = useContext(AppContext);
+    const { first, scheduleCheck, setScheduleCheck, scheduleArray} = useContext(AppContext);
     const [isCopied, setIsCopied] = useState(false);
+    const groupId = window.location.href.split("/").pop();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -25,6 +28,9 @@ function ShareLink() {
     }
 
     const handleConfirm = () => {
+        axios.post(`http://localhost:4000/groups/schedule/${groupId}`, {
+            scheduledArray: scheduleArray
+        })
         setScheduleCheck(false);
     }
     return (
