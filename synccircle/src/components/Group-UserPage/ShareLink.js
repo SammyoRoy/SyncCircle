@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 
 function ShareLink() {
-    const { first, scheduleCheck, setScheduleCheck, scheduleArray} = useContext(AppContext);
+    const { first, scheduleCheck, setScheduleCheck, scheduleArray, setScheduleArray} = useContext(AppContext);
     const [isCopied, setIsCopied] = useState(false);
     const groupId = window.location.href.split("/").pop();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -25,6 +25,14 @@ function ShareLink() {
 
     const handleExit = () => {
         setScheduleCheck(false);
+        axios.get(`${API_URL}/groups/${groupId}`)
+            .then((response) => {
+                const arr = response.data.scheduled_array;
+                setScheduleArray(arr);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     const handleConfirm = () => {
@@ -47,8 +55,8 @@ function ShareLink() {
             {first && <div className="CreateTime">
                 {!scheduleCheck && <button className="ScheduleTimeBtn" onClick={handleScheduleClick}>Schedule Time</button>}
                 {scheduleCheck && <div className="Scheduler">
-                    <h5 className="ScheduleTitle">Schedule Time</h5>
-                    <div className="Btns">
+                    <h5>Schedule Time</h5>
+                    <div className="ScheduleBtns">
                         <button className="ExitButton" onClick={handleExit}><CloseIcon /></button>
                         <button className="ConfirmButton" onClick={handleConfirm}><CheckIcon /></button>
                     </div>

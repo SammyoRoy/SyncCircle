@@ -32,8 +32,13 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
       const newStyle = scheduleValue === 1 ? "Slot ScheduledSlot" : "Slot";
       setStyle(newStyle);
       setSelected(scheduleValue === 1);
-    } else {
-      setStyle("Slot");
+    } else if (!scheduleCheck) {
+      if (scheduleValue === 1) {
+        const borderClass = getBorderClass(matrixKey, scheduleArray, scheduleArray.length , scheduleArray[0].length);
+        setStyle("SchedSlot " + borderClass);
+      } else {
+        setStyle("Slot");
+      }
     }
   }, [userId, scheduleValue, scheduleCheck]);
 
@@ -171,34 +176,52 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
     onTouchEnd: handleTouchEnd
   }
 
+  const applyBlueOverlay = (color, opacity) => {
+    // Extract RGB components from hex color
+    const rgb = parseInt(color.slice(1), 16); 
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >>  8) & 0xff;
+    const b = (rgb >>  0) & 0xff;
+
+    // Assuming a blue overlay
+    const overlayR = Math.round(r * (1 - opacity) + 0 * opacity);
+    const overlayG = Math.round(g * (1 - opacity) + 0 * opacity);
+    const overlayB = Math.round(b * (1 - opacity) + 255 * opacity);
+
+    return `rgb(${overlayR}, ${overlayG}, ${overlayB})`;
+  };
+
 
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
-
+    let baseColor;
+  
     if (ratio == 1) {
-      setColor(`#5F00CD`);
+      baseColor = `#5F00CD`;
     } else if (ratio >= 0.9) {
-      setColor(`#701BD1`);
+      baseColor = `#701BD1`;
     } else if (ratio >= 0.8) {
-      setColor(`#8036D6`);
+      baseColor = `#8036D6`;
     } else if (ratio >= 0.7) {
-      setColor(`#9151DA`);
+      baseColor = `#9151DA`;
     } else if (ratio >= 0.6) {
-      setColor(`#A16CDF`);
+      baseColor = `#A16CDF`;
     } else if (ratio >= 0.5) {
-      setColor(`#B58BE5`);
+      baseColor = `#B58BE5`;
     } else if (ratio >= 0.4) {
-      setColor(`#C5A6EA`);
+      baseColor = `#C5A6EA`;
     } else if (ratio >= 0.3) {
-      setColor(`#D6C1EE`);
+      baseColor = `#D6C1EE`;
     } else if (ratio >= 0.2) {
-      setColor(`#E6DCF3`);
+      baseColor = `#E6DCF3`;
     } else if (ratio >= 0.1) {
-      setColor(`#F5F4F6`);
+      baseColor = `#F5F4F6`;
     } else if (ratio >= 0) {
-      setColor(`#F7F7F7`);
+      baseColor = `#F7F7F7`;
     }
+    setColor(baseColor);
   }
+  
 
   /*useEffect(() => {
     console.log("Modified: " +modifiedRow+","+modifiedCol);
@@ -239,12 +262,39 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
         setGroupSlotClicked(Math.random)
       }} data-toggle="modal" data-target="#groupModal">
         <div className={MAX_COLUMNS_DISPLAYED >= 6 ? "SmallerContent" : null}>
-          {numAvail !== 0 ? numAvail : null}
+          {numAvail !== 0 ? numAvail : matrixKey}
         </div>
-
       </button>
     </>
   )
+}
+
+function getBorderClass(matrixKey, scheduleArray, numRows, numCols) {
+  const row = Math.floor((matrixKey - 1) / (numCols + 1));
+    const col = (matrixKey - 1) % (numCols + 1);
+  let borderClass = '';
+
+  // Check if the left adjacent slot is scheduled
+  if (col > 0 && scheduleArray[row][col - 1]) {
+      borderClass += ' noLeftBorder';
+  }
+
+  // Check if the right adjacent slot is scheduled
+  if (col < numCols - 1 && scheduleArray[row][col + 1]) {
+      borderClass += ' noRightBorder';
+  }
+
+  // Check if the top adjacent slot is scheduled
+  if (row > 0 && scheduleArray[row - 1][col]) {
+      borderClass += ' noTopBorder';
+  }
+
+  // Check if the bottom adjacent slot is scheduled
+  if (row < numRows - 1 && scheduleArray[row + 1][col]) {
+      borderClass += ' noBottomBorder';
+  }
+
+  return borderClass.trim();
 }
 
 export default GroupSlot;
