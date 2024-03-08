@@ -8,6 +8,7 @@ import GroupTitle from "./GroupTitle"
 import './GroupPageStyle.css';
 import GroupSlotPopup from './GroupSlotPopup';
 import GroupAdminControls from "./GroupAdminControls";
+import GroupSideBar from "./GroupSideBar";
 
 function GroupPage() {
   const { groupId, userId, groupAdminClicked } = useContext(AppContext);
@@ -40,8 +41,9 @@ function GroupPage() {
             <GroupHeader />
           </div>
           {!groupAdminClicked ? <GroupCalendar setPopupMatrixKey={setPopupMatrixKey} setPopupColor={setPopupColor} setGroupSlotClicked={setGroupSlotClicked} /> : <GroupAdminControls />}
-          {popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked} />}
+          {/**popupMatrixKey > 0 && <GroupSlotPopup matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked} />**/}
         </div>
+        <GroupSideBar matrixKey={popupMatrixKey} popupColor={popupColor} groupSlotClicked={groupSlotClicked}/>
       </div>
     </div>
   );
