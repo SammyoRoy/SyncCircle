@@ -71,6 +71,9 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
         setUnavailableMembers(difference.join(', '));
         setMembersLoading(false);
         setAvailableCount(availableMembersArray.length);
+        if (availableMembersArray[0] === '' && availableMembersArray.length == 1) {
+            setAvailableCount(0);
+        }
         setAllCount(allMembersArray.length);
     }, [availableMembers, allMembers]);
 
@@ -119,19 +122,31 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
 
     ];
 
-  return (
-    <div className='SideBar'>
-        
-        <div className='SideBarHeader'>
-            <h5>Group Availability</h5>
-            {isLoading ? "Loading..." : `${days[col]}, ${timeOptions[(startTimeIndex + row) % 96]}-${timeOptions[(startTimeIndex + row + 1) % 96]}`}
-            <h3>Available: {availableCount}/{allCount}</h3>
+    const isUnavailable = (member) => {
+        return !availableMembers.includes(member);
+    };
+
+    return (
+        <div className='SideBar'>
+
+            <div className='SideBarHeader'>
+                <h5>Group Availability</h5>
+                {isLoading ? "Loading..." : `${days[col]}, ${timeOptions[(startTimeIndex + row) % 96]}-${timeOptions[(startTimeIndex + row + 1) % 96]}`}
+                <h3>Available: {availableCount}/{allCount}</h3>
+            </div>
+            <div className='SideBarContent'>
+                {membersLoading ? "Loading..." :
+                    <ul>
+                        {allMembers.split(',').map((member, index) => (
+                            <li key={index} style={isUnavailable(member.trim()) ? { textDecoration: "line-through" } : {}}>
+                                {member}
+                            </li>
+                        ))}
+                    </ul>
+                }
+            </div>
         </div>
-        <div className='SideBarContent'>
-            {membersLoading ? "Loading..." : <div>{allMembers}</div>}
-        </div>
-    </div>
-  )
+    )
 }
 
 export default GroupSideBar
