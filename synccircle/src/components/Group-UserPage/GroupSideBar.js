@@ -130,9 +130,9 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
         <div className='SideBar'>
 
             <div className='SideBarHeader'>
-                <h5>Group Availability</h5>
+                <h3>Group Availability</h3>
                 {isLoading ? "Loading..." : `${days[col]}, ${timeOptions[(startTimeIndex + row) % 96]}-${timeOptions[(startTimeIndex + row + 1) % 96]}`}
-                <h3>Available: {availableCount}/{allCount}</h3>
+                <h5>Available: {availableCount}/{allCount}</h5>
             </div>
             <div className='SideBarContent'>
                 {membersLoading ? "Loading..." :
