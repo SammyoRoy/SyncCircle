@@ -18,6 +18,7 @@ import AdminControls from './images/AdminControls.png';
 import GroupIcon from './images/GroupIcon.png';
 import CloseIcon from '@mui/icons-material/Close';
 import Close from '@mui/icons-material/Close';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 const Tutorial = () => {
     const [open, setOpen] = useState(false);
 
@@ -35,7 +36,8 @@ const Tutorial = () => {
                 <HelpOutlineIcon sx={{ width: '24px', height: '24px', color: '#297050' }} />
             </button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle sx={{backgroundColor:"#202124", color:"#F7F7F7", display:"flex", justifyContent:"Center", fontFamily: "Poppins, sans serif"}} >{"How To Use SyncCircle"}
+                <DialogTitle sx={{backgroundColor:"#202124", color:"#F7F7F7", display:"flex", justifyContent:"Center", fontFamily: "Poppins, sans serif"}} >
+                {"How To Use SyncCircle"}
                 <button className="TutorialClose" onClick={handleClose} ><Close/></button>
                 </DialogTitle>
                 <DialogContent sx={{backgroundColor:"#202124", color:"#F7F7F7", fontFamily: "Poppins, sans serif", textAlign:"center"}}>

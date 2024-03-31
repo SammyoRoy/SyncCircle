@@ -142,6 +142,18 @@ h5 {
     font-size: 0.9em;
     width: 70px;
 }
+.GroupCalendarGrid{
+    position: relative;
+    display: grid;
+    direction: ltr;
+    grid-template-columns: 1.6fr repeat(7, 1fr);
+    grid-template-rows: repeat(24, 1fr);
+    flex-grow: 1;
+    place-items: center;
+    overflow-y: auto;
+    min-height: 0px;
+    height: 100%;
+}
 
 .LogoutButton:hover {
     background-color: #8d121d;
@@ -459,6 +471,7 @@ h5 {
         z-index: 1000;
         height: 20%;
         bottom:0;
+        padding:20px;
         border-left: none;
         border-top: 2px dashed #969696;
         border-top-left-radius: 25px;
@@ -468,8 +481,13 @@ h5 {
     }
     .SideBarHeader{
         height:auto;
+        margin-bottom: 10px;
+        gap:0px;
     }
     .offcanvas-body{
+    }
+    .GroupCalendarGrid{
+        height: 80%;
     }
 }
 

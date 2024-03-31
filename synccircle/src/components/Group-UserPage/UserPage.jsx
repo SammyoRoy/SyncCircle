@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { AppContext } from "../../context/AppContext";
 import './UserPageOverhaul.css';
 import HeaderCard from "./HeaderCard";
@@ -7,6 +8,7 @@ import GroupPageButton from "./GroupPageButton";
 import { Alert } from "@mui/material";
 import SyncCircleButton from "../SharedComponents/SyncCircleButton";
 import Tutorial from "./Tutorial";
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 import UserTitle from "./UserTitle";
 
@@ -28,6 +30,7 @@ function UserPage() {
   const [loading, setLoading] = useState(true);
   const [scheduleCheck, setScheduleCheck] = useState(false);
   const [scheduleArray, setScheduleArray] = useState([]);
+  const navigate = useNavigate();
   
 
   const useMaxColumnsDisplayed = () => {
@@ -94,6 +97,7 @@ function UserPage() {
         
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading, scheduleCheck, setScheduleCheck, scheduleArray, setScheduleArray }}>
           <div className="StickyDiv">
+          <button className="FeedbackPress" onClick={() => navigate('/')}><FeedbackIcon/></button>
             <Tutorial />
             <div className="UserTitleContainer">
               <SyncCircleButton />

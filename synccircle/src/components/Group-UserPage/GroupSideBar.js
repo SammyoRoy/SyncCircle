@@ -140,7 +140,7 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
                 }
             </div>
             <div className='SideBarContent'>
-                <h5>Available: {availableCount}/{allCount}</h5>
+                <h5>Available:<br/>{availableCount}/{allCount}</h5>
                 {membersLoading ? "Loading..." :
                     <ul>
                         {allMembers.split(',').map((member, index) => (

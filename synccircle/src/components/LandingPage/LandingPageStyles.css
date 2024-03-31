@@ -627,6 +627,11 @@
     .FeedbackBox{
         background-color: #202124;
     }
+    
+    .FeedbackBox textarea{
+        background-color: #F7F7F7;
+    
+    }
     .Footer{
        background-color:#202124;
        border-top: 2px solid #263238;
