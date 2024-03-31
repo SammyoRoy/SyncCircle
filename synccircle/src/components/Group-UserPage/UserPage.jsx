@@ -97,7 +97,7 @@ function UserPage() {
         
         <AppContext.Provider value={{ groupId, setGroupId, userId, setUserId, userSlot, setUserSlot, slotTried, setSlotTried, userArray, setUserArray, stopped, setStopped, first, setFirst, groupAdminClicked, setGroupAdminClicked, initialCellValue, setInitialCellValue, userName, setUserName, isEmptyInput, setEmptyInput, dragValue, setDragValue, startColumn, setStartColumn, MAX_COLUMNS_DISPLAYED, loading, setLoading, scheduleCheck, setScheduleCheck, scheduleArray, setScheduleArray }}>
           <div className="StickyDiv">
-          <button className="FeedbackPress" onClick={() => navigate('/')}><FeedbackIcon/></button>
+          <button className="FeedbackPress" onClick={() => navigate('/', { state: { scrollToBottom: true } })}><FeedbackIcon/></button>
             <Tutorial />
             <div className="UserTitleContainer">
               <SyncCircleButton />

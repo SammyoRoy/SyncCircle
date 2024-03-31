@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react'
+import { useLocation } from 'react-router-dom'
 import Navbar from '../SharedComponents/Navbar'
 import Hero from './Hero'
 import Tutorial from './Tutorial'
@@ -12,6 +13,8 @@ import { IndexContext } from '../../context/IndexContext'
 
 
 export const LandingPage = () => {
+
+  const location = useLocation();
 
   const targetDivRef = useRef(null);
   const { leaveMessage, setLeaveMessage } = useContext(IndexContext);
@@ -31,6 +34,15 @@ export const LandingPage = () => {
       }, 5000);
     }
   }, [leaveMessage])
+
+  useEffect(() => {
+    if (location.state?.scrollToBottom) {
+      // Wait for the next tick to ensure the page has rendered
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 100);
+    }
+  }, [location.state]);
 
 
   return (

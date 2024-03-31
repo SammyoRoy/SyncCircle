@@ -312,8 +312,8 @@ function GroupCalendar({ setPopupMatrixKey, setPopupColor, setGroupSlotClicked }
 
 
   return (
-    <div className="CalenderContainer">
-      <div className="GroupCalendarGrid" {...eventHandlers} style={{ gridTemplateColumns, gridTemplateRows }}>
+    <div className="CalenderContainer GroupCalendarContainer">
+      <div className="CalendarGrid" {...eventHandlers} style={{ gridTemplateColumns, gridTemplateRows }}>
         {/* Generate and render grid items */}
 
         {Array.from({ length: totalCells }, (_, index) => {
