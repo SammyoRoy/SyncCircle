@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 
 function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBooked, matrixKey, days, setPopupMatrixKey, setPopupColor, setGroupSlotClicked, cellValue, scheduleValue, dragging, swiping, touchPosition }) {
@@ -256,7 +255,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
 
   return (
     <>
-      <button className={style} style={{ backgroundColor: color }} type="button" ref={buttonRef} {...eventHandlers} onClick={() => {
+      <button className={style} style={{ backgroundColor: color }} type="button" ref={buttonRef} {...eventHandlers} onMouseEnter={() => {
         setPopupMatrixKey(matrixKey)
         setPopupColor(color)
         setGroupSlotClicked(Math.random)

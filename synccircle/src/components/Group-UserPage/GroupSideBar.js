@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
 const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
     const { groupId, MAX_COLUMNS_DISPLAYED, startColumn, scheduleCheck } = useContext(AppContext);
@@ -24,20 +25,27 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
     const API_URL = process.env.REACT_APP_API_URL;
 
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await axios.get(`${API_URL}/groups/${groupId}`);
+    const cancelTokenSource = axios.CancelToken.source();
+
+    const fetchData = useCallback(async () => {
+        cancelTokenSource.cancel('Operation canceled due to new request.');
+
+        const newCancelToken = axios.CancelToken.source();
+
+        try {
+            const response = await axios.get(`${API_URL}/groups/${groupId}`, {
+                cancelToken: newCancelToken.token
+            });
+
             const daysData = sortDays(response.data.days);
             const tempCols = Math.min(daysData.length, MAX_COLUMNS_DISPLAYED);
 
             setDays(daysData);
             setStartTime(response.data.start_time);
             if (response.data.time_zone !== "" && response.data.time_zone !== undefined) {
-
                 const startTimeIndex = convertTimeToIndex(response.data.start_time);
                 const now = new moment();
                 const groupTimeZoneOffset = now.tz(response.data.time_zone).utcOffset();
-                //const userTimeZoneOffset = now.tz("Asia/Kolkata").utcOffset();
                 const userTimeZoneOffset = now.tz(moment.tz.guess()).utcOffset();
                 setAbbr(now.tz(response.data.time_zone).format('z'));
                 let timeZoneOffset = groupTimeZoneOffset - userTimeZoneOffset;
@@ -45,8 +53,7 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
                 const adjustedStartIndex = (startTimeIndex - Math.round(timeZoneOffset) + 96) % 96;
 
                 setStartTimeIndex(adjustedStartIndex);
-            }
-            else {
+            } else {
                 setStartTimeIndex(convertTimeToIndex(response.data.start_time));
             }
             setCols(tempCols);
@@ -55,14 +62,26 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
             setCol((matrixKey % (tempCols + 1)) - 1 + startColumn);
             setIsLoading(false);
             setShowPopup(true);
+        } catch (error) {
+            if (axios.isCancel(error)) {
+                console.log('Request canceled', error.message);
+            }
         }
-        fetchData();
-    }, [matrixKey, API_URL, groupId, groupSlotClicked, MAX_COLUMNS_DISPLAYED]);
+    }, [groupId, API_URL, matrixKey, startColumn]);
 
+    const debouncedFetchData = useCallback(_.debounce(() => {
+        fetchData();
+    }, 50), [fetchData]); 
 
     useEffect(() => {
-        getMembers();
-    }, [row, col, API_URL, groupId]);
+        debouncedFetchData();
+
+        return () => {
+            cancelTokenSource.cancel('Component got unmounted');
+            debouncedFetchData.cancel();
+        };
+    }, [debouncedFetchData]);
+
 
     useEffect(() => {
         const availableMembersArray = availableMembers.split(',').map(x => x.trim());
@@ -77,18 +96,49 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
         setAllCount(allMembersArray.length);
     }, [availableMembers, allMembers]);
 
-    const getMembers = () => {
-        axios.get(`${API_URL}/groups/slot/${groupId}`, { params: { row: row, col: col } }).then((response) => {
+    let cancelToken1 = axios.CancelToken.source();
+    let cancelToken2 = axios.CancelToken.source();
+
+    const getMembers = useCallback(() => {
+        cancelToken1.cancel("Canceling previous request");
+        cancelToken2.cancel("Canceling previous request");
+
+        cancelToken1 = axios.CancelToken.source();
+        cancelToken2 = axios.CancelToken.source();
+
+        axios.get(`${API_URL}/groups/slot/${groupId}`, {
+            params: { row: row, col: col },
+            cancelToken: cancelToken1.token
+        }).then((response) => {
             setAvailableMembers(response.data.toString().split(',').join(', '));
         }).catch((error) => {
-            console.error(error);
+            if (!axios.isCancel(error)) {
+                console.error(error);
+            }
         });
-        axios.get(`${API_URL}/groups/allmem/${groupId}`).then((response) => {
+
+        axios.get(`${API_URL}/groups/allmem/${groupId}`, {
+            cancelToken: cancelToken2.token
+        }).then((response) => {
             setAllMembers(response.data.toString());
         }).catch((error) => {
-            console.error(error);
+            if (!axios.isCancel(error)) {
+                console.error(error);
+            }
         });
-    }
+    }, [row, col]);
+
+    const debouncedGetMembers = useCallback(_.debounce(getMembers, 50), [getMembers]);
+
+    useEffect(() => {
+        debouncedGetMembers();
+
+        return () => {
+            cancelToken1.cancel("Component got unmounted");
+            cancelToken2.cancel("Component got unmounted");
+            debouncedGetMembers.cancel();
+        };
+    }, [debouncedGetMembers]);
 
     if (scheduleCheck) {
         return null;
@@ -140,7 +190,7 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
                 }
             </div>
             <div className='SideBarContent'>
-                <h5>Available:<br/>{availableCount}/{allCount}</h5>
+                <h5>Available:<br />{availableCount}/{allCount}</h5>
                 {membersLoading ? "Loading..." :
                     <ul>
                         {allMembers.split(',').map((member, index) => (
