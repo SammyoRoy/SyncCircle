@@ -71,7 +71,7 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
 
     const debouncedFetchData = useCallback(_.debounce(() => {
         fetchData();
-    }, 50), [fetchData]); 
+    }, 50), [fetchData]);
 
     useEffect(() => {
         debouncedFetchData();
@@ -194,7 +194,7 @@ const GroupSideBar = ({ matrixKey, popupColor, groupSlotClicked }) => {
                 {membersLoading ? "Loading..." :
                     <ul>
                         {allMembers.split(',').map((member, index) => (
-                            <li key={index} style={isUnavailable(member.trim()) ? { textDecoration: "line-through" } : {}}>
+                            <li key={index} style={isUnavailable(member.trim()) ? { textDecoration: "line-through"} : {}}>
                                 {member}
                             </li>
                         ))}

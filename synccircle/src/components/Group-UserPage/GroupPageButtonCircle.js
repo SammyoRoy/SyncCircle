@@ -21,6 +21,7 @@ function GroupPageButtonCircle({ joined }) {
   const [endDate, setEndDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [users, setUsers] = useState([]);
 
 
   const API_URL = process.env.REACT_APP_API_URL;
@@ -40,10 +41,13 @@ function GroupPageButtonCircle({ joined }) {
           const fullDateEnd = `${dayEnd}`;
           const startDate = new Date(fullDateStart);
           const endDate = new Date(fullDateEnd);
+          const userArray = response.data.users;
+          const userArrayNames = userArray.map(user => user.user_name);
           setStartDate(startDate);
           setEndDate(endDate);
           setStartTime(response.data.startTime);
           setEndTime(response.data.endTime);
+          setUsers(userArrayNames);
         })
         .catch((error) => {
           console.error(error);
@@ -67,7 +71,15 @@ function GroupPageButtonCircle({ joined }) {
     const result = await signInWithPopup(auth, provider);
     setGoogleUser(result.user);
     if (groupId !== null && groupId !== undefined && userId !== null && userId !== undefined) {
-      axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: result.user.displayName});
+      if (users.includes(result.user.displayName) === false) {
+        axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: result.user.displayName });
+      }
+      else{
+        const displayName = result.user.displayName;
+        const count = users.filter(user => user.includes(displayName)).length;
+        const updatedDisplayName = count > 0 ? `${displayName} ${count + 1}` : displayName;
+        axios.put(`${API_URL}/users/${groupId}/${userId}`, { name: updatedDisplayName });
+      }
     }
     const credential = GoogleAuthProvider.credentialFromResult(result);
     setToken(credential.accessToken);
