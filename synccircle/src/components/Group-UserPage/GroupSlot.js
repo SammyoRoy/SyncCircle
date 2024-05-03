@@ -28,16 +28,9 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
 
   useEffect(() => {
     if (userId !== "" && scheduleCheck) {
-      const newStyle = scheduleValue === 1 ? "Slot ScheduledSlot" : "Slot";
-      setStyle(newStyle);
       setSelected(scheduleValue === 1);
     } else if (!scheduleCheck) {
-      if (scheduleValue === 1) {
-        const borderClass = getBorderClass(matrixKey, scheduleArray, scheduleArray.length , scheduleArray[0].length);
-        setStyle("SchedSlot " + borderClass);
-      } else {
-        setStyle("Slot");
-      }
+      setStyle("Slot");
     }
   }, [userId, scheduleValue, scheduleCheck]);
 
@@ -78,7 +71,6 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
         const newDragValue = scheduleValue === 1 ? 0 : 1;
         setDragValue(newDragValue);
         setSelected(newDragValue === 1);
-        setStyle(newDragValue === 1 ? "Slot ScheduledSlot" : "Slot");
         replaceValueAt(row, col, newDragValue);
 
       }
@@ -101,7 +93,6 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
         const newDragValue = scheduleValue === 1 ? 0 : 1;
         setDragValue(newDragValue);
         setSelected(newDragValue === 1);
-        setStyle(newDragValue === 1 ? "Slot ScheduledSlot" : "Slot");
         replaceValueAt(row, col, newDragValue);
         setIsModified(true);
       }
@@ -137,19 +128,18 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
 
   const handleEnter = (e) => {
     if (!scheduleCheck) {
-        setPopupMatrixKey(matrixKey)
-        setPopupColor(color)
-        setGroupSlotClicked(Math.random)
+      setPopupMatrixKey(matrixKey)
+      setPopupColor(color)
+      setGroupSlotClicked(Math.random)
     } else {
-        if (dragging || swiping) {
-            const newDragValue = scheduleValue === 1 ? 0 : 1;
-            setDragValue(newDragValue);
-            setSelected(newDragValue === 1);
-            setStyle(newDragValue === 1 ? "Slot ScheduledSlot" : "Slot");
-            replaceValueAt(row, col, newDragValue);
-        }
+      if (dragging || swiping) {
+        const newDragValue = scheduleValue === 1 ? 0 : 1;
+        setDragValue(newDragValue);
+        setSelected(newDragValue === 1);
+        replaceValueAt(row, col, newDragValue);
+      }
     }
-};
+  };
 
 
   const handlePress = async (e) => {
@@ -169,7 +159,6 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
 
     } else {
       setSelected(true);
-      setStyle("Slot ScheduledSlot");
       // console.log(matrixKey);
       replaceValueAt(row, col, 1);
     }
@@ -185,7 +174,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
   function setColorByRatio() {
     const ratio = numAvail / totalMembers;
     let baseColor;
-  
+
     if (ratio == 1) {
       baseColor = `#5F00CD`;
     } else if (ratio >= 0.9) {
@@ -211,7 +200,7 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
     }
     setColor(baseColor);
   }
-  
+
 
   /*useEffect(() => {
     console.log("Modified: " +modifiedRow+","+modifiedCol);
@@ -246,41 +235,13 @@ function GroupSlot({ numAvailArr, totalMembers, modifiedRow, modifiedCol, isBook
 
   return (
     <>
-      <button className={style} style={{ backgroundColor: color }} type="button" ref={buttonRef} {...eventHandlers} data-toggle="modal" data-target="#groupModal">
+      <button className={style} style={{backgroundColor: color,backgroundImage: scheduleValue === 1 ? "linear-gradient(rgba(187, 165, 61, 1), rgba(187, 165, 61, 1))" : "none"}} type="button" ref={buttonRef} {...eventHandlers} data-toggle="modal" data-target="#groupModal">
         <div className={MAX_COLUMNS_DISPLAYED >= 6 ? "SmallerContent" : null}>
           {numAvail !== 0 ? numAvail : null}
         </div>
       </button>
     </>
   )
-}
-
-function getBorderClass(matrixKey, scheduleArray, numRows, numCols) {
-  const row = Math.floor((matrixKey - 1) / (numCols + 1));
-    const col = (matrixKey - 1) % (numCols + 1);
-  let borderClass = '';
-
-  // Check if the left adjacent slot is scheduled
-  if (col > 0 && scheduleArray[row][col - 1]) {
-      borderClass += ' noLeftBorder';
-  }
-
-  // Check if the right adjacent slot is scheduled
-  if (col < numCols - 1 && scheduleArray[row][col + 1]) {
-      borderClass += ' noRightBorder';
-  }
-
-  // Check if the top adjacent slot is scheduled
-  if (row > 0 && scheduleArray[row - 1][col]) {
-      borderClass += ' noTopBorder';
-  }
-
-  // Check if the bottom adjacent slot is scheduled
-  if (row < numRows - 1 && scheduleArray[row + 1][col]) {
-      borderClass += ' noBottomBorder';
-  }
-
-  return borderClass.trim();
 }
 
 export default GroupSlot;
